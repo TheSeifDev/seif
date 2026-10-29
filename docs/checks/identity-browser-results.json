@@ -346,7 +346,7 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 6,
+            "frames": 5,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -398,9 +398,9 @@
           "exit": "0.0000",
           "renderer": "webgl",
           "canvas": {
-            "rise": "0.633",
+            "rise": "0.634",
             "exit": "0.000",
-            "frames": 13,
+            "frames": 12,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -454,7 +454,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 16,
+            "frames": 14,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -508,7 +508,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.090",
-            "frames": 21,
+            "frames": 19,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -562,7 +562,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 27,
+            "frames": 25,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -616,7 +616,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 33,
+            "frames": 31,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -672,7 +672,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 33,
+            "frames": 31,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -726,7 +726,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 39,
+            "frames": 37,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -780,7 +780,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.090",
-            "frames": 45,
+            "frames": 42,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -834,7 +834,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 47,
+            "frames": 44,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -888,7 +888,7 @@
           "canvas": {
             "rise": "0.634",
             "exit": "0.000",
-            "frames": 54,
+            "frames": 51,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -942,7 +942,7 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 57,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -996,7 +996,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 62,
+            "frames": 59,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1050,7 +1050,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 62,
+            "frames": 59,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1104,7 +1104,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 62,
+            "frames": 59,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1158,7 +1158,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 62,
+            "frames": 59,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1212,7 +1212,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 62,
+            "frames": 59,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1580,7 +1580,7 @@
       "canvas": {
         "rise": "1.000",
         "exit": "0.000",
-        "frames": 65,
+        "frames": 62,
         "dpr": "1"
       },
       "idle_frames_added": 0
@@ -1815,36 +1815,58 @@
     "had_canvas": true,
     "about": {
       "triggers": [
+        "about-page-principles",
         "about-reveal-1",
         "about-reveal-2",
         "about-reveal-3",
         "about-reveal-4",
-        "about-reveal-5",
-        "about-reveal-6",
-        "about-reveal-7",
-        "about-reveal-8",
-        "about-reveal-9",
-        "about-reveal-10",
-        "about-reveal-11",
-        "about-reveal-12",
-        "about-reveal-13",
-        "about-reveal-14",
-        "about-reveal-15",
-        "about-reveal-16",
-        "about-reveal-17",
-        "about-reveal-18",
-        "about-reveal-19",
-        "about-reveal-20",
-        "about-reveal-21",
-        "about-reveal-22",
-        "about-reveal-23",
-        "about-reveal-24",
-        "about-reveal-25",
-        "about-reveal-26",
-        "about-reveal-27",
-        "about-portrait"
+        "about-portrait",
+        "about-page-experience-meta",
+        "about-page-education-meta",
+        "about-page-capabilities-meta",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter",
+        "about-page-experience-title",
+        "about-page-education-title",
+        "about-page-capabilities-title",
+        "about-page-principles-title",
+        "about-page-edu-degree"
       ],
-      "pins": 0
+      "pins": 1
     },
     "canvases_on_about": 0,
     "back": {

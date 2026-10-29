@@ -2,10 +2,11 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+  gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
   // Mobile URL-bar show/hide must not re-measure every pin.
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
@@ -22,4 +23,4 @@ export const motionQueries = {
     "(prefers-reduced-motion: no-preference) and ((max-width: 1023px) or (max-height: 759px))",
 } as const;
 
-export { gsap, ScrollTrigger, useGSAP };
+export { gsap, ScrollTrigger, SplitText, useGSAP };

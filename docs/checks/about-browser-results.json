@@ -1,0 +1,547 @@
+{
+  "desktop": {
+    "motion": {
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-reveal-2",
+        "about-reveal-3",
+        "about-reveal-4",
+        "about-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1
+    },
+    "overflow": 0,
+    "titles": [
+      {
+        "chapter": "experience",
+        "text": "Ownership from schema to screen."
+      },
+      {
+        "chapter": "education",
+        "text": "Keep learning. Keep making it useful."
+      },
+      {
+        "chapter": "capabilities",
+        "text": "A broad toolkit, organized around product work."
+      },
+      {
+        "chapter": "principles",
+        "text": "The standard behind the output."
+      }
+    ],
+    "experience_point_opacity": {
+      "before": 0.16,
+      "after": 1,
+      "reverse": 0.16
+    },
+    "experience_counter_mid": "04",
+    "experience_sticky_top": 112,
+    "education_clip": "inset(0% round 32px)",
+    "education_spot": "260.0px",
+    "capability_rows": 15,
+    "capability_skills": 93,
+    "capability_hover_color": "rgb(238, 241, 245)",
+    "principles_forward": [
+      {
+        "active": 0,
+        "widths": [
+          650,
+          193,
+          193,
+          193
+        ],
+        "bodyOpacity": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "counter": "01",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      },
+      {
+        "active": 1,
+        "widths": [
+          193,
+          650,
+          193,
+          193
+        ],
+        "bodyOpacity": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "counter": "02",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      },
+      {
+        "active": 2,
+        "widths": [
+          193,
+          193,
+          650,
+          193
+        ],
+        "bodyOpacity": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "counter": "03",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      },
+      {
+        "active": 3,
+        "widths": [
+          193,
+          193,
+          193,
+          650
+        ],
+        "bodyOpacity": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "counter": "04",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      }
+    ],
+    "principles_reverse": [
+      {
+        "active": 2,
+        "widths": [
+          193,
+          193,
+          650,
+          193
+        ],
+        "bodyOpacity": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "counter": "03",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      },
+      {
+        "active": 1,
+        "widths": [
+          193,
+          650,
+          193,
+          193
+        ],
+        "bodyOpacity": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "counter": "02",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      },
+      {
+        "active": 0,
+        "widths": [
+          650,
+          193,
+          193,
+          193
+        ],
+        "bodyOpacity": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "counter": "01",
+        "pinTop": 0,
+        "rowBottom": 791,
+        "progressBottom": 824,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 900
+      }
+    ],
+    "principles_before_pin_active": 0,
+    "errors": []
+  },
+  "short": {
+    "states": [
+      {
+        "active": 0,
+        "widths": [
+          608,
+          180,
+          180,
+          180
+        ],
+        "bodyOpacity": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "counter": "01",
+        "pinTop": 0,
+        "rowBottom": 640,
+        "progressBottom": 673,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 760
+      },
+      {
+        "active": 3,
+        "widths": [
+          180,
+          180,
+          180,
+          608
+        ],
+        "bodyOpacity": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "counter": "04",
+        "pinTop": 0,
+        "rowBottom": 640,
+        "progressBottom": 673,
+        "clipped": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "vh": 760
+      }
+    ],
+    "overflow": 0
+  },
+  "tablet": {
+    "motion": {
+      "triggers": [
+        "about-reveal-1",
+        "about-reveal-2",
+        "about-reveal-3",
+        "about-reveal-4",
+        "about-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0
+    },
+    "overflow": 0,
+    "principle_opacity": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "errors": []
+  },
+  "mobile": {
+    "motion": {
+      "triggers": [
+        "about-reveal-1",
+        "about-reveal-2",
+        "about-reveal-3",
+        "about-reveal-4",
+        "about-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0
+    },
+    "overflow": 0,
+    "principle_opacity": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "errors": []
+  },
+  "reduced": {
+    "motion": {
+      "triggers": [],
+      "pins": 0
+    },
+    "point_opacity": 1,
+    "principle_body_opacity": 1,
+    "enhanced": null,
+    "about_triggers": []
+  },
+  "navigation": {
+    "home": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-overlap",
+        "identity-sequence",
+        "journey-rail",
+        "featured-horizontal",
+        "more-cards",
+        "process-pin",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 3
+    },
+    "about_again": {
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-reveal-2",
+        "about-reveal-3",
+        "about-reveal-4",
+        "about-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1
+    }
+  },
+  "failures": []
+}

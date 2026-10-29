@@ -221,8 +221,10 @@ with sync_playwright() as p:
     leaked = [t for t in (m_about or {}).get("triggers", []) if t in home_ids]
     if leaked:
         fail(f"home triggers leaked into /about: {leaked}")
-    if m_about and m_about["pins"] != 0:
-        fail(f"/about has {m_about['pins']} pin spacers after navigation")
+    # /about owns exactly one pin (Principles) on stage viewports; anything else leaked.
+    about_pins_expected = 1 if "about-page-principles" in (m_about or {}).get("triggers", []) else 0
+    if m_about and m_about["pins"] != about_pins_expected:
+        fail(f"/about has {m_about['pins']} pin spacers after navigation (expected {about_pins_expected})")
     nav["about_scroll_y"] = page.evaluate("() => scrollY")
 
     page.locator("header nav a[href='/projects']").first.click()

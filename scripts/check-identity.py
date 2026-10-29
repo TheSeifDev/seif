@@ -449,8 +449,9 @@ with sync_playwright() as p:
                              "canvases_on_about": canvases, "back": back, "errors": errors}
     if any(t.startswith("identity") for t in (about or {}).get("triggers", [])):
         fail("identity triggers leaked into /about")
-    if (about or {}).get("pins", 0) != 0:
-        fail("pin spacers left on /about")
+    about_pins_expected = 1 if "about-page-principles" in (about or {}).get("triggers", []) else 0
+    if (about or {}).get("pins", 0) != about_pins_expected:
+        fail("unexpected pin spacers on /about (leaked from Home)")
     if canvases:
         fail(f"{canvases} canvas element(s) left after leaving Home")
     if sorted((back or {}).get("triggers", [])) != sorted((home or {}).get("triggers", [])):
