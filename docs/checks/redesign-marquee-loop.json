@@ -1,0 +1,19 @@
+{
+  "sourceHash": "db5409ab2f972b4226cd5661f1f3ef2220a7ed6a56e1d4de92ededebf8575c07",
+  "sources": [
+    "components/home/skills-section.tsx",
+    "lib/content/skills.ts"
+  ],
+  "observedLoop": [
+    true,
+    true,
+    true
+  ],
+  "directions": [
+    "left",
+    "right",
+    "left"
+  ],
+  "observation": "Actual --loop browser run completed 2026-10-29 17:35:50 +03, job_KWvJBM83 exit0. Skills sources unchanged in subsequent pinType-only correction. Later no-loop core run saved separately.",
+  "evidenceLog": "/home/ubuntu/terminal_full_output/2026-10-29_14-35-50_680896_1152.txt"
+}

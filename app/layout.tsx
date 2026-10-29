@@ -43,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth scroll-pt-[110px] motion-reduce:scroll-auto`}
+      className={`${geistSans.variable} ${geistMono.variable} scroll-pt-[110px]`}
     >
       <body className="bg-[#080b0d] font-sans antialiased selection:bg-[#49baf1] selection:text-[#080b0d] [color-scheme:dark]">
         {children}

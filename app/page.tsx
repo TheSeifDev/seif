@@ -3,16 +3,17 @@ import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/home/hero";
 import {
   AboutSection,
-  StatsSection,
   ProcessSection,
   ContactSection,
 } from "@/components/home/sections";
+import { JourneySection } from "@/components/home/journey-section";
 import {
   ProjectsSection,
   MoreProjectsSection,
 } from "@/components/home/work-section";
 import { SkillsSection } from "@/components/home/skills-section";
 import { ScrollExperience } from "@/components/motion/scroll-experience";
+import { HomeScenes } from "@/components/motion/home-scenes";
 
 export default function Home() {
   return (
@@ -24,21 +25,17 @@ export default function Home() {
         Skip to content
       </a>
       <Navbar />
-      <div
-        className="scroll-track pointer-events-none fixed top-[40%] right-1.5 z-30 hidden h-[115px] w-0.5 bg-slate-400/15 lg:block"
-        aria-hidden="true"
-      >
-        <span className="block size-full origin-top scale-y-[var(--scroll-progress)] bg-identity shadow-sm shadow-identity/40" />
-      </div>
-      <main id="main-content">
-        <Hero />
-        <AboutSection />
-        <StatsSection />
-        <ProjectsSection />
-        <MoreProjectsSection />
-        <SkillsSection />
-        <ProcessSection />
-        <ContactSection />
+      <main id="main-content" tabIndex={-1} className="focus:outline-none">
+        <HomeScenes>
+          <Hero />
+          <AboutSection />
+          <JourneySection />
+          <ProjectsSection />
+          <MoreProjectsSection />
+          <SkillsSection />
+          <ProcessSection />
+          <ContactSection />
+        </HomeScenes>
       </main>
       <Footer />
     </ScrollExperience>

@@ -1,0 +1,174 @@
+{
+  "cycles": [
+    {
+      "mount": {
+        "triggers": [
+          "journey-story",
+          "featured-horizontal",
+          "hero-departure",
+          "about-reveal",
+          "process-progress",
+          "contact-finale"
+        ],
+        "refreshCount": 5,
+        "spacers": 2,
+        "canvases": 1
+      },
+      "unmount": {
+        "triggers": [],
+        "refreshCount": 5,
+        "spacers": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "mount": {
+        "triggers": [
+          "journey-story",
+          "featured-horizontal",
+          "hero-departure",
+          "about-reveal",
+          "process-progress",
+          "contact-finale"
+        ],
+        "refreshCount": 8,
+        "spacers": 2,
+        "canvases": 1
+      },
+      "unmount": {
+        "triggers": [],
+        "refreshCount": 8,
+        "spacers": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "mount": {
+        "triggers": [
+          "journey-story",
+          "featured-horizontal",
+          "hero-departure",
+          "about-reveal",
+          "process-progress",
+          "contact-finale"
+        ],
+        "refreshCount": 11,
+        "spacers": 2,
+        "canvases": 1
+      },
+      "unmount": {
+        "triggers": [],
+        "refreshCount": 11,
+        "spacers": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "mount": {
+        "triggers": [
+          "journey-story",
+          "featured-horizontal",
+          "hero-departure",
+          "about-reveal",
+          "process-progress",
+          "contact-finale"
+        ],
+        "refreshCount": 14,
+        "spacers": 2,
+        "canvases": 1
+      },
+      "unmount": {
+        "triggers": [],
+        "refreshCount": 14,
+        "spacers": 0,
+        "canvases": 0
+      }
+    },
+    {
+      "mount": {
+        "triggers": [
+          "journey-story",
+          "featured-horizontal",
+          "hero-departure",
+          "about-reveal",
+          "process-progress",
+          "contact-finale"
+        ],
+        "refreshCount": 17,
+        "spacers": 2,
+        "canvases": 1
+      },
+      "unmount": {
+        "triggers": [],
+        "refreshCount": 17,
+        "spacers": 0,
+        "canvases": 0
+      }
+    }
+  ],
+  "pageErrors": [],
+  "idleRefresh": [
+    {
+      "triggers": [
+        "journey-story",
+        "featured-horizontal",
+        "hero-departure",
+        "about-reveal",
+        "process-progress",
+        "contact-finale"
+      ],
+      "refreshCount": 20,
+      "spacers": 2,
+      "canvases": 1
+    },
+    {
+      "triggers": [
+        "journey-story",
+        "featured-horizontal",
+        "hero-departure",
+        "about-reveal",
+        "process-progress",
+        "contact-finale"
+      ],
+      "refreshCount": 20,
+      "spacers": 2,
+      "canvases": 1
+    }
+  ],
+  "reduced": {
+    "triggers": [],
+    "refreshCount": 23,
+    "spacers": 0,
+    "canvases": 0
+  },
+  "restored": {
+    "triggers": [
+      "journey-story",
+      "featured-horizontal",
+      "hero-departure",
+      "about-reveal",
+      "process-progress",
+      "contact-finale"
+    ],
+    "refreshCount": 83,
+    "spacers": 2,
+    "canvases": 1
+  },
+  "mobile": {
+    "triggers": [
+      "hero-departure",
+      "about-reveal",
+      "process-progress",
+      "contact-finale"
+    ],
+    "refreshCount": 85,
+    "spacers": 0,
+    "canvases": 0
+  },
+  "final": {
+    "triggers": [],
+    "refreshCount": 85,
+    "spacers": 0,
+    "canvases": 0
+  }
+}

@@ -4,6 +4,7 @@ import { featuredProjects, moreProjects } from "@/lib/content/projects";
 import { TechnologyIcon } from "@/components/home/technology-icons";
 import { ActionLink, SectionHeading, SectionLabel } from "./primitives";
 import { darkShell, frame, lightFrame, lightShell } from "@/lib/ui/layout";
+import { HorizontalProjects } from "@/components/motion/horizontal-projects";
 
 type ProjectCardProps = {
   project: PortfolioProject;
@@ -26,11 +27,12 @@ function EditorialVisual({
           alt={`${project.title} — actual public website capture`}
           width={1440}
           height={1000}
-          unoptimized
+          sizes="(min-width:1024px) 60vw, 92vw"
+          data-project-image
           className="block h-full w-full object-contain"
         />
         <figcaption className="screenshot-label absolute bottom-[14px] left-[15px] rounded-full border border-white/25 bg-[#081116bf] px-[9px] py-[7px] font-mono text-[8px] leading-none tracking-[0.9px] text-[#f6fbfd]">
-          {project.imageLabel ?? "PUBLIC SITE CAPTURE"}
+          {project.imageLabel}
         </figcaption>
       </figure>
     );
@@ -86,21 +88,6 @@ function ProjectCard({
 }: ProjectCardProps) {
   const hasVerifiedLink = Boolean(project.verified && project.liveUrl);
   const isFeatured = variant === "featured";
-  const isWideFeatured = project.id === "rafiq";
-  const isNarrowFeatured = project.id === "it-sum";
-  const isHorizontalFeatured = project.id === "phantoms";
-  const cardSpan = isFeatured
-    ? isWideFeatured
-      ? "col-span-12 md:col-span-6 lg:col-span-8"
-      : isNarrowFeatured
-        ? "col-span-12 md:col-span-6 lg:col-span-4"
-        : "col-span-12 lg:col-span-12 lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)]"
-    : "col-span-1";
-  const visualHeight = isFeatured
-    ? isHorizontalFeatured
-      ? "min-h-[255px] lg:min-h-[315px]"
-      : "min-h-[255px] md:min-h-[315px] lg:min-h-[370px]"
-    : "min-h-[255px] md:min-h-[245px]";
   const cardTone =
     tone === "light"
       ? "border-[#171b1e1f] bg-[#eeefeb] text-[#171b1e]"
@@ -112,19 +99,29 @@ function ProjectCard({
 
   return (
     <article
-      className={`work-card work-card-${project.id} work-card-${variant} ${cardSpan} relative isolate flex min-w-0 flex-col overflow-hidden rounded-[var(--section-radius)] border transition-[border-color,box-shadow] duration-[260ms] ease-out hover:border-identity/50 hover:shadow-xl ${cardTone}`}
-      data-card
-      data-reveal-group
+      className={`work-card work-card-${project.id} work-card-${variant} relative isolate flex min-w-0 flex-col overflow-hidden rounded-[var(--section-radius)] border ${
+        isFeatured
+          ? "h-full w-full shrink-0 lg:grid lg:grid-cols-[minmax(0,1.62fr)_minmax(280px,1fr)]"
+          : "min-h-[255px] transition-[border-color,box-shadow] duration-[260ms] ease-out hover:border-identity/50 hover:shadow-xl"
+      } ${cardTone}`}
+      data-card={variant === "more" ? undefined : "true"}
+      data-project-slide={isFeatured ? project.id : undefined}
       aria-labelledby={`${project.id}-title`}
     >
       <div
-        className={`work-visual ${visualHeight} relative grid place-items-stretch overflow-hidden ${visualTone}`}
+        className={`work-visual relative grid min-h-[255px] place-items-stretch overflow-hidden ${
+          isFeatured
+            ? "lg:min-h-[min(650px,calc(100svh_-_140px))]"
+            : "md:min-h-[245px]"
+        } ${visualTone}`}
         data-card-visual
       >
         <EditorialVisual project={project} tone={tone} />
       </div>
       <div
-        className={`work-copy flex flex-1 flex-col p-[25px_27px_27px] max-md:p-[22px_22px_24px] ${isHorizontalFeatured ? "lg:justify-center" : ""}`}
+        className={`work-copy flex flex-1 flex-col p-[25px_27px_27px] max-md:p-[22px_22px_24px] ${
+          isFeatured ? "lg:justify-center" : ""
+        }`}
       >
         <div className="work-meta mb-[25px] flex items-center gap-3 font-mono text-[10px] leading-[1.2] tracking-[0.8px] uppercase">
           <span className={`work-number ${accentTone}`}>{project.number}</span>
@@ -184,8 +181,6 @@ function ProjectCard({
 }
 
 export function ProjectsSection() {
-  const [rafiq, itSum, phantoms] = featuredProjects;
-
   return (
     <section
       id="projects"
@@ -215,11 +210,11 @@ export function ProjectsSection() {
         <h2 id="featured-projects-title" className="sr-only">
           Featured projects
         </h2>
-        <div className="featured-work-grid grid grid-cols-12 gap-[18px]">
-          <ProjectCard project={rafiq} tone="light" />
-          <ProjectCard project={itSum} tone="light" />
-          <ProjectCard project={phantoms} tone="light" />
-        </div>
+        <HorizontalProjects>
+          {featuredProjects.map((project) => (
+            <ProjectCard project={project} tone="light" key={project.id} />
+          ))}
+        </HorizontalProjects>
       </div>
     </section>
   );
@@ -255,7 +250,7 @@ export function MoreProjectsSection() {
         <h2 id="more-projects-title" className="sr-only">
           More projects
         </h2>
-        <div className="more-work-grid grid grid-cols-1 gap-[18px] md:grid-cols-2">
+        <div className="more-work-grid grid grid-cols-1 gap-[18px] lg:grid-cols-2">
           {moreProjects.map((project) => (
             <ProjectCard
               project={project}

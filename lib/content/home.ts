@@ -17,7 +17,7 @@ export const profile = {
 } as const;
 
 export const assets = {
-  hero: "/images/hero-landscape.webp",
+  hero: "/images/blue-hour-world.webp",
   about: "/images/about-ink.webp",
   contact: "/images/contact-moon.webp",
   portrait: "/images/seif-portrait.webp",

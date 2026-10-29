@@ -1,167 +1,152 @@
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Braces, Download } from "lucide-react";
+import { Moon } from "@/components/visuals/moon";
+import { ArrowDown, Braces, Download } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { assets, profile } from "@/lib/content/home";
 import { frame } from "@/lib/ui/layout";
 import { ActionLink } from "./primitives";
 
-// Semantic class names below are GSAP hooks, not stylesheet selectors.
 export function Hero() {
   return (
     <section
       id="home"
-      className="hero relative isolate overflow-hidden"
+      className="hero relative isolate overflow-clip"
       aria-labelledby="hero-title"
     >
       <div
-        className="hero-landscape absolute -top-[7%] -bottom-[5%] inset-x-0 -z-50 opacity-65 min-[901px]:opacity-85"
+        className="hero-landscape absolute -inset-y-12 inset-x-0 -z-40 opacity-70"
         aria-hidden="true"
-        data-depth="8"
       >
         <Image
           src={assets.hero}
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-[65%_center]"
           preload
+          className="object-cover object-[65%_center]"
         />
       </div>
       <div
-        className="hero-moon absolute right-[-25%] bottom-16 -z-40 aspect-square w-[100vw] rounded-full bg-radial from-[#eef8ff] via-identity to-identity/70 opacity-80 shadow-2xl shadow-identity/25 min-[901px]:top-9 min-[901px]:right-[15%] min-[901px]:bottom-auto min-[901px]:w-[min(48vw,650px)]"
-        aria-hidden="true"
-        data-depth="14"
-      />
-      <div
-        className="hero-atmosphere absolute inset-x-0 top-[35%] bottom-0 -z-30 bg-radial from-identity/20 via-identity/5 to-transparent min-[901px]:inset-0"
+        className="hero-horizon absolute inset-0 -z-30 bg-linear-to-r from-[#080b0d] via-[#080b0d]/65 to-transparent"
         aria-hidden="true"
       />
       <div
-        className="hero-fog absolute -inset-x-[10%] top-1/2 -bottom-[7%] -z-20 bg-radial from-identity/15 to-transparent opacity-65"
+        className="hero-moon absolute top-[48%] right-[5%] -z-20 size-[240px] sm:top-[42%] sm:right-[12%] sm:size-[300px] lg:top-16 lg:right-[29%] lg:size-[340px]"
         aria-hidden="true"
-        data-depth="20"
-      />
-      <div
-        className="hero-shade absolute inset-0 -z-10 bg-linear-to-b from-[#080b0d] via-[#080b0d]/80 to-transparent min-[901px]:bg-linear-to-r min-[901px]:via-[#080b0d]/50"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-linear-to-t from-[#080b0d] to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className={`hero-inner ${frame} relative flex flex-col pb-16 min-[901px]:block min-[901px]:min-h-[clamp(740px,88svh,900px)] min-[901px]:pb-0`}
       >
-        <div className="hero-copy relative z-10 w-full pt-[130px] min-[901px]:w-[58%] min-[901px]:pt-[clamp(185px,22svh,240px)]">
-          <p className="hero-eyebrow eyebrow mb-6 flex items-center gap-3 font-mono text-[8px] tracking-[0.15em] text-slate-300 sm:text-[10px]">
-            <span className="size-[7px] shrink-0 rounded-full bg-identity shadow-sm shadow-identity/40" />
+        <Moon />
+      </div>
+      <div
+        className="hero-fog absolute inset-x-0 top-[65%] bottom-0 -z-10 bg-[radial-gradient(ellipse_at_80%_80%,#49baf124,transparent_68%)]"
+        aria-hidden="true"
+      />
+      <div
+        className={`${frame} hero-inner relative min-h-[850px] sm:min-h-[970px] lg:h-[90svh] lg:min-h-[680px] lg:max-h-[850px]`}
+      >
+        <div className="hero-copy relative z-20 pt-[132px] sm:pt-[142px] lg:w-[54%] lg:pt-[clamp(160px,20svh,220px)]">
+          <p className="mb-6 flex items-center gap-3 font-mono text-[9px] tracking-[0.12em] text-slate-300 sm:text-[11px]">
+            <span className="size-1.5 rounded-full bg-identity shadow-[0_0_10px_#49baf180]" />{" "}
             SENIOR FULL STACK DEVELOPER
           </p>
           <h1
             id="hero-title"
-            className="m-0 text-[clamp(72px,23vw,137px)] leading-[0.88] font-extrabold tracking-[-0.07em] sm:text-[120px] min-[901px]:text-[clamp(108px,11.9vw,172px)]"
+            className="m-0 text-[clamp(64px,21vw,116px)] leading-[0.88] font-extrabold tracking-[-0.065em] lg:text-[clamp(106px,11vw,160px)]"
             aria-label="Seif Ayman"
           >
-            <span className="hero-line -mb-[0.06em] block overflow-hidden pb-[0.06em]">
-              <span className="hero-word inline-block">SEIF</span>
+            <span className="block overflow-clip pb-[0.07em]">
+              <span data-hero-word className="inline-block">
+                SEIF
+              </span>
             </span>
-            <span className="hero-line hero-name-accent -mb-[0.06em] block overflow-hidden pb-[0.06em] text-identity-bright">
-              <span className="hero-word inline-block">
-                AYMAN<span className="text-[0.75em]">.</span>
+            <span className="-mt-[0.02em] block overflow-clip pb-[0.07em] text-identity">
+              <span data-hero-word className="inline-block">
+                AYMAN.
               </span>
             </span>
           </h1>
-          <p className="hero-meta hero-alias mt-6 mb-4 font-mono text-[9px] tracking-[0.2em] text-slate-400">
-            THESEIFDEV <span className="px-3 text-identity-bright">/</span>{" "}
-            PROFESSOR
+          <p className="mt-5 mb-4 font-mono text-[10px] tracking-[0.16em] text-slate-400">
+            THESEIFDEV <span className="px-2 text-identity">/</span> PROFESSOR
           </p>
-          <p className="hero-meta hero-description mb-6 text-xs leading-relaxed text-slate-300 sm:text-sm">
+          <p className="mb-6 max-w-[37ch] text-[13px] leading-relaxed text-slate-300 sm:text-sm">
             I build products that solve real problems.
             <br />
             From the interface to the architecture behind it.
           </p>
-          <div
-            className="hero-actions flex items-center gap-4"
-            data-hero-actions
-          >
+          <div className="flex items-center gap-4">
             <ActionLink href="#projects">Explore my work</ActionLink>
             <a
-              className="grid size-11 place-items-center rounded-full border border-white/20 text-slate-200 transition-colors hover:border-identity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-identity"
               href={profile.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Seif on GitHub"
+              className="grid size-11 place-items-center rounded-full border border-white/20 transition-colors hover:border-identity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-identity"
             >
               <SiGithub size={20} />
             </a>
           </div>
           <a
-            className="hero-meta cv-link mt-5 inline-flex items-center gap-2 text-[11px] text-slate-400 transition-colors hover:text-white"
             href={profile.cvUrl}
             download
+            className="mt-5 inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white focus-visible:outline-identity"
           >
             <Download size={14} />
             Download CV
-            <span className="rounded border border-white/15 px-1.5 py-0.5 font-mono text-[8px]">
+            <span className="rounded border border-white/15 px-1.5 py-0.5 font-mono text-[9px]">
               PDF
             </span>
           </a>
         </div>
-        <div className="portrait-wrap pointer-events-none relative z-[3] -mr-3 mt-5 h-[clamp(380px,60vw,600px)] w-[min(100%,560px)] self-end overflow-hidden min-[901px]:absolute min-[901px]:top-[77px] min-[901px]:right-[9%] min-[901px]:m-0 min-[901px]:h-auto min-[901px]:w-[47%] min-[901px]:overflow-visible">
+        <div className="portrait-wrap pointer-events-none absolute -right-4 -bottom-1 z-10 w-[78%] max-w-[365px] sm:right-[5%] sm:max-w-[430px] lg:top-[75px] lg:right-[6%] lg:bottom-auto lg:w-[47%] lg:max-w-[610px]">
           <Image
             src={assets.portrait}
             alt="Seif Ayman Ahmed, Senior Full Stack Software Developer"
             width={1200}
             height={1600}
-            sizes="(max-width:900px) 90vw,48vw"
+            sizes="(max-width:1023px) 80vw,48vw"
             preload
             className="hero-portrait block h-auto w-full"
           />
         </div>
         <aside
-          className="hero-side hero-meta absolute bottom-[113px] left-0 z-20 min-[901px]:top-[190px] min-[901px]:right-0 min-[901px]:bottom-auto min-[901px]:left-auto"
+          className="absolute bottom-[84px] left-0 z-30 w-[128px] rounded-2xl border border-identity/25 bg-[#0c1720]/95 p-4 shadow-[0_12px_40px_#02070b66] sm:bottom-[110px] lg:top-[44%] lg:right-0 lg:bottom-auto lg:left-auto lg:w-[165px] lg:p-5"
           aria-label="Experience"
         >
-          <span className="vertical-note mb-20 hidden text-right font-mono text-[9px] tracking-[0.2em] text-slate-300 min-[1101px]:block">
-            DESIGN · CODE · PURPOSE
+          <Braces size={24} className="mb-4 text-identity" />
+          <strong className="block text-[42px] leading-none tracking-tight lg:text-5xl">
+            {profile.experience}
+          </strong>
+          <span className="mt-2 block font-mono text-[9px] leading-relaxed tracking-wide">
+            YEARS OF EXPERIENCE
           </span>
-          <div className="experience-card w-32 rounded-xl border border-white/15 bg-[#0d1820]/85 p-4 backdrop-blur-xl min-[901px]:w-[155px] min-[1101px]:w-[174px] min-[1101px]:px-5 min-[1101px]:pt-6">
-            <Braces
-              size={25}
-              className="experience-icon mb-4 text-identity-bright"
-            />
-            <strong className="block text-[39px] leading-none font-normal tracking-[-0.06em] min-[1101px]:text-[47px]">
-              {profile.experience}
-            </strong>
-            <span className="experience-label mt-2 block font-mono text-[7px] leading-relaxed tracking-wide min-[1101px]:text-[8px]">
-              YEARS OF EXPERIENCE
-            </span>
-            <p className="mt-4 mb-5 hidden text-[11px] leading-relaxed text-slate-400 min-[1101px]:block">
-              Engineering thoughtful
-              <br />
-              products, end to end.
-            </p>
-            <div className="experience-signature mt-4 flex items-center justify-between border-t border-white/10 pt-3 font-mono text-[7px]">
-              SEIF AYMAN
-              <ArrowUpRight size={14} />
-            </div>
+          <p className="mt-4 hidden text-[11px] leading-relaxed text-slate-400 lg:block">
+            Turning ideas into well-built products.
+          </p>
+          <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[9px] text-slate-400">
+            SEIF AYMAN — PROF.
           </div>
         </aside>
-        <div className="hero-bottom hero-meta absolute inset-x-0 bottom-7 z-20 flex items-center justify-between">
-          <a
-            href="#about"
-            className="scroll-prompt flex items-center gap-3 font-mono text-[8px] tracking-[0.12em] text-slate-400"
-          >
-            <span className="h-px w-9 bg-identity" />
+        <span
+          className="pointer-events-none absolute top-[130px] right-0 hidden text-[44px] tracking-widest text-white/70 xl:block"
+          aria-hidden="true"
+        >
+          未来をつくる
+        </span>
+        <div className="absolute inset-x-0 bottom-8 z-30 flex items-center justify-between font-mono text-[10px] tracking-[0.12em] text-slate-400">
+          <a href="#about" className="flex items-center gap-3">
+            <span className="h-px w-8 bg-identity" />
             SCROLL TO EXPLORE
-            <ArrowDown size={14} />
+            <ArrowDown size={13} />
           </a>
-          <span className="edition-note hidden items-center gap-3 font-mono text-[8px] tracking-wide text-slate-400 min-[901px]:flex">
-            BASED IN ALEXANDRIA<span className="text-identity-bright">—</span>
-            BUILDING FOR THE WORLD
+          <span className="hidden lg:block">
+            ALEXANDRIA <span className="px-2 text-identity">/</span> BUILDING
+            FOR THE WORLD
           </span>
         </div>
       </div>
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-24 bg-linear-to-t from-[#080b0d] to-transparent"
+        aria-hidden="true"
+      />
     </section>
   );
 }

@@ -2,13 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { marqueeRows, skillGroups } from "@/lib/content/skills";
 import { lightFrame, lightShell } from "@/lib/ui/layout";
 import { SectionHeading, SectionLabel } from "./primitives";
 import { TechnologyIcon } from "./technology-icons";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const DURATION_MIN = 40;
 const DURATION_MAX = 65;
@@ -67,75 +64,111 @@ function SkillsMarquee() {
       setIsReducedMotion(reducedMotion);
       root.dataset.motion = reducedMotion ? "static" : "animated";
 
-      let timelines: TimelineHandle[] = [];
+      let timelines: Array<TimelineHandle | null> = tracks.map(() => null);
       let isVisible = reducedMotion;
       let interactionPaused = false;
       let resizeObserver: ResizeObserver | undefined;
       let visibilityObserver: IntersectionObserver | undefined;
-      const context = gsap.context(() => undefined, root);
+      let rebuildContext: gsap.Context | null = null;
+      let resizeFrame: number | null = null;
+      let disposed = false;
+      let measuredWidths = tracks.map(() => 0);
+      let documentHidden = document.visibilityState === "hidden";
 
       const syncPlayback = () => {
         const shouldPause =
           reducedMotion ||
           manualPausedRef.current ||
           interactionPaused ||
-          !isVisible;
+          !isVisible ||
+          documentHidden;
 
         timelines.forEach((timeline) => {
+          if (!timeline) return;
           if (shouldPause) timeline.pause();
           else timeline.play();
         });
       };
       syncPlaybackRef.current = syncPlayback;
 
-      const rebuild = () => {
-        const progressByTrack = tracks.map(
-          (_, index) => timelines[index]?.progress() ?? 0,
-        );
-        timelines.forEach((timeline) => timeline.kill());
-        timelines = [];
-        if (reducedMotion) return;
+      const rebuild = (widths: readonly number[]) => {
+        if (disposed || reducedMotion) return;
 
-        context.add(() => {
+        const progressByTrack = timelines.map(
+          (timeline) => timeline?.progress() ?? 0,
+        );
+        rebuildContext?.revert();
+        rebuildContext = null;
+        timelines = tracks.map(() => null);
+
+        const nextTimelines: Array<TimelineHandle | null> = tracks.map(
+          () => null,
+        );
+        rebuildContext = gsap.context(() => {
           tracks.forEach((track, index) => {
-            const segment = track.querySelector<HTMLElement>(
-              '[data-original-segment="true"]',
-            );
-            const width = segment?.getBoundingClientRect().width ?? 0;
-            if (!width) return;
+            const width = widths[index] ?? 0;
 
             const movesLeft = index % 2 === 0;
             const startX = movesLeft ? 0 : -width;
             const endX = movesLeft ? -width : 0;
+            gsap.set(track, { x: width ? startX : 0 });
+            if (!width) return;
+
             const duration = Math.min(
               DURATION_MAX,
               Math.max(DURATION_MIN, width / PIXELS_PER_SECOND),
             );
             const timeline = gsap.timeline({ paused: true, repeat: -1 });
 
-            gsap.set(track, { x: startX });
             timeline.to(track, {
               x: endX,
               duration,
               ease: "none",
             });
             timeline.progress(progressByTrack[index] ?? 0);
-            timelines.push(timeline);
+            nextTimelines[index] = timeline;
           });
-        });
+        }, root);
+        timelines = nextTimelines;
 
         syncPlayback();
       };
 
-      if (!reducedMotion) {
-        isVisible = false;
-        resizeObserver = new ResizeObserver(rebuild);
-        tracks.forEach((track) => {
+      const readWidths = () =>
+        tracks.map((track) => {
           const segment = track.querySelector<HTMLElement>(
             '[data-original-segment="true"]',
           );
-          if (segment) resizeObserver?.observe(segment);
+          return segment?.getBoundingClientRect().width ?? 0;
         });
+
+      const queueResize = () => {
+        if (reducedMotion || disposed || resizeFrame !== null) return;
+
+        resizeFrame = window.requestAnimationFrame(() => {
+          resizeFrame = null;
+          if (reducedMotion || disposed) return;
+
+          const nextWidths = readWidths();
+          const widthChanged = nextWidths.some(
+            (width, index) =>
+              Math.abs(width - (measuredWidths[index] ?? 0)) > 0.5,
+          );
+          if (!widthChanged) return;
+
+          measuredWidths = nextWidths;
+          rebuild(nextWidths);
+        });
+      };
+
+      const handleVisibilityChange = () => {
+        documentHidden = document.visibilityState === "hidden";
+        syncPlayback();
+      };
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      if (!reducedMotion) {
+        isVisible = false;
 
         if ("IntersectionObserver" in window) {
           visibilityObserver = new IntersectionObserver(
@@ -173,9 +206,21 @@ function SkillsMarquee() {
         motionRegion.addEventListener("focusin", pauseForInteraction);
         motionRegion.addEventListener("focusout", resumeAfterFocus);
 
-        rebuild();
+        resizeObserver = new ResizeObserver(queueResize);
+        tracks.forEach((track) => {
+          const segment = track.querySelector<HTMLElement>(
+            '[data-original-segment="true"]',
+          );
+          if (segment) resizeObserver?.observe(segment);
+        });
+        queueResize();
 
         return () => {
+          disposed = true;
+          if (resizeFrame !== null) {
+            window.cancelAnimationFrame(resizeFrame);
+            resizeFrame = null;
+          }
           motionRegion.removeEventListener("pointerenter", pauseForInteraction);
           motionRegion.removeEventListener(
             "pointerleave",
@@ -183,11 +228,15 @@ function SkillsMarquee() {
           );
           motionRegion.removeEventListener("focusin", pauseForInteraction);
           motionRegion.removeEventListener("focusout", resumeAfterFocus);
+          document.removeEventListener(
+            "visibilitychange",
+            handleVisibilityChange,
+          );
           resizeObserver?.disconnect();
           visibilityObserver?.disconnect();
-          timelines.forEach((timeline) => timeline.kill());
-          timelines = [];
-          context.revert();
+          rebuildContext?.revert();
+          rebuildContext = null;
+          timelines = tracks.map(() => null);
           if (syncPlaybackRef.current === syncPlayback) {
             syncPlaybackRef.current = null;
           }
@@ -195,7 +244,15 @@ function SkillsMarquee() {
       }
 
       return () => {
-        context.revert();
+        disposed = true;
+        if (resizeFrame !== null) {
+          window.cancelAnimationFrame(resizeFrame);
+          resizeFrame = null;
+        }
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        rebuildContext?.revert();
+        rebuildContext = null;
+        timelines = tracks.map(() => null);
         if (syncPlaybackRef.current === syncPlayback) {
           syncPlaybackRef.current = null;
         }
@@ -221,7 +278,7 @@ function SkillsMarquee() {
 
   return (
     <div className="skills-marquee relative min-w-0" ref={rootRef}>
-      <div className="skills-marquee-toolbar mb-[15px] flex items-center justify-between gap-5 border-t border-identity/15 pt-3">
+      <div className="skills-marquee-toolbar relative mb-[15px] flex items-center justify-between gap-5 border-t border-identity/15 pt-3 before:pointer-events-none before:absolute before:left-0 before:top-[-1px] before:h-px before:w-24 before:bg-identity-ink/55">
         <p className="m-0 max-w-[430px] text-[11px] leading-[1.55] text-[#657077]">
           Selected tools, arranged by practice rather than rank.
         </p>
@@ -274,7 +331,7 @@ export function SkillsSection() {
   return (
     <section
       id="skills"
-      className={`light-section skills-section ${lightShell}`}
+      className={`light-section skills-section relative border-t border-identity/25 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-identity-ink/35 before:to-transparent ${lightShell}`}
       aria-label="Skills and technologies"
     >
       <div className={lightFrame}>
