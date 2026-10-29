@@ -24,21 +24,26 @@ const all = (root: HTMLElement, selector: string) =>
 const one = (root: HTMLElement, selector: string) =>
   root.querySelector<HTMLElement>(selector);
 
-/** Hero settles on load; on wide screens it recedes while About slides over it. */
+/** One intentional entrance; existing outer layers still handle the About overlap. */
 const hero: SceneSetup = (root) => {
   const mm = gsap.matchMedia();
 
   mm.add(motionQueries.motion, () => {
-    gsap.from(all(root, "[data-hero-bg-inner]"), {
-      scale: 1.08,
-      duration: 1.8,
-      ease: "power2.out",
-    });
-    gsap.from(all(root, "[data-hero-glow]"), {
-      opacity: 0,
-      duration: 1.6,
-      ease: "power1.out",
-    });
+    const heroRoot = one(root, "[data-hero]");
+    if (!heroRoot || window.scrollY > heroRoot.offsetHeight) return;
+    root.dataset.entrance = "playing";
+    gsap.timeline({
+      defaults: { ease: "power3.out" },
+      onComplete: () => { root.dataset.entrance = "complete"; },
+    })
+      .fromTo(all(root, "[data-hero-role], [data-hero-meta]"), { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, 0)
+      .fromTo(all(root, "[data-hero-title-line]"), { yPercent: 108 }, { yPercent: 0, duration: 0.75, stagger: 0.08 }, 0.12)
+      .fromTo(all(root, "[data-hero-copy]"), { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05 }, 0.38)
+      .fromTo(one(root, "[data-hero-actions]"), { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.36 }, 0.56)
+      .fromTo(one(root, "[data-hero-portrait-reveal]"), { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.72, ease: "power2.inOut" }, 0.94)
+      .fromTo(one(root, "[data-hero-bg-inner]"), { scale: 1.08 }, { scale: 1, duration: 1.4, ease: "power2.out" }, 0)
+      .fromTo(one(root, "[data-hero-glow]"), { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power1.out" }, 0);
+    return () => { delete root.dataset.entrance; };
   });
 
   mm.add(motionQueries.stage, () => {
@@ -145,7 +150,7 @@ const about: SceneSetup = (root) => {
   });
 };
 
-/** Journey: chapters stack (CSS sticky); the covered one recedes, the rail tracks progress. */
+/** Editorial chapters remain readable; one rail follows actual chapter positions. */
 const journey: SceneSetup = (root) => {
   const mm = gsap.matchMedia();
   const chapters = all(root, "[data-chapter]");
@@ -153,74 +158,47 @@ const journey: SceneSetup = (root) => {
   const counter = one(root, "[data-rail-counter]");
 
   const setActive = (index: number) => {
-    railItems.forEach((item, i) => item.toggleAttribute("data-active", i === index));
+    railItems.forEach((item, i) => {
+      item.toggleAttribute("data-active", i === index);
+      const link = item.querySelector("a");
+      if (i === index) link?.setAttribute("aria-current", "step");
+      else link?.removeAttribute("aria-current");
+    });
+    chapters.forEach((chapter, i) => chapter.toggleAttribute("data-active", i === index));
     if (counter) counter.textContent = String(index + 1).padStart(2, "0");
   };
+  setActive(0);
 
-  mm.add(motionQueries.stage, () => {
-    chapters.forEach((chapter, i) => {
-      const next = chapters[i + 1];
-      if (!next) return;
-      gsap
-        .timeline({
-          scrollTrigger: {
-            id: `journey-stack-${i + 1}`,
-            trigger: next,
-            start: "top bottom",
-            end: "top 30%",
-            scrub: true,
-          },
-        })
-        .to(one(chapter, "[data-chapter-inner]"), { scale: 0.92, ease: "none" }, 0)
-        .to(one(chapter, "[data-chapter-shade]"), { opacity: 0.6, ease: "none" }, 0);
-    });
-
-    let active = 0;
+  mm.add(motionQueries.motion, () => {
     const list = one(root, "[data-chapters]");
-    gsap.fromTo(
-      one(root, "[data-rail-fill]"),
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        ease: "none",
-        scrollTrigger: {
-          id: "journey-rail",
-          trigger: list,
-          start: "top 30%",
-          end: "bottom 80%",
-          scrub: true,
-          onUpdate(self) {
-            const index = Math.min(
-              chapters.length - 1,
-              Math.floor(self.progress * chapters.length),
-            );
-            if (index !== active) {
-              active = index;
-              setActive(index);
-            }
-          },
+    const fill = one(root, "[data-rail-fill]");
+    if (!list || !fill || chapters.length === 0) return;
+    let active = -1;
+    let positions: number[] = [];
+    const measure = () => {
+      positions = chapters.map((chapter) => chapter.getBoundingClientRect().top + window.scrollY);
+    };
+    measure();
+    gsap.fromTo(fill, { scaleY: 0 }, {
+      scaleY: 1,
+      ease: "none",
+      scrollTrigger: {
+        id: "journey-rail",
+        trigger: list,
+        start: "top 35%",
+        end: () => chapters[chapters.length - 1].getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.35,
+        scrub: 0.25,
+        invalidateOnRefresh: true,
+        onRefresh: measure,
+        onUpdate() {
+          const readingLine = window.scrollY + window.innerHeight * 0.35 + 2;
+          let index = 0;
+          positions.forEach((position, i) => { if (readingLine >= position) index = i; });
+          if (index !== active) { active = index; setActive(index); }
         },
       },
-    );
-
-    return () => setActive(0);
-  });
-
-  mm.add(motionQueries.compact, () => {
-    chapters.forEach((chapter, i) => {
-      gsap.from(one(chapter, "[data-chapter-inner]"), {
-        y: 56,
-        opacity: 0,
-        ease: "power2.out",
-        scrollTrigger: {
-          id: `journey-reveal-${i + 1}`,
-          trigger: chapter,
-          start: "top 92%",
-          end: "top 60%",
-          scrub: 0.5,
-        },
-      });
     });
+    return () => setActive(0);
   });
 };
 
@@ -403,6 +381,13 @@ const process: SceneSetup = (root) => {
   mm.add(motionQueries.compact, () => {
     const list = one(root, "[data-process-list]");
     if (!list) return;
+    const steps = all(list, "[data-process-compact-step]");
+    let positions: number[] = [];
+    let active = -1;
+    const measure = () => {
+      positions = steps.map((step) => step.getBoundingClientRect().top + window.scrollY);
+    };
+    measure();
     gsap.fromTo(
       one(list, "[data-process-vfill]"),
       { scaleY: 0 },
@@ -415,9 +400,20 @@ const process: SceneSetup = (root) => {
           start: "top 70%",
           end: "bottom 70%",
           scrub: true,
+          onRefresh: measure,
+          onUpdate() {
+            const readingLine = window.scrollY + window.innerHeight * 0.7;
+            let index = 0;
+            positions.forEach((position, i) => { if (readingLine >= position) index = i; });
+            if (active !== index) {
+              active = index;
+              steps.forEach((step, i) => step.toggleAttribute("data-active", i === index));
+            }
+          },
         },
       },
     );
+    return () => steps.forEach((step, i) => step.toggleAttribute("data-active", i === 0));
   });
 };
 

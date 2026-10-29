@@ -22,6 +22,8 @@
 # TypeScript and tool caches
 *.tsbuildinfo
 /.turbo/
+__pycache__/
+*.py[cod]
 
 # Operating system
 .DS_Store

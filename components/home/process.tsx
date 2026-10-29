@@ -1,189 +1,73 @@
-import { Code2, PenTool, Search, Send } from "lucide-react";
 import { processSteps } from "@/lib/content/profile";
-import { container, label, lightPanel } from "@/lib/ui/layout";
+import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
 import { Accent, SectionHeading } from "@/components/system/primitives";
 
-const stepIcons = {
-  discover: Search,
-  design: PenTool,
-  build: Code2,
-  ship: Send,
-} as const;
+function Outputs({ items }: { items: readonly string[] }) {
+  return (
+    <div className="mt-7 border-t border-white/10 pt-5">
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist">What moves forward</p>
+      <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-[13px] leading-relaxed text-snow/85">
+        {items.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
 
-/**
- * Two arrangements of the same content:
- * - default (no JS, small screens, reduced motion): a vertical path whose
- *   line fills with scroll;
- * - enhanced (`data-enhanced`, set by the `process` scene on wide screens):
- *   a pinned horizontal path that activates one stage at a time.
- */
+/** One reading stage and a restrained numbered path; compact visitors see all steps. */
 export function Process() {
   return (
-    <Scene
-      name="process"
-      as="section"
-      id="process"
-      aria-labelledby="process-title"
-      className={cn(lightPanel, "group/process")}
-    >
-      <div
-        data-process-pin
-        className="overflow-hidden py-24 lg:py-32 group-data-[enhanced=true]/process:flex group-data-[enhanced=true]/process:h-[100svh] group-data-[enhanced=true]/process:flex-col group-data-[enhanced=true]/process:justify-center group-data-[enhanced=true]/process:py-0"
-      >
+    <Scene name="process" as="section" id="process" aria-labelledby="process-title" className="group/process relative border-t border-white/10 bg-night text-snow">
+      <div data-process-pin className="overflow-hidden py-24 lg:py-32 group-data-[enhanced=true]/process:flex group-data-[enhanced=true]/process:h-svh group-data-[enhanced=true]/process:flex-col group-data-[enhanced=true]/process:justify-center group-data-[enhanced=true]/process:pb-8 group-data-[enhanced=true]/process:pt-28">
         <div className={container}>
-          <SectionHeading
-            tone="light"
-            index="07"
-            label="My process"
-            id="process-title"
-            title={
-              <>
-                From idea <Accent>to impact</Accent>
-              </>
-            }
-            aside="Four stages on one connected path — each hands something concrete to the next."
-          />
+          <SectionHeading index="07" label="My process" id="process-title" title={<>Intent to <Accent>execution.</Accent></>} aside="Discover. Design. Build. Ship. One connected practice, with a clear handoff at every stage." />
 
-          {/* Enhanced: pinned horizontal path */}
-          <div className="mt-16 hidden group-data-[enhanced=true]/process:block">
-            <div className="relative">
-              <span
-                aria-hidden="true"
-                className="absolute left-6 right-6 top-6 h-px bg-ink/10"
-              >
-                <span
-                  data-process-fill
-                  className="absolute inset-0 origin-left scale-x-0 bg-sky-ink"
-                />
-              </span>
-              <ol className="relative flex justify-between">
-                {processSteps.map((step, index) => {
-                  const Icon = stepIcons[step.id];
-                  return (
-                    <li
-                      key={step.id}
-                      data-process-node
-                      data-active={index === 0 ? "" : undefined}
-                      className={cn(
-                        "group/node flex w-48 flex-col",
-                        index === processSteps.length - 1 && "items-end text-right",
-                      )}
-                    >
-                      <span className="inline-flex size-12 items-center justify-center rounded-full border border-ink/15 bg-paper text-slate-ink transition-all duration-500 group-data-active/node:scale-110 group-data-active/node:border-sky-ink group-data-active/node:bg-sky-ink group-data-active/node:text-white group-data-done/node:border-sky-ink group-data-done/node:text-sky-ink">
-                        <Icon className="size-5" aria-hidden="true" />
-                      </span>
-                      <span className="mt-5 font-mono text-[11px] tracking-[0.18em] text-slate-ink">
-                        {step.index}
-                      </span>
-                      <span className="mt-1 font-display text-xl font-bold tracking-[-0.02em] text-ink/40 transition-colors duration-500 group-data-active/node:text-ink group-data-done/node:text-ink/70">
-                        {step.title}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
-
-            <div className="relative mt-14 h-[300px]">
+          <div className="mt-12 hidden group-data-[enhanced=true]/process:block short:mt-8">
+            <ol className="relative grid grid-cols-4 gap-4 border-b border-white/15 pb-6">
+              <li aria-hidden="true" className="pointer-events-none absolute -bottom-px inset-x-0 h-px">
+                <span data-process-fill className="absolute inset-0 origin-left scale-x-0 bg-sky" />
+              </li>
               {processSteps.map((step, index) => (
-                <article
-                  key={step.id}
-                  data-process-panel
-                  data-active={index === 0 ? "" : undefined}
-                  aria-labelledby={`process-panel-${step.id}`}
-                  className="absolute inset-0 grid translate-y-6 grid-cols-12 gap-8 rounded-[32px] border border-ink/[0.07] bg-white p-10 opacity-0 transition-[opacity,translate] duration-500 ease-out-soft data-active:translate-y-0 data-active:opacity-100"
-                >
-                  <div className="relative col-span-4 flex flex-col justify-between overflow-hidden">
-                    <span className="font-display text-[5.5rem] font-extrabold leading-none tracking-[-0.05em] text-ink">
-                      {step.index}
-                    </span>
-                    <span
-                      lang="ja"
-                      aria-hidden="true"
-                      className="absolute -bottom-6 right-2 font-jp text-[9rem] font-bold leading-none text-sky-ink/[0.12]"
-                    >
-                      {step.kanji}
-                    </span>
+                <li key={step.id} data-process-node data-active={index === 0 ? "" : undefined} className="group/node relative min-w-0">
+                  <p className="font-mono text-[11px] tracking-[0.15em] text-mist transition-colors duration-300 group-data-active/node:text-sky group-data-done/node:text-sky/80">{step.index}</p>
+                  <p className="mt-2 font-display text-xl font-semibold tracking-[-0.02em] text-mist transition-colors duration-300 group-data-active/node:text-snow group-data-done/node:text-snow/75">{step.title}</p>
+                  <span aria-hidden="true" className="absolute -bottom-[27px] left-0 h-[5px] w-5 rounded-full bg-sky opacity-0 transition-opacity duration-300 group-data-active/node:opacity-100" />
+                </li>
+              ))}
+            </ol>
+            <div className="relative mt-10 h-[340px] short:mt-7 short:h-[290px]">
+              {processSteps.map((step, index) => (
+                <article key={step.id} data-process-panel data-active={index === 0 ? "" : undefined} aria-labelledby={`process-panel-${step.id}`} className="absolute inset-0 grid translate-y-3 grid-cols-12 gap-10 opacity-0 transition-[opacity,translate] duration-400 ease-out-soft data-active:translate-y-0 data-active:opacity-100">
+                  <div aria-hidden="true" className="col-span-4 flex items-start gap-7 overflow-hidden">
+                    <span className="font-display text-[clamp(6.5rem,12vw,10rem)] font-extrabold leading-[0.85] tracking-[-0.07em] text-snow">{step.index}</span>
+                    <span lang="ja" className="mt-1 font-jp text-4xl leading-none text-sky/60">{step.kanji}</span>
                   </div>
-                  <div className="col-span-8 flex flex-col">
-                    <h3
-                      id={`process-panel-${step.id}`}
-                      className="font-display text-3xl font-bold tracking-[-0.025em]"
-                    >
-                      {step.title}
-                      <span className="text-sky-ink"> — </span>
-                      <span className="font-sans text-xl font-medium tracking-normal text-slate-ink">
-                        {step.summary}
-                      </span>
-                    </h3>
-                    <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ink/80">
-                      {step.detail}
-                    </p>
-                    <ul className="mt-auto flex flex-wrap gap-2 pt-6">
-                      {step.outputs.map((output) => (
-                        <li
-                          key={output}
-                          className="rounded-full border border-ink/10 bg-paper px-3 py-1.5 text-[12px] font-medium text-ink/75"
-                        >
-                          {output}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="col-span-8 max-w-[44rem]">
+                    <h3 id={`process-panel-${step.id}`} className="font-display text-[clamp(2.75rem,4.4vw,4.5rem)] font-bold leading-none tracking-[-0.045em]">{step.title}</h3>
+                    <p className="mt-4 max-w-xl text-xl leading-snug text-snow/90">{step.summary}</p>
+                    <p className="mt-4 max-w-xl text-[15px] leading-[1.8] text-mist">{step.detail}</p>
+                    <Outputs items={step.outputs} />
                   </div>
                 </article>
               ))}
             </div>
           </div>
 
-          {/* Default: vertical path */}
-          <ol
-            data-process-list
-            className="relative mt-14 space-y-12 pl-16 group-data-[enhanced=true]/process:hidden sm:pl-20"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute bottom-6 left-6 top-6 w-px bg-ink/10 sm:left-7"
-            >
-              <span
-                data-process-vfill
-                className="absolute inset-0 origin-top bg-sky-ink motion-reduce:hidden"
-              />
-            </span>
-            {processSteps.map((step) => {
-              const Icon = stepIcons[step.id];
-              return (
-                <li key={step.id} className="relative">
-                  <span className="absolute -left-16 top-0 inline-flex size-12 items-center justify-center rounded-full border border-sky-ink/30 bg-paper text-sky-ink sm:-left-[4.5rem] sm:size-14">
-                    <Icon className="size-5" aria-hidden="true" />
-                  </span>
-                  <p className={cn(label, "text-slate-ink")}>
-                    {step.index}
-                    <span lang="ja" aria-hidden="true" className="ml-3 font-jp tracking-normal">
-                      {step.kanji}
-                    </span>
-                  </p>
-                  <h3 className="mt-3 font-display text-3xl font-bold tracking-[-0.025em]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-[17px] font-medium text-ink/85">{step.summary}</p>
-                  <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-slate-ink">
-                    {step.detail}
-                  </p>
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {step.outputs.map((output) => (
-                      <li
-                        key={output}
-                        className="rounded-full border border-ink/10 bg-white px-3 py-1.5 text-[12px] font-medium text-ink/75"
-                      >
-                        {output}
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              );
-            })}
+          <ol data-process-list className="relative mt-14 space-y-12 pl-10 group-data-[enhanced=true]/process:hidden sm:pl-14">
+            <li aria-hidden="true" className="absolute bottom-0 left-0 top-1 w-px bg-white/12">
+              <span data-process-vfill className="absolute inset-0 origin-top bg-sky motion-reduce:scale-y-100" />
+            </li>
+            {processSteps.map((step, index) => (
+              <li key={step.id} data-process-compact-step data-active={index === 0 ? "" : undefined} className="group/step relative border-b border-white/10 pb-10 last:border-0 last:pb-0">
+                <span aria-hidden="true" className="absolute -left-[43px] top-1.5 size-[7px] rounded-full bg-mist transition-colors duration-300 group-data-active/step:bg-sky sm:-left-[59px]" />
+                <p className={cn(label, "text-mist")}><span className="text-sky">{step.index}</span><span lang="ja" aria-hidden="true" className="ml-4 font-jp text-base tracking-normal">{step.kanji}</span></p>
+                <h3 className="mt-4 font-display text-4xl font-bold leading-none tracking-[-0.035em]">{step.title}</h3>
+                <p className="mt-4 max-w-xl text-lg leading-snug text-snow/90">{step.summary}</p>
+                <p className="mt-4 max-w-xl text-[15px] leading-[1.8] text-mist">{step.detail}</p>
+                <Outputs items={step.outputs} />
+              </li>
+            ))}
           </ol>
         </div>
       </div>

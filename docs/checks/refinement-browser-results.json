@@ -1,0 +1,186 @@
+{
+  "desktop": {
+    "hero": {
+      "entrance": "complete",
+      "actions": "1",
+      "mask": "inset(0%)",
+      "originalFilter": "none",
+      "fit": "contain",
+      "cls": 0
+    },
+    "shield": {
+      "active": "true",
+      "tracking": "true",
+      "cx": [
+        "540",
+        "780"
+      ],
+      "energy": "0.85",
+      "after_leave": "false"
+    },
+    "pointer_events": "none",
+    "magnetic": {
+      "translate": "2.7px 0.899998px",
+      "mode": "link",
+      "after_leave": "none"
+    },
+    "keyboard_cursor_opacity": "0",
+    "project_cursor": "project",
+    "scroll_cursor": "scroll-left",
+    "keyboard_last_slide": {
+      "x": 272,
+      "y": 311.765625,
+      "width": 1080,
+      "height": 440
+    },
+    "preview_cursor": "preview",
+    "journey": {
+      "forward": [
+        "01",
+        "02",
+        "03",
+        "04"
+      ],
+      "backward": [
+        "04",
+        "03",
+        "02",
+        "01"
+      ]
+    },
+    "listeners": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 1,
+      "shield:pointermove": 1,
+      "shield:pointerleave": 1
+    },
+    "button_cursor": "button",
+    "errors": []
+  },
+  "responsive": {
+    "1440x760": {
+      "overflow": 0,
+      "errors": [],
+      "process": {
+        "overflowY": 0,
+        "bottom": 665.140625,
+        "viewport": 760
+      }
+    },
+    "1280x800": {
+      "overflow": 0,
+      "errors": [],
+      "process": {
+        "overflowY": 0,
+        "bottom": 674.9375,
+        "viewport": 800
+      }
+    },
+    "1024x768": {
+      "overflow": 0,
+      "errors": [],
+      "process": {
+        "overflowY": 0,
+        "bottom": 642.875,
+        "viewport": 768
+      }
+    },
+    "1920x1080": {
+      "overflow": 0,
+      "errors": [],
+      "process": {
+        "overflowY": 0,
+        "bottom": 822.765625,
+        "viewport": 1080
+      }
+    },
+    "768x1024": {
+      "overflow": 0,
+      "errors": [],
+      "compact_process": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "390x844": {
+      "overflow": 0,
+      "errors": [],
+      "compact_process": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  "reduced": {
+    "listeners": {
+      "document:pointermove": 2,
+      "document:pointerout": 2,
+      "document:pointerover": 2,
+      "shield:pointerenter": 0,
+      "shield:pointermove": 0,
+      "shield:pointerleave": 0
+    },
+    "cursor_enabled": "false",
+    "shield_tracking": "false",
+    "triggers": []
+  },
+  "touch": {
+    "listeners": {
+      "document:pointermove": 2,
+      "document:pointerout": 2,
+      "document:pointerover": 2
+    },
+    "cursor_enabled": "false",
+    "shield_tracking": "false",
+    "errors": []
+  },
+  "navigation": {
+    "/projects0": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 0,
+      "shield:pointermove": 0,
+      "shield:pointerleave": 0
+    },
+    "/about1": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 0,
+      "shield:pointermove": 0,
+      "shield:pointerleave": 0
+    },
+    "/2": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 1,
+      "shield:pointermove": 1,
+      "shield:pointerleave": 1
+    },
+    "/contact3": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 0,
+      "shield:pointermove": 0,
+      "shield:pointerleave": 0
+    },
+    "/4": {
+      "document:pointermove": 3,
+      "document:pointerout": 3,
+      "document:pointerover": 3,
+      "shield:pointerenter": 1,
+      "shield:pointermove": 1,
+      "shield:pointerleave": 1
+    }
+  },
+  "failures": []
+}

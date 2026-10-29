@@ -1,6 +1,7 @@
 import { Footer } from "@/components/site/footer";
 import { Navbar } from "@/components/site/navbar";
 import { RouteMotion } from "@/components/motion/route-motion";
+import { CustomCursor } from "@/components/site/custom-cursor";
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
@@ -11,6 +12,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       </main>
       <Footer />
       <RouteMotion />
+      <CustomCursor />
     </>
   );
 }

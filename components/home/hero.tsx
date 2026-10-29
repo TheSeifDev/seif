@@ -4,6 +4,7 @@ import { assets, profile } from "@/lib/content/profile";
 import { container, displayXL } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { PillLink, SectionLabel } from "@/components/system/primitives";
+import { PortraitShield } from "@/components/visuals/portrait-shield";
 
 /**
  * First viewport. On wide, tall screens it is sticky so About slides over
@@ -53,12 +54,13 @@ export function Hero() {
         )}
       >
         <div data-hero-content className="relative z-10 lg:max-w-[40rem]">
-          <SectionLabel className="text-snow/80">{profile.shortRole}</SectionLabel>
+          <div data-hero-role><SectionLabel className="text-snow/80">{profile.shortRole}</SectionLabel></div>
           <h1 id="hero-title" className={cn(displayXL, "mt-6")}>
-            <span className="block text-snow">{profile.firstName}</span>
-            <span className="block text-sky">{profile.lastName}</span>
+            <span className="block overflow-hidden pb-[0.06em]"><span data-hero-title-line className="block text-snow">{profile.firstName}</span></span>
+            <span className="-mt-[0.06em] block overflow-hidden pb-[0.06em]"><span data-hero-title-line className="block text-sky">{profile.lastName}</span></span>
           </h1>
           <p
+            data-hero-copy
             lang="ja"
             className="mt-6 font-jp text-lg leading-[1.7] tracking-[0.08em] text-snow/90 sm:text-xl"
           >
@@ -66,12 +68,12 @@ export function Hero() {
             <br />
             より良い未来をつくる。
           </p>
-          <p className="mt-5 max-w-[27rem] text-[15px] leading-relaxed text-mist sm:text-base">
+          <p data-hero-copy className="mt-5 max-w-[27rem] text-[15px] leading-relaxed text-mist sm:text-base">
             I build production web, desktop and AI products — from TypeScript
             interfaces to NestJS APIs and PostgreSQL data models.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <PillLink href="/projects">Explore my work</PillLink>
+          <div data-hero-actions className="mt-8 flex flex-wrap gap-3">
+            <PillLink href="/projects" data-magnetic="true">Explore my work</PillLink>
             <PillLink
               href={profile.cvUrl}
               external
@@ -88,14 +90,18 @@ export function Hero() {
           data-hero-portrait
           className="pointer-events-none relative z-[5] mx-auto mt-6 aspect-[3/4] h-[min(62svh,520px)] max-w-full origin-bottom sm:h-[min(64svh,600px)] lg:absolute lg:bottom-0 lg:right-[max(9rem,16%)] lg:mt-0 lg:h-[90%]"
         >
-          <Image
-            src={assets.portrait}
-            alt="Seif Ayman"
-            fill
-            priority
-            sizes="(min-width: 1024px) 42vw, 90vw"
-            className="object-contain object-bottom"
-          />
+          <div data-hero-portrait-reveal className="absolute inset-0">
+            <PortraitShield>
+              <Image
+                src={assets.portrait}
+                alt="Seif Ayman"
+                fill
+                priority
+                sizes="(min-width: 1024px) 42vw, 90vw"
+                className="object-contain object-bottom"
+              />
+            </PortraitShield>
+          </div>
         </div>
       </div>
 
@@ -104,6 +110,7 @@ export function Hero() {
         aria-label="Experience"
         className="absolute bottom-14 right-5 z-10 hidden w-64 rounded-3xl border border-white/10 bg-night/45 p-6 backdrop-blur-md sm:right-8 lg:right-12 lg:block"
       >
+        <div data-hero-meta>
         <Sparkles className="size-5 text-sky" aria-hidden="true" />
         <p className="mt-5 font-display text-6xl font-extrabold leading-none tracking-[-0.04em]">
           {profile.experienceYears}
@@ -119,6 +126,7 @@ export function Hero() {
           <span>{profile.handle}</span>
           <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
           <span>Alexandria</span>
+        </div>
         </div>
       </aside>
 
