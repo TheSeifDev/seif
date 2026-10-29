@@ -1,0 +1,49 @@
+
+> portfolio@0.1.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.ts took 47ms
+- Cache Components enabled
+- Partial Prefetching enabled
+- Experiments (use with caution):
+  ✓ agentFeedback
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1622ms
+  Running TypeScript ...
+  Finished TypeScript in 3.7s ...
+  Collecting page data using 5 workers ...
+  Generating static pages using 5 workers (0/20) ...
+  Generating static pages using 5 workers (5/20)
+  Generating static pages using 5 workers (10/20)
+  Generating static pages using 5 workers (15/20)
+✓ Generating static pages using 5 workers (20/20) in 1661ms
+  Finalizing page optimization ...
+
+Route (app)                       Revalidate  Expire
+┌ ○ /                                     1d      1w
+├ ○ /_not-found
+├ ○ /about                                1d      1w
+├ ƒ /api/contact
+├ ○ /blog                                 1d      1w
+├   /blog/[slug]                          1d      1w
+│ ├ ◐ /blog/[slug]                        1d      1w
+│ └ ○ /blog/__no-published-posts          1d      1w
+├ ○ /contact                              1d      1w
+├ ○ /icon.svg
+├ ○ /projects                             1d      1w
+├   /projects/[slug]                      1d      1w
+│ ├ ◐ /projects/[slug]                    1d      1w
+│ ├ ○ /projects/rafiq                     1d      1w
+│ ├ ○ /projects/it-sum                    1d      1w
+│ └ ◐ [+4 more paths]
+├ ○ /robots.txt
+└ ○ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)             prerendered as static content
+◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+ƒ  (Dynamic)            server-rendered on demand

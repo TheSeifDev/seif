@@ -1,0 +1,66 @@
+{
+  "desktopWebGL": {
+    "initial": {
+      "width": 510,
+      "height": 510,
+      "frames": 1,
+      "drawCalls": 1,
+      "triangles": 2208,
+      "dpr": 1.5,
+      "progress": 0
+    },
+    "idle": {
+      "width": 510,
+      "height": 510,
+      "frames": 1,
+      "drawCalls": 1,
+      "triangles": 2208,
+      "dpr": 1.5,
+      "progress": 0
+    },
+    "scroll": {
+      "width": 510,
+      "height": 510,
+      "frames": 2,
+      "drawCalls": 1,
+      "triangles": 2208,
+      "dpr": 1.5,
+      "progress": 0.2716049382716049
+    },
+    "offscreen": {
+      "width": 510,
+      "height": 510,
+      "frames": 3,
+      "drawCalls": 1,
+      "triangles": 2208,
+      "dpr": 1.5,
+      "progress": 1
+    },
+    "contextLostFallback": true,
+    "pageErrors": []
+  },
+  "mobile": {
+    "mode": "fallback",
+    "canvases": 0,
+    "fallbackOpacity": "1"
+  },
+  "reduced": {
+    "mode": "fallback",
+    "canvases": 0,
+    "fallbackOpacity": "1"
+  },
+  "saveData": {
+    "mode": "fallback",
+    "canvases": 0,
+    "fallbackOpacity": "1"
+  },
+  "lowMemory": {
+    "mode": "fallback",
+    "canvases": 0,
+    "fallbackOpacity": "1"
+  },
+  "noWebGL": {
+    "mode": "fallback",
+    "canvases": 0
+  }
+}

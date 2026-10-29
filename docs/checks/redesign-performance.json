@@ -1,0 +1,170 @@
+{
+  "1440x900-firstScroll": {
+    "frameCount": 160,
+    "meanFrame": 17.736250000004656,
+    "p95Frame": 23.59999999962747,
+    "longTasks": [],
+    "pinCount": 2,
+    "metrics": {
+      "cls": 0,
+      "lcp": 344
+    },
+    "resources": [
+      {
+        "name": "turbopack-3-ry682tkyiqk.js",
+        "encodedBytes": 3940
+      },
+      {
+        "name": "0i46y6vlt4sc3.js",
+        "encodedBytes": 48672
+      },
+      {
+        "name": "20box33a0_n53.js",
+        "encodedBytes": 71926
+      },
+      {
+        "name": "0pa8_jf_87g68.js",
+        "encodedBytes": 214
+      },
+      {
+        "name": "1tq6ppe__m8m-.js",
+        "encodedBytes": 3602
+      },
+      {
+        "name": "2syo7nrlj44kf.js",
+        "encodedBytes": 88591
+      },
+      {
+        "name": "1lo8iuclf8czb.js",
+        "encodedBytes": 2066
+      },
+      {
+        "name": "0qim1xdlnxjks.js",
+        "encodedBytes": 185207
+      }
+    ],
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  },
+  "1440x900-warmScroll": {
+    "frameCount": 160,
+    "meanFrame": 17.09625000000233,
+    "p95Frame": 21.199999999254942,
+    "longTasks": [],
+    "pinCount": 2,
+    "metrics": {
+      "cls": 0,
+      "lcp": 344
+    },
+    "resources": [
+      {
+        "name": "turbopack-3-ry682tkyiqk.js",
+        "encodedBytes": 3940
+      },
+      {
+        "name": "0i46y6vlt4sc3.js",
+        "encodedBytes": 48672
+      },
+      {
+        "name": "20box33a0_n53.js",
+        "encodedBytes": 71926
+      },
+      {
+        "name": "0pa8_jf_87g68.js",
+        "encodedBytes": 214
+      },
+      {
+        "name": "1tq6ppe__m8m-.js",
+        "encodedBytes": 3602
+      },
+      {
+        "name": "2syo7nrlj44kf.js",
+        "encodedBytes": 88591
+      },
+      {
+        "name": "1lo8iuclf8czb.js",
+        "encodedBytes": 2066
+      },
+      {
+        "name": "0qim1xdlnxjks.js",
+        "encodedBytes": 185207
+      }
+    ],
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  },
+  "390x900-firstScroll": {
+    "frameCount": 160,
+    "meanFrame": 16.61624999999767,
+    "p95Frame": 17.09999999962747,
+    "longTasks": [],
+    "pinCount": 0,
+    "metrics": {
+      "cls": 0,
+      "lcp": 240
+    },
+    "resources": [
+      {
+        "name": "20box33a0_n53.js",
+        "encodedBytes": 71926
+      },
+      {
+        "name": "0i46y6vlt4sc3.js",
+        "encodedBytes": 48672
+      },
+      {
+        "name": "turbopack-3-ry682tkyiqk.js",
+        "encodedBytes": 3940
+      },
+      {
+        "name": "1tq6ppe__m8m-.js",
+        "encodedBytes": 3602
+      },
+      {
+        "name": "0pa8_jf_87g68.js",
+        "encodedBytes": 214
+      },
+      {
+        "name": "2syo7nrlj44kf.js",
+        "encodedBytes": 88591
+      }
+    ],
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  },
+  "390x900-warmScroll": {
+    "frameCount": 160,
+    "meanFrame": 16.60250000000233,
+    "p95Frame": 17,
+    "longTasks": [],
+    "pinCount": 0,
+    "metrics": {
+      "cls": 0,
+      "lcp": 240
+    },
+    "resources": [
+      {
+        "name": "20box33a0_n53.js",
+        "encodedBytes": 71926
+      },
+      {
+        "name": "0i46y6vlt4sc3.js",
+        "encodedBytes": 48672
+      },
+      {
+        "name": "turbopack-3-ry682tkyiqk.js",
+        "encodedBytes": 3940
+      },
+      {
+        "name": "1tq6ppe__m8m-.js",
+        "encodedBytes": 3602
+      },
+      {
+        "name": "0pa8_jf_87g68.js",
+        "encodedBytes": 214
+      },
+      {
+        "name": "2syo7nrlj44kf.js",
+        "encodedBytes": 88591
+      }
+    ],
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  }
+}

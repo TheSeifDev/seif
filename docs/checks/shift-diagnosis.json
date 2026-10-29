@@ -1,0 +1,125 @@
+{
+  "initial": [],
+  "shifts": [
+    {
+      "value": 0.6123456790123457,
+      "time": 2700.800000000745,
+      "y": 1893,
+      "sources": [
+        {
+          "node": "journey-stage relative grid min-w-0 gap-5 data-[mode=desktop]:block data-[mode=desktop]:h-[min(620px,_calc(100vh_-_140px))] data-[mode=desktop]:min-h-0 data-[mode=desktop]:overflow-clip",
+          "previous": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "current": {
+            "x": 80,
+            "y": 100,
+            "width": 1280,
+            "height": 620,
+            "top": 100,
+            "right": 1360,
+            "bottom": 720,
+            "left": 80
+          }
+        }
+      ]
+    },
+    {
+      "value": 0.6123456790123457,
+      "time": 3083.4000000003725,
+      "y": 3344,
+      "sources": [
+        {
+          "node": "journey-stage relative grid min-w-0 gap-5 data-[mode=desktop]:block data-[mode=desktop]:h-[min(620px,_calc(100vh_-_140px))] data-[mode=desktop]:min-h-0 data-[mode=desktop]:overflow-clip",
+          "previous": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "current": {
+            "x": 80,
+            "y": 6,
+            "width": 1280,
+            "height": 620,
+            "top": 6,
+            "right": 1360,
+            "bottom": 626,
+            "left": 80
+          }
+        }
+      ]
+    },
+    {
+      "value": 0.6439506172839506,
+      "time": 3336.9000000003725,
+      "y": 4291,
+      "sources": [
+        {
+          "node": "featured-viewport relative min-w-0 overflow-visible lg:min-h-[min(650px,calc(100svh_-_140px))] data-[motion=enhanced]:overflow-clip",
+          "previous": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "current": {
+            "x": 80,
+            "y": 100.21875,
+            "width": 1280,
+            "height": 652,
+            "top": 100.21875,
+            "right": 1360,
+            "bottom": 752.21875,
+            "left": 80
+          }
+        }
+      ]
+    },
+    {
+      "value": 0.6419753086419753,
+      "time": 4036.5999999996275,
+      "y": 6878,
+      "sources": [
+        {
+          "node": "featured-viewport relative min-w-0 overflow-visible lg:min-h-[min(650px,calc(100svh_-_140px))] data-[motion=enhanced]:overflow-clip",
+          "previous": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "current": {
+            "x": 80,
+            "y": 0,
+            "width": 1280,
+            "height": 650.21875,
+            "top": 0,
+            "right": 1360,
+            "bottom": 650.21875,
+            "left": 80
+          }
+        }
+      ]
+    }
+  ]
+}
