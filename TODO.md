@@ -1,22 +1,23 @@
 # Portfolio outcomes
 
-## Public Home and design system — current Phase 2
-- [x] Build the complete English Home in order Navbar, Hero, About, Stats, Featured Projects, More Projects, Skills & Technologies, Process, Contact, Footer. Seif Ayman / TheSeifDev / Professor identity and actual portrait; only 5+ years verified, other projects/statistics clearly labeled placeholders, no invented achievements.
-- [x] Original Japanese minimal/cinematic environmental assets and natural portrait, no flat screenshots or unrelated stock. Reusable design tokens/components, strong typography, dark scenes/light rounded sections.
-- [x] Scroll-linked Light Blue→Crimson accents with restrained blending and NO portrait recolor; Contact stays Light Blue. GSAP cleanup and reduced-motion support; natural scrolling, mobile responsive, keyboard/semantic/contrast accessible.
-- [x] Preserve current repository including Neon additions. Keep page runnable, run actual build/typecheck, record actual results and changed files; no deployment/live integration claims.
+## Home correction — user feedback + CV (2026-10-29)
+- [x] Use Tailwind utilities in React components for all layout/responsive/presentation; no separate portfolio/work/skills stylesheets or custom component CSS rules. globals.css contains Tailwind/shadcn setup and theme tokens only; semantic classes are GSAP hooks.
+- [x] One responsive container system and aligned navbar/Hero/light shells/cards/footer; consistent outer margins/radii; no accidental overflow, clipping or arbitrary shrunken page. Verify desktop/tablet/mobile.
+- [x] Choreographed GSAP Hero entrance, staggered reversible reveals, scroll-linked section transitions, restrained landscape/moon/Torii/atmosphere parallax, refined project hover/reveals, connected Process progress and Contact conclusion. Cleanup on unmount/routes and reduced motion; no inaccessible content, flicker or layout shifts.
+- [x] Actual progress-bound Light Blue ↔ Crimson identity using shared vars for text/borders/icons/glows/environmental light; subtle gradient blend, upward reversal, responsive endpoints, no timer/random changes/global portrait filter. Contact local Light Blue.
+- [x] Editorial Journey typography/groups/proportions/technical details using CV facts and only confirmed counts; no fabricated achievements.
+- [x] Five real CV projects RAFIQ AI Assistant, IT-SUM Platform, PHANTOMS Platform, Nabd Masr, Personal Portfolio; concise faithful descriptions/technology tags; verified links only; actual captured imagery or explicitly labeled editorial visual, never fake screenshot/metrics/testimonials.
+- [x] More Projects coherent responsive grid or usable mouse/touch/keyboard rail without harmful forced horizontal scrolling; actual interaction checks.
+- [x] Skills from all CV categories in meaningful groups, three seamless marquee rows left/right/left with recognizable react-icons, restrained motion, hover/focus/pause and reduced-motion static; no proficiency levels/percentages.
+- [x] Discover/Design/Build/Ship connected process and purposeful progress/reveal instead of unrelated generic cards.
+- [x] Contact/footer improved composition, layering, CTA, accurate CV contact/professional content; keep real portrait natural and readable contrast.
+- [x] Preserve Next/TypeScript/Tailwind/shadcn/GSAP/Neon setup, inspect and repair actual source, run production build/typecheck, responsive/marquee/upward identity/cleanup/reduced-motion checks and report actual results, changed files and verified limitations. No deployment claim.
 
 ## Public content pages — later
-- [ ] /about /projects /projects/[slug] /blog /blog/[slug] /contact; route-specific metadata, proper404, English-first extensible RTL later. No public draft data/search/metadata/sitemap leaks.
+- [ ] /about /projects /projects/[slug] /blog /blog/[slug] /contact, English-first extensible RTL. Details/education/experience/CV content curated appropriately, draft/public boundary.
 
-## Persistent content, private assets and owner dashboard — later
-- [ ] Neon/Drizzle domain schema/migrations/server validation, Better Auth GitHub OAuth stable numeric owner allowlist, no registration; server authz for every protected route/action/API, credentials via env not chat/client/logs/Git.
-- [ ] Manage projects/details/featured/order/technologies/articles/profile/home/socials/CV/approved assets/integrations/settings with loading/error/empty states and destructive confirmations. New project/article draft; authenticated previews, explicit publish/unpublish, confirmed permanent delete distinct from unpublish.
-- [ ] Private draft content AND assets access-controlled. Actual object/variant deletion plus database deletion with partial failure recovery; never claim file delete from metadata removal. Explain cost before storage/paid service selection.
-
-## Controlled integrations — later
-- [ ] GitHub manual import/sync + manual projects; root preview extension discovery, editable reviewed drafts, do not overwrite curated content or automatically publish repositories, server-only separate credentials.
-- [ ] Instagram Creator read profile/media/supported insights, status/last sync, expiry/revocation/errors/reconnect; server encryption/snapshots/cache; no calls every public request, no publishing/comments/write or automatic public media approval. Verify actual Meta flow/permissions/account/media eligibility.
-
-## Vercel readiness — later
-- [ ] Validate chosen driver/runtime/private storage/cron on actual Vercel plan; environment site URL/callbacks, no domain purchase assumption. Production QA and deployment reported only after verification.
+## Private dashboard / integrations / deployment — later
+- [ ] Neon/Drizzle/migrations/server validation; Better Auth GitHub stable numeric owner allowlist, no registration; server authorization on every protected route/action/API.
+- [ ] Draft by default, authenticated previews/edit, explicit publish/unpublish, confirmed permanent deletion including bytes/variants with partial failure recovery; draft assets private, not obscure public URLs.
+- [ ] Manual reviewed GitHub imports/sync without overwriting curation; Instagram Creator read account/media/supported Insights only, server encryption/snapshots/status/reconnect and verified permissions; no automatic publication.
+- [ ] Validate Vercel runtime/storage/cron on actual plan, env origins/callbacks, explain cost before services; no purchases/domain assumption, deployment only after actual verification.

@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   ...(metadataBase ? { metadataBase, alternates: { canonical: "/" } } : {}),
   title: "Seif Ayman — Senior Full Stack Developer",
   description:
-    "Seif Ayman, TheSeifDev. Senior Full Stack Software Developer with 5+ years of experience. Thoughtful interfaces, reliable systems, and products built with purpose.",
+    "Seif Ayman, TheSeifDev. Senior Full Stack Software Developer with 5+ years of experience. Next.js, NestJS, PostgreSQL, AI/RAG, real-time systems, and technical leadership.",
   openGraph: {
     title: "Seif Ayman — Code. Craft. Purpose.",
     description:
-      "Senior Full Stack Software Developer. From idea to implementation, with care in every detail.",
+      "Senior Full Stack Software Developer. Production-grade web, desktop, and AI/IoT products, from interface to architecture.",
     type: "website",
     siteName: "Seif Ayman",
     ...(metadataBase ? { url: "/" } : {}),
@@ -41,8 +41,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth scroll-pt-[110px] motion-reduce:scroll-auto`}
+    >
+      <body className="bg-[#080b0d] font-sans antialiased selection:bg-[#49baf1] selection:text-[#080b0d] [color-scheme:dark]">
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,10 @@
+{
+  "wraps": [
+    true,
+    true,
+    true
+  ],
+  "sourceFingerprint": "f8c9e513ac31610072ef62d3bfa704a4814f23debb1da2fbb637e671befe1c48",
+  "observation": "Observed by the completed desktop branch of the 2026-10-29 16:51:42 browser run: all seam/direction/pause/full-loop/reduced-motion assertions passed and it printed 1440px layout and interactions passed before a later stale mobile-menu locator timed out.",
+  "test": "scripts/check-tailwind-browser.py; default path waits a full real loop"
+}
