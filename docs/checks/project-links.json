@@ -1,0 +1,51 @@
+{
+  "rafiq": {
+    "url": "https://phantomsio.vercel.app/rafiq",
+    "final_url": "https://phantomsio.vercel.app/rafiq",
+    "status": 200,
+    "title": "PHANTOMS | RAFIQ AI Ecosystem",
+    "verified": true,
+    "image": "/images/projects/rafiq.webp",
+    "image_label": "PUBLIC SITE CAPTURE",
+    "browser_title": "PHANTOMS | RAFIQ AI Ecosystem"
+  },
+  "itsum": {
+    "url": "https://it-sum-seven.vercel.app",
+    "final_url": "https://it-sum-seven.vercel.app/",
+    "status": 200,
+    "title": "IT Summarize - Content Hub for IT Students",
+    "verified": true,
+    "image": "/images/projects/itsum.webp",
+    "image_label": "PUBLIC SITE CAPTURE",
+    "browser_title": "IT Summarize - Content Hub for IT Students"
+  },
+  "phantoms": {
+    "url": "https://phantomsio.vercel.app",
+    "final_url": "https://phantomsio.vercel.app/",
+    "status": 200,
+    "title": "PHANTOMS | RAFIQ AI Ecosystem",
+    "verified": true,
+    "image": "/images/projects/phantoms.webp",
+    "image_label": "PUBLIC SITE CAPTURE",
+    "browser_title": "PHANTOMS | RAFIQ AI Ecosystem"
+  },
+  "nabd": {
+    "url": "https://nabdmasr.vercel.app",
+    "final_url": "https://nabdmasr.vercel.app/restricted?from=%2F",
+    "status": 200,
+    "title": "NabdMasr",
+    "verified": false,
+    "browser_title": "NabdMasr",
+    "availability": "Restricted public preview"
+  },
+  "portfolio": {
+    "url": "https://seifdev.vercel.app",
+    "final_url": "https://seifdev.vercel.app/",
+    "status": 200,
+    "title": "Seif Ayman",
+    "verified": true,
+    "image": "/images/projects/portfolio.webp",
+    "image_label": "PUBLIC SITE CAPTURE",
+    "browser_title": "Seif Ayman"
+  }
+}

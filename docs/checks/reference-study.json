@@ -1,0 +1,402 @@
+{
+  "1440": {
+    "layout": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 12850,
+      "pins": [
+        {
+          "height": 3060,
+          "child": "process__pin"
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "top": 0,
+          "height": 900
+        },
+        {
+          "id": "manifesto",
+          "top": 900,
+          "height": 832
+        },
+        {
+          "id": "about",
+          "top": 1732,
+          "height": 1075
+        },
+        {
+          "id": "services",
+          "top": 2807,
+          "height": 901
+        },
+        {
+          "id": "process",
+          "top": 3709,
+          "height": 3061
+        },
+        {
+          "id": "work",
+          "top": 6770,
+          "height": 1021
+        },
+        {
+          "id": "wasla",
+          "top": 7791,
+          "height": 874
+        },
+        {
+          "id": "journey",
+          "top": 8665,
+          "height": 1111
+        },
+        {
+          "id": "stack",
+          "top": 9776,
+          "height": 1231
+        },
+        {
+          "id": "contact",
+          "top": 11007,
+          "height": 1728
+        }
+      ]
+    },
+    "processStates": [
+      {
+        "y": 3709,
+        "pinPosition": "static",
+        "top": 1,
+        "steps": [
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.18, 0, 0, 1.18, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 4780,
+        "pinPosition": "fixed",
+        "top": -0.0,
+        "steps": [
+          {
+            "opacity": "0.482572",
+            "numberTransform": "matrix(0.359543, 0, 0, 0.359543, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.967428",
+            "numberTransform": "matrix(1.17046, 0, 0, 1.17046, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 6005,
+        "pinPosition": "static",
+        "top": -135,
+        "steps": [
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.455833",
+            "numberTransform": "matrix(0.352164, 0, 0, 0.352164, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.974947",
+            "numberTransform": "matrix(1.17302, 0, 0, 1.17302, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 6770,
+        "pinPosition": "static",
+        "top": -900,
+        "steps": [
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "0.45",
+            "numberTransform": "matrix(0.35, 0, 0, 0.35, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.18, 0, 0, 1.18, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      }
+    ]
+  },
+  "390": {
+    "layout": {
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 15432,
+      "pins": [],
+      "sections": [
+        {
+          "id": "hero",
+          "top": 0,
+          "height": 1069
+        },
+        {
+          "id": "manifesto",
+          "top": 1069,
+          "height": 700
+        },
+        {
+          "id": "about",
+          "top": 1769,
+          "height": 1752
+        },
+        {
+          "id": "services",
+          "top": 3521,
+          "height": 958
+        },
+        {
+          "id": "process",
+          "top": 4478,
+          "height": 1953
+        },
+        {
+          "id": "work",
+          "top": 6431,
+          "height": 1934
+        },
+        {
+          "id": "wasla",
+          "top": 8365,
+          "height": 966
+        },
+        {
+          "id": "journey",
+          "top": 9331,
+          "height": 1668
+        },
+        {
+          "id": "stack",
+          "top": 10999,
+          "height": 2263
+        },
+        {
+          "id": "contact",
+          "top": 13262,
+          "height": 2011
+        }
+      ]
+    },
+    "processStates": [
+      {
+        "y": 4478,
+        "pinPosition": "static",
+        "top": 1,
+        "steps": [
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.17925, 0, 0, 1.17925, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 5162,
+        "pinPosition": "static",
+        "top": -683,
+        "steps": [
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.00106, 0, 0, 1.00106, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.17848, 0, 0, 1.17848, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.17848, 0, 0, 1.17848, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 5943,
+        "pinPosition": "static",
+        "top": -1464,
+        "steps": [
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.00047, 0, 0, 1.00047, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1.00047, 0, 0, 1.00047, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      },
+      {
+        "y": 6431,
+        "pinPosition": "static",
+        "top": -1952,
+        "steps": [
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          },
+          {
+            "opacity": "1",
+            "numberTransform": "matrix(1, 0, 0, 1, 0, 0)"
+          }
+        ],
+        "serviceTransform": "none"
+      }
+    ]
+  },
+  "currentBaseline": {
+    "frameCount": 160,
+    "meanFrame": 46.351250000001166,
+    "p95Frame": 91.29999999981374,
+    "longTasks": [
+      69,
+      167,
+      142,
+      130,
+      95,
+      60,
+      53,
+      54,
+      283,
+      256,
+      76,
+      243,
+      50,
+      62,
+      52,
+      245
+    ],
+    "pinCount": 0,
+    "resources": [
+      {
+        "name": "0i46y6vlt4sc3.js",
+        "encodedBytes": 48672
+      },
+      {
+        "name": "turbopack-3-ry682tkyiqk.js",
+        "encodedBytes": 3940
+      },
+      {
+        "name": "20box33a0_n53.js",
+        "encodedBytes": 71926
+      },
+      {
+        "name": "1tq6ppe__m8m-.js",
+        "encodedBytes": 3602
+      },
+      {
+        "name": "2gmnch4s2m_v9.js",
+        "encodedBytes": 86907
+      }
+    ],
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+  }
+}

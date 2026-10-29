@@ -1,0 +1,8 @@
+{
+  "preview_command": "npm run start -- --hostname 0.0.0.0",
+  "preview_port": 3000,
+  "production_hydration": "data-motion=ready;skills=animated;mobile menu aria-expanded=true after click",
+  "development_observation": "HMR WebSocket handshake ERR_INVALID_HTTP_RESPONSE; React effects and menu did not hydrate on dev server during inspection",
+  "next_config_changed": false,
+  "external_deployment": false
+}

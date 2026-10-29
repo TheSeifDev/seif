@@ -1,0 +1,364 @@
+{
+  "errors": [],
+  "widths": {
+    "1440x900": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "pins": 2,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "631px 631px",
+      "headingWidth": 691.1875,
+      "heroHeight": 810,
+      "projects": 3,
+      "journeyBounds": {
+        "start": 1810,
+        "end": 3250,
+        "distance": 0
+      },
+      "journeyStates": [
+        {
+          "top": 100,
+          "panels": [
+            0,
+            620,
+            620
+          ]
+        },
+        {
+          "top": 100,
+          "panels": [
+            0,
+            389.438,
+            620
+          ]
+        },
+        {
+          "top": 100,
+          "panels": [
+            0,
+            0,
+            430.125
+          ]
+        },
+        {
+          "top": 100,
+          "panels": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "horizontalBounds": {
+        "start": 4216,
+        "end": 6776,
+        "distance": 2560
+      },
+      "horizontalTransforms": [
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": -1280,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": -2560,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ],
+      "focus": {
+        "rect": {
+          "x": 898.203125,
+          "y": 685.21875,
+          "width": 142.328125,
+          "height": 39,
+          "top": 685.21875,
+          "right": 1040.53125,
+          "bottom": 724.21875,
+          "left": 898.203125
+        },
+        "active": true
+      },
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 56.7736,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 10.8583,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    "1024x768": {
+      "width": 1024,
+      "scrollWidth": 1024,
+      "pins": 2,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "455px 455px",
+      "headingWidth": 501.109375,
+      "heroHeight": 691.1875,
+      "projects": 3,
+      "journeyBounds": {
+        "start": 1628,
+        "end": 2857,
+        "distance": 0
+      },
+      "journeyStates": [
+        {
+          "top": 99.84375,
+          "panels": [
+            0,
+            620,
+            620
+          ]
+        },
+        {
+          "top": 99.84375,
+          "panels": [
+            0,
+            389.612,
+            620
+          ]
+        },
+        {
+          "top": 99.84375,
+          "panels": [
+            0,
+            0,
+            430.475
+          ]
+        },
+        {
+          "top": 99.84375,
+          "panels": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "horizontalBounds": {
+        "start": 3791,
+        "end": 5647,
+        "distance": 1856
+      },
+      "horizontalTransforms": [
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": -928,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": -1856,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ],
+      "focus": {
+        "rect": {
+          "x": 648.5625,
+          "y": 663.0625,
+          "width": 142.328125,
+          "height": 39,
+          "top": 663.0625,
+          "right": 790.890625,
+          "bottom": 702.0625,
+          "left": 648.5625
+        },
+        "active": true
+      },
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 40.3825,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 7.70746,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    "768x900": {
+      "width": 768,
+      "scrollWidth": 768,
+      "pins": 0,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "704px",
+      "headingWidth": 704,
+      "heroHeight": 970,
+      "projects": 3,
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 56.3233,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 10.7722,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    "390x844": {
+      "width": 390,
+      "scrollWidth": 390,
+      "pins": 0,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "350px",
+      "headingWidth": 350,
+      "heroHeight": 850,
+      "projects": 3,
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 30.061,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 5.74445,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    "320x740": {
+      "width": 320,
+      "scrollWidth": 320,
+      "pins": 0,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "280px",
+      "headingWidth": 280,
+      "heroHeight": 850,
+      "projects": 3,
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 30.0548,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 5.73305,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    },
+    "1440x650": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "pins": 0,
+      "blue": "#49baf1",
+      "portraitFilter": "none",
+      "moreColumns": "631px 631px",
+      "headingWidth": 691.1875,
+      "heroHeight": 680,
+      "projects": 3,
+      "aboutText": [
+        {
+          "x": 0,
+          "y": 56.8788,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 10.9075,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        }
+      ]
+    }
+  },
+  "marqueeDirections": [
+    -28.334000000000003,
+    28.329999999999927,
+    -28.334000000000003
+  ],
+  "reducedMotion": {
+    "pins": 0,
+    "tracks": [
+      "none",
+      "none",
+      "none"
+    ],
+    "clones": [
+      "none",
+      "none",
+      "none"
+    ],
+    "overflow": 1440
+  }
+}

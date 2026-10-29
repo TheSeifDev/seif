@@ -1,0 +1,9 @@
+{
+  "firstMount": 8,
+  "afterUnmount": 0,
+  "remount": 8,
+  "reducedMotionTriggers": 0,
+  "reducedHoverTransform": "none",
+  "lastUnmount": 0,
+  "errors": []
+}
