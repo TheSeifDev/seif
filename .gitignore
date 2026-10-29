@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .neon
+
+# Local visual verification artifacts (not application assets)
+/docs/checks/*.png
+/scripts/__pycache__/
