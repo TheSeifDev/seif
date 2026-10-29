@@ -26,14 +26,21 @@
     },
     "keyboard_cursor_opacity": "0",
     "project_cursor": "project",
+    "featured_tone": "light",
     "scroll_cursor": "scroll-left",
     "keyboard_last_slide": {
-      "x": 272,
-      "y": 311.765625,
-      "width": 1080,
-      "height": 440
+      "x": 200,
+      "y": 281.765625,
+      "width": 1152,
+      "height": 500
     },
     "preview_cursor": "preview",
+    "card_spotlight": {
+      "x": "202.7px",
+      "y": "371.6px",
+      "tone": "dark",
+      "after_leave": ""
+    },
     "journey": {
       "forward": [
         "01",
@@ -65,7 +72,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 665.140625,
+        "bottom": 665.1875,
         "viewport": 760
       }
     },
@@ -74,7 +81,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 674.9375,
+        "bottom": 674.5625,
         "viewport": 800
       }
     },
@@ -83,7 +90,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 642.875,
+        "bottom": 642.53125,
         "viewport": 768
       }
     },
@@ -92,7 +99,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 822.765625,
+        "bottom": 823.3125,
         "viewport": 1080
       }
     },

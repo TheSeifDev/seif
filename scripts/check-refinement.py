@@ -121,8 +121,12 @@ with sync_playwright() as p:
     page.wait_for_timeout(150)
     desktop["project_cursor"] = mode(page)
     if desktop["project_cursor"] != "project": fail("Explicit project link looks like a generic link")
-    rect = page.locator("[data-slide][data-current]").bounding_box()
-    page.mouse.move(rect["x"] + rect["width"] * .7, rect["y"] + rect["height"] * .43)
+    page.mouse.move(*(lambda b: (b["x"] + b["width"] * .5, b["y"] + 20))(page.locator("#work h2").bounding_box()))
+    page.wait_for_timeout(100)
+    desktop["featured_tone"] = page.locator("[data-cursor-follower]").get_attribute("data-tone")
+    if desktop["featured_tone"] != "light": fail("Spotlight did not adapt to the white Featured surface")
+    rect = page.locator("[data-slide][data-current] [data-featured-summary]").bounding_box()
+    page.mouse.move(rect["x"] + rect["width"] * .5, rect["y"] + rect["height"] * .5)
     page.wait_for_timeout(100)
     desktop["scroll_cursor"] = mode(page)
     if not desktop["scroll_cursor"].startswith("scroll-"): fail("Horizontal scroll region cue missing")
@@ -133,10 +137,22 @@ with sync_playwright() as p:
     if desktop["keyboard_last_slide"]["x"] < -2 or desktop["keyboard_last_slide"]["x"] + desktop["keyboard_last_slide"]["width"] > 1441: fail("Keyboard focus left final project off-screen")
 
     scroll(page, position(page, "#more-projects") + 100)
-    page.locator("[data-more-card] article > div > div p").first.hover()
+    page.locator("[data-more-card] [data-card-summary]").first.hover()
     page.wait_for_timeout(100)
     desktop["preview_cursor"] = mode(page)
     if desktop["preview_cursor"] != "preview": fail("Non-clickable card surface has ambiguous cursor feedback")
+    card = page.locator("[data-more-card] article").first
+    desktop["card_spotlight"] = {
+        "x": card.evaluate("e=>e.style.getPropertyValue('--spot-x')"),
+        "y": card.evaluate("e=>e.style.getPropertyValue('--spot-y')"),
+        "tone": page.locator("[data-cursor-follower]").get_attribute("data-tone"),
+    }
+    if not desktop["card_spotlight"]["x"] or not desktop["card_spotlight"]["y"]: fail("Card spotlight coordinates missing")
+    if desktop["card_spotlight"]["tone"] != "dark": fail("Spotlight tone wrong on dark cards")
+    page.mouse.move(8, 140)
+    page.wait_for_timeout(100)
+    desktop["card_spotlight"]["after_leave"] = card.evaluate("e=>e.style.getPropertyValue('--spot-x')")
+    if desktop["card_spotlight"]["after_leave"]: fail("Card spotlight coordinates not released")
 
     targets = page.locator("[data-chapter]").evaluate_all("es=>es.map(e=>e.getBoundingClientRect().top+scrollY-innerHeight*.35+4)")
     forward, backward = [], []

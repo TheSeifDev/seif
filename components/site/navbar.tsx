@@ -61,7 +61,7 @@ export function Navbar() {
           className={cn(
             "pointer-events-auto flex h-14 items-center rounded-full px-4 transition-colors duration-300",
             scrolled || open
-              ? "bg-night/70 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+              ? "bg-night/85 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl"
               : "bg-transparent",
           )}
         >
@@ -70,7 +70,7 @@ export function Navbar() {
 
         <nav
           aria-label="Primary"
-          className="pointer-events-auto hidden h-14 items-center rounded-full border border-white/10 bg-night/60 px-2 backdrop-blur-xl lg:flex"
+          className="pointer-events-auto hidden h-14 items-center rounded-full border border-white/10 bg-night/85 px-2 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.55)] backdrop-blur-xl lg:flex"
         >
           <ul className="flex items-center">
             {navigation.map((item) => {
@@ -104,7 +104,7 @@ export function Navbar() {
         <div className="pointer-events-auto flex items-center gap-2">
           <Link
             href="/contact"
-            className="hidden h-11 items-center gap-2 rounded-full bg-snow pl-5 pr-1.5 text-[13px] font-semibold text-night transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky sm:inline-flex"
+            className="hidden h-11 items-center gap-2 rounded-full bg-snow pl-5 pr-1.5 text-[13px] font-semibold text-night shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)] ring-1 ring-ink/[0.06] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky sm:inline-flex"
           >
             Let&apos;s talk
             <span className="inline-flex size-8 items-center justify-center rounded-full bg-night text-snow">
@@ -118,7 +118,7 @@ export function Navbar() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-night/70 text-snow backdrop-blur-xl transition-colors hover:border-sky/50 focus-visible:outline-2 focus-visible:outline-sky lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-night/85 text-snow backdrop-blur-xl transition-colors hover:border-sky/50 focus-visible:outline-2 focus-visible:outline-sky lg:hidden"
           >
             {open ? (
               <X className="size-5" aria-hidden="true" />
