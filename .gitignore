@@ -1,0 +1,27 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Next.js output
+/.next/
+/out/
+/build/
+
+# Local environment; retain the safe example template
+.env*
+!.env.example
+
+# Logs, test output and local-only browser captures
+*.log
+/coverage/
+/playwright-report/
+/test-results/
+/docs/checks/shots/
+
+# TypeScript and tool caches
+*.tsbuildinfo
+/.turbo/
+
+# Operating system
+.DS_Store

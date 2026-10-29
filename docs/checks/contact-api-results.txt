@@ -1,0 +1,10 @@
+
+Contact API checks
+------------------
+PASS  DATABASE_URL unset → 503 not_configured  {"status":"not_configured"}
+PASS  invalid fields → 400 with fieldErrors  {"status":"invalid","fieldErrors":{"name":["Please enter at least 2 characters."],"email":["Please enter a valid email address."],"message":["Please share at least 20 characters."]}}
+PASS  honeypot filled → 400 rejected  {"status":"rejected"}
+PASS  too-fast startedAt → 400 rejected  {"status":"rejected"}
+PASS  local DB + no Resend → 201 saved/not_configured  {"response":{"status":"saved","notification":"not_configured","id":"4dc80c15-302c-4e53-8292-049822458972"},"row":{"id":"4dc80c15-302c-4e53-8292-049822458972","notification_status":"not_configured","notification_error":null}}
+PASS  invalid Resend key → 201 saved/failed and row preserved  {"response":{"status":"saved","notification":"failed","id":"27de2cbf-ee12-4287-805d-d2b2dce78195"},"row":{"id":"27de2cbf-ee12-4287-805d-d2b2dce78195","notification_status":"failed","notification_error":"HTTP 401: validation_error"}}
+PASS  same IP → 429 after repeated sends  201, 201, 201, 429

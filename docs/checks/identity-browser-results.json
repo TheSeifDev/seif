@@ -1,0 +1,1893 @@
+{
+  "desktop": {
+    "1440x900": {
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-overlap",
+          "identity-sequence",
+          "journey-stack-1",
+          "journey-stack-2",
+          "journey-stack-3",
+          "journey-rail",
+          "featured-horizontal",
+          "more-cards",
+          "process-pin",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 3
+      },
+      "box": {
+        "top": 2317.390625,
+        "spacer": 3780,
+        "pinH": 900,
+        "journey": 6097.390625,
+        "vh": 900
+      },
+      "after_release_pin_top": -539.609375,
+      "down": {
+        "0.0": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 40)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 40)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 1,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.08": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0.596951)",
+            "matrix(1, 0, 0, 1, 0, 23.7125)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 1,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.18": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0.116299)",
+            "matrix(1, 0, 0, 1, 0, 13.3549)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 1,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.3": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 1,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.4": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 38.2373%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 20.8592)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 1,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.5": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 122.918)",
+            "o": "0.936",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -113.437)",
+            "o": "0.7254",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 0.0343%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 5.21448)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0.4",
+          "disc": "matrix(1, 0, 0, 1, 0, 201.459)",
+          "rise": "0.0408",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.041",
+            "exit": "0.000",
+            "frames": 5,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.62": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "1",
+          "next": "0",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, 76.9756)",
+          "rise": "0.6335",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.634",
+            "exit": "0.000",
+            "frames": 12,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.77": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "1",
+          "next": "0",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, 0)",
+          "rise": "1.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.000",
+            "frames": 14,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.86": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -4.9763)",
+            "o": "0.921",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -3.2411)",
+            "o": "0.9486",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 113.224)",
+            "o": "0.8746",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -129.029)",
+            "o": "0.8746",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -0.9895)",
+            "o": "0.9843",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0.2491",
+          "caption": "0.2491",
+          "next": "0.0009",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, -8.01592)",
+          "rise": "1.0000",
+          "exit": "0.0902",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.090",
+            "frames": 19,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.95": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -33.7917)",
+            "o": "0.4636",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "1",
+          "moonWrap": "0.4167",
+          "disc": "matrix(1, 0, 0, 1, 0, -49.9834)",
+          "rise": "1.0000",
+          "exit": "0.5625",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.562",
+            "frames": 25,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "1.0": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -63)",
+            "o": "0",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "1",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, -88.8594)",
+          "rise": "1.0000",
+          "exit": "1.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "1.000",
+            "frames": 32,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        }
+      },
+      "up": {
+        "1.0": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -63)",
+            "o": "0",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "1",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, -88.8594)",
+          "rise": "1.0000",
+          "exit": "1.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "1.000",
+            "frames": 32,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.95": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -33.7917)",
+            "o": "0.4636",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "1",
+          "moonWrap": "0.4167",
+          "disc": "matrix(1, 0, 0, 1, 0, -49.9834)",
+          "rise": "1.0000",
+          "exit": "0.5625",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.563",
+            "frames": 38,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.86": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -4.9763)",
+            "o": "0.921",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -3.2411)",
+            "o": "0.9486",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 113.224)",
+            "o": "0.8746",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -129.029)",
+            "o": "0.8746",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, -0.9895)",
+            "o": "0.9843",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "0.2491",
+          "caption": "0.2491",
+          "next": "0.0009",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, -8.01592)",
+          "rise": "1.0000",
+          "exit": "0.0902",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.090",
+            "frames": 44,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.77": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "1",
+          "next": "0",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, 0)",
+          "rise": "1.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "1.000",
+            "exit": "0.000",
+            "frames": 46,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.62": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "o": "1",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "1",
+          "next": "0",
+          "moonWrap": "1",
+          "disc": "matrix(1, 0, 0, 1, 0, 76.9756)",
+          "rise": "0.6335",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.634",
+            "exit": "0.000",
+            "frames": 53,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.5": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 122.918)",
+            "o": "0.936",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -113.437)",
+            "o": "0.7254",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 0.0343%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 5.21448)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0.4",
+          "disc": "matrix(1, 0, 0, 1, 0, 201.459)",
+          "rise": "0.0408",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.041",
+            "exit": "0.000",
+            "frames": 59,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.4": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 38.2373%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 20.8592)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 61,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.3": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 61,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.18": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0)",
+            "matrix(1, 0, 0, 1, 0, 0.116299)",
+            "matrix(1, 0, 0, 1, 0, 13.3549)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 61,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.08": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 0.596951)",
+            "matrix(1, 0, 0, 1, 0, 23.7125)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)"
+          ],
+          "kicker": "1",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 61,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        },
+        "0.0": {
+          "sequence": "pinned",
+          "halfA": {
+            "t": "matrix(1, 0, 0, 1, 0, 40)",
+            "o": "1",
+            "clip": "none"
+          },
+          "halfB": {
+            "t": "matrix(1, 0, 0, 1, 0, 40)",
+            "o": "1",
+            "clip": "none"
+          },
+          "copyA": {
+            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "o": "0",
+            "clip": "none"
+          },
+          "copyB": {
+            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "o": "0",
+            "clip": "none"
+          },
+          "portrait": {
+            "t": "matrix(1, 0, 0, 1, 0, 0)",
+            "o": "1",
+            "clip": "inset(0% 50%)"
+          },
+          "img": {
+            "t": "matrix(1, 0, 0, 1, 0, 38.0156)",
+            "o": "1",
+            "clip": "none"
+          },
+          "lines": [
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)",
+            "matrix(1, 0, 0, 1, 0, 110.95)"
+          ],
+          "kicker": "0",
+          "caption": "0",
+          "next": "0",
+          "moonWrap": "0",
+          "disc": "matrix(1, 0, 0, 1, 0, 210.031)",
+          "rise": "0.0000",
+          "exit": "0.0000",
+          "renderer": "webgl",
+          "canvas": {
+            "rise": "0.000",
+            "exit": "0.000",
+            "frames": 61,
+            "dpr": "1"
+          },
+          "pinTop": 0.390625
+        }
+      },
+      "reverse_mismatches": []
+    },
+    "1920x1080": {
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-overlap",
+          "identity-sequence",
+          "journey-stack-1",
+          "journey-stack-2",
+          "journey-stack-3",
+          "journey-rail",
+          "featured-horizontal",
+          "more-cards",
+          "process-pin",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 3
+      },
+      "box": {
+        "top": 2329.421875,
+        "spacer": 4536,
+        "pinH": 1080,
+        "journey": 6865.421875,
+        "vh": 1080
+      }
+    },
+    "1280x800": {
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-overlap",
+          "identity-sequence",
+          "journey-stack-1",
+          "journey-stack-2",
+          "journey-stack-3",
+          "journey-rail",
+          "featured-horizontal",
+          "more-cards",
+          "process-pin",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 3
+      },
+      "box": {
+        "top": 2309.703125,
+        "spacer": 3360,
+        "pinH": 800,
+        "journey": 5669.703125,
+        "vh": 800
+      }
+    },
+    "1024x768": {
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-overlap",
+          "identity-sequence",
+          "journey-stack-1",
+          "journey-stack-2",
+          "journey-stack-3",
+          "journey-rail",
+          "featured-horizontal",
+          "more-cards",
+          "process-pin",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 3
+      },
+      "box": {
+        "top": 2269.640625,
+        "spacer": 3226,
+        "pinH": 768,
+        "journey": 5495.640625,
+        "vh": 768
+      }
+    }
+  },
+  "geometry": {
+    "1440x900": {
+      "vw": 1440,
+      "vh": 900,
+      "halfA": {
+        "l": 57.59375,
+        "t": 136.390625,
+        "r": 532.632568359375,
+        "b": 221.63751220703125,
+        "w": 475.038818359375,
+        "h": 85.24688720703125
+      },
+      "halfB": {
+        "l": 1063.1416015625,
+        "t": 707.1437377929688,
+        "r": 1382.40625,
+        "b": 792.390625,
+        "w": 319.2646484375,
+        "h": 85.24688720703125
+      },
+      "copyA": {
+        "l": 57.59375,
+        "t": 257.51702880859375,
+        "r": 393.59375,
+        "b": 458.51702880859375,
+        "w": 336,
+        "h": 201
+      },
+      "copyB": {
+        "l": 1046.40625,
+        "t": 470.26422119140625,
+        "r": 1382.40625,
+        "b": 671.2642211914062,
+        "w": 336,
+        "h": 201
+      },
+      "figure": {
+        "l": 482.40625,
+        "t": 266.796875,
+        "r": 957.59375,
+        "b": 900.390625,
+        "w": 475.1875,
+        "h": 633.59375
+      },
+      "moon": {
+        "cx": 734.25,
+        "cy": 377.671875,
+        "r": 173.6796875
+      },
+      "img": {
+        "natural": [
+          489,
+          652
+        ],
+        "box": {
+          "l": 482.40625,
+          "t": 266.796875,
+          "r": 957.59375,
+          "b": 900.390625,
+          "w": 475.1875,
+          "h": 633.59375
+        },
+        "fit": "contain",
+        "filter": "none",
+        "mix": "normal"
+      },
+      "fontA": 115.2
+    },
+    "1920x1080": {
+      "vw": 1920,
+      "vh": 1080,
+      "halfA": {
+        "l": 76.796875,
+        "t": 162.421875,
+        "r": 649.6702880859375,
+        "b": 265.22998046875,
+        "w": 572.8734130859375,
+        "h": 102.80810546875
+      },
+      "halfB": {
+        "l": 1458.1878662109375,
+        "t": 848.02001953125,
+        "r": 1843.203125,
+        "b": 950.828125,
+        "w": 385.0152587890625,
+        "h": 102.80810546875
+      },
+      "copyA": {
+        "l": 76.796875,
+        "t": 301.3218688964844,
+        "r": 412.796875,
+        "b": 502.3218688964844,
+        "w": 336,
+        "h": 201
+      },
+      "copyB": {
+        "l": 1507.203125,
+        "t": 610.9281005859375,
+        "r": 1843.203125,
+        "b": 811.9281005859375,
+        "w": 336,
+        "h": 201
+      },
+      "figure": {
+        "l": 643.203125,
+        "t": 235.625,
+        "r": 1276.796875,
+        "b": 1080.421875,
+        "w": 633.59375,
+        "h": 844.796875
+      },
+      "moon": {
+        "cx": 979,
+        "cy": 383.453125,
+        "r": 231.578515625
+      },
+      "img": {
+        "natural": [
+          652,
+          870
+        ],
+        "box": {
+          "l": 643.203125,
+          "t": 235.625,
+          "r": 1276.796875,
+          "b": 1080.421875,
+          "w": 633.59375,
+          "h": 844.796875
+        },
+        "fit": "contain",
+        "filter": "none",
+        "mix": "normal"
+      },
+      "fontA": 136
+    },
+    "1280x800": {
+      "vw": 1280,
+      "vh": 800,
+      "halfA": {
+        "l": 51.1875,
+        "t": 135.703125,
+        "r": 470.2679443359375,
+        "b": 210.92105102539062,
+        "w": 419.0804443359375,
+        "h": 75.21792602539062
+      },
+      "halfB": {
+        "l": 947.1597290039062,
+        "t": 628.4852294921875,
+        "r": 1228.8125,
+        "b": 703.703125,
+        "w": 281.65277099609375,
+        "h": 75.2178955078125
+      },
+      "copyA": {
+        "l": 51.1875,
+        "t": 246.79022216796875,
+        "r": 387.1875,
+        "b": 447.79022216796875,
+        "w": 336,
+        "h": 201
+      },
+      "copyB": {
+        "l": 892.8125,
+        "t": 391.61602783203125,
+        "r": 1228.8125,
+        "b": 592.6160278320312,
+        "w": 336,
+        "h": 201
+      },
+      "figure": {
+        "l": 428.8046875,
+        "t": 236.515625,
+        "r": 851.1953125,
+        "b": 799.703125,
+        "w": 422.390625,
+        "h": 563.1875
+      },
+      "moon": {
+        "cx": 652.6640625,
+        "cy": 335.0625,
+        "r": 154.38343749999999
+      },
+      "img": {
+        "natural": [
+          435,
+          580
+        ],
+        "box": {
+          "l": 428.8046875,
+          "t": 236.515625,
+          "r": 851.1953125,
+          "b": 799.703125,
+          "w": 422.390625,
+          "h": 563.1875
+        },
+        "fit": "contain",
+        "filter": "none",
+        "mix": "normal"
+      },
+      "fontA": 102.4
+    },
+    "1024x768": {
+      "vw": 1024,
+      "vh": 768,
+      "halfA": {
+        "l": 48,
+        "t": 135.640625,
+        "r": 370.8310852050781,
+        "b": 193.5712890625,
+        "w": 322.8310852050781,
+        "h": 57.9306640625
+      },
+      "halfB": {
+        "l": 759.0333251953125,
+        "t": 617.5537109375,
+        "r": 976,
+        "b": 675.484375,
+        "w": 216.9666748046875,
+        "h": 57.9306640625
+      },
+      "copyA": {
+        "l": 48,
+        "t": 229.40792846679688,
+        "r": 311.03125,
+        "b": 482.9079284667969,
+        "w": 263.03125,
+        "h": 253.5
+      },
+      "copyB": {
+        "l": 712.96875,
+        "t": 354.4670715332031,
+        "r": 976,
+        "b": 581.717041015625,
+        "w": 263.03125,
+        "h": 227.24996948242188
+      },
+      "figure": {
+        "l": 343.046875,
+        "t": 317.09375,
+        "r": 680.953125,
+        "b": 767.640625,
+        "w": 337.90625,
+        "h": 450.546875
+      },
+      "moon": {
+        "cx": 522.125,
+        "cy": 395.9375,
+        "r": 123.5040625
+      },
+      "img": {
+        "natural": [
+          348,
+          464
+        ],
+        "box": {
+          "l": 343.046875,
+          "t": 317.09375,
+          "r": 680.953125,
+          "b": 767.640625,
+          "w": 337.90625,
+          "h": 450.546875
+        },
+        "fit": "contain",
+        "filter": "none",
+        "mix": "normal"
+      },
+      "fontA": 81.92
+    }
+  },
+  "webgl": {
+    "canvas_at_page_top": false,
+    "navigator": {
+      "deviceMemory": 16,
+      "cores": 6
+    },
+    "1440x900": {
+      "renderer": "webgl",
+      "canvas": {
+        "rise": "1.000",
+        "exit": "0.000",
+        "frames": 64,
+        "dpr": "1"
+      },
+      "idle_frames_added": 0
+    }
+  },
+  "no_webgl": {
+    "renderer": "fallback",
+    "canvas": null,
+    "disc_opacity": "1",
+    "moonWrap": "1",
+    "errors": [
+      "console.error: THREE.WebGLRenderer: THREE.WebGLRenderer: Error creating WebGL context."
+    ]
+  },
+  "reduced": {
+    "motion": {
+      "triggers": [],
+      "pins": 0
+    },
+    "state": {
+      "sequence": null,
+      "halfA": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "halfB": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyA": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyB": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "portrait": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "img": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "lines": [
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "kicker": "1",
+      "caption": "1",
+      "next": "1",
+      "moonWrap": "1",
+      "disc": "none",
+      "rise": null,
+      "exit": null,
+      "renderer": "fallback",
+      "canvas": null,
+      "pinTop": 96.390625
+    },
+    "errors": []
+  },
+  "mobile": {
+    "motion": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-parallax",
+        "identity-reveal",
+        "journey-reveal-1",
+        "journey-reveal-2",
+        "journey-reveal-3",
+        "journey-reveal-4",
+        "featured-reveal-1",
+        "featured-reveal-2",
+        "featured-reveal-3",
+        "more-cards",
+        "process-line",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 0
+    },
+    "errors": [],
+    "section_height": 1367,
+    "end_state": {
+      "sequence": null,
+      "halfA": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "halfB": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyA": {
+        "t": "matrix(1, 0, 0, 1, 0, 0)",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyB": {
+        "t": "matrix(1, 0, 0, 1, 0, 0)",
+        "o": "1",
+        "clip": "none"
+      },
+      "portrait": {
+        "t": "none",
+        "o": "1",
+        "clip": "inset(0%)"
+      },
+      "img": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "lines": [
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)"
+      ],
+      "kicker": "1",
+      "caption": "1",
+      "next": "1",
+      "moonWrap": "1",
+      "disc": "matrix(1, 0, 0, 1, 0, 0)",
+      "rise": null,
+      "exit": null,
+      "renderer": "fallback",
+      "canvas": null,
+      "pinTop": -860.78125
+    },
+    "overflow": 0
+  },
+  "short": {
+    "motion": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-parallax",
+        "identity-reveal",
+        "journey-reveal-1",
+        "journey-reveal-2",
+        "journey-reveal-3",
+        "journey-reveal-4",
+        "featured-reveal-1",
+        "featured-reveal-2",
+        "featured-reveal-3",
+        "more-cards",
+        "process-line",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 0
+    },
+    "errors": [],
+    "section_height": 1238,
+    "end_state": {
+      "sequence": null,
+      "halfA": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "halfB": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyA": {
+        "t": "matrix(1, 0, 0, 1, 0, 0)",
+        "o": "1",
+        "clip": "none"
+      },
+      "copyB": {
+        "t": "matrix(1, 0, 0, 1, 0, 0)",
+        "o": "1",
+        "clip": "none"
+      },
+      "portrait": {
+        "t": "none",
+        "o": "1",
+        "clip": "inset(0%)"
+      },
+      "img": {
+        "t": "none",
+        "o": "1",
+        "clip": "none"
+      },
+      "lines": [
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)",
+        "matrix(1, 0, 0, 1, 0, 0)"
+      ],
+      "kicker": "1",
+      "caption": "1",
+      "next": "1",
+      "moonWrap": "1",
+      "disc": "matrix(1, 0, 0, 1, 0, 0)",
+      "rise": null,
+      "exit": null,
+      "renderer": "fallback",
+      "canvas": null,
+      "pinTop": -806.296875
+    },
+    "overflow": 0
+  },
+  "navigation": {
+    "home": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-overlap",
+        "identity-sequence",
+        "journey-stack-1",
+        "journey-stack-2",
+        "journey-stack-3",
+        "journey-rail",
+        "featured-horizontal",
+        "more-cards",
+        "process-pin",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 3
+    },
+    "had_canvas": true,
+    "about": {
+      "triggers": [
+        "about-reveal-1",
+        "about-reveal-2",
+        "about-reveal-3",
+        "about-reveal-4",
+        "about-reveal-5",
+        "about-reveal-6",
+        "about-reveal-7",
+        "about-reveal-8",
+        "about-reveal-9",
+        "about-reveal-10",
+        "about-reveal-11",
+        "about-reveal-12",
+        "about-reveal-13",
+        "about-reveal-14",
+        "about-reveal-15",
+        "about-reveal-16",
+        "about-reveal-17",
+        "about-reveal-18",
+        "about-reveal-19",
+        "about-reveal-20",
+        "about-reveal-21",
+        "about-reveal-22",
+        "about-reveal-23",
+        "about-reveal-24",
+        "about-reveal-25",
+        "about-reveal-26",
+        "about-reveal-27",
+        "about-portrait"
+      ],
+      "pins": 0
+    },
+    "canvases_on_about": 0,
+    "back": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-overlap",
+        "identity-sequence",
+        "journey-stack-1",
+        "journey-stack-2",
+        "journey-stack-3",
+        "journey-rail",
+        "featured-horizontal",
+        "more-cards",
+        "process-pin",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 3
+    },
+    "errors": []
+  },
+  "failures": []
+}

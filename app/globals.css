@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Wide and tall enough for pinned / sticky storytelling (matches motionQueries.stage). */
+@custom-variant stage (@media (min-width: 1024px) and (min-height: 760px));
+/* Short desktop viewports: pinned stages drop secondary detail to fit. */
+@custom-variant short (@media (max-height: 879px));
+/*
+ * Identity Sequence pinned composition: applies inside a scene root that the
+ * GSAP stage branch marks with data-sequence="pinned". `:is()` keeps these
+ * overrides above the stacked fallback's responsive utilities.
+ */
+@custom-variant seq (&:is([data-sequence="pinned"] *));
+
+/*
+ * Portfolio design tokens. Components use these through Tailwind utilities
+ * only (bg-night, text-sky, font-display, animate-marquee-left, ...).
+ */
+@theme {
+  /* Surfaces */
+  --color-night: #05070a;
+  --color-night-2: #0b0e13;
+  --color-night-3: #11151b;
+  --color-paper: #f3f4f6;
+
+  /* Text */
+  --color-snow: #eef1f5;
+  --color-mist: #8a94a3; /* muted on dark, 6.6:1 on night */
+  --color-ink: #0a0d12;
+  --color-slate-ink: #5a6370; /* muted on light, 5.5:1 on paper */
+
+  /* Light Blue — the single accent family */
+  --color-sky: #4db6ff; /* on dark surfaces, 9.1:1 */
+  --color-sky-ink: #0a6cc0; /* on light surfaces, 4.9:1 */
+
+  --font-display: var(--font-archivo), var(--font-geist-sans), sans-serif;
+  --font-jp: var(--font-noto-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee-left: marquee-left var(--marquee-duration, 70s) linear
+    infinite;
+  --animate-marquee-right: marquee-right var(--marquee-duration, 70s) linear
+    infinite;
+
+  @keyframes marquee-left {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translate3d(-50%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* shadcn base tokens (dark by default for this site) */
+:root {
+  --background: #05070a;
+  --foreground: #eef1f5;
+  --card: #0b0e13;
+  --card-foreground: #eef1f5;
+  --popover: #0b0e13;
+  --popover-foreground: #eef1f5;
+  --primary: #eef1f5;
+  --primary-foreground: #05070a;
+  --secondary: #11151b;
+  --secondary-foreground: #eef1f5;
+  --muted: #11151b;
+  --muted-foreground: #8a94a3;
+  --accent: #11151b;
+  --accent-foreground: #eef1f5;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgb(255 255 255 / 0.08);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: #4db6ff;
+  --chart-1: #4db6ff;
+  --chart-2: #8a94a3;
+  --chart-3: #5a6370;
+  --chart-4: #11151b;
+  --chart-5: #eef1f5;
+  --radius: 0.75rem;
+  --sidebar: #0b0e13;
+  --sidebar-foreground: #eef1f5;
+  --sidebar-primary: #4db6ff;
+  --sidebar-primary-foreground: #05070a;
+  --sidebar-accent: #11151b;
+  --sidebar-accent-foreground: #eef1f5;
+  --sidebar-border: rgb(255 255 255 / 0.08);
+  --sidebar-ring: #4db6ff;
+
+  /* Accent text color for the current surface; light panels override it. */
+  --accent-text: var(--color-sky);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply bg-night font-sans text-snow antialiased;
+    color-scheme: dark;
+    scroll-padding-top: 96px;
+  }
+  body {
+    @apply bg-night text-snow;
+  }
+  ::selection {
+    @apply bg-sky text-night;
+  }
+}
