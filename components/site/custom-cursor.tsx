@@ -55,17 +55,24 @@ const SPOTLIGHT: Record<CursorMode, { ambient: string; core: string }> = {
   "scroll-right": { ambient: "1.5 1.05", core: "0" },
 };
 
+/** Light Blue spotlight: a wide tinted halo plus a brighter core. */
 const AMBIENT_LIGHT: Record<Tone, string> = {
-  dark: "radial-gradient(closest-side, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.05) 40%, rgb(255 255 255 / 0) 100%)",
+  dark: "radial-gradient(closest-side, rgb(120 196 255 / 0.22), rgb(77 182 255 / 0.09) 38%, rgb(77 182 255 / 0.025) 66%, rgb(77 182 255 / 0) 100%)",
   light:
-    "radial-gradient(closest-side, rgb(100 116 139 / 0.12), rgb(100 116 139 / 0.05) 42%, rgb(100 116 139 / 0) 100%)",
+    "radial-gradient(closest-side, rgb(77 182 255 / 0.2), rgb(77 182 255 / 0.08) 38%, rgb(77 182 255 / 0.02) 66%, rgb(77 182 255 / 0) 100%)",
 };
 
 const CORE_LIGHT: Record<Tone, string> = {
-  dark: "radial-gradient(closest-side, rgb(255 255 255 / 0.11), rgb(255 255 255 / 0) 100%)",
+  dark: "radial-gradient(closest-side, rgb(214 238 255 / 0.26), rgb(125 200 255 / 0.08) 55%, rgb(125 200 255 / 0) 100%)",
   light:
-    "radial-gradient(closest-side, rgb(71 85 105 / 0.1), rgb(71 85 105 / 0) 100%)",
+    "radial-gradient(closest-side, rgb(30 136 229 / 0.16), rgb(30 136 229 / 0.04) 55%, rgb(30 136 229 / 0) 100%)",
 };
+
+/** Screen blending lets the light brighten dark content instead of veiling it. */
+const BLEND: Record<Tone, string> = { dark: "screen", light: "multiply" };
+
+/** Share of the remaining distance covered per frame; soft but never laggy. */
+const FOLLOW_EASE = 0.3;
 
 function elementFromTarget(target: EventTarget | null): Element | null {
   return target instanceof Element ? target : null;
@@ -228,6 +235,9 @@ export function CustomCursor() {
     let appliedTone: Tone | null = null;
     let spotCard: HTMLElement | null = null;
     let spotRect: DOMRect | null = null;
+    let renderX = 0;
+    let renderY = 0;
+    let shown = false;
 
     const setDataState = (mode: CursorMode, isEnabled: boolean) => {
       follower.dataset.mode = mode;
@@ -295,13 +305,30 @@ export function CustomCursor() {
       follower.dataset.tone = tone;
       follower.style.opacity = shouldShow ? "1" : "0";
       follower.style.visibility = shouldShow ? "visible" : "hidden";
+      let settling = false;
+      if (shouldShow) {
+        if (!shown) {
+          renderX = pointerX;
+          renderY = pointerY;
+        } else {
+          renderX += (pointerX - renderX) * FOLLOW_EASE;
+          renderY += (pointerY - renderY) * FOLLOW_EASE;
+          settling = Math.abs(pointerX - renderX) + Math.abs(pointerY - renderY) > 0.4;
+          if (!settling) {
+            renderX = pointerX;
+            renderY = pointerY;
+          }
+        }
+      }
+      shown = shouldShow;
       follower.style.transform = shouldShow
-        ? `translate3d(${pointerX}px, ${pointerY}px, 0)`
+        ? `translate3d(${renderX.toFixed(1)}px, ${renderY.toFixed(1)}px, 0)`
         : HIDDEN_TRANSFORM;
 
       if (appliedTone !== tone) {
         ambient.style.backgroundImage = AMBIENT_LIGHT[tone];
         core.style.backgroundImage = CORE_LIGHT[tone];
+        follower.style.mixBlendMode = BLEND[tone];
         appliedTone = tone;
       }
       ambient.style.scale = look.ambient;
@@ -316,6 +343,8 @@ export function CustomCursor() {
       if (appliedMagnetic && shouldShow) {
         applyMagnetic(appliedMagnetic, pointerX, pointerY);
       }
+
+      if (settling) scheduleFlush();
     };
 
     const scheduleFlush = () => {
@@ -463,6 +492,7 @@ export function CustomCursor() {
       follower.style.opacity = "0";
       follower.style.visibility = "hidden";
       follower.style.transform = HIDDEN_TRANSFORM;
+      shown = false;
       setDataState("normal", false);
     };
 
@@ -501,16 +531,17 @@ export function CustomCursor() {
         opacity: 0,
         transform: HIDDEN_TRANSFORM,
         visibility: "hidden",
+        mixBlendMode: "screen",
       }}
     >
       <span
         ref={ambientRef}
-        className="absolute left-0 top-0 block size-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[scale] duration-500 ease-out-soft will-change-transform"
+        className="absolute left-0 top-0 block size-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[scale] duration-500 ease-out-soft will-change-transform"
         style={{ backgroundImage: AMBIENT_LIGHT.dark }}
       />
       <span
         ref={coreRef}
-        className="absolute left-0 top-0 block size-[120px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 ease-out-soft"
+        className="absolute left-0 top-0 block size-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 ease-out-soft"
         style={{ backgroundImage: CORE_LIGHT.dark }}
       />
     </div>
