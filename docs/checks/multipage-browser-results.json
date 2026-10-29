@@ -1,0 +1,469 @@
+{
+  "routes": {
+    "/": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-overlap",
+          "journey-stack-1",
+          "journey-stack-2",
+          "journey-stack-3",
+          "journey-rail",
+          "featured-horizontal",
+          "more-cards",
+          "process-pin",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 2
+      },
+      "h1": "SEIF AYMAN"
+    },
+    "/about": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [
+          "about-reveal-1",
+          "about-reveal-2",
+          "about-reveal-3",
+          "about-reveal-4",
+          "about-reveal-5",
+          "about-reveal-6",
+          "about-reveal-7",
+          "about-reveal-8",
+          "about-reveal-9",
+          "about-reveal-10",
+          "about-reveal-11",
+          "about-reveal-12",
+          "about-reveal-13",
+          "about-reveal-14",
+          "about-reveal-15",
+          "about-reveal-16",
+          "about-reveal-17",
+          "about-reveal-18",
+          "about-reveal-19",
+          "about-reveal-20",
+          "about-reveal-21",
+          "about-reveal-22",
+          "about-reveal-23",
+          "about-reveal-24",
+          "about-reveal-25",
+          "about-reveal-26",
+          "about-reveal-27",
+          "about-portrait"
+        ],
+        "pins": 0
+      },
+      "h1": "ENGINEER OF THE WHOLE PRODUCT"
+    },
+    "/projects": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      },
+      "h1": "SELECTED WORK"
+    },
+    "/projects/rafiq": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [
+          "case-media-rafiq"
+        ],
+        "pins": 0
+      },
+      "h1": "RAFIQ AI ASSISTANT"
+    },
+    "/projects/trackup": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [
+          "case-media-trackup"
+        ],
+        "pins": 0
+      },
+      "h1": "TRACKUP"
+    },
+    "/projects/nabd-masr": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [
+          "case-media-nabd-masr"
+        ],
+        "pins": 0
+      },
+      "h1": "NABD MASR"
+    },
+    "/blog": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      },
+      "h1": "NOTES ON BUILDING"
+    },
+    "/contact": {
+      "status": 200,
+      "errors": [],
+      "overflow": 0,
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      },
+      "h1": "LET'S BUILD SOMETHING THAT MATTERS"
+    }
+  },
+  "home": {
+    "triggers": [
+      "about-heading",
+      "about-statement",
+      "about-principles",
+      "hero-overlap",
+      "journey-stack-1",
+      "journey-stack-2",
+      "journey-stack-3",
+      "journey-rail",
+      "featured-horizontal",
+      "more-cards",
+      "process-pin",
+      "connect-parallax",
+      "connect-heading"
+    ],
+    "pins": 2,
+    "featured_enhanced": "true",
+    "process_enhanced": "true",
+    "journey_counters": [
+      "01",
+      "02",
+      "04",
+      "04"
+    ],
+    "featured_x": [
+      0,
+      -1050,
+      -2100,
+      -2100
+    ],
+    "featured_current": [
+      0,
+      1,
+      2,
+      2
+    ],
+    "featured_snap_misaligned": [],
+    "featured_last_slide_right": 1352,
+    "more_cards": 3,
+    "more_live_links": 2,
+    "more_repo_links": 1,
+    "process_active": [
+      0,
+      1,
+      1,
+      3
+    ],
+    "process_active_after_reverse": 0,
+    "errors": []
+  },
+  "navigation": {
+    "about_after_home": {
+      "triggers": [
+        "about-reveal-27",
+        "about-portrait"
+      ],
+      "pins": 0
+    },
+    "about_scroll_y": 0,
+    "case_study": {
+      "triggers": [
+        "case-media-rafiq"
+      ],
+      "pins": 0
+    },
+    "home_after_return": {
+      "triggers": [
+        "about-heading",
+        "about-statement",
+        "about-principles",
+        "hero-overlap",
+        "journey-stack-1",
+        "journey-stack-2",
+        "journey-stack-3",
+        "journey-rail",
+        "featured-horizontal",
+        "more-cards",
+        "process-pin",
+        "connect-parallax",
+        "connect-heading"
+      ],
+      "pins": 2
+    },
+    "errors": []
+  },
+  "mobile": {
+    "/": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-parallax",
+          "journey-reveal-1",
+          "journey-reveal-2",
+          "journey-reveal-3",
+          "journey-reveal-4",
+          "featured-reveal-1",
+          "featured-reveal-2",
+          "featured-reveal-3",
+          "more-cards",
+          "process-line",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 0
+      }
+    },
+    "featured_enhanced": null,
+    "process_enhanced": null,
+    "menu_expanded": "true",
+    "menu_after_escape": "false",
+    "/about": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-reveal-1",
+          "about-reveal-2",
+          "about-reveal-3",
+          "about-reveal-4",
+          "about-reveal-5",
+          "about-reveal-6",
+          "about-reveal-7",
+          "about-reveal-8",
+          "about-reveal-9",
+          "about-reveal-10",
+          "about-reveal-11",
+          "about-reveal-12",
+          "about-reveal-13",
+          "about-reveal-14",
+          "about-reveal-15",
+          "about-reveal-16",
+          "about-reveal-17",
+          "about-reveal-18",
+          "about-reveal-19",
+          "about-reveal-20",
+          "about-reveal-21",
+          "about-reveal-22",
+          "about-reveal-23",
+          "about-reveal-24",
+          "about-reveal-25",
+          "about-reveal-26",
+          "about-reveal-27",
+          "about-portrait"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    },
+    "/projects/rafiq": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-rafiq"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects/trackup": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-trackup"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects/nabd-masr": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-nabd-masr"
+        ],
+        "pins": 0
+      }
+    },
+    "/blog": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    },
+    "/contact": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    }
+  },
+  "tablet": {
+    "/": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-heading",
+          "about-statement",
+          "about-principles",
+          "hero-parallax",
+          "journey-reveal-1",
+          "journey-reveal-2",
+          "journey-reveal-3",
+          "journey-reveal-4",
+          "featured-reveal-1",
+          "featured-reveal-2",
+          "featured-reveal-3",
+          "more-cards",
+          "process-line",
+          "connect-parallax",
+          "connect-heading"
+        ],
+        "pins": 0
+      }
+    },
+    "featured_enhanced": null,
+    "process_enhanced": null,
+    "/about": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "about-reveal-1",
+          "about-reveal-2",
+          "about-reveal-3",
+          "about-reveal-4",
+          "about-reveal-5",
+          "about-reveal-6",
+          "about-reveal-7",
+          "about-reveal-8",
+          "about-reveal-9",
+          "about-reveal-10",
+          "about-reveal-11",
+          "about-reveal-12",
+          "about-reveal-13",
+          "about-reveal-14",
+          "about-reveal-15",
+          "about-reveal-16",
+          "about-reveal-17",
+          "about-reveal-18",
+          "about-reveal-19",
+          "about-reveal-20",
+          "about-reveal-21",
+          "about-reveal-22",
+          "about-reveal-23",
+          "about-reveal-24",
+          "about-reveal-25",
+          "about-reveal-26",
+          "about-reveal-27",
+          "about-portrait"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    },
+    "/projects/rafiq": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-rafiq"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects/trackup": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-trackup"
+        ],
+        "pins": 0
+      }
+    },
+    "/projects/nabd-masr": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [
+          "case-media-nabd-masr"
+        ],
+        "pins": 0
+      }
+    },
+    "/blog": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    },
+    "/contact": {
+      "overflow": 0,
+      "errors": [],
+      "motion": {
+        "triggers": [],
+        "pins": 0
+      }
+    }
+  },
+  "reduced": {
+    "motion": {
+      "triggers": [],
+      "pins": 0
+    },
+    "featured_enhanced": null,
+    "about_line_opacity": "1",
+    "marquee_animation": "none"
+  },
+  "failures": []
+}

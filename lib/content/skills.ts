@@ -5,6 +5,8 @@ export type SkillGroup = {
 
 export type MarqueeRow = {
   label: string;
+  caption: string;
+  direction: "left" | "right";
   items: readonly string[];
 };
 
@@ -160,56 +162,64 @@ export const skillGroups = [
 
 export const skills = skillGroups;
 
+/** Three rows ordered by layer: interface, systems and data, platform. */
 export const marqueeRows = [
   {
-    label: "BUILD",
+    label: "Interface",
+    caption: "What people touch",
+    direction: "left",
     items: [
-      "React",
       "TypeScript",
+      "JavaScript",
+      "React",
       "Next.js",
-      "Node.js",
-      "PostgreSQL",
+      "React Native",
       "Tailwind CSS",
-      "Docker",
-      "GitHub",
+      "Vite",
+      "Redux Toolkit",
+      "TanStack Query",
+      "React Hook Form",
+      "Zod",
       "Figma",
-      "Supabase",
-      "Python",
+    ],
+  },
+  {
+    label: "Systems & data",
+    caption: "What keeps it running",
+    direction: "right",
+    items: [
+      "Node.js",
+      "NestJS",
+      "Express.js",
+      "Laravel",
+      "FastAPI",
+      "PostgreSQL",
+      "MySQL",
+      "SQLite",
+      "MongoDB",
+      "Redis",
+      "Prisma ORM",
+      "Drizzle ORM",
       "Socket.IO",
     ],
   },
   {
-    label: "SHIP",
+    label: "Platform & intelligence",
+    caption: "Where it ships",
+    direction: "left",
     items: [
-      "JavaScript",
-      "React Native",
-      "Express.js",
-      "MongoDB",
-      "Redis",
-      "Redux Toolkit",
-      "Vite",
-      "Cloudflare",
+      "Docker",
       "Vercel",
+      "Cloudflare",
+      "Supabase",
       "Firebase",
-      "Postman",
+      "GitHub",
       "Electron.js",
-    ],
-  },
-  {
-    label: "THINK",
-    items: [
-      "HTML5",
-      "CSS3",
-      "NestJS",
-      "MySQL",
-      "Prisma ORM",
-      "FastAPI",
-      "TanStack Query",
-      "WebSockets",
-      "RAG Systems",
       "MQTT",
-      "System Design",
-      "Clean Architecture",
+      "ESP32",
+      "LLM Integration",
+      "RAG Systems",
+      "Python",
     ],
   },
 ] as const satisfies readonly MarqueeRow[];

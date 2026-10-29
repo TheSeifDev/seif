@@ -1,35 +1,76 @@
-# Seif — Blue-hour engineering / Home redesign
+# Seif Ayman Portfolio — Implementation plan (multi-page rebuild)
 
-النطاق هو إعادة بناء Home الحالية في Next.js/Tailwind/GSAP، لا ترميم الـinitializer السابق. المحتوى المعتمد من CV، صورة سيف الطبيعية والروابط/captures المتحققة تبقى. إعداد Next وNeon والمكونات العامة المتوافقة لا يُستبدل بـstarter. لا dashboard أو نشر أو smooth-scroll library في هذه المرحلة. القرار الجديد supersedes الهوية الثنائية: Light Blue ثابت في الموقع؛ لا Crimson ولا root color tween.
+Settled decisions live in `docs/decisions.md`; verified facts in `docs/content-sources.md`. This plan replaces the previous one-page Home plan.
 
-## Art direction
+## Architecture
 
-Japanese cinematic editorial: أسود حبر وأبيض ورق مع blue-hour illumination. typography Geist Sans ثقيلة ومكثفة للعناوين، Geist Mono صغير واضح للlabels. أول viewport يوازن اسم SEIF/AYMAN يسارًا وportrait foreground يمينًا، خلفهما mountain/forest world وقمر محدد، لا قرص100vw ولا طبقات bloom تغطي النص. الأسطح الفاتحة واسعة ومستديرة مع توازن whitespace ومشهد الحبر. glow على moon rim وحدود مختارة فقط. glass في experience card وnavigation بحذر، backdrop blur محدود وليس فوق مساحة الشاشة. الهوية blue #49baf1، blue ink #076c9b للسطوح البيضاء، night #080b0d، paper #f5f5f2. الصورة والمشاريع لا filters. روح العلامة: مطوّر يقود بناء المنتج من الواجهة إلى المعمار؛ دقيق، هادئ، مباشر. CTAs: Explore my work / Let’s build something that matters. علامة sa الحالية تبقى إن لم تعارض composition.
-
-## Section-by-section interaction map
-
-**A / Hero — introduction + exit.** 1 timeline entrance للعنوان المقنّع فقط، لا intro/loading curtain. scene layers تتحرك بمقادير قليلة في timeline scrub من top top إلى bottom top، portrait لا يتلوّن. عند الخروج يتقدم landscape ببطء مقارنة foreground ويأتي السطح الأبيض فوق المشهد. أولviewport لا يستلزم تحميلThree.js أو يختفي بدونه.
-
-**B / About — controlled overlap.** سطح paper بـrelative z-index أعلى وهامش سلبي صغير يقارب56px علىdesktop وأقل علىmobile، مع Hero spacing محسوب، لا pin إضافي. عنوان من سطرين/ثلاثة داخل masks يتحرك yPercent عبر scrub من top85% إلى top25%. صورة ink تُكشف بـclip-path مرة مرتبطة بنفس timeline، parallax للمشهد بضعةpx، supporting copy يبقى قابلًا للقراءة. لا تحريك ارتفاع القسم أو عرض النص.
-
-**C / Journey — pinned stacking.** desktop ≥1024px وارتفاعviewport≥760px/no-reduced-motion: stable stage viewport حواليmin(620px,viewport−140px)، pinned top≈100px عبر GSAP. Foundation → product ownership → technical leadership ثلاث صفحات editorial، اللوحة التالية تأتي translateY100% فوق السابقة مع تقدم واضح؛ ارتفاع overlay panels ثابت وتفاصيل CV مصاغة دون أرقام عملاء. duration = نحو2×0.8viewport، نهاية محددة وpinSpacing حقيقي. mobile/shortviewport/reduced-motion: ثلاث صفحات رأسيًا في normal flow، لا inline transforms ولا forcedpin ولا مخفي عنkeyboard.
-
-**D / Featured — vertical-to-horizontal case studies.** desktop بنفسشرطJourney: viewport stage حواليmin(650px,viewport−140px)، bounded overflow clip محلي لا root overflow trap، track flex وslide واحدة بعرض viewportالمتاح. ثلاث case studies: screenshotحوالي62% والنص38%، identity/description/stack/verifiedlinks. مسافةالتمرير = track.scrollWidth−viewport.clientWidth، x يتدرج0→−distance scrub، start top100px، end +=distance، invalidateOnRefresh. لا CSSsmoothscroll ولا fakefixed width. تغيرnavigation/resize/font readiness يقيس من جديد فقطعندتغيرالعرض، pin releaseبعدآخرslide. Keyboard focus علىCTA خارجالviewport ينقلwindowscroll للمشروع المقابل عبرنفسprogress قبلإعطاءfocus؛ reduced/mobile تعرضslides رأسيًا وبعرض100%، no pin/spacer.
-
-**E / More — light exploration.** Nabd Masr/Personal Portfolio grid responsive بدون pin. hoverCSS لايملك نفسtransform لصورparallax. الvisual restricted يبقىeditorial واضح، لا fabricateddashboard أو demo assertion.
-
-**F / Skills — three marquee rows.** preserve actual workingCV data/icons/seam geometry left/right/left. loop31px/s تقريبًا، pause user/hover/focus/offscreen/hidden tab. لا ScrollTrigger للـmarquee، no globalrefresh from rebuild. index15groups قابلللقراءة، نسخةduplicateariahidden. reducedmotionstaticwrap.
-
-**G / Process — one connected progress.** normal vertical section بعدآخرlightSkills، أربعةsteps Discover/Design/Build/Ship، single scrub timeline للرابط والنصmarkers، لاfourindependentreveals. desktop connector scaleX، mobile connector scaleY وتكديسnaturalflow.
-
-**H / Contact — final landscape reveal.** نهايةProcess تغطيهاساحةnightبـoverlap40px أعلىz-index بدونpin، Torii landscape mask تدريجي وforegroundheadline reveal scrub منtop90% إلىtop25%، globe/moonMotif منHero يكتمل فيصورةContactالأصلية. CTAمباشرةmail/CV/github، localblue ثابت، no unrelatedfooteranimations.
-
-## Architecture and performance decisions
-
-Server Components تقدمكلالنص/captures والـSSRfallback. `ScrollExperience` يبقىwrapperللtokens فقط. motion تُداربـsmallcontrollers: sharedscene(HomeScenes) / JourneyPin / HorizontalProjects / SkillsMarquee existing. لكلcontroller gsap.context+matchMedia scoped cleanup، IDs مستقرةتسهلتتبعpinlimits. لاgeneric data-reveal لكلelement، لاglobalResizeObserver علىportfolio الذييراقبpinspacer؛ refresh بعدfonts.ready وعندتغيرأبعادviewportفقط، الأصلصورdimensioned. CSSclassesكلهاTailwind؛ globals فقطTailwind/shadcn/themebase.
-
-3D بعداستقرارlayout/coremotion: ReactThreeFiber9 مناسبReact19 ويدعمdemandلكنsceneoneMoon لايحتاجReactrenderer/Drei. استخدمThree.jsمباشرlazyimportداخلclientcomponent معSSR CSSfallback، canvasمحلي≤420px، meshواحدlowpolySphere، مادةمضاءةذاتdepth/roughness، لاshadows/postprocessing/particles. renderon-demand منscrollprogressandresizeبعدvisible/idle، DPR≤1.5، no continuousRAF. noWebGL/contextlost/mobile/dataSaver/reduced-motion→fallback، cancelqueuedframes/observers/listenersanddisposegeometry/material/renderer. مصدرالتوثيقفيdocs/redesign-audit.md.
+- Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4 (utilities only; tokens and keyframes in `app/globals.css` `@theme`), GSAP 3.15 + ScrollTrigger through `@gsap/react` `useGSAP` (scoped and auto-reverted on unmount, so no stale triggers leak between routes).
+- Route group `app/(site)` holds every public route and a shared layout (Navbar, Footer, route motion reset). The future dashboard gets its own route group and layout.
+- Public routes: `/`, `/about`, `/projects`, `/projects/[slug]` (static params for public projects, `dynamicParams = false`), `/blog`, `/blog/[slug]` (static params for published posts only, so drafts 404), `/contact`. `sitemap.ts` and `robots.ts` list only public routes and published content.
+- Content is typed modules in `lib/content/*` (profile, projects, skills, process, blog). Draft posts carry `status: "draft"` and are excluded by `getPublishedPosts()`; the dashboard phase will move content to Neon.
+- Contact: `POST /api/contact` (Node runtime). Zod validation → honeypot + minimum fill time → rate limit (in-memory window + DB window by keyed IP hash) → insert into Neon `contact_messages` (Drizzle) → Resend notification over HTTPS → store notification status. The response always states the real outcome: `not_configured`, `invalid`, `rate_limited`, `rejected`, `error`, or `saved` with `notification: sent | failed | not_configured`.
+- DB: `drizzle-orm/node-postgres` with a lazily created `pg` Pool singleton (works with the Neon connection string and local PostgreSQL for tests). Migrations generated by drizzle-kit into `drizzle/`; `drizzle.config.ts` prefers `DATABASE_URL_UNPOOLED`.
+- Env (server only, documented in `.env.example`): `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `CONTACT_HASH_SECRET`, `SITE_URL`.
 
 ## Project structure
 
-`components/home/` — Server markup لHero/About/Journey/Featured/More/Process/Contact ومحتوىSkills. `components/motion/` — isolatedGSAPcontrollers بخواصserverchildren وقواعدdesktop/mobile. `components/visuals/` — lazycelestialcomponentandThreefactory. `lib/ui/layout.ts` — sharedTailwindrecipes، `lib/content/` — CVCurationوverifiedprojects. `public/images/`/`public/documents/` — الأصلالصورةوJapaneseoriginalart/projectcaptures/CV، no externalidentitycopy. `scripts/` و`docs/checks/` — actualinteraction/performanceobservations، لاtest-onlyroute فيpublicdelivery.
+```
+app/
+  layout.tsx                root html/body, fonts, base metadata
+  globals.css               Tailwind import + @theme tokens/keyframes + base only
+  (site)/layout.tsx         Navbar, <main>, Footer, RouteMotion
+  (site)/page.tsx           Home
+  (site)/about/page.tsx
+  (site)/projects/page.tsx, (site)/projects/[slug]/page.tsx
+  (site)/blog/page.tsx, (site)/blog/[slug]/page.tsx
+  (site)/contact/page.tsx
+  api/contact/route.ts
+  sitemap.ts, robots.ts, not-found.tsx
+components/
+  site/        navbar, footer, logo, page-hero (shared inner-page header)
+  system/      section-heading, pill-link, tags, browser-frame, project-actions
+  home/        hero, about, journey, featured-projects, more-projects, skills, process, connect-cta
+  projects/    projects-index (filter), case-study sections
+  contact/     contact-form (client)
+  blog/        article body renderer
+  motion/      gsap registration, route motion reset
+lib/
+  content/     profile, projects, skills, process, blog
+  contact/     schema, rate-limit, notify, submit service
+  db/          client, schema
+  ui/layout.ts shared Tailwind recipes (container, section spacing, surfaces, type)
+drizzle/       generated SQL migrations
+```
+
+## Design system
+
+Reference: the user's Light Blue Home mock (cinematic dark hero, rounded light panels, Japanese ink landscapes), which is the existing project style. Crimson and the Three.js moon are removed.
+
+- **Design movement**: Japanese ink-wash minimalism meets Swiss editorial grids — dark cinematic stages alternating with paper-white panels.
+- **Core principles**: one accent, used with intent; black/white structural contrast carries the hierarchy; every animation explains structure or progress; typography does the heavy lifting.
+- **Color philosophy**: night ink `#05070A` and paper `#F3F4F6` are the two surfaces (raised: `#0B0E13`/`#11151B` and white). Light Blue is the only accent family — `accent #4DB6FF` on dark (9.1:1) and `accent-ink #0A6CC0` on light (4.9:1). Muted text `#8A94A3` on dark (6.6:1), `#5A6370` on light (5.5:1). Blue marks the active, the important and the interactive; it never floods whole surfaces.
+- **Layout paradigm**: asymmetric 12-column editorial grid inside one container (`max-w-[1360px]`, `px-5 sm:px-8 lg:px-12`). Light panels are rounded sheets (`rounded-[28px] lg:rounded-[40px]`) that slide over dark stages. Section rhythm `py-24 lg:py-36`.
+- **Signature elements**: the numbered section label (`01 ——— ABOUT ME`); vertical Japanese captions; hairline rules and progress rails in accent.
+- **Interaction philosophy**: calm and precise — hover brightens borders and reveals arrows; nothing bounces.
+- **Animation**: scrubbed timelines tied to scroll on Home and case studies; lighter enter reveals on inner pages; UI transitions 200–500ms; `prefers-reduced-motion` gives static, fully visible layouts with no pins or marquees.
+- **Typography**: Archivo (700–800, uppercase, tracking −0.04em, leading 0.9) for display; Geist for body/UI; Geist Mono for labels (11px, uppercase, tracking 0.2em); Noto Sans JP for Japanese captions. Scale: display-xl clamp(4.5rem,11vw,10rem), display clamp(2.75rem,6vw,5.5rem), h2 clamp(2.25rem,4.2vw,3.75rem), h3 1.5–2rem, body-lg 1.125rem/1.65.
+- **Brand essence**: a senior full-stack engineer who owns products from schema to interface — precise, calm, ambitious.
+- **Brand voice**: direct and concrete. "I build products that solve real problems." / "Start a conversation".
+- **Wordmark**: "SA" monogram with an accent slash, beside SEIF AYMAN set in Archivo.
+- **Signature brand color**: Light Blue `#4DB6FF`.
+
+## Route compositions and motion map
+
+Home (strongest storytelling):
+1. Hero (dark, full viewport) — typography and portrait readable immediately; background settles on load; CSS sticky so the About panel slides over it; scrubbed parallax/fade of hero layers during the overlap.
+2. About (light panel) — heading lines unmask, ink landscape reveals with clip-path, statement words fill from muted to ink, principles rise; all scrubbed to section progress (no pin).
+3. Journey (dark) — sticky stacking chapters (Foundations → Training → Community → Leadership) with kanji visuals; the previous chapter scales/dims as the next covers it; the rail fills with progress and highlights the active chapter. Mobile keeps the CSS sticky stack in compact form.
+4. Featured projects (light panel) — desktop pinned horizontal track of the three featured case studies with progress bar and counter; ends exactly at the last slide; vertical stack below `lg` or on short viewports. Links to `/projects/[slug]` and `/projects`.
+5. More projects (dark) — exactly three cards (Nabd Masr, Personal Portfolio, TrackUp) with Watch Live / Go to Repo only when verified; 3 columns desktop, 2 tablet, 1 mobile.
+6. Skills (dark) — three CSS marquee rows (left, right, left), neutral monochrome icons with accent on hover, pause control, offscreen pause; grouped index below.
+7. Process (light panel) — pinned on desktop: a connected progress path fills with scroll and activates four stages while the stage detail crossfades. Mobile: vertical timeline with scrubbed line fill.
+8. Let's Connect CTA (dark) linking to `/contact`, then the Footer.
+
+Inner pages (lighter, content-focused): shared `PageHero`; `/about` biography, experience, education and training, capabilities, principles; `/projects` filterable index; `/projects/[slug]` case-study hero with screenshot scale-in scrub, overview, verified features, stack, links, next project; `/blog` published list or honest empty state; `/blog/[slug]` article layout; `/contact` form plus direct details.
+
+Route lifecycle: every animated component owns its triggers via `useGSAP({ scope })`; `RouteMotion` refreshes ScrollTrigger after navigation and font loading; layouts create no triggers.
