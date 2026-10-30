@@ -1,24 +1,19 @@
 import { Box, Code2, Layers, UserRound } from "lucide-react";
-import { Accent, SectionHeading } from "@/components/system/primitives";
-import { principles } from "@/lib/content/profile";
+import { SectionHeading } from "@/components/system/primitives";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
-
 const pad = (value: number) => String(value).padStart(2, "0");
-
-const principleIcons = {
+const principleIcons: Record<string, typeof Box> = {
   box: Box,
   code: Code2,
   layers: Layers,
   user: UserRound,
-} as const;
-
-/**
- * 05 Principles — on stage viewports the motion layer sets
- * `data-enhanced="true"`, pins the section and expands one panel at a time.
- * Otherwise every principle is a fully visible card.
- */
-export function PrinciplesSection() {
+};
+export function PrinciplesSection({ content }: { content: SiteContent }) {
+  const { principles, copy } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   return (
     <section
       id="principles"
@@ -26,47 +21,38 @@ export function PrinciplesSection() {
       className="group/principles relative bg-night text-snow"
       aria-labelledby="principles-heading"
     >
-      <div
-        data-principles-pin
-        className="py-24 lg:py-36 group-data-[enhanced=true]/principles:flex group-data-[enhanced=true]/principles:h-[100svh] group-data-[enhanced=true]/principles:flex-col group-data-[enhanced=true]/principles:justify-center group-data-[enhanced=true]/principles:pb-10 group-data-[enhanced=true]/principles:pt-[5.5rem]"
-      >
+      <div data-principles-pin className="py-24 lg:py-36">
         <div className={cn(container, "w-full")}>
           <SectionHeading
             index="05"
-            label="Principles"
-            title={
-              <>
-                The standard behind the <Accent>output</Accent>.
-              </>
-            }
+            label={c("about.principles.sectionLabel", "Principles")}
+            title={c(
+              "about.principles.title",
+              "The standard behind the output.",
+            )}
             id="principles-heading"
-            aside="Approach matters: these are working principles, not claims about outcomes."
+            aside={c(
+              "about.principles.aside",
+              "Approach matters: these are working principles, not claims about outcomes.",
+            )}
           />
-
           <ol
             data-principles-row
-            className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 group-data-[enhanced=true]/principles:mt-10 group-data-[enhanced=true]/principles:flex group-data-[enhanced=true]/principles:h-[min(480px,calc(100svh-23rem))] group-data-[enhanced=true]/principles:gap-3 short:group-data-[enhanced=true]/principles:mt-8"
+            className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20"
           >
             {principles.map((principle, index) => {
-              const Icon = principleIcons[principle.icon];
+              const Icon = principleIcons[principle.icon] ?? Box;
               const id = `principle-${index + 1}`;
               return (
                 <li
                   key={principle.title}
                   data-principle
-                  className="relative isolate min-w-0 overflow-hidden rounded-[28px] border border-white/[0.08] bg-night-2 group-data-[enhanced=true]/principles:flex-1"
+                  className="relative isolate min-w-0 overflow-hidden rounded-[28px] border border-white/[0.08] bg-night-2"
                 >
-                  <span
-                    aria-hidden="true"
-                    data-principle-glow
-                    className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-3/4 bg-[radial-gradient(85%_100%_at_30%_100%,rgb(77_182_255/0.2),transparent_70%)] group-data-[enhanced=true]/principles:opacity-0"
-                  />
-
-                  {/* Collapsed label — only rendered visually in the pinned mode. */}
                   <div
                     aria-hidden="true"
                     data-principle-collapsed
-                    className="absolute inset-0 hidden flex-col items-center justify-between py-8 group-data-[enhanced=true]/principles:flex"
+                    className="absolute inset-0 hidden flex-col items-center justify-between py-8"
                   >
                     <span className="font-mono text-[12px] tracking-[0.16em] text-mist">
                       {pad(index + 1)}
@@ -76,11 +62,10 @@ export function PrinciplesSection() {
                     </span>
                     <Icon className="size-5 text-sky/70" strokeWidth={1.5} />
                   </div>
-
                   <article
                     data-principle-body
                     aria-labelledby={id}
-                    className="relative flex h-full min-h-[300px] flex-col p-7 sm:p-9 group-data-[enhanced=true]/principles:w-[min(560px,46vw)] group-data-[enhanced=true]/principles:min-h-0"
+                    className="relative flex h-full min-h-[300px] flex-col p-7 sm:p-9"
                   >
                     <div className="flex items-start justify-between gap-6">
                       <span
@@ -90,7 +75,11 @@ export function PrinciplesSection() {
                         {pad(index + 1)}
                       </span>
                       <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl border border-sky/20 bg-sky/10 text-sky">
-                        <Icon className="size-6" strokeWidth={1.5} aria-hidden="true" />
+                        <Icon
+                          className="size-6"
+                          strokeWidth={1.5}
+                          aria-hidden="true"
+                        />
                       </span>
                     </div>
                     <h3
@@ -107,27 +96,13 @@ export function PrinciplesSection() {
               );
             })}
           </ol>
-
-          <div
-            aria-hidden="true"
-            className="mt-6 hidden items-center gap-5 group-data-[enhanced=true]/principles:flex"
-          >
-            <span
-              data-principles-counter
-              className="w-6 font-mono text-[12px] tabular-nums tracking-[0.12em] text-snow"
-            >
+          <div aria-hidden="true" className="mt-6 hidden items-center gap-5">
+            <span className="font-mono text-[12px] tabular-nums tracking-[0.12em] text-snow">
               01
             </span>
-            <span className="relative h-px flex-1 overflow-hidden bg-white/10">
-              <span
-                data-principles-fill
-                className="absolute inset-0 origin-left bg-sky [transform:scaleX(0)]"
-              />
+            <span className={cn(label, "text-mist")}>
+              {c("about.principles.scrollLabel", "Scroll")}
             </span>
-            <span className="font-mono text-[12px] tabular-nums tracking-[0.12em] text-mist">
-              {pad(principles.length)}
-            </span>
-            <span className={cn(label, "text-mist")}>Scroll</span>
           </div>
         </div>
       </div>

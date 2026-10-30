@@ -2,7 +2,18 @@ import Image from "next/image";
 import { Lock, Play } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { cn } from "@/lib/utils";
-import { hostOf, type Project } from "@/lib/content/projects";
+import type { SiteProject } from "@/lib/cms/schema";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
+
+function hostOf(url?: string) {
+  if (!url) return undefined;
+  try {
+    const { host, pathname } = new URL(url);
+    return `${host}${pathname === "/" ? "" : pathname}`;
+  } catch {
+    return undefined;
+  }
+}
 import { PillLink, type Tone } from "./primitives";
 
 /** Browser chrome around a real public-site capture. */
@@ -69,6 +80,7 @@ export function BrowserFrame({
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={src}
+          unoptimized={isUnoptimizedCmsImage(src)}
           alt={alt}
           fill
           sizes={sizes}
@@ -88,7 +100,7 @@ export function ProjectActions({
   size = "sm",
   className,
 }: {
-  project: Project;
+  project: SiteProject;
   tone?: Tone;
   size?: "sm" | "md";
   className?: string;
@@ -147,7 +159,7 @@ export function EditorialVisual({
   project,
   className,
 }: {
-  project: Project;
+  project: SiteProject;
   className?: string;
 }) {
   return (
@@ -186,7 +198,7 @@ export function EditorialVisual({
         />
       </svg>
       <p className="absolute bottom-3 left-4 font-mono text-[10px] uppercase tracking-[0.2em] text-mist">
-        Editorial visual · preview restricted
+        {project.availability ?? "Editorial visual · preview restricted"}
       </p>
     </div>
   );

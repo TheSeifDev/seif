@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/dashboard/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Referrer-Policy", value: "same-origin" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+        ],
+      },
+      {
         source: "/images/:path*",
         headers: [
           {

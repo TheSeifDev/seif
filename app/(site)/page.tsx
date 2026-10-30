@@ -11,32 +11,33 @@ import { MoreProjects } from "@/components/home/more-projects";
 import { Process } from "@/components/home/process";
 import { Skills } from "@/components/home/skills";
 import { createHomeGraph } from "@/lib/seo/structured-data";
-import { createPageMetadata } from "@/lib/seo/metadata";
+import { createCmsPageMetadata, withCmsGraph } from "@/lib/cms/metadata";
+import { getSiteContent } from "@/lib/cms/server";
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Home",
-  description:
-    "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
-  path: "/",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getSiteContent();
+  return createCmsPageMetadata(
+    { title: "Home", description: content.seo.description, path: "/" },
+    content,
+  );
+}
 
-export default function HomePage() {
+export default async function HomePage() {
+  const content = await getSiteContent();
   return (
     <>
-      <JsonLd data={createHomeGraph()} />
-      {/* Hero stays sticky while the About panel slides over it. */}
+      <JsonLd data={withCmsGraph(createHomeGraph(), content)} />
       <Scene name="hero" className="relative">
-        <Hero />
-        <About />
+        <Hero content={content} />
+        <About content={content} />
       </Scene>
-      {/* Signature moment: philosophy, portrait and moon, pinned on desktop. */}
-      <Identity />
-      <Journey />
-      <FeaturedProjects />
-      <MoreProjects />
-      <Skills />
-      <Process />
-      <ConnectCta />
+      <Identity content={content} />
+      <Journey content={content} />
+      <FeaturedProjects content={content} />
+      <MoreProjects content={content} />
+      <Skills content={content} />
+      <Process content={content} />
+      <ConnectCta content={content} />
     </>
   );
 }

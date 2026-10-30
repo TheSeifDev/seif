@@ -1,10 +1,13 @@
-import { marqueeRows, skillGroups } from "@/lib/content/skills";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Accent, SectionHeading } from "@/components/system/primitives";
 import { SkillsMarquee } from "./skills-marquee";
 
-export function Skills() {
+export function Skills({ content }: { content: SiteContent }) {
+  const { marqueeRows, skillGroups, copy } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   return (
     <section
       id="skills"
@@ -14,14 +17,17 @@ export function Skills() {
       <div className={container}>
         <SectionHeading
           index="06"
-          label="Skills & technologies"
+          label={c("home.skills.sectionLabel", "Skills & technologies")}
           id="skills-title"
           title={
             <>
               Tools I <Accent>work with</Accent>
             </>
           }
-          aside="Ordered by layer — what people touch, what keeps it running, and where it ships."
+          aside={c(
+            "home.skills.aside",
+            "Ordered by layer — what people touch, what keeps it running, and where it ships.",
+          )}
         />
       </div>
 
@@ -31,10 +37,13 @@ export function Skills() {
 
       <div className={cn(container, "mt-24")}>
         <div className="flex items-center gap-4 border-b border-white/[0.08] pb-5">
-          <h3 className={cn(label, "text-snow")}>Full index</h3>
+          <h3 className={cn(label, "text-snow")}>
+            {c("home.skills.fullIndexLabel", "Full index")}
+          </h3>
           <span className="font-mono text-[11px] text-mist">
-            {skillGroups.length} groups ·{" "}
-            {skillGroups.reduce((sum, group) => sum + group.skills.length, 0)} entries
+            {skillGroups.length} {c("home.skills.groupCountSuffix", "groups")} ·{" "}
+            {skillGroups.reduce((sum, group) => sum + group.skills.length, 0)}{" "}
+            {c("home.skills.entryCountSuffix", "entries")}
           </span>
         </div>
         <dl className="grid gap-x-10 gap-y-10 pt-10 sm:grid-cols-2 lg:grid-cols-4">

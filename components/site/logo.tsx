@@ -1,20 +1,23 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-/** "S/A" monogram with the Light Blue slash, optionally with the wordmark. */
 export function Logo({
   withWordmark = false,
   subtitle,
+  name = "Seif Ayman",
+  ariaLabel = `${name} — home`,
   className,
 }: {
   withWordmark?: boolean;
   subtitle?: string;
+  name?: string;
+  ariaLabel?: string;
   className?: string;
 }) {
   return (
     <Link
       href="/"
-      aria-label="Seif Ayman — home"
+      aria-label={ariaLabel}
       className={cn(
         "group inline-flex items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky",
         className,
@@ -31,7 +34,7 @@ export function Logo({
       {withWordmark ? (
         <span className="flex flex-col">
           <span className="font-display text-sm font-bold uppercase leading-none tracking-[0.02em] text-snow">
-            Seif Ayman
+            {name}
           </span>
           {subtitle ? (
             <span className="mt-1 text-[12px] leading-none text-mist">

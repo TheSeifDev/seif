@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SectionLabel } from "@/components/system/primitives";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
 import { container } from "@/lib/ui/layout";
 
 /** 04 Closing: one large line and a magnetic arrow disc to /contact. */
-export function ProjectsCta() {
+export function ProjectsCta({ content }: { content: SiteContent }) {
+  const c = (key: string, fallback: string) =>
+    getCopy(content.copy, key, fallback);
   return (
     <section
       aria-labelledby="projects-cta-title"
@@ -15,7 +19,9 @@ export function ProjectsCta() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(50%_60%_at_85%_100%,rgb(77_182_255/0.14),transparent_70%)]"
       />
       <div className={container}>
-        <SectionLabel index="04">Next</SectionLabel>
+        <SectionLabel index="04">
+          {c("projects.cta.sectionLabel", "Next")}
+        </SectionLabel>
         <Link
           href="/contact"
           data-magnetic="true"
@@ -26,7 +32,7 @@ export function ProjectsCta() {
             data-cta-title
             className="font-display text-[clamp(3rem,6.4vw,7rem)] font-extrabold uppercase leading-[0.88] tracking-[-0.05em] lg:col-span-9"
           >
-            Have a product <span className="text-sky">worth building?</span>
+            {c("projects.cta.title", "Have a product worth building?")}
           </h2>
           <span className="flex lg:col-span-3 lg:justify-end">
             <span
@@ -42,8 +48,8 @@ export function ProjectsCta() {
           </span>
         </Link>
         <p className="mt-12 max-w-md border-t border-white/10 pt-8 text-[15px] leading-relaxed text-mist">
-          Tell me what you are building and where it is stuck — the contact page has the
-          form and direct details.
+          Tell me what you are building and where it is stuck — the contact page
+          has the form and direct details.
         </p>
       </div>
     </section>

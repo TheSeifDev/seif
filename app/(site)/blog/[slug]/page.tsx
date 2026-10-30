@@ -5,46 +5,57 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ArticleBody } from "@/components/blog/article-body";
 import { Tags } from "@/components/system/primitives";
-import { getPublishedPost, getPublishedPosts } from "@/lib/content/blog";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getSiteContent } from "@/lib/cms/server";
 import { container, lightPanel } from "@/lib/ui/layout";
-import { createNoIndexMetadata, createPageMetadata } from "@/lib/seo/metadata";
+import { createCmsPageMetadata, withCmsGraph } from "@/lib/cms/metadata";
 import { createArticleGraph } from "@/lib/seo/structured-data";
 
 type BlogArticleProps = {
   params: Promise<{ slug: string }>;
 };
 
-/**
- * Cache Components requires at least one prerendered param. While every
- * article is still a private draft, a reserved sentinel slug is prerendered
- * instead; it never matches a post, so it renders the 404 page and leaks
- * nothing about the drafts.
- */
-const NO_PUBLISHED_POSTS = "__no-published-posts";
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  const params = getPublishedPosts().map((post) => ({ slug: post.slug }));
-  return params.length > 0 ? params : [{ slug: NO_PUBLISHED_POSTS }];
+function publishedPosts(content: SiteContent) {
+  return content.posts
+    .filter(
+      (post): post is SiteContent["posts"][number] & { publishedAt: string } =>
+        post.status === "published" && Boolean(post.publishedAt),
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
+}
+
+export async function generateStaticParams() {
+  const content = await getSiteContent();
+  return publishedPosts(content).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata(
   props: BlogArticleProps,
 ): Promise<Metadata> {
   const { slug } = await props.params;
-  const post = getPublishedPost(slug);
+  const content = await getSiteContent();
+  const post = publishedPosts(content).find((item) => item.slug === slug);
 
   if (!post) {
-    return createNoIndexMetadata();
+    return { robots: { index: false, follow: false } };
   }
 
-  return createPageMetadata({
-    title: post.title,
-    description: post.description,
-    path: `/blog/${post.slug}`,
-    type: "article",
-    publishedTime: post.publishedAt,
-    modifiedTime: post.updatedAt,
-  });
+  return createCmsPageMetadata(
+    {
+      title: post.title,
+      description: post.description,
+      path: `/blog/${post.slug}`,
+      type: "article",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+    },
+    content,
+  );
 }
 
 function formatDate(value: string) {
@@ -54,11 +65,10 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
-export default async function BlogArticlePage(
-  props: BlogArticleProps,
-) {
+export default async function BlogArticlePage(props: BlogArticleProps) {
   const { slug } = await props.params;
-  const post = getPublishedPost(slug);
+  const content = await getSiteContent();
+  const post = publishedPosts(content).find((item) => item.slug === slug);
 
   if (!post || !post.publishedAt) {
     notFound();
@@ -66,7 +76,7 @@ export default async function BlogArticlePage(
 
   return (
     <>
-      <JsonLd data={createArticleGraph(post)} />
+      <JsonLd data={withCmsGraph(createArticleGraph(post), content)} />
       <header className="bg-night pb-16 pt-32 text-snow sm:pt-40 lg:pb-24 lg:pt-48">
         <div className={container}>
           <Link
@@ -85,7 +95,9 @@ export default async function BlogArticlePage(
               {post.description}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[11px] uppercase tracking-[0.16em] text-mist">
-              <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+              <time dateTime={post.publishedAt}>
+                {formatDate(post.publishedAt)}
+              </time>
               <span className="inline-flex items-center gap-2">
                 <Clock3 className="size-3.5" aria-hidden="true" />
                 {post.readingMinutes} min read
@@ -95,7 +107,9 @@ export default async function BlogArticlePage(
         </div>
       </header>
 
-      <section className={`${lightPanel} px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-32`}>
+      <section
+        className={`${lightPanel} px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-32`}
+      >
         <ArticleBody blocks={post.body} />
       </section>
     </>

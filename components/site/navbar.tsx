@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navigation, profile } from "@/lib/content/profile";
+import { getCopy } from "@/lib/cms/copy";
+import { useSiteContent } from "./site-content-provider";
 import { container } from "@/lib/ui/layout";
 import { Logo } from "./logo";
 
@@ -16,12 +17,12 @@ function isActive(pathname: string, href: string) {
 
 export function Navbar() {
   const pathname = usePathname();
+  const { navigation, profile, copy } = useSiteContent();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const [lastPath, setLastPath] = useState(pathname);
 
-  // Close the menu whenever the route changes.
   if (pathname !== lastPath) {
     setLastPath(pathname);
     setOpen(false);
@@ -65,11 +66,17 @@ export function Navbar() {
               : "bg-transparent",
           )}
         >
-          <Logo />
+          <Logo
+            name={profile.name}
+            ariaLabel={getCopy(
+              copy,
+              "site.logo.ariaLabel",
+              `${profile.name} — home`,
+            )}
+          />
         </div>
-
         <nav
-          aria-label="Primary"
+          aria-label={getCopy(copy, "site.nav.primaryAriaLabel", "Primary")}
           className="pointer-events-auto hidden h-14 items-center rounded-full border border-white/10 bg-night/85 px-2 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.55)] backdrop-blur-xl lg:flex"
         >
           <ul className="flex items-center">
@@ -100,13 +107,12 @@ export function Navbar() {
             })}
           </ul>
         </nav>
-
         <div className="pointer-events-auto flex items-center gap-2">
           <Link
             href="/contact"
             className="hidden h-11 items-center gap-2 rounded-full bg-snow pl-5 pr-1.5 text-[13px] font-semibold text-night shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)] ring-1 ring-ink/[0.06] transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky sm:inline-flex"
           >
-            Let&apos;s talk
+            {getCopy(copy, "site.nav.talkCta", "Let's talk")}
             <span className="inline-flex size-8 items-center justify-center rounded-full bg-night text-snow">
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </span>
@@ -116,7 +122,11 @@ export function Navbar() {
             type="button"
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={
+              open
+                ? getCopy(copy, "site.nav.closeMenu", "Close menu")
+                : getCopy(copy, "site.nav.openMenu", "Open menu")
+            }
             onClick={() => setOpen((value) => !value)}
             className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-night/85 text-snow backdrop-blur-xl transition-colors hover:border-sky/50 focus-visible:outline-2 focus-visible:outline-sky lg:hidden"
           >
@@ -128,14 +138,13 @@ export function Navbar() {
           </button>
         </div>
       </div>
-
       <div
         id="mobile-menu"
         hidden={!open}
         className="pointer-events-auto fixed inset-0 top-0 -z-10 bg-night/95 backdrop-blur-xl lg:hidden"
       >
         <nav
-          aria-label="Mobile"
+          aria-label={getCopy(copy, "site.nav.mobileAriaLabel", "Mobile")}
           className={cn(container, "flex h-full flex-col pb-10 pt-28")}
         >
           <ul className="flex flex-col">

@@ -1,41 +1,41 @@
 import Link from "next/link";
 import { ArrowUp, ArrowUpRight, FileText, Mail } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import { navigation, profile } from "@/lib/content/profile";
+import { getCopy } from "@/lib/cms/copy";
+import type { SiteContent } from "@/lib/cms/schema";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { FooterGrain } from "./footer-grain";
 import { Logo } from "./logo";
 
-const elsewhere = [
-  {
-    href: profile.githubUrl,
-    label: "GitHub",
-    detail: profile.handle,
-    icon: SiGithub,
-    external: true,
-  },
-  {
-    href: `mailto:${profile.email}`,
-    label: "Email",
-    detail: profile.email,
-    icon: Mail,
-    external: false,
-  },
-  {
-    href: profile.cvUrl,
-    label: "Download CV",
-    detail: "PDF",
-    icon: FileText,
-    external: true,
-  },
-] as const;
+const footerGrain = 'url("/images/footer-grain.svg")';
 
-const footerGrain = "url(\"/images/footer-grain.svg\")";
-
-export function Footer() {
+export function Footer({ content }: { content: SiteContent }) {
+  const { navigation, profile, copy } = content;
   const year = new Date().getFullYear();
-
+  const elsewhere = [
+    {
+      href: profile.githubUrl,
+      label: "GitHub",
+      detail: profile.handle,
+      icon: SiGithub,
+      external: true,
+    },
+    {
+      href: `mailto:${profile.email}`,
+      label: getCopy(copy, "contact.emailLabel", "Email"),
+      detail: profile.email,
+      icon: Mail,
+      external: false,
+    },
+    {
+      href: profile.cvUrl,
+      label: getCopy(copy, "site.footer.downloadCv", "Download CV"),
+      detail: getCopy(copy, "site.footer.cvDetail", "PDF"),
+      icon: FileText,
+      external: true,
+    },
+  ] as const;
   return (
     <footer
       data-site-footer
@@ -53,10 +53,22 @@ export function Footer() {
       <div className={cn(container, "relative z-10 pb-10 pt-20 lg:pt-24")}>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <Logo withWordmark subtitle={profile.shortRole} />
+            <Logo
+              withWordmark
+              name={profile.name}
+              ariaLabel={getCopy(
+                copy,
+                "site.logo.ariaLabel",
+                `${profile.name} — home`,
+              )}
+              subtitle={profile.shortRole}
+            />
             <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-mist">
-              Production web, desktop and AI products — owned from the database
-              schema to the last detail of the interface.
+              {getCopy(
+                copy,
+                "site.footer.description",
+                "Production web, desktop and AI products — owned from the database schema to the last detail of the interface.",
+              )}
             </p>
             <p
               lang="ja"
@@ -65,9 +77,13 @@ export function Footer() {
               {profile.japaneseMotto}
             </p>
           </div>
-
-          <nav aria-label="Footer" className="lg:col-span-3">
-            <p className={cn(label, "text-mist")}>Pages</p>
+          <nav
+            aria-label={getCopy(copy, "site.footer.ariaLabel", "Footer")}
+            className="lg:col-span-3"
+          >
+            <p className={cn(label, "text-mist")}>
+              {getCopy(copy, "site.footer.pagesLabel", "Pages")}
+            </p>
             <ul className="mt-6 grid grid-cols-2 gap-y-3 lg:grid-cols-1">
               {navigation.map((item) => (
                 <li key={item.href}>
@@ -81,9 +97,10 @@ export function Footer() {
               ))}
             </ul>
           </nav>
-
           <div className="lg:col-span-4">
-            <p className={cn(label, "text-mist")}>Elsewhere</p>
+            <p className={cn(label, "text-mist")}>
+              {getCopy(copy, "site.footer.elsewhereLabel", "Elsewhere")}
+            </p>
             <ul className="mt-6 divide-y divide-white/[0.08] border-y border-white/[0.08]">
               {elsewhere.map((item) => {
                 const Icon = item.icon;
@@ -117,17 +134,16 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
         <p
           aria-hidden="true"
           className="mt-20 select-none font-display text-[clamp(3.5rem,14.5vw,13.5rem)] font-extrabold uppercase leading-[0.8] tracking-[-0.05em] text-white/[0.06]"
         >
-          Seif Ayman
+          {profile.name}
         </p>
-
         <div className="mt-8 flex flex-col gap-4 border-t border-white/[0.08] pt-6 text-[13px] text-mist sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {profile.name}. All rights reserved.
+            © {year} {profile.name}.{" "}
+            {getCopy(copy, "site.footer.rights", "All rights reserved.")}
           </p>
           <p>
             {profile.location} · {profile.availability}
@@ -136,7 +152,7 @@ export function Footer() {
             href="#main"
             className="inline-flex items-center gap-2 text-snow transition-colors hover:text-sky focus-visible:outline-2 focus-visible:outline-sky"
           >
-            Back to top
+            {getCopy(copy, "site.footer.backToTop", "Back to top")}
             <span className="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
               <ArrowUp className="size-3.5" aria-hidden="true" />
             </span>

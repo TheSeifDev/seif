@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import type { MarqueeRow } from "@/lib/content/skills";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { useSiteContent } from "@/components/site/site-content-provider";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { TechnologyIcon } from "@/components/system/technology-icon";
@@ -14,7 +16,9 @@ const durations = ["64s", "76s", "70s"];
  * when the section leaves the viewport, and via the explicit toggle.
  * prefers-reduced-motion shows a static, wrapped list instead.
  */
-export function SkillsMarquee({ rows }: { rows: readonly MarqueeRow[] }) {
+export function SkillsMarquee({ rows }: { rows: SiteContent["marqueeRows"] }) {
+  const { copy } = useSiteContent();
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   const rootRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -50,7 +54,9 @@ export function SkillsMarquee({ rows }: { rows: readonly MarqueeRow[] }) {
           ) : (
             <Pause className="size-3.5 fill-current" aria-hidden="true" />
           )}
-          {paused ? "Play" : "Pause"} motion
+          {paused
+            ? c("home.skills.playMotion", "Play motion")
+            : c("home.skills.pauseMotion", "Pause motion")}
         </button>
       </div>
 
@@ -62,22 +68,39 @@ export function SkillsMarquee({ rows }: { rows: readonly MarqueeRow[] }) {
                 <span className="text-mist">0{rowIndex + 1}</span>
                 <span className="ml-3">{row.label}</span>
               </p>
-              <span aria-hidden="true" className="h-px flex-1 bg-white/[0.08]" />
+              <span
+                aria-hidden="true"
+                className="h-px flex-1 bg-white/[0.08]"
+              />
               <p className="text-[13px] text-mist">{row.caption}</p>
             </div>
             <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_7%,#000_93%,transparent)] motion-reduce:[mask-image:none]">
               <div
-                style={{ "--marquee-duration": durations[rowIndex] } as React.CSSProperties}
+                style={
+                  {
+                    "--marquee-duration":
+                      durations[rowIndex % durations.length],
+                  } as React.CSSProperties
+                }
                 className={cn(
                   "flex w-max hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] group-data-[marquee-state=paused]/marquee:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none",
-                  row.direction === "left" ? "animate-marquee-left" : "animate-marquee-right",
+                  row.direction === "left"
+                    ? "animate-marquee-left"
+                    : "animate-marquee-right",
                 )}
               >
                 {[0, 1].map((copy) => (
                   <ul
                     key={copy}
                     aria-hidden={copy === 1 ? true : undefined}
-                    aria-label={copy === 0 ? `${row.label} technologies` : undefined}
+                    aria-label={
+                      copy === 0
+                        ? c(
+                            "home.skills.technologiesAriaLabel",
+                            "{label} technologies",
+                          ).replace("{label}", row.label)
+                        : undefined
+                    }
                     className={cn(
                       "flex shrink-0 gap-3 pr-3 motion-reduce:flex-wrap motion-reduce:px-5 motion-reduce:sm:px-8 motion-reduce:lg:px-12",
                       copy === 1 && "motion-reduce:hidden",

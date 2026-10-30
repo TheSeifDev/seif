@@ -1,5 +1,8 @@
 import { index, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
+export { user, session, account, verification } from "@/lib/auth/schema";
+export { cmsState, cmsRevisions, cmsMedia } from "@/lib/cms/tables";
+
 export const contactMessages = pgTable(
   "contact_messages",
   {
@@ -7,7 +10,10 @@ export const contactMessages = pgTable(
     name: text("name").notNull(),
     email: text("email").notNull(),
     message: text("message").notNull(),
-    status: text("status").$type<"new" | "read" | "archived">().notNull().default("new"),
+    status: text("status")
+      .$type<"new" | "read" | "archived">()
+      .notNull()
+      .default("new"),
     notificationStatus: text("notification_status")
       .$type<"pending" | "sent" | "failed" | "not_configured">()
       .notNull()
@@ -20,7 +26,10 @@ export const contactMessages = pgTable(
     readAt: timestamp("read_at", { withTimezone: true, mode: "date" }),
   },
   (table) => [
-    index("contact_messages_ip_hash_created_at_idx").on(table.ipHash, table.createdAt),
+    index("contact_messages_ip_hash_created_at_idx").on(
+      table.ipHash,
+      table.createdAt,
+    ),
   ],
 );
 

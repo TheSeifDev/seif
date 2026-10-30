@@ -4,15 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { gsap, motionQueries, ScrollTrigger, useGSAP } from "@/components/motion/gsap";
+import {
+  gsap,
+  motionQueries,
+  ScrollTrigger,
+  useGSAP,
+} from "@/components/motion/gsap";
 import { Flip } from "@/components/motion/flip";
 import { EditorialVisual } from "@/components/system/project-media";
 import { SectionLabel } from "@/components/system/primitives";
-import { projectDomains, type Project } from "@/lib/content/projects";
+import { CmsTitle } from "@/components/system/cms-title";
+import type { SiteContent, SiteProject } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
-type Domain = (typeof projectDomains)[number];
+type Project = SiteProject;
+type Domain = "All" | string;
 type FlipState = ReturnType<typeof Flip.getState>;
 
 const pad = (value: number) => String(value).padStart(2, "0");
@@ -31,6 +40,7 @@ function RowThumb({ project }: { project: Project }) {
       {project.image ? (
         <Image
           src={project.image.src}
+          unoptimized={isUnoptimizedCmsImage(project.image.src)}
           alt=""
           fill
           loading="lazy"
@@ -39,7 +49,10 @@ function RowThumb({ project }: { project: Project }) {
           className="object-cover object-top"
         />
       ) : (
-        <EditorialVisual project={project} className="absolute inset-0 aspect-auto [&_p]:hidden" />
+        <EditorialVisual
+          project={project}
+          className="absolute inset-0 aspect-auto [&_p]:hidden"
+        />
       )}
     </span>
   );
@@ -50,7 +63,22 @@ function RowThumb({ project }: { project: Project }) {
  * toggle `display` when filtered so GSAP Flip can animate leaving and entering
  * rows. On fine pointers a floating preview follows the cursor.
  */
-export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
+export function ProjectsIndex({
+  projects,
+  content,
+}: {
+  projects: readonly SiteProject[];
+  content: SiteContent;
+}) {
+  const c = (key: string, fallback: string) =>
+    getCopy(content.copy, key, fallback);
+  const projectDomains = useMemo(
+    () => [
+      "All",
+      ...Array.from(new Set(projects.flatMap((project) => project.domains))),
+    ],
+    [projects],
+  );
   const [active, setActive] = useState<Domain>("All");
   const listRef = useRef<HTMLOListElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
@@ -68,7 +96,7 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
         : projects.filter((project) => project.domains.includes(domain)).length,
     ]);
     return Object.fromEntries(entries) as Record<Domain, number>;
-  }, [projects]);
+  }, [projectDomains, projects]);
 
   const isShown = (project: Project) =>
     active === "All" || project.domains.includes(active);
@@ -81,7 +109,9 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
     if (domain === active) return;
     const list = listRef.current;
     if (list && motionAllowed()) {
-      flipState.current = Flip.getState(list.querySelectorAll("[data-index-row]"));
+      flipState.current = Flip.getState(
+        list.querySelectorAll("[data-index-row]"),
+      );
     }
     setActive(domain);
   };
@@ -90,7 +120,9 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
   const placeIndicator = useCallback((animate: boolean) => {
     const rail = railRef.current;
     const indicator = indicatorRef.current;
-    const button = rail?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+    const button = rail?.querySelector<HTMLButtonElement>(
+      'button[aria-pressed="true"]',
+    );
     if (!indicator || !button) return;
     const box = {
       x: button.offsetLeft,
@@ -99,7 +131,12 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
       height: button.offsetHeight,
     };
     if (animate && motionAllowed()) {
-      gsap.to(indicator, { ...box, duration: 0.6, ease: "expo.out", overwrite: true });
+      gsap.to(indicator, {
+        ...box,
+        duration: 0.6,
+        ease: "expo.out",
+        overwrite: true,
+      });
     } else {
       gsap.set(indicator, box);
     }
@@ -116,7 +153,9 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
     rail.dataset.ready = "true";
     const observer = new ResizeObserver(() => placeIndicator(false));
     observer.observe(rail);
-    rail.querySelectorAll("button").forEach((button) => observer.observe(button));
+    rail
+      .querySelectorAll("button")
+      .forEach((button) => observer.observe(button));
     return () => {
       observer.disconnect();
       delete rail.dataset.ready;
@@ -149,7 +188,12 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
             },
           ),
         onLeave: (elements) =>
-          gsap.to(elements, { autoAlpha: 0, y: -18, duration: 0.35, ease: "power2.in" }),
+          gsap.to(elements, {
+            autoAlpha: 0,
+            y: -18,
+            duration: 0.35,
+            ease: "power2.in",
+          }),
       });
     },
     { dependencies: [active], scope: listRef },
@@ -169,7 +213,10 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
 
       const xTo = gsap.quickTo(preview, "x", { duration: 0.6, ease: "power3" });
       const yTo = gsap.quickTo(preview, "y", { duration: 0.6, ease: "power3" });
-      const tiltTo = gsap.quickTo(preview, "rotation", { duration: 0.5, ease: "power3" });
+      const tiltTo = gsap.quickTo(preview, "rotation", {
+        duration: 0.5,
+        ease: "power3",
+      });
       const settle = gsap.delayedCall(0.14, () => tiltTo(0)).pause();
 
       let open = false;
@@ -183,7 +230,11 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
           clientX + PREVIEW_GAP + width > window.innerWidth - EDGE
             ? clientX - PREVIEW_GAP - width
             : clientX + PREVIEW_GAP;
-        const y = gsap.utils.clamp(EDGE, window.innerHeight - height - EDGE, clientY - height / 2);
+        const y = gsap.utils.clamp(
+          EDGE,
+          window.innerHeight - height - EDGE,
+          clientY - height / 2,
+        );
         return { x, y };
       };
 
@@ -193,7 +244,12 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
           xTo(x, x);
           yTo(y, y);
           lastX = clientX;
-          gsap.to(frame, { clipPath: OPEN, duration: 0.75, ease: "expo.out", overwrite: "auto" });
+          gsap.to(frame, {
+            clipPath: OPEN,
+            duration: 0.75,
+            ease: "expo.out",
+            overwrite: "auto",
+          });
           open = true;
         }
         if (slug === current) return;
@@ -205,14 +261,21 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
         if (!open) return;
         open = false;
         current = null;
-        gsap.to(frame, { clipPath: CLOSED, duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+        gsap.to(frame, {
+          clipPath: CLOSED,
+          duration: 0.5,
+          ease: "power3.inOut",
+          overwrite: "auto",
+        });
         tiltTo(0);
       };
 
       const onOver = (event: PointerEvent) => {
-        if (event.pointerType !== "mouse" || !(event.target instanceof Element)) return;
+        if (event.pointerType !== "mouse" || !(event.target instanceof Element))
+          return;
         const row = event.target.closest<HTMLElement>("[data-preview]");
-        if (row?.dataset.preview) show(row.dataset.preview, event.clientX, event.clientY);
+        if (row?.dataset.preview)
+          show(row.dataset.preview, event.clientX, event.clientY);
       };
       const onMove = (event: PointerEvent) => {
         if (event.pointerType !== "mouse" || !open) return;
@@ -250,21 +313,30 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
       <div className={container}>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <SectionLabel index="02">Index</SectionLabel>
+            <SectionLabel index="02">
+              {c("projects.index.sectionLabel", "Index")}
+            </SectionLabel>
             <h2
               id="index-title"
               data-projects-heading
               className="mt-6 font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-none tracking-[-0.035em]"
             >
-              Every build, <span className="text-sky">one list</span>.
+              <CmsTitle
+                text={c("projects.index.title", "Every build, one list.")}
+                accent="one list"
+              />
             </h2>
           </div>
           <p
             aria-live="polite"
             className={cn(label, "text-mist lg:col-span-4 lg:text-right")}
           >
-            <span className="text-snow">{pad(shownCount)}</span> / {pad(projects.length)}{" "}
-            {shownCount === 1 ? "project" : "projects"} shown
+            <span className="text-snow">{pad(shownCount)}</span> /{" "}
+            {pad(projects.length)}{" "}
+            {shownCount === 1
+              ? c("projects.index.projectSingular", "project")
+              : c("projects.index.projectPlural", "projects")}{" "}
+            shown
           </p>
         </div>
 
@@ -272,7 +344,10 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
           ref={railRef}
           data-filter-rail
           role="group"
-          aria-label="Filter projects by domain"
+          aria-label={c(
+            "projects.index.filterAriaLabel",
+            "Filter projects by domain",
+          )}
           className="group/filters relative -mx-5 mt-10 flex gap-1.5 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
         >
           <span
@@ -332,10 +407,18 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
                     aria-hidden="true"
                     className="absolute inset-x-0 -top-px h-px origin-left scale-x-0 bg-sky transition-transform duration-700 ease-out-soft group-hover/row:scale-x-100 group-focus-visible/row:scale-x-100"
                   />
-                  <span className={cn(label, "flex items-center gap-2 self-start pt-2 text-mist lg:self-center lg:pt-0")}>
+                  <span
+                    className={cn(
+                      label,
+                      "flex items-center gap-2 self-start pt-2 text-mist lg:self-center lg:pt-0",
+                    )}
+                  >
                     {pad(index + 1)}
                     {project.featured ? (
-                      <span aria-hidden="true" className="size-1.5 rounded-full bg-sky" />
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 rounded-full bg-sky"
+                      />
                     ) : null}
                   </span>
 
@@ -392,10 +475,15 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
           className="relative h-full w-full overflow-hidden rounded-[18px] bg-night-3 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.85)] ring-1 ring-white/10"
         >
           {previewProject ? (
-            <div key={previewProject.slug} data-preview-item={previewProject.slug} className="absolute inset-0">
+            <div
+              key={previewProject.slug}
+              data-preview-item={previewProject.slug}
+              className="absolute inset-0"
+            >
               {previewProject.image ? (
                 <Image
                   src={previewProject.image.src}
+                  unoptimized={isUnoptimizedCmsImage(previewProject.image.src)}
                   alt=""
                   fill
                   loading="lazy"
@@ -405,12 +493,17 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
                   className="object-cover object-top"
                 />
               ) : (
-                <EditorialVisual project={previewProject} className="absolute inset-0 aspect-auto" />
+                <EditorialVisual
+                  project={previewProject}
+                  className="absolute inset-0 aspect-auto"
+                />
               )}
             </div>
           ) : null}
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-night/90 to-transparent px-4 pb-3 pt-12">
-            <span className={cn(label, "text-snow")}>View case study</span>
+            <span className={cn(label, "text-snow")}>
+              {c("projects.detail.viewAllCta", "View case study")}
+            </span>
             <ArrowUpRight className="size-4 text-sky" />
           </div>
         </div>

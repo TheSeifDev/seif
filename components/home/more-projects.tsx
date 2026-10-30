@@ -1,15 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { moreProjects } from "@/lib/content/projects";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
-import {
-  Accent,
-  PillLink,
-  SectionHeading,
-} from "@/components/system/primitives";
+import { PillLink, SectionHeading } from "@/components/system/primitives";
+import { CmsTitle } from "@/components/system/cms-title";
 import {
   EditorialVisual,
   ProjectActions,
@@ -17,7 +16,10 @@ import {
 
 const STACK_PREVIEW = 4;
 
-export function MoreProjects() {
+export function MoreProjects({ content }: { content: SiteContent }) {
+  const { projects, copy } = content;
+  const moreProjects = projects.filter((project) => !project.featured);
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   return (
     <Scene
       name="more"
@@ -29,18 +31,26 @@ export function MoreProjects() {
       <div className={container}>
         <SectionHeading
           index="05"
-          label="More projects"
+          label={c("home.more.sectionLabel", "More projects")}
           id="more-title"
           title={
             <>
-              More <Accent>projects</Accent>
+              <CmsTitle
+                text={c("home.more.title", "More projects")}
+                accent="projects"
+              />
             </>
           }
           aside={
             <div className="flex flex-col items-start gap-5 lg:items-end">
-              <p>Selected work across healthcare, analytics and the web.</p>
+              <p>
+                {c(
+                  "home.more.aside",
+                  "Selected work across healthcare, analytics and the web.",
+                )}
+              </p>
               <PillLink href="/projects" variant="outline-dark" size="sm">
-                All projects
+                {c("home.more.allProjectsCta", "All projects")}
               </PillLink>
             </div>
           }
@@ -77,12 +87,16 @@ export function MoreProjects() {
                     <Link
                       href={`/projects/${project.slug}`}
                       data-cursor="project"
-                      aria-label={`Read the ${project.title} case study`}
+                      aria-label={c(
+                        "home.more.readCaseStudy",
+                        "Read the {title} case study",
+                      ).replace("{title}", project.title)}
                       className="group/media relative block aspect-[16/10] overflow-hidden rounded-[20px] bg-night ring-1 ring-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky"
                     >
                       {project.image ? (
                         <Image
                           src={project.image.src}
+                          unoptimized={isUnoptimizedCmsImage(project.image.src)}
                           alt={project.image.alt}
                           fill
                           loading="lazy"
@@ -104,7 +118,12 @@ export function MoreProjects() {
                         aria-hidden="true"
                         className="absolute left-3.5 top-3.5 rounded-full bg-night/70 px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] text-snow ring-1 ring-white/10 backdrop-blur-md"
                       >
-                        {String(index + 4).padStart(2, "0")}
+                        {String(
+                          index +
+                            1 +
+                            projects.filter((project) => project.featured)
+                              .length,
+                        ).padStart(2, "0")}
                       </span>
                       <span
                         aria-hidden="true"
@@ -148,7 +167,10 @@ export function MoreProjects() {
                       </p>
 
                       <ul
-                        aria-label={`${project.title} technologies`}
+                        aria-label={c(
+                          "home.more.technologiesAriaLabel",
+                          "{title} technologies",
+                        ).replace("{title}", project.title)}
                         className="mt-5 flex flex-wrap gap-1.5"
                       >
                         {project.stack.slice(0, STACK_PREVIEW).map((item) => (
@@ -172,10 +194,16 @@ export function MoreProjects() {
                           <Link
                             href={`/projects/${project.slug}`}
                             data-cursor="project"
-                            aria-label={`Read the ${project.title} case study`}
+                            aria-label={c(
+                              "home.more.readCaseStudy",
+                              "Read the {title} case study",
+                            ).replace("{title}", project.title)}
                             className="inline-flex size-10 shrink-0 items-center justify-center rounded-full text-snow ring-1 ring-white/15 transition-[background-color,color,rotate] duration-300 hover:rotate-45 hover:bg-snow hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky"
                           >
-                            <ArrowUpRight className="size-4" aria-hidden="true" />
+                            <ArrowUpRight
+                              className="size-4"
+                              aria-hidden="true"
+                            />
                           </Link>
                         </div>
                       </div>

@@ -1,0 +1,7 @@
+# Dashboard implementation review
+
+A separate read-only review traced owner authorization, raw OAuth identity admission, public/private snapshots, draft asset visibility, runtime slugs, empty collections and editor coverage. It found three concrete gaps: initial-draft provenance was not shown, article updatedAt did not change on edits, and cross-service file deletion needed a durable recovery state. All three have been addressed in source: labelled initial drafts, server-stamped changed articles with unchanged-date preservation, and `cms_media.deleted_at` tombstones recorded under a content-row lock before external deletion. Saves reject pending/missing media references.
+
+The parent also corrected first-owner provisioning (a blanket implicit-signup disable would block the allowed owner), removed static slug allowlists, added a staged CMS_ENABLED rollout to protect the current site before migration, removed database-error fallback to old published defaults, bounded streamed request bodies, exposed project kanjiMeaning, restored original public title accents, and repaired empty-array editor templates.
+
+This review was code-level and did not configure or test live Neon, GitHub OAuth or Vercel Blob. Those remain operational blockers until authorized account access and server settings exist. The local tests use an isolated PostgreSQL database and cryptographically signed fixture sessions through the real guard; no application login bypass was added.

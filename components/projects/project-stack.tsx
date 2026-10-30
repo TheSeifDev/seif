@@ -1,9 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { EditorialVisual, ProjectActions } from "@/components/system/project-media";
-import { Accent, SectionLabel } from "@/components/system/primitives";
-import type { Project } from "@/lib/content/projects";
+import {
+  EditorialVisual,
+  ProjectActions,
+} from "@/components/system/project-media";
+import { SectionLabel } from "@/components/system/primitives";
+import { CmsTitle } from "@/components/system/cms-title";
+import type { SiteContent, SiteProject } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +24,15 @@ const pad = (value: number) => String(value).padStart(2, "0");
  * stage viewports (with motion) the cards are CSS-sticky and stack; GSAP only
  * scrubs scale/shade and the screenshot reveal.
  */
-export function ProjectStack({ projects }: { projects: readonly Project[] }) {
+export function ProjectStack({
+  projects,
+  content,
+}: {
+  projects: readonly SiteProject[];
+  content: SiteContent;
+}) {
+  const c = (key: string, fallback: string) =>
+    getCopy(content.copy, key, fallback);
   return (
     <section
       aria-labelledby="in-focus-title"
@@ -39,16 +53,27 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
               data-projects-heading
               className="mt-6 font-display text-[clamp(2.75rem,6vw,5.5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em]"
             >
-              Three case files, <Accent>end to end</Accent>.
+              <CmsTitle
+                text={c(
+                  "projects.focus.title",
+                  "Three case files, end to end.",
+                )}
+                accent="end to end"
+              />
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-slate-ink lg:col-span-4 lg:justify-self-end lg:text-right">
-            The flagship builds, opened up: what each one does, how it is put together and
-            where to see it.
+            {c(
+              "projects.focus.description",
+              "The flagship builds, opened up: what each one does, how it is put together and where to see it.",
+            )}
           </p>
         </div>
 
-        <ol data-stack className="mt-14 flex flex-col gap-6 lg:mt-20 stage:motion-safe:gap-0">
+        <ol
+          data-stack
+          className="mt-14 flex flex-col gap-6 lg:mt-20 stage:motion-safe:gap-0"
+        >
           {projects.map((project, index) => (
             <li
               key={project.slug}
@@ -69,20 +94,31 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
 
                 <div className="relative z-10 flex flex-col p-7 sm:p-9 lg:col-span-6 lg:p-8 xl:col-span-5 xl:p-10 short:lg:p-6">
                   <div className="flex items-center justify-between gap-4">
-                    <p className={cn(label, "flex items-center gap-3 text-mist")}>
+                    <p
+                      className={cn(label, "flex items-center gap-3 text-mist")}
+                    >
                       <span className="text-sky">{pad(index + 1)}</span>
-                      <span aria-hidden="true" className="h-px w-8 bg-white/20" />
+                      <span
+                        aria-hidden="true"
+                        className="h-px w-8 bg-white/20"
+                      />
                       <span>{pad(projects.length)}</span>
                     </p>
                     <p className="flex items-center gap-2 text-sm text-mist">
-                      <span aria-hidden="true" className="font-jp text-lg text-sky">
+                      <span
+                        aria-hidden="true"
+                        className="font-jp text-lg text-sky"
+                      >
                         {project.kanji}
                       </span>
                       {project.kanjiMeaning}
                     </p>
                   </div>
 
-                  <div data-stack-copy className="flex flex-1 flex-col justify-center py-8 short:py-5 lg:py-6 short:lg:py-4">
+                  <div
+                    data-stack-copy
+                    className="flex flex-1 flex-col justify-center py-8 short:py-5 lg:py-6 short:lg:py-4"
+                  >
                     <p className={cn(label, "text-sky")}>{project.category}</p>
                     <h3
                       id={`stack-${project.slug}`}
@@ -100,17 +136,19 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                       {project.summary}
                     </p>
                     <ol className="mt-6 space-y-3 border-t border-white/10 pt-5">
-                      {project.highlights.slice(0, 3).map((highlight, point) => (
-                        <li
-                          key={highlight}
-                          className="grid grid-cols-[1.75rem_minmax(0,1fr)] text-sm leading-relaxed text-snow/80 short:[&:nth-child(3)]:hidden"
-                        >
-                          <span className="pt-0.5 font-mono text-[11px] text-sky">
-                            {pad(point + 1)}
-                          </span>
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
+                      {project.highlights
+                        .slice(0, 3)
+                        .map((highlight, point) => (
+                          <li
+                            key={highlight}
+                            className="grid grid-cols-[1.75rem_minmax(0,1fr)] text-sm leading-relaxed text-snow/80 short:[&:nth-child(3)]:hidden"
+                          >
+                            <span className="pt-0.5 font-mono text-[11px] text-sky">
+                              {pad(point + 1)}
+                            </span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
                     </ol>
                   </div>
 
@@ -146,6 +184,7 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                       <Image
                         data-stack-image
                         src={project.image.src}
+                        unoptimized={isUnoptimizedCmsImage(project.image.src)}
                         alt=""
                         fill
                         loading="lazy"
@@ -154,14 +193,22 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                         className="object-cover object-top"
                       />
                     ) : (
-                      <EditorialVisual project={project} className="absolute inset-0 aspect-auto" />
+                      <EditorialVisual
+                        project={project}
+                        className="absolute inset-0 aspect-auto"
+                      />
                     )}
                     <span className="absolute inset-0 bg-gradient-to-t from-night/75 via-night/5 to-transparent" />
                     <span className="absolute -bottom-5 right-5 font-jp text-[clamp(5rem,11vw,10rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgb(255_255_255/0.22)]">
                       {project.kanji}
                     </span>
                     {project.image ? (
-                      <span className={cn(label, "absolute bottom-5 left-5 hidden text-snow/75 sm:block")}>
+                      <span
+                        className={cn(
+                          label,
+                          "absolute bottom-5 left-5 hidden text-snow/75 sm:block",
+                        )}
+                      >
                         {project.image.caption}
                       </span>
                     ) : null}

@@ -1,22 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { featuredProjects } from "@/lib/content/projects";
+import type { SiteContent, SiteProject } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
-import { Accent, PillLink, SectionHeading } from "@/components/system/primitives";
-import { EditorialVisual, ProjectActions } from "@/components/system/project-media";
+import { PillLink, SectionHeading } from "@/components/system/primitives";
+import { CmsTitle } from "@/components/system/cms-title";
+import {
+  EditorialVisual,
+  ProjectActions,
+} from "@/components/system/project-media";
 import { FeaturedTechFilter } from "./featured-filter";
 
 /** Panel width on desktop; slides are 80% of it so the next project peeks. */
 const PANEL_WIDTH = "lg:w-[min(90vw,1680px)]";
 const SLIDE_WIDTH = "group-data-[enhanced=true]/featured:w-[min(72vw,1344px)]";
-const featuredTechnologies = Array.from(
-  new Set(featuredProjects.flatMap((project) => project.stack)),
-);
-
-export function FeaturedProjects() {
+export function FeaturedProjects({ content }: { content: SiteContent }) {
+  const { projects, copy } = content;
+  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredTechnologies = Array.from(
+    new Set(featuredProjects.flatMap((project) => project.stack)),
+  );
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   const total = String(featuredProjects.length).padStart(2, "0");
 
   return (
@@ -45,22 +53,27 @@ export function FeaturedProjects() {
           <div className={cn(container, "max-w-none")}>
             <SectionHeading
               index="04"
-              label="Featured projects"
+              label={c("home.featured.sectionLabel", "Featured projects")}
               id="work-title"
               tone="light"
               title={
                 <>
-                  Some things <Accent>I&apos;ve built</Accent>
+                  <CmsTitle
+                    text={c("home.featured.title", "Some things I've built")}
+                    accent="I've built"
+                  />
                 </>
               }
               aside={
                 <div className="flex flex-col items-start gap-5 lg:items-end">
                   <p>
-                    Real products, end to end — interface, API, data and
-                    deployment.
+                    {c(
+                      "home.featured.aside",
+                      "Real products, end to end — interface, API, data and deployment.",
+                    )}
                   </p>
                   <PillLink href="/projects" variant="outline-light" size="sm">
-                    View all projects
+                    {c("home.featured.viewAllCta", "View all projects")}
                   </PillLink>
                 </div>
               }
@@ -71,11 +84,16 @@ export function FeaturedProjects() {
               total={featuredProjects.length}
             />
 
-            <div className={cn("mt-8", "group-data-[enhanced=true]/featured:mt-8")}>
+            <div
+              className={cn("mt-8", "group-data-[enhanced=true]/featured:mt-8")}
+            >
               <ol
                 data-featured-track
                 data-cursor="scroll"
-                aria-label="Featured projects"
+                aria-label={c(
+                  "home.featured.sectionLabel",
+                  "Featured projects",
+                )}
                 className={cn(
                   "flex flex-col gap-6",
                   "group-data-[enhanced=true]/featured:w-max group-data-[enhanced=true]/featured:flex-row group-data-[enhanced=true]/featured:gap-6",
@@ -94,7 +112,7 @@ export function FeaturedProjects() {
                       "short:group-data-[enhanced=true]/featured:h-[min(410px,calc(100svh-20rem))]",
                     )}
                   >
-                    <FeaturedCard project={project} index={index} />
+                    <FeaturedCard project={project} index={index} copy={copy} />
                   </li>
                 ))}
               </ol>
@@ -119,7 +137,9 @@ export function FeaturedProjects() {
                   className="absolute inset-0 origin-left scale-x-0 bg-ink"
                 />
               </span>
-              <p className={cn(label, "text-slate-ink")}>Scroll to explore</p>
+              <p className={cn(label, "text-slate-ink")}>
+                {c("home.featured.scrollHint", "Scroll to explore")}
+              </p>
             </div>
           </div>
         </div>
@@ -128,9 +148,18 @@ export function FeaturedProjects() {
   );
 }
 
-type FeaturedProject = (typeof featuredProjects)[number];
+type FeaturedProject = SiteProject;
 
-function FeaturedCard({ project, index }: { project: FeaturedProject; index: number }) {
+function FeaturedCard({
+  project,
+  index,
+  copy,
+}: {
+  project: FeaturedProject;
+  index: number;
+  copy: Record<string, string>;
+}) {
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   const reverse = index % 2 === 1;
   const number = String(index + 1).padStart(2, "0");
 
@@ -163,12 +192,16 @@ function FeaturedCard({ project, index }: { project: FeaturedProject; index: num
           <Link
             href={`/projects/${project.slug}`}
             data-cursor="project"
-            aria-label={`Read the ${project.title} case study`}
+            aria-label={c(
+              "home.featured.readCaseStudy",
+              "Read the {title} case study",
+            ).replace("{title}", project.title)}
             className="group/media relative block aspect-[16/10] overflow-hidden rounded-[20px] bg-night ring-1 ring-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky lg:aspect-auto lg:h-full lg:min-h-[340px] lg:rounded-[24px] group-data-[enhanced=true]/featured:lg:min-h-0"
           >
             {project.image ? (
               <Image
                 src={project.image.src}
+                unoptimized={isUnoptimizedCmsImage(project.image.src)}
                 alt={project.image.alt}
                 fill
                 loading="lazy"
@@ -177,7 +210,10 @@ function FeaturedCard({ project, index }: { project: FeaturedProject; index: num
                 className="object-cover object-top transition-transform duration-[900ms] ease-out-soft group-hover/card:scale-[1.03]"
               />
             ) : (
-              <EditorialVisual project={project} className="absolute inset-0 aspect-auto h-full" />
+              <EditorialVisual
+                project={project}
+                className="absolute inset-0 aspect-auto h-full"
+              />
             )}
             <span
               aria-hidden="true"
@@ -199,7 +235,9 @@ function FeaturedCard({ project, index }: { project: FeaturedProject; index: num
           )}
         >
           <div className="flex items-center justify-between gap-4">
-            <p className={cn(label, "flex min-w-0 items-center gap-3 text-mist")}>
+            <p
+              className={cn(label, "flex min-w-0 items-center gap-3 text-mist")}
+            >
               <span className="text-sky">{number}</span>
               <span aria-hidden="true" className="h-px w-8 bg-white/15" />
               <span>{project.category}</span>
@@ -243,7 +281,10 @@ function FeaturedCard({ project, index }: { project: FeaturedProject; index: num
             <Link
               href={`/projects/${project.slug}`}
               data-cursor="project"
-              aria-label={`Read the ${project.title} case study`}
+              aria-label={c(
+                "home.featured.readCaseStudy",
+                "Read the {title} case study",
+              ).replace("{title}", project.title)}
               className="inline-flex size-10 shrink-0 items-center justify-center rounded-full text-snow ring-1 ring-white/15 transition-[background-color,color,rotate] duration-300 hover:rotate-45 hover:bg-snow hover:text-night focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky"
             >
               <ArrowUpRight className="size-4" aria-hidden="true" />

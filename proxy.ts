@@ -1,36 +1,36 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getPublishedPosts } from "@/lib/content/blog";
-import { projects } from "@/lib/content/projects";
+import { readPublishedContent } from "@/lib/cms/repository";
 
-/**
- * Unknown project slugs and unpublished (draft) article slugs are rejected
- * before rendering so they receive a real 404 and never leak draft content.
- */
-const projectSlugs = new Set(projects.map((project) => project.slug));
-const publishedPostSlugs = new Set(getPublishedPosts().map((post) => post.slug));
-
-function isKnown(pathname: string) {
-  const [, section, slug, ...rest] = pathname.split("/");
-  if (!slug || rest.some(Boolean)) return false;
-  let decoded: string;
+/** Reject unpublished/unknown records before streaming, including runtime CMS slugs. */
+export async function proxy(request: NextRequest) {
+  const [, section, encoded, ...rest] = request.nextUrl.pathname.split("/");
+  let slug = "";
   try {
-    decoded = decodeURIComponent(slug);
+    slug = decodeURIComponent(encoded ?? "");
   } catch {
-    return false;
+    /* rejected below */
   }
-  if (section === "projects") return projectSlugs.has(decoded);
-  if (section === "blog") return publishedPostSlugs.has(decoded);
-  return true;
+  if (!slug || rest.some(Boolean))
+    return NextResponse.rewrite(new URL("/__not-found", request.url), {
+      status: 404,
+    });
+  let content;
+  try {
+    content = await readPublishedContent();
+  } catch {
+    return new NextResponse("Content temporarily unavailable", {
+      status: 503,
+      headers: { "Cache-Control": "no-store", "Retry-After": "30" },
+    });
+  }
+  const known =
+    section === "projects"
+      ? content.projects.some((project) => project.slug === slug)
+      : content.posts.some((post) => post.slug === slug);
+  return known
+    ? NextResponse.next()
+    : NextResponse.rewrite(new URL("/__not-found", request.url), {
+        status: 404,
+      });
 }
-
-export function proxy(request: NextRequest) {
-  if (isKnown(request.nextUrl.pathname)) return NextResponse.next();
-
-  return NextResponse.rewrite(new URL("/__not-found", request.url), {
-    status: 404,
-  });
-}
-
-export const config = {
-  matcher: ["/projects/:slug+", "/blog/:slug+"],
-};
+export const config = { matcher: ["/projects/:slug+", "/blog/:slug+"] };

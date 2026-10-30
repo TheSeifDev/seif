@@ -11,7 +11,7 @@ A multi-page portfolio for Seif Ayman built with Next.js 16, React 19, TypeScrip
 - `/contact` — contact form and direct contact links.
 - `/robots.txt`, `/sitemap.xml`, `/opengraph-image`, `/llms.txt` — public discovery resources.
 
-The private dashboard remains a separate future phase, not a public route.
+`/dashboard` and its owner-only saved previews are implemented in a separate private route group. Production activation remains gated by infrastructure configuration; see Private CMS dashboard below.
 
 ## Development and checks
 
@@ -72,4 +72,28 @@ Repository: https://github.com/TheSeifDev/seif
 
 Public site: https://theseif.vercel.app
 
-The portfolio was recovered from approved source snapshots and is now maintained in the user's `main` branch. Vercel deployment status must be verified separately from a successful Git push. No purchases, domain changes, private dashboard publication or contact-provider configuration are part of this pass.
+The portfolio was recovered from approved source snapshots and is maintained in the user's repository. Vercel deployment status must be verified separately from a successful Git push. No purchases or unrelated account changes are authorized. Private CMS code and its live service activation are tracked separately below.
+
+## Private CMS dashboard
+
+`/dashboard` is now implemented as a separate server-protected workspace. It edits the complete typed site content, project case studies, structured article blocks, profile/About/Home copy, skill groups, navigation, SEO settings and media references. Draft saves and public publication are separate. Version checks reject overwrites from stale sessions, saved-draft previews require the owner, and the three original article drafts remain private and labelled until author review. Public pages, metadata, JSON-LD, sitemap, robots, Open Graph and llms output use the same sanitized published source.
+
+Production activation is deliberately disabled by default: leave `CMS_ENABLED=false` until migrations and credentials are configured. This keeps the existing public site on its checked-in data and closes the admin service even if the contact database is already connected. Do not enable CMS until the target database has the additive migrations. Existing user edits are never overwritten by initialization. Detailed setup is in [dashboard-auth-setup.md](docs/dashboard-auth-setup.md); private storage requirements are in [dashboard-storage.md](docs/research/dashboard-storage.md).
+
+The application uses Neon/PostgreSQL, Better Auth 1.7.14 with the matching Drizzle adapter, owner-only GitHub OAuth, and private Vercel Blob. No credentials have been committed. Neon/Vercel connections were not enabled in this task; live provider login and Blob upload are not claimed operational. `/dashboard` honestly shows an unavailable/setup state and protected APIs return 503 until configured. Do not add a test-login route or disable the owner gate to view the workspace.
+
+Repository/integration tests explicitly refuse non-local database/server targets:
+
+```bash
+# Supply a dedicated localhost PostgreSQL database ending in _test, with migrations applied.
+CMS_TEST_DATABASE_URL=postgresql://...@127.0.0.1:5432/seif_cms_test node scripts/test-cms.mjs
+CMS_TEST_DATABASE_URL=postgresql://...@127.0.0.1:5432/seif_cms_test node scripts/cms-local-auth-fixture.mjs
+# Source the generated private /tmp test environment in a local production-server shell.
+# These signed local fixtures are not app bypasses and are never deployed or used on production.
+source /tmp/seif-cms-test-env.sh
+npm start
+# In a separate terminal:
+python3 scripts/check-dashboard.py
+```
+
+`test-cms.mjs` resets only `cms_*` tables in the explicitly isolated local test database. Never point test scripts at Neon or a shared/production database. The real GitHub OAuth redirect and external Blob bytes round-trip require a separately authorized production/provider test after activation.

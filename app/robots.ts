@@ -1,20 +1,17 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/seo/metadata";
-
-export default function robots(): MetadataRoute.Robots {
+import { getSiteContent } from "@/lib/cms/server";
+import { cmsUrl } from "@/lib/cms/metadata";
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const content = await getSiteContent();
   return {
     rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/dashboard"],
-      },
+      { userAgent: "*", allow: "/", disallow: ["/api/", "/dashboard"] },
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
         disallow: ["/api/", "/dashboard"],
       },
     ],
-    sitemap: siteUrl("/sitemap.xml"),
+    sitemap: cmsUrl("/sitemap.xml", content),
   };
 }

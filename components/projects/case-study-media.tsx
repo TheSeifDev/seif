@@ -2,14 +2,14 @@
 
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
-import { type Project } from "@/lib/content/projects";
+import type { SiteProject } from "@/lib/cms/schema";
 import {
   BrowserFrame,
   EditorialVisual,
 } from "@/components/system/project-media";
 import { gsap, motionQueries, useGSAP } from "@/components/motion/gsap";
 
-export function CaseStudyMedia({ project }: { project: Project }) {
+export function CaseStudyMedia({ project }: { project: SiteProject }) {
   const scope = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -69,7 +69,10 @@ export function CaseStudyMedia({ project }: { project: Project }) {
         )}
       </div>
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3 px-1 text-xs text-mist sm:px-2">
-        <p>{project.image?.caption ?? "Editorial visual — no public product preview"}</p>
+        <p>
+          {project.image?.caption ??
+            "Editorial visual — no public product preview"}
+        </p>
         {project.availability ? <p>{project.availability}</p> : null}
       </div>
     </div>

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Box, Code2, Layers, UserRound } from "lucide-react";
-import { assets, principles } from "@/lib/content/profile";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { display, lightPanel } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
@@ -18,14 +20,16 @@ const principleIcons = {
   user: UserRound,
 } as const;
 
-const statement =
-  "A full stack developer who loves building modern, scalable and user-centred digital experiences — owning every layer from database schema and APIs to the interface and its deployment.";
-
-export function About() {
+export function About({ content }: { content: SiteContent }) {
+  const { assets, principles, copy, profile } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
+  const statement = c("home.about.statement", profile.summary);
   const lines = [
-    "I build products",
-    "that solve",
-    <Accent key="accent">real problems</Accent>,
+    c("home.about.titleLineOne", "I build products"),
+    c("home.about.titleLineTwo", "that solve"),
+    <Accent key="accent">
+      {c("home.about.titleLineThree", "real problems")}
+    </Accent>,
   ];
 
   return (
@@ -39,10 +43,15 @@ export function About() {
     >
       <div className="grid lg:grid-cols-12">
         <div className="relative min-h-[340px] sm:min-h-[440px] lg:col-span-5 lg:min-h-full">
-          <div data-about-art aria-hidden="true" className="absolute inset-0 overflow-hidden">
+          <div
+            data-about-art
+            aria-hidden="true"
+            className="absolute inset-0 overflow-hidden"
+          >
             <div data-about-art-img className="absolute inset-0">
               <Image
                 src={assets.aboutInk}
+                unoptimized={isUnoptimizedCmsImage(assets.aboutInk)}
                 alt=""
                 fill
                 loading="lazy"
@@ -56,13 +65,13 @@ export function About() {
             <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-paper lg:hidden" />
           </div>
           <VerticalCaption className="absolute bottom-10 left-6 text-ink/70 lg:bottom-16 lg:left-10">
-            開発・デザイン・解決・繰り返す
+            {c("home.about.verticalCaption", "開発・デザイン・解決・繰り返す")}
           </VerticalCaption>
         </div>
 
         <div className="px-5 pb-20 pt-6 sm:px-8 lg:col-span-7 lg:py-32 lg:pl-4 lg:pr-12 xl:pr-20">
           <SectionLabel index="01" tone="light">
-            About me
+            {c("home.about.sectionLabel", "About me")}
           </SectionLabel>
           <h2 id="about-title" className={cn(display, "mt-8")}>
             {lines.map((line, index) => (
@@ -100,9 +109,15 @@ export function About() {
             className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-ink/[0.08] bg-ink/[0.08] sm:grid-cols-2"
           >
             {principles.map((principle) => {
-              const Icon = principleIcons[principle.icon];
+              const Icon =
+                principleIcons[principle.icon as keyof typeof principleIcons] ??
+                Box;
               return (
-                <li key={principle.title} data-about-principle className="bg-paper p-6 sm:p-7">
+                <li
+                  key={principle.title}
+                  data-about-principle
+                  className="bg-paper p-6 sm:p-7"
+                >
                   <span className="inline-flex size-10 items-center justify-center rounded-xl bg-sky-ink/10 text-sky-ink">
                     <Icon className="size-5" aria-hidden="true" />
                   </span>
@@ -119,7 +134,7 @@ export function About() {
 
           <div className="mt-10">
             <PillLink href="/about" variant="ink">
-              More about me
+              {c("home.about.moreCta", "More about me")}
             </PillLink>
           </div>
         </div>

@@ -1,0 +1,99 @@
+{
+  "scope": "isolated-local-postgresql-not-production",
+  "checks": [
+    {
+      "name": "Original projects, skills and all three initial drafts retained",
+      "passed": true
+    },
+    {
+      "name": "Anonymous snapshot never contains initial blog drafts",
+      "passed": true
+    },
+    {
+      "name": "Draft saved durably with next revision",
+      "passed": true
+    },
+    {
+      "name": "Save does not publish profile, project or copy changes",
+      "passed": true
+    },
+    {
+      "name": "Stale revision cannot overwrite newer changes",
+      "passed": true
+    },
+    {
+      "name": "Explicit publish updates all fields together",
+      "passed": true
+    },
+    {
+      "name": "Initial drafts require explicit author review before publishing",
+      "passed": true
+    },
+    {
+      "name": "Reviewed article publishes; unpublished project and other draft articles excluded",
+      "passed": true
+    },
+    {
+      "name": "Restoration creates a new draft without rolling back live content",
+      "passed": true
+    },
+    {
+      "name": "Unsafe executable URLs rejected",
+      "passed": true
+    },
+    {
+      "name": "Duplicate project slugs rejected",
+      "passed": true
+    },
+    {
+      "name": "Intentional empty archives accepted",
+      "passed": true
+    },
+    {
+      "name": "Unlinked media is private",
+      "passed": true
+    },
+    {
+      "name": "Draft media cannot be anonymously fetched, and deletion detects saved reference",
+      "passed": true
+    },
+    {
+      "name": "Media becomes public only when referenced by published content",
+      "passed": true
+    },
+    {
+      "name": "Repeated initialization never resets edited content",
+      "passed": true
+    },
+    {
+      "name": "Referenced media cannot enter deletion state",
+      "passed": true
+    },
+    {
+      "name": "Deletion intent is durable before external bytes cleanup",
+      "passed": true
+    },
+    {
+      "name": "Interrupted deletion can be retried without losing storage reference",
+      "passed": true
+    },
+    {
+      "name": "Pending-deletion media cannot be linked by a concurrent save",
+      "passed": true
+    },
+    {
+      "name": "Confirmed cleanup can remove the tombstone",
+      "passed": true
+    },
+    {
+      "name": "Unchanged article timestamps are preserved",
+      "passed": true
+    },
+    {
+      "name": "Changed articles get a server modification timestamp",
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "externalOAuthAndBlobTested": false
+}

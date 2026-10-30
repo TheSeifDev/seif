@@ -1,10 +1,9 @@
-import { getPublishedPosts } from "@/lib/content/blog";
-import { experience, profile } from "@/lib/content/profile";
-import { projects } from "@/lib/content/projects";
-import { siteUrl } from "@/lib/seo/metadata";
-
-export function GET() {
-  const publishedPosts = getPublishedPosts();
+import { getSiteContent } from "@/lib/cms/server";
+import { cmsUrl } from "@/lib/cms/metadata";
+export async function GET() {
+  const content = await getSiteContent();
+  const { profile, projects, posts, experience } = content;
+  const url = (path: string) => cmsUrl(path, content);
   const lines = [
     `# ${profile.fullName}`,
     "",
@@ -16,29 +15,31 @@ export function GET() {
     "",
     "## Current experience",
     "",
-    ...experience.map((role) => `- ${role.role} — ${role.organization}. ${role.period}.`),
+    ...experience.map(
+      (role) => `- ${role.role} — ${role.organization}. ${role.period}.`,
+    ),
     "",
     "## Canonical navigation",
     "",
-    `- [Home](${siteUrl("/")}) — portfolio overview and professional identity.`,
-    `- [About](${siteUrl("/about")}) — experience, education, capabilities, and working principles.`,
-    `- [Projects](${siteUrl("/projects")}) — published project case studies.`,
-    `- [Contact](${siteUrl("/contact")}) — contact form, public email, and availability.`,
+    ...content.navigation.map((item) => `- [${item.label}](${url(item.href)})`),
     "",
     "## Published projects",
     "",
-    ...projects.flatMap((project) => [
-      `- [${project.title}](${siteUrl(`/projects/${project.slug}`)}) — ${project.summary} Domains: ${project.domains.join(", ")}. Stack: ${project.stack.join(", ")}.`,
-    ]),
+    ...projects.map(
+      (project) =>
+        `- [${project.title}](${url(`/projects/${project.slug}`)}) — ${project.summary} Domains: ${project.domains.join(", ")}. Stack: ${project.stack.join(", ")}.`,
+    ),
     "",
     "## Published writing",
     "",
-    ...(publishedPosts.length
-      ? publishedPosts.map(
+    ...(posts.length
+      ? posts.map(
           (post) =>
-            `- [${post.title}](${siteUrl(`/blog/${post.slug}`)}) — ${post.description}`,
+            `- [${post.title}](${url(`/blog/${post.slug}`)}) — ${post.description}`,
         )
-      : ["No blog articles are published yet; draft posts are intentionally excluded."]),
+      : [
+          "No blog articles are published yet; draft posts are intentionally excluded.",
+        ]),
     "",
     "## Identity facts",
     "",
@@ -49,7 +50,6 @@ export function GET() {
     `- Location: ${profile.location}`,
     `- Public GitHub: ${profile.githubUrl}`,
   ];
-
   return new Response(`${lines.join("\n")}\n`, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });

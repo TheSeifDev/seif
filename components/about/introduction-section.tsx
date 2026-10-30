@@ -1,19 +1,37 @@
 import Image from "next/image";
-import { Accent, SectionHeading, VerticalCaption } from "@/components/system/primitives";
-import { assets, profile } from "@/lib/content/profile";
+import {
+  SectionHeading,
+  VerticalCaption,
+} from "@/components/system/primitives";
+import { CmsTitle } from "@/components/system/cms-title";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { aboutLightPanel } from "@/lib/ui/about-layout";
 import { container, label, mutedOnLight, sectionY } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
-const facts = [
-  { label: "Experience", value: `${profile.experienceYears} years` },
-  { label: "Production platforms", value: `${profile.platforms} (CV)` },
-  { label: "Based in", value: profile.location },
-  { label: "Availability", value: "Open to remote" },
-] as const;
-
-/** 01 Introduction — profile portrait, summary and the four CV facts. */
-export function IntroductionSection() {
+export function IntroductionSection({ content }: { content: SiteContent }) {
+  const { profile, assets, copy } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
+  const facts = [
+    {
+      label: c("about.introduction.experienceLabel", "Experience"),
+      value: `${profile.experienceYears} years`,
+    },
+    {
+      label: c("about.introduction.platformsLabel", "Production platforms"),
+      value: `${profile.platforms} (CV)`,
+    },
+    {
+      label: c("about.introduction.basedInLabel", "Based in"),
+      value: profile.location,
+    },
+    {
+      label: c("about.introduction.availabilityLabel", "Availability"),
+      value: c("about.introduction.availabilityValue", profile.availability),
+    },
+  ] as const;
   return (
     <section
       id="introduction"
@@ -24,11 +42,15 @@ export function IntroductionSection() {
       <div className={cn(container, sectionY)}>
         <SectionHeading
           index="01"
-          label="Introduction"
+          label={c("about.introduction.sectionLabel", "Introduction")}
           title={
-            <>
-              A calm engineer for <Accent>complex systems</Accent>.
-            </>
+            <CmsTitle
+              text={c(
+                "about.introduction.title",
+                "A calm engineer for complex systems.",
+              )}
+              accent="complex systems"
+            />
           }
           tone="light"
           id="introduction-heading"
@@ -38,7 +60,6 @@ export function IntroductionSection() {
             </VerticalCaption>
           }
         />
-
         <div className="mt-16 grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           <div
             data-about-intro-reveal
@@ -52,6 +73,7 @@ export function IntroductionSection() {
             >
               <Image
                 src={assets.aboutInk}
+                unoptimized={isUnoptimizedCmsImage(assets.aboutInk)}
                 alt=""
                 fill
                 loading="lazy"
@@ -66,7 +88,8 @@ export function IntroductionSection() {
                 data-about-intro-portrait
                 data-about-portrait
                 src={assets.portrait}
-                alt="Seif Ayman"
+                unoptimized={isUnoptimizedCmsImage(assets.portrait)}
+                alt={profile.fullName}
                 fill
                 loading="lazy"
                 quality={85}
@@ -75,10 +98,9 @@ export function IntroductionSection() {
               />
             </div>
             <p className="absolute -bottom-5 -right-3 rounded-full border border-ink/10 bg-paper px-4 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-ink shadow-sm sm:-right-5">
-              Seif Ayman
+              {profile.name}
             </p>
           </div>
-
           <div className="lg:col-span-7">
             <p
               data-about-intro-reveal
@@ -87,7 +109,6 @@ export function IntroductionSection() {
             >
               {profile.summary}
             </p>
-
             <dl
               data-about-intro-reveal
               data-about-intro-facts

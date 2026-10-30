@@ -1,0 +1,204 @@
+{
+  "environment": "isolated-local-postgresql-with-signed-fixtures",
+  "externalOAuthAndBlobTested": false,
+  "checks": [
+    {
+      "name": "Real signed owner session accepted",
+      "passed": true
+    },
+    {
+      "name": "Anonymous admin request rejected",
+      "passed": true
+    },
+    {
+      "name": "Signed non-owner identity rejected",
+      "passed": true
+    },
+    {
+      "name": "Foreign-origin authenticated mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "Missing-origin authenticated mutation rejected",
+      "passed": true
+    },
+    {
+      "name": "Invalid content rejected at protected API",
+      "passed": true
+    },
+    {
+      "name": "Unconfigured Blob upload fails honestly",
+      "passed": true
+    },
+    {
+      "name": "Inbox loads real stored local fixture",
+      "passed": true
+    },
+    {
+      "name": "Inbox read state persists",
+      "passed": true
+    },
+    {
+      "name": "Inbox archive state persists",
+      "passed": true
+    },
+    {
+      "name": "Inbox delete removes stored message",
+      "passed": true
+    },
+    {
+      "name": "Draft API saves a complete content snapshot",
+      "passed": true
+    },
+    {
+      "name": "Stale API save returns conflict rather than overwriting",
+      "passed": true
+    },
+    {
+      "name": "Saved new project remains a real public 404",
+      "passed": true
+    },
+    {
+      "name": "Saved new article remains a real public 404",
+      "passed": true
+    },
+    {
+      "name": "Saved drafts absent from sitemap and llms",
+      "passed": true
+    },
+    {
+      "name": "Owner-only preview shows saved draft with noindex header",
+      "passed": true
+    },
+    {
+      "name": "Anonymous preview never receives draft body",
+      "passed": true
+    },
+    {
+      "name": "Publish API confirms the saved revision",
+      "passed": true
+    },
+    {
+      "name": "New runtime project slug renders after publication",
+      "passed": true
+    },
+    {
+      "name": "New runtime article slug renders after publication",
+      "passed": true
+    },
+    {
+      "name": "Publication updates sitemap and llms consistently",
+      "passed": true
+    },
+    {
+      "name": "Unpublish removes cached records from public detail routes",
+      "passed": true
+    },
+    {
+      "name": "Unpublish removes records from sitemap and llms",
+      "passed": true
+    },
+    {
+      "name": "Intentional empty collections save through API",
+      "passed": true
+    },
+    {
+      "name": "Empty public Home/About/Projects/Blog render without server crash",
+      "passed": true
+    },
+    {
+      "name": "Authenticated server route renders the actual workspace",
+      "passed": true
+    },
+    {
+      "name": "Publish confirmation cancels with Escape",
+      "passed": true
+    },
+    {
+      "name": "Panel Projects opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Blog opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel About opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Skills opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Home opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Media opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Inbox opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel SEO opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Panel Settings opens without horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Editor Save persists through real protected API",
+      "passed": true
+    },
+    {
+      "name": "Reload preserves saved edit from database, not localStorage",
+      "passed": true
+    },
+    {
+      "name": "Workspace responsive at 390",
+      "passed": true
+    },
+    {
+      "name": "Mobile navigation opens the blog editor",
+      "passed": true
+    },
+    {
+      "name": "Initial drafts clearly labelled on mobile",
+      "passed": true
+    },
+    {
+      "name": "Workspace responsive at 768",
+      "passed": true
+    },
+    {
+      "name": "Workspace responsive at 1920",
+      "passed": true
+    },
+    {
+      "name": "Dashboard has no JavaScript runtime errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Montserrat remains active in workspace",
+      "passed": true
+    }
+  ],
+  "viewports": {
+    "390": {
+      "horizontalOverflow": 0
+    },
+    "768": {
+      "horizontalOverflow": 0
+    },
+    "1920": {
+      "horizontalOverflow": 0
+    }
+  },
+  "failures": [],
+  "complete": true
+}

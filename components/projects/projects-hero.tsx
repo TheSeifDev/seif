@@ -1,5 +1,6 @@
 import { SectionLabel, VerticalCaption } from "@/components/system/primitives";
-import { projectDomains, projects } from "@/lib/content/projects";
+import type { SiteContent, SiteProject } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
@@ -11,12 +12,28 @@ const pad = (value: number) => String(value).padStart(2, "0");
  * drift, count-up) lives in `projects-scenes.ts`; this markup is complete and
  * readable without it.
  */
-export function ProjectsHero() {
-  const domains = projectDomains.filter((domain) => domain !== "All");
+export function ProjectsHero({
+  projects,
+  content,
+}: {
+  projects: readonly SiteProject[];
+  content: SiteContent;
+}) {
+  const c = (key: string, fallback: string) =>
+    getCopy(content.copy, key, fallback);
+  const domains = Array.from(
+    new Set(projects.flatMap((project) => project.domains)),
+  );
   const stats = [
-    { label: "Projects", value: projects.length },
-    { label: "Case files", value: projects.filter((project) => project.featured).length },
-    { label: "Domains", value: domains.length },
+    {
+      label: c("projects.hero.projectsStat", "Projects"),
+      value: projects.length,
+    },
+    {
+      label: c("projects.hero.caseFilesStat", "Case files"),
+      value: projects.filter((project) => project.featured).length,
+    },
+    { label: c("projects.hero.domainsStat", "Domains"), value: domains.length },
   ];
   // Each ticker copy repeats the list so one copy is always wider than the viewport.
   const tickerCopy = [...domains, ...domains];
@@ -27,7 +44,10 @@ export function ProjectsHero() {
       aria-labelledby="projects-title"
       className="relative isolate overflow-hidden bg-night pt-32 text-snow sm:pt-36 lg:pt-40"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(55%_60%_at_85%_0%,rgb(77_182_255/0.16),transparent_70%)]" />
         <div className={cn(container, "h-full")}>
           <div className="grid h-full grid-cols-4 border-x border-white/[0.04] lg:grid-cols-12">
@@ -46,12 +66,17 @@ export function ProjectsHero() {
       </div>
 
       <div className={cn(container, "relative")}>
-        <div data-hero-kanji className="absolute right-5 top-1 hidden sm:right-8 lg:right-12 lg:block">
+        <div
+          data-hero-kanji
+          className="absolute right-5 top-1 hidden sm:right-8 lg:right-12 lg:block"
+        >
           <VerticalCaption className="text-snow/35">作品集</VerticalCaption>
         </div>
 
         <div data-hero-fade>
-          <SectionLabel index="01">Projects · Archive</SectionLabel>
+          <SectionLabel index="01">
+            {c("projects.hero.sectionLabel", "Projects · Archive")}
+          </SectionLabel>
         </div>
 
         <h1
@@ -63,7 +88,10 @@ export function ProjectsHero() {
               Selected
             </span>
           </span>{" "}
-          <span data-hero-line className="flex items-start justify-end gap-[0.08em]">
+          <span
+            data-hero-line
+            className="flex items-start justify-end gap-[0.08em]"
+          >
             <span data-hero-split className="inline-block text-sky">
               Work
             </span>{" "}
@@ -81,12 +109,18 @@ export function ProjectsHero() {
             data-hero-fade
             className="max-w-md text-[17px] leading-relaxed text-mist lg:col-span-5"
           >
-            Products across education, healthcare, AI, analytics and the web — each one
-            built end to end, from schema to screen.
+            {c(
+              "projects.hero.description",
+              "Products across education, healthcare, AI, analytics and the web — each one built end to end, from schema to screen.",
+            )}
           </p>
           <dl className="grid grid-cols-3 gap-4 lg:col-span-6 lg:col-start-7">
             {stats.map((stat) => (
-              <div key={stat.label} data-hero-fade className="border-l border-white/10 pl-4">
+              <div
+                key={stat.label}
+                data-hero-fade
+                className="border-l border-white/10 pl-4"
+              >
                 <dt className={cn(label, "text-mist")}>{stat.label}</dt>
                 <dd className="mt-3 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold leading-none tracking-[-0.04em] tabular-nums">
                   <span data-count={stat.value}>{pad(stat.value)}</span>
@@ -97,7 +131,10 @@ export function ProjectsHero() {
         </div>
       </div>
 
-      <div aria-hidden="true" className="mt-14 overflow-hidden border-y border-white/10 py-4 lg:mt-20">
+      <div
+        aria-hidden="true"
+        className="mt-14 overflow-hidden border-y border-white/10 py-4 lg:mt-20"
+      >
         <div className="flex w-max animate-marquee-left [--marquee-duration:42s] motion-reduce:animate-none">
           {[0, 1].map((copy) => (
             <ul key={copy} className="flex shrink-0 items-center">

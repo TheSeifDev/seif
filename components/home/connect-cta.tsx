@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Clock, Mail, MapPin } from "lucide-react";
-import { assets, profile } from "@/lib/content/profile";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, display } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
@@ -11,17 +13,40 @@ import {
   VerticalCaption,
 } from "@/components/system/primitives";
 
-const details = [
-  { icon: Mail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-  { icon: MapPin, label: "Location", value: profile.location },
-  { icon: Clock, label: "Available for", value: "Remote roles · Freelance" },
-] as const;
-
-export function ConnectCta() {
+export function ConnectCta({ content }: { content: SiteContent }) {
+  const { assets, profile, copy } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
+  const details = [
+    {
+      icon: Mail,
+      label: c("contact.emailLabel", "Email"),
+      value: profile.email,
+      href: `mailto:${profile.email}`,
+    },
+    {
+      icon: MapPin,
+      label: c("contact.locationLabel", "Location"),
+      value: profile.location,
+    },
+    {
+      icon: Clock,
+      label: c("contact.availabilityLabel", "Availability"),
+      value: profile.availability,
+    },
+  ] as const;
+  const text = c("home.connect.title", "Let's build something that matters");
+  const accent = c("home.connect.accent", "matters");
+  const at = text.indexOf(accent);
   const lines = [
-    "Let's build",
-    "something",
-    <Accent key="accent">that matters</Accent>,
+    ...(at < 0
+      ? [text]
+      : [
+          text.slice(0, at).trim(),
+          <Accent key="accent">
+            {accent}
+            {text.slice(at + accent.length)}
+          </Accent>,
+        ]),
   ];
 
   return (
@@ -36,6 +61,7 @@ export function ConnectCta() {
         <div data-connect-bg className="absolute inset-x-0 -inset-y-[10%]">
           <Image
             src={assets.contactScene}
+            unoptimized={isUnoptimizedCmsImage(assets.contactScene)}
             alt=""
             fill
             loading="lazy"
@@ -50,12 +76,19 @@ export function ConnectCta() {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-night to-transparent" />
       </div>
 
-      <div className={cn(container, "relative grid gap-14 py-32 lg:grid-cols-12 lg:items-end lg:py-44")}>
+      <div
+        className={cn(
+          container,
+          "relative grid gap-14 py-32 lg:grid-cols-12 lg:items-end lg:py-44",
+        )}
+      >
         <VerticalCaption className="absolute right-5 top-24 hidden text-snow/50 sm:right-8 lg:right-12 lg:block">
           未来を創る
         </VerticalCaption>
         <div className="lg:col-span-7">
-          <SectionLabel index="08">Let&apos;s connect</SectionLabel>
+          <SectionLabel index="08">
+            {c("home.connect.sectionLabel", "Let&apos;s connect")}
+          </SectionLabel>
           <h2 id="connect-title" className={cn(display, "mt-8")}>
             {lines.map((line, index) => (
               <span key={index} className="block overflow-hidden pb-[0.06em]">
@@ -66,13 +99,22 @@ export function ConnectCta() {
             ))}
           </h2>
           <p className="mt-8 max-w-md text-[17px] leading-relaxed text-mist">
-            Have a project in mind or just want to say hi? Send a message —
-            it goes straight to me.
+            {c(
+              "home.connect.description",
+              "Have a project in mind or just want to say hi? Send a message — it goes straight to me.",
+            )}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <PillLink href="/contact">Start a conversation</PillLink>
-            <PillLink href={profile.cvUrl} external variant="outline-dark" arrow={false}>
-              Download CV
+            <PillLink href="/contact">
+              {c("home.connect.startConversationCta", "Start a conversation")}
+            </PillLink>
+            <PillLink
+              href={profile.cvUrl}
+              external
+              variant="outline-dark"
+              arrow={false}
+            >
+              {c("home.connect.downloadCvCta", "Download CV")}
             </PillLink>
           </div>
         </div>

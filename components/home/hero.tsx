@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { FileText, Sparkles } from "lucide-react";
-import { assets, profile } from "@/lib/content/profile";
+import type { SiteContent } from "@/lib/cms/schema";
+import { getCopy } from "@/lib/cms/copy";
+import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, displayXL } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { PillLink, SectionLabel } from "@/components/system/primitives";
@@ -10,7 +12,9 @@ import { PortraitShield } from "@/components/visuals/portrait-shield";
  * First viewport. On wide, tall screens it is sticky so About slides over
  * it (see the `hero` scene); elsewhere it scrolls normally.
  */
-export function Hero() {
+export function Hero({ content }: { content: SiteContent }) {
+  const { assets, profile, copy } = content;
+  const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   return (
     <section
       data-hero
@@ -22,6 +26,7 @@ export function Hero() {
         <div data-hero-bg-inner className="absolute inset-0">
           <Image
             src={assets.heroBackground}
+            unoptimized={isUnoptimizedCmsImage(assets.heroBackground)}
             alt=""
             fill
             fetchPriority="low"
@@ -56,26 +61,45 @@ export function Hero() {
         </p>
 
         <div data-hero-content className="relative z-10 lg:max-w-[40rem]">
-          <div data-hero-role><SectionLabel className="text-snow/80">{profile.shortRole}</SectionLabel></div>
+          <div data-hero-role>
+            <SectionLabel className="text-snow/80">
+              {profile.shortRole}
+            </SectionLabel>
+          </div>
           <h1 id="hero-title" className={cn(displayXL, "mt-6")}>
-            <span className="block overflow-hidden pb-[0.06em]"><span data-hero-title-line className="block text-snow">{profile.firstName}</span></span>
-            <span className="-mt-[0.06em] block overflow-hidden pb-[0.06em]"><span data-hero-title-line className="block text-sky">{profile.lastName}</span></span>
+            <span className="block overflow-hidden pb-[0.06em]">
+              <span data-hero-title-line className="block text-snow">
+                {profile.firstName}
+              </span>
+            </span>
+            <span className="-mt-[0.06em] block overflow-hidden pb-[0.06em]">
+              <span data-hero-title-line className="block text-sky">
+                {profile.lastName}
+              </span>
+            </span>
           </h1>
           <p
             data-hero-copy
             lang="ja"
             className="mt-6 font-jp text-lg leading-[1.7] tracking-[0.08em] text-snow/90 sm:text-xl"
           >
-            テクノロジーで、
+            {profile.japaneseMotto.split("、")[0]}、
             <br />
-            より良い未来をつくる。
+            {profile.japaneseMottoMeaning}
           </p>
-          <p data-hero-copy className="mt-5 max-w-[27rem] text-[15px] leading-relaxed text-mist sm:text-base">
-            I build production web, desktop and AI products — from TypeScript
-            interfaces to NestJS APIs and PostgreSQL data models.
+          <p
+            data-hero-copy
+            className="mt-5 max-w-[27rem] text-[15px] leading-relaxed text-mist sm:text-base"
+          >
+            {c(
+              "home.hero.description",
+              "I build production web, desktop and AI products — from TypeScript interfaces to NestJS APIs and PostgreSQL data models.",
+            )}
           </p>
           <div data-hero-actions className="mt-8 flex flex-wrap gap-3">
-            <PillLink href="/projects" data-magnetic="true">Explore my work</PillLink>
+            <PillLink href="/projects" data-magnetic="true">
+              {c("home.hero.exploreWorkCta", "Explore my work")}
+            </PillLink>
             <PillLink
               href={profile.cvUrl}
               external
@@ -96,7 +120,8 @@ export function Hero() {
             <PortraitShield>
               <Image
                 src={assets.portrait}
-                alt="Seif Ayman"
+                unoptimized={isUnoptimizedCmsImage(assets.portrait)}
+                alt={profile.fullName}
                 fill
                 preload
                 quality={85}
@@ -109,7 +134,7 @@ export function Hero() {
 
         <aside
           data-hero-card
-          aria-label="Experience"
+          aria-label={c("home.hero.experienceAriaLabel", "Experience")}
           className="absolute bottom-14 right-5 z-10 hidden w-64 rounded-3xl border border-white/10 bg-night/45 p-6 backdrop-blur-md sm:right-8 lg:right-12 lg:block"
         >
           <div data-hero-meta>
@@ -118,16 +143,18 @@ export function Hero() {
               {profile.experienceYears}
             </p>
             <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-snow/80">
-              Years experience
+              {c("home.hero.experienceLabel", "Years experience")}
             </p>
             <p className="mt-4 text-[13px] leading-relaxed text-mist">
-              Turning ideas into real products with clean code and meaningful
-              design.
+              {c(
+                "home.hero.experienceDescription",
+                "Turning ideas into real products with clean code and meaningful design.",
+              )}
             </p>
             <div className="mt-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-mist">
               <span>{profile.handle}</span>
               <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
-              <span>Alexandria</span>
+              <span>{c("home.hero.location", profile.location)}</span>
             </div>
           </div>
         </aside>

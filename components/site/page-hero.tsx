@@ -1,21 +1,17 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { assets } from "@/lib/content/profile";
+import { isUnoptimizedCmsImage } from "./cms-image";
 import { container, display } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { SectionLabel, VerticalCaption } from "@/components/system/primitives";
 
-/**
- * Shared header for inner pages: label, display title, intro and an optional
- * aside. A faint landscape keeps the identity without competing with content.
- */
 export function PageHero({
   label,
   title,
   intro,
   aside,
   japanese,
-  image = assets.heroBackground,
+  image,
   children,
 }: {
   label: string;
@@ -32,6 +28,7 @@ export function PageHero({
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <Image
             src={image}
+            unoptimized={isUnoptimizedCmsImage(image)}
             alt=""
             fill
             loading="lazy"
@@ -44,7 +41,6 @@ export function PageHero({
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-night to-transparent" />
         </div>
       ) : null}
-
       <div className={cn(container, "relative")}>
         {japanese ? (
           <VerticalCaption className="absolute right-5 top-0 hidden text-snow/40 sm:right-8 lg:right-12 lg:block">

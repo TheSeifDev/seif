@@ -117,11 +117,15 @@ with sync_playwright() as p:
     page = ctx.new_page()
     errors = []
     attach_errors(page, errors)
-    page.goto(BASE + "/", wait_until="networkidle")
+    page.goto(BASE + "/", wait_until="domcontentloaded")
+    page.wait_for_function("window.__motion && document.querySelector('[data-scene=hero]')?.dataset.entrance === 'complete'", timeout=10000)
+    page.evaluate("document.fonts.ready")
     settle(page)
     initial_motion = motion(page)
     results["home"]["initial_triggers"] = (initial_motion or {}).get("triggers", [])
-    if "journey-rail" in results["home"]["initial_triggers"]:
+    # Journey's accepted sticky stack establishes its geometry eagerly on desktop.
+    # The genuinely distant, non-pinned CTA still must remain deferred.
+    if "connect-heading" in results["home"]["initial_triggers"]:
         fail("Far-below-fold non-pinned motion was initialized during initial page load")
     visit_home_scenes(page)
     m = motion(page)

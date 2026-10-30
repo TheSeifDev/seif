@@ -1,6 +1,8 @@
-import type { BlogBlock } from "@/lib/content/blog";
+import type { SiteContent } from "@/lib/cms/schema";
 
-export function ArticleBody({ blocks }: { blocks: BlogBlock[] }) {
+type BlogBlock = SiteContent["posts"][number]["body"][number];
+
+export function ArticleBody({ blocks }: { blocks: readonly BlogBlock[] }) {
   return (
     <div className="mx-auto max-w-[68ch] text-[18px] leading-[1.75] text-ink">
       {blocks.map((block, index) => {
