@@ -4,15 +4,15 @@ import { useEffect, useRef, type CSSProperties } from "react";
 
 const FOOTER_GRAIN_MEDIA_QUERY =
   "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
-const REVEAL_OPACITY = "0.095";
+const REVEAL_OPACITY = "0.16";
 
 type FooterGrainProps = {
   texture: string;
 };
 
 /**
- * A quiet grain stays behind the footer content; a small brighter patch follows
- * supported desktop pointers. The layer never receives pointer events.
+ * The grain itself lives in the footer's static background. This layer only
+ * reveals a slightly richer patch under supported desktop pointers.
  */
 export function FooterGrain({ texture }: FooterGrainProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -96,9 +96,9 @@ export function FooterGrain({ texture }: FooterGrainProps) {
   const revealStyle: CSSProperties = {
     backgroundImage: texture,
     maskImage:
-      "radial-gradient(circle 190px at var(--grain-x, 50%) var(--grain-y, 50%), black 0%, transparent 72%)",
+      "radial-gradient(circle 200px at var(--grain-x, 50%) var(--grain-y, 50%), black 0%, transparent 76%)",
     WebkitMaskImage:
-      "radial-gradient(circle 190px at var(--grain-x, 50%) var(--grain-y, 50%), black 0%, transparent 72%)",
+      "radial-gradient(circle 200px at var(--grain-x, 50%) var(--grain-y, 50%), black 0%, transparent 76%)",
     opacity: "var(--grain-reveal-opacity, 0)",
   };
 
@@ -109,16 +109,11 @@ export function FooterGrain({ texture }: FooterGrainProps) {
       data-footer-grain-interaction
       data-enabled="false"
       data-tracking="false"
-      className="pointer-events-none absolute -inset-[12%] z-0"
+      className="pointer-events-none absolute inset-0 z-0"
     >
       <span
-        data-footer-grain
-        className="absolute inset-0 bg-cover bg-no-repeat opacity-[0.055] mix-blend-screen motion-safe:animate-footer-grain motion-reduce:animate-none"
-        style={{ backgroundImage: texture }}
-      />
-      <span
         data-footer-grain-reveal
-        className="absolute inset-0 bg-cover bg-no-repeat mix-blend-screen transition-opacity duration-300 motion-safe:animate-footer-grain motion-reduce:animate-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-soft-light transition-opacity duration-300 motion-reduce:transition-none"
         style={revealStyle}
       />
     </div>

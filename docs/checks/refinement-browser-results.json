@@ -24,28 +24,29 @@
       "core_px": "104px"
     },
     "magnetic": {
-      "translate": "2.7px 0.899998px",
+      "translate": "2.63437px 0.878123px",
       "mode": "link",
       "after_leave": "none"
     },
     "keyboard_cursor_opacity": "0",
     "footer_grain": {
-      "animation": "footer-grain-shift",
-      "duration": "1.1s",
-      "opacity": "0.055",
+      "animation": "none",
+      "background_blend_mode": "soft-light",
+      "background_image": "url(\"http://127.0.0.1:3000/images/footer-grain.svg\")",
       "tracking": "true",
       "enabled": "true",
-      "reveal_opacity": "0.095",
+      "reveal_opacity": "0.16",
       "reveal_coordinates": [
         [
-          "625.0px",
-          "293.0px"
+          "504.0px",
+          "236.3px"
         ],
         [
-          "1160.6px",
-          "485.5px"
+          "936.0px",
+          "391.5px"
         ]
       ],
+      "reveal_blend_mode": "soft-light",
       "texture_url": true,
       "background_size": "cover",
       "background_repeat": "no-repeat",
@@ -55,10 +56,11 @@
       "inside_footer": true,
       "footer_overflow": "hidden",
       "tracking_after_leave": "false",
-      "reveal_opacity_after_leave": "0",
-      "transform_samples": [
-        "matrix(1, 0, 0, 1, 24.9983, 5.02219)",
-        "matrix(1, 0, 0, 1, -4.16639, 1.25555)"
+      "reveal_opacity_after_leave": "1.33716e-09",
+      "background_position_samples": [
+        "50% 50%",
+        "50% 50%",
+        "50% 50%"
       ]
     },
     "project_cursor": "project",

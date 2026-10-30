@@ -39,7 +39,15 @@ export function Footer() {
   return (
     <footer
       data-site-footer
+      data-footer-grain-background
       className="relative overflow-hidden border-t border-white/[0.08] bg-night text-snow"
+      style={{
+        backgroundImage: footerGrain,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundBlendMode: "soft-light",
+      }}
     >
       <FooterGrain texture={footerGrain} />
       <div className={cn(container, "relative z-10 pb-10 pt-20 lg:pt-24")}>
