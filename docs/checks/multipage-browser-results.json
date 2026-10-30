@@ -88,10 +88,25 @@
       "errors": [],
       "overflow": 0,
       "motion": {
-        "triggers": [],
+        "triggers": [
+          "projects-page-card-1-media",
+          "projects-page-card-1-copy",
+          "projects-page-stack-1",
+          "projects-page-card-2-media",
+          "projects-page-card-2-copy",
+          "projects-page-stack-2",
+          "projects-page-card-3-media",
+          "projects-page-card-3-copy",
+          "projects-page-hero-drift",
+          "projects-page-heading-1",
+          "projects-page-heading-2",
+          "projects-page-heading-3",
+          "projects-page-filters",
+          "projects-page-index"
+        ],
         "pins": 0
       },
-      "h1": "SELECTED WORK"
+      "h1": "SELECTED WORK (06)"
     },
     "/projects/rafiq": {
       "status": 200,
@@ -174,10 +189,10 @@
       "04"
     ],
     "featured_x": [
-      -1.9012,
+      -1.9032,
       -654.452,
-      -1338.96,
-      -1927.73
+      -1335.87,
+      -1927.58
     ],
     "featured_current": [
       0,
@@ -185,7 +200,7 @@
       1,
       2
     ],
-    "featured_last_slide_right": 1320.8331298828125,
+    "featured_last_slide_right": 1321.6829833984375,
     "more_cards": 3,
     "more_live_links": 2,
     "more_repo_links": 1,
@@ -368,7 +383,20 @@
       "overflow": 0,
       "errors": [],
       "motion": {
-        "triggers": [],
+        "triggers": [
+          "projects-page-card-1-media",
+          "projects-page-card-1-copy",
+          "projects-page-card-2-media",
+          "projects-page-card-2-copy",
+          "projects-page-card-3-media",
+          "projects-page-card-3-copy",
+          "projects-page-hero-drift",
+          "projects-page-heading-1",
+          "projects-page-heading-2",
+          "projects-page-heading-3",
+          "projects-page-filters",
+          "projects-page-index"
+        ],
         "pins": 0
       }
     },
@@ -506,7 +534,20 @@
       "overflow": 0,
       "errors": [],
       "motion": {
-        "triggers": [],
+        "triggers": [
+          "projects-page-card-1-media",
+          "projects-page-card-1-copy",
+          "projects-page-card-2-media",
+          "projects-page-card-2-copy",
+          "projects-page-card-3-media",
+          "projects-page-card-3-copy",
+          "projects-page-hero-drift",
+          "projects-page-heading-1",
+          "projects-page-heading-2",
+          "projects-page-heading-3",
+          "projects-page-filters",
+          "projects-page-index"
+        ],
         "pins": 0
       }
     },

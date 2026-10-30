@@ -398,7 +398,7 @@
           "exit": "0.0000",
           "renderer": "webgl",
           "canvas": {
-            "rise": "0.634",
+            "rise": "0.633",
             "exit": "0.000",
             "frames": 12,
             "dpr": "1"
@@ -508,7 +508,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.090",
-            "frames": 19,
+            "frames": 20,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -562,7 +562,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 25,
+            "frames": 26,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -616,7 +616,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 31,
+            "frames": 33,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -672,7 +672,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 31,
+            "frames": 33,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -726,7 +726,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 37,
+            "frames": 38,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -780,7 +780,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.090",
-            "frames": 42,
+            "frames": 44,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -834,7 +834,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 44,
+            "frames": 47,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -888,7 +888,7 @@
           "canvas": {
             "rise": "0.634",
             "exit": "0.000",
-            "frames": 51,
+            "frames": 55,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -942,7 +942,7 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 57,
+            "frames": 61,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -996,7 +996,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 59,
+            "frames": 62,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1050,7 +1050,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 59,
+            "frames": 62,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1104,7 +1104,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 59,
+            "frames": 62,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1158,7 +1158,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 59,
+            "frames": 62,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1212,7 +1212,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 59,
+            "frames": 62,
             "dpr": "1"
           },
           "pinTop": 0.390625
@@ -1580,7 +1580,7 @@
       "canvas": {
         "rise": "1.000",
         "exit": "0.000",
-        "frames": 62,
+        "frames": 65,
         "dpr": "1"
       },
       "idle_frames_added": 0

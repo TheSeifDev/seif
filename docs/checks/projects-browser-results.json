@@ -1,0 +1,566 @@
+{
+  "desktop": {
+    "title": "Selected Work (06)",
+    "counts": [
+      "06",
+      "03",
+      "07"
+    ],
+    "pins": 0,
+    "triggers": [
+      "projects-page-card-1-copy",
+      "projects-page-card-1-media",
+      "projects-page-card-2-copy",
+      "projects-page-card-2-media",
+      "projects-page-card-3-copy",
+      "projects-page-card-3-media",
+      "projects-page-filters",
+      "projects-page-heading-1",
+      "projects-page-heading-2",
+      "projects-page-heading-3",
+      "projects-page-hero-drift",
+      "projects-page-index",
+      "projects-page-stack-1",
+      "projects-page-stack-2"
+    ],
+    "hero_drift": {
+      "base": [
+        0,
+        0
+      ],
+      "drift": [
+        -51.0138,
+        38.26
+      ],
+      "back": [
+        0,
+        0
+      ]
+    },
+    "rows": 6,
+    "preview": {
+      "open_clip": "inset(0% round 18px)",
+      "open_item": [
+        "rafiq"
+      ],
+      "moved_dx": 252.79998779296875,
+      "swap_item": [
+        "it-sum"
+      ],
+      "closed_clip": "inset(50% round 18px)",
+      "dim": [
+        0.3,
+        1,
+        0.3,
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    "filter_healthcare": {
+      "rows": [
+        "nabd-masr"
+      ],
+      "live": "01 / 06 project shown",
+      "pressed": [
+        "Healthcare01"
+      ],
+      "indicator_gap": 0.46875,
+      "opacities": [
+        1
+      ],
+      "positions": [
+        "static"
+      ],
+      "in_focus_heading_y": 0,
+      "cards": [
+        {
+          "index": 0,
+          "top": 96,
+          "bottom": 836,
+          "position": "sticky",
+          "scale": 0.9933,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 1,
+          "top": 112,
+          "bottom": 852,
+          "position": "sticky",
+          "scale": 0.9948,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 2,
+          "top": 126.125,
+          "bottom": 866.125,
+          "position": "sticky",
+          "scale": 1,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ]
+    },
+    "filter_web": [
+      "it-sum",
+      "phantoms",
+      "nabd-masr",
+      "personal-portfolio",
+      "trackup"
+    ],
+    "stack": [
+      {
+        "index": 0,
+        "top": 96,
+        "bottom": 836,
+        "position": "sticky",
+        "scale": 0.9933,
+        "clip": "inset(0% round 24px)",
+        "copyOverflow": 0,
+        "clipped": []
+      },
+      {
+        "index": 1,
+        "top": 112,
+        "bottom": 852,
+        "position": "sticky",
+        "scale": 0.9948,
+        "clip": "inset(0% round 24px)",
+        "copyOverflow": 0,
+        "clipped": []
+      },
+      {
+        "index": 2,
+        "top": 126.125,
+        "bottom": 866.125,
+        "position": "sticky",
+        "scale": 1,
+        "clip": "inset(0% round 24px)",
+        "copyOverflow": 0,
+        "clipped": []
+      }
+    ],
+    "stack_scale": {
+      "after_second": [
+        0.92,
+        0.995,
+        1
+      ],
+      "shade_after_second": [
+        0.55,
+        0.04,
+        0
+      ],
+      "back_first": [
+        1,
+        1,
+        1
+      ],
+      "clip_first": "inset(2.5263% 1.8947% round 24px)"
+    },
+    "cta": {
+      "text": "Have a product worth building?"
+    },
+    "overflow": 0,
+    "errors": []
+  },
+  "stage_sizes": {
+    "1280x760": {
+      "overflow": 0,
+      "cards": [
+        {
+          "index": 0,
+          "top": 96,
+          "bottom": 696,
+          "position": "sticky",
+          "scale": 0.9919,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 1,
+          "top": 112,
+          "bottom": 712,
+          "position": "sticky",
+          "scale": 0.9937,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 2,
+          "top": 125.578125,
+          "bottom": 725.578125,
+          "position": "sticky",
+          "scale": 1,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    },
+    "1024x768": {
+      "overflow": 0,
+      "cards": [
+        {
+          "index": 0,
+          "top": 96,
+          "bottom": 704,
+          "position": "sticky",
+          "scale": 0.992,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 1,
+          "top": 112,
+          "bottom": 720,
+          "position": "sticky",
+          "scale": 0.9938,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 2,
+          "top": 125.796875,
+          "bottom": 733.796875,
+          "position": "sticky",
+          "scale": 1,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    },
+    "1920x1080": {
+      "overflow": 0,
+      "cards": [
+        {
+          "index": 0,
+          "top": 96,
+          "bottom": 1016,
+          "position": "sticky",
+          "scale": 0.9945,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 1,
+          "top": 112,
+          "bottom": 1032,
+          "position": "sticky",
+          "scale": 0.9958,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "index": 2,
+          "top": 126.46875,
+          "bottom": 1046.46875,
+          "position": "sticky",
+          "scale": 1,
+          "clip": "inset(0% round 24px)",
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    }
+  },
+  "compact": {
+    "tablet": {
+      "overflow": 0,
+      "rows": [
+        {
+          "slug": "rafiq",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "it-sum",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "phantoms",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "nabd-masr",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "personal-portfolio",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "trackup",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        }
+      ],
+      "thumbs": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "stack": [
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    },
+    "mobile": {
+      "overflow": 0,
+      "rows": [
+        {
+          "slug": "rafiq",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "it-sum",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "phantoms",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "nabd-masr",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "personal-portfolio",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "trackup",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        }
+      ],
+      "thumbs": [
+        "block",
+        "block",
+        "block",
+        "block",
+        "block",
+        "block"
+      ],
+      "stack": [
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    },
+    "short-1280x700": {
+      "overflow": 0,
+      "rows": [
+        {
+          "slug": "rafiq",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "it-sum",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "phantoms",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "nabd-masr",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "personal-portfolio",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        },
+        {
+          "slug": "trackup",
+          "opacity": 1,
+          "reveal": 1,
+          "position": "static"
+        }
+      ],
+      "thumbs": [
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "stack": [
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        },
+        {
+          "position": "static",
+          "scale": 1,
+          "copyOverflow": 0,
+          "clipped": []
+        }
+      ],
+      "errors": []
+    }
+  },
+  "reduced": {
+    "triggers": [],
+    "counts": [
+      "06",
+      "03",
+      "07"
+    ],
+    "rows": [
+      {
+        "slug": "rafiq",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      },
+      {
+        "slug": "it-sum",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      },
+      {
+        "slug": "phantoms",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      },
+      {
+        "slug": "nabd-masr",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      },
+      {
+        "slug": "personal-portfolio",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      },
+      {
+        "slug": "trackup",
+        "opacity": 1,
+        "reveal": 1,
+        "position": "static"
+      }
+    ],
+    "stack": [
+      {
+        "position": "static",
+        "scale": 1,
+        "clip": "none"
+      },
+      {
+        "position": "static",
+        "scale": 1,
+        "clip": "none"
+      },
+      {
+        "position": "static",
+        "scale": 1,
+        "clip": "none"
+      }
+    ],
+    "hidden_text": [],
+    "ai_rows": [
+      "rafiq"
+    ]
+  },
+  "navigation": {
+    "leaked": [],
+    "back_triggers": 14
+  },
+  "failures": []
+}

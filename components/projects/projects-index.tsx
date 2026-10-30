@@ -1,289 +1,426 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Flip, gsap, motionQueries, ScrollTrigger, useGSAP } from "@/components/motion/gsap";
+import { EditorialVisual } from "@/components/system/project-media";
+import { SectionLabel } from "@/components/system/primitives";
+import { projectDomains, type Project } from "@/lib/content/projects";
+import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
-import {
-  projectDomains,
-  type Project,
-} from "@/lib/content/projects";
-import {
-  BrowserFrame,
-  EditorialVisual,
-  ProjectActions,
-} from "@/components/system/project-media";
-import {
-  Accent,
-  PillLink,
-  SectionLabel,
-  Tags,
-} from "@/components/system/primitives";
-import {
-  container,
-  darkCard,
-  display,
-  h3,
-  label,
-  lightPanel,
-  mutedOnDark,
-  mutedOnLight,
-  sectionY,
-} from "@/lib/ui/layout";
 
-type ProjectsIndexProps = {
-  projects: readonly Project[];
-};
+type Domain = (typeof projectDomains)[number];
+type FlipState = ReturnType<typeof Flip.getState>;
 
-function ProjectVisual({
-  project,
-  tone,
-  priority = false,
-}: {
-  project: Project;
-  tone: "dark" | "light";
-  priority?: boolean;
-}) {
-  if (!project.image) {
-    return <EditorialVisual project={project} />;
-  }
+const pad = (value: number) => String(value).padStart(2, "0");
+const PREVIEW_GAP = 36;
+const EDGE = 16;
+const CLOSED = "inset(50% 50% 50% 50% round 18px)";
+const OPEN = "inset(0% 0% 0% 0% round 18px)";
 
+function motionAllowed() {
+  return window.matchMedia(motionQueries.motion).matches;
+}
+
+function RowThumb({ project }: { project: Project }) {
   return (
-    <BrowserFrame
-      src={project.image.src}
-      alt={project.image.alt}
-      url={project.live?.url}
-      sizes="(min-width: 1024px) 58vw, 100vw"
-      priority={priority}
-      tone={tone}
-    />
+    <span className="relative block aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-lg bg-night-3 ring-1 ring-white/10 sm:w-28 lg:[@media(hover:hover)_and_(pointer:fine)_and_(prefers-reduced-motion:no-preference)]:hidden">
+      {project.image ? (
+        <Image
+          src={project.image.src}
+          alt=""
+          fill
+          sizes="112px"
+          className="object-cover object-top"
+        />
+      ) : (
+        <EditorialVisual project={project} className="absolute inset-0 aspect-auto [&_p]:hidden" />
+      )}
+    </span>
   );
 }
 
-function ProjectCount({ count }: { count: number }) {
+/**
+ * 02 Index: every project as one typographic row. Rows stay in the DOM and
+ * toggle `display` when filtered so GSAP Flip can animate leaving and entering
+ * rows. On fine pointers a floating preview follows the cursor.
+ */
+export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
+  const [active, setActive] = useState<Domain>("All");
+  const listRef = useRef<HTMLOListElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const flipState = useRef<FlipState | null>(null);
+  const firstPlacement = useRef(true);
+
+  const counts = useMemo(() => {
+    const entries = projectDomains.map((domain) => [
+      domain,
+      domain === "All"
+        ? projects.length
+        : projects.filter((project) => project.domains.includes(domain)).length,
+    ]);
+    return Object.fromEntries(entries) as Record<Domain, number>;
+  }, [projects]);
+
+  const isShown = (project: Project) =>
+    active === "All" || project.domains.includes(active);
+  const shownCount = projects.filter(isShown).length;
+
+  const select = (domain: Domain) => {
+    if (domain === active) return;
+    const list = listRef.current;
+    if (list && motionAllowed()) {
+      flipState.current = Flip.getState(list.querySelectorAll("[data-index-row]"));
+    }
+    setActive(domain);
+  };
+
+  /** Moves the pill behind the pressed filter button. */
+  const placeIndicator = useCallback((animate: boolean) => {
+    const rail = railRef.current;
+    const indicator = indicatorRef.current;
+    const button = rail?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+    if (!indicator || !button) return;
+    const box = {
+      x: button.offsetLeft,
+      y: button.offsetTop,
+      width: button.offsetWidth,
+      height: button.offsetHeight,
+    };
+    if (animate && motionAllowed()) {
+      gsap.to(indicator, { ...box, duration: 0.6, ease: "expo.out", overwrite: true });
+    } else {
+      gsap.set(indicator, box);
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    placeIndicator(!firstPlacement.current);
+    firstPlacement.current = false;
+  }, [active, placeIndicator]);
+
+  useLayoutEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    rail.dataset.ready = "true";
+    const observer = new ResizeObserver(() => placeIndicator(false));
+    observer.observe(rail);
+    rail.querySelectorAll("button").forEach((button) => observer.observe(button));
+    return () => {
+      observer.disconnect();
+      delete rail.dataset.ready;
+    };
+  }, [placeIndicator]);
+
+  // Filter transition: runs after React has toggled the rows.
+  useGSAP(
+    () => {
+      const state = flipState.current;
+      flipState.current = null;
+      if (!state) return;
+      Flip.from(state, {
+        duration: 0.75,
+        ease: "expo.inOut",
+        absolute: true,
+        // The list height changed: re-measure every trigger below it.
+        onComplete: () => ScrollTrigger.refresh(),
+        onEnter: (elements) =>
+          gsap.fromTo(
+            elements,
+            { autoAlpha: 0, y: 32 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power3.out",
+              stagger: 0.05,
+              delay: 0.2,
+            },
+          ),
+        onLeave: (elements) =>
+          gsap.to(elements, { autoAlpha: 0, y: -18, duration: 0.35, ease: "power2.in" }),
+      });
+    },
+    { dependencies: [active], scope: listRef },
+  );
+
+  // Cursor-following preview (fine pointer + motion only).
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    media.add(motionQueries.finePointer, () => {
+      const list = listRef.current;
+      const preview = previewRef.current;
+      const frame = preview?.querySelector<HTMLElement>("[data-preview-frame]");
+      if (!list || !preview || !frame) return;
+      const items = Array.from(preview.querySelectorAll<HTMLElement>("[data-preview-item]"));
+
+      gsap.set(preview, { autoAlpha: 1 });
+      gsap.set(frame, { clipPath: CLOSED });
+      gsap.set(items, { autoAlpha: 0 });
+
+      const xTo = gsap.quickTo(preview, "x", { duration: 0.6, ease: "power3" });
+      const yTo = gsap.quickTo(preview, "y", { duration: 0.6, ease: "power3" });
+      const tiltTo = gsap.quickTo(preview, "rotation", { duration: 0.5, ease: "power3" });
+      const settle = gsap.delayedCall(0.14, () => tiltTo(0)).pause();
+
+      let open = false;
+      let current: string | null = null;
+      let lastX = 0;
+
+      const target = (clientX: number, clientY: number) => {
+        const width = preview.offsetWidth;
+        const height = preview.offsetHeight;
+        const x =
+          clientX + PREVIEW_GAP + width > window.innerWidth - EDGE
+            ? clientX - PREVIEW_GAP - width
+            : clientX + PREVIEW_GAP;
+        const y = gsap.utils.clamp(EDGE, window.innerHeight - height - EDGE, clientY - height / 2);
+        return { x, y };
+      };
+
+      const show = (slug: string, clientX: number, clientY: number) => {
+        if (!open) {
+          const { x, y } = target(clientX, clientY);
+          xTo(x, x);
+          yTo(y, y);
+          lastX = clientX;
+          gsap.to(frame, { clipPath: OPEN, duration: 0.75, ease: "expo.out", overwrite: "auto" });
+          open = true;
+        }
+        if (slug === current) return;
+        current = slug;
+        items.forEach((item) => {
+          if (item.dataset.previewItem === slug) {
+            gsap.fromTo(
+              item,
+              { autoAlpha: 0, yPercent: 10, scale: 1.08 },
+              { autoAlpha: 1, yPercent: 0, scale: 1, duration: 0.65, ease: "expo.out", overwrite: "auto" },
+            );
+          } else {
+            gsap.to(item, { autoAlpha: 0, duration: 0.35, ease: "power2.out", overwrite: "auto" });
+          }
+        });
+      };
+
+      const hide = () => {
+        if (!open) return;
+        open = false;
+        current = null;
+        gsap.to(frame, { clipPath: CLOSED, duration: 0.5, ease: "power3.inOut", overwrite: "auto" });
+        tiltTo(0);
+      };
+
+      const onOver = (event: PointerEvent) => {
+        if (event.pointerType !== "mouse" || !(event.target instanceof Element)) return;
+        const row = event.target.closest<HTMLElement>("[data-preview]");
+        if (row?.dataset.preview) show(row.dataset.preview, event.clientX, event.clientY);
+      };
+      const onMove = (event: PointerEvent) => {
+        if (event.pointerType !== "mouse" || !open) return;
+        const { x, y } = target(event.clientX, event.clientY);
+        xTo(x);
+        yTo(y);
+        tiltTo(gsap.utils.clamp(-7, 7, (event.clientX - lastX) * 0.4));
+        lastX = event.clientX;
+        settle.restart(true);
+      };
+      const onLeave = () => hide();
+      const onKey = () => hide();
+
+      list.addEventListener("pointerover", onOver);
+      list.addEventListener("pointermove", onMove);
+      list.addEventListener("pointerleave", onLeave);
+      list.addEventListener("focusin", onKey);
+
+      return () => {
+        list.removeEventListener("pointerover", onOver);
+        list.removeEventListener("pointermove", onMove);
+        list.removeEventListener("pointerleave", onLeave);
+        list.removeEventListener("focusin", onKey);
+        settle.kill();
+      };
+    });
+    return () => media.revert();
+  });
+
   return (
-    <p className={cn(label, mutedOnDark)} aria-live="polite">
-      {count} {count === 1 ? "project" : "projects"} shown
-    </p>
-  );
-}
-
-function FeaturedProjectRow({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  const reverse = index % 2 === 1;
-
-  return (
-    <article className="grid gap-8 border-t border-ink/10 pt-10 lg:grid-cols-12 lg:items-center lg:gap-12 lg:pt-14">
-      <Link
-        href={`/projects/${project.slug}`}
-        className={cn(
-          "group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-ink lg:col-span-7",
-          reverse && "lg:col-start-6 lg:row-start-1",
-        )}
-        aria-label={`Read the ${project.title} case study`}
-      >
-        <ProjectVisual project={project} tone="light" priority={index === 0} />
-        <p className={cn("mt-3 text-xs", mutedOnLight)}>
-          {project.image?.caption ?? project.availability}
-        </p>
-      </Link>
-
-      <div
-        className={cn(
-          "lg:col-span-5",
-          reverse && "lg:col-start-1 lg:row-start-1",
-        )}
-      >
-        <div className="flex items-center gap-3">
-          <span className={cn(label, "text-sky-ink")}>
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span className="h-px w-10 bg-sky-ink/40" aria-hidden="true" />
-          <span className={cn(label, mutedOnLight)}>{project.category}</span>
-        </div>
-        <h3 className={cn(h3, "mt-5 max-w-md")}>
-          <Link
-            href={`/projects/${project.slug}`}
-            className="transition-colors duration-300 hover:text-sky-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-ink"
-          >
-            {project.title}
-          </Link>
-        </h3>
-        <p className={cn("mt-5 max-w-md text-[15px] leading-relaxed", mutedOnLight)}>
-          {project.summary}
-        </p>
-        <Tags items={project.stack} tone="light" className="mt-6" max={5} />
-        <div className="mt-7 flex flex-wrap items-center gap-4">
-          <ProjectActions project={project} tone="light" />
-          <PillLink
-            href={`/projects/${project.slug}`}
-            variant="outline-light"
-            size="sm"
-          >
-            Read case study
-          </PillLink>
-        </div>
-        <p className="mt-7 flex items-center gap-3 text-sm text-slate-ink">
-          <span aria-hidden="true" className="font-jp text-xl text-sky-ink">
-            {project.kanji}
-          </span>
-          <span>{project.kanjiMeaning}</span>
-        </p>
-      </div>
-    </article>
-  );
-}
-
-function MoreProjectCard({ project }: { project: Project }) {
-  return (
-    <article className={cn(darkCard, "group flex h-full flex-col overflow-hidden")}>
-      <Link
-        href={`/projects/${project.slug}`}
-        className="block focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-sky"
-        aria-label={`Read the ${project.title} case study`}
-      >
-        <ProjectVisual project={project} tone="dark" />
-      </Link>
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
-        <div className="flex items-center justify-between gap-4">
-          <span className={cn(label, "text-sky")}>{project.category}</span>
-          <span aria-hidden="true" className="font-jp text-xl text-snow/30">
-            {project.kanji}
-          </span>
-        </div>
-        <h3 className={cn(h3, "mt-5")}>
-          <Link
-            href={`/projects/${project.slug}`}
-            className="transition-colors duration-300 hover:text-sky focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky"
-          >
-            {project.title}
-          </Link>
-        </h3>
-        <p className={cn("mt-4 text-[15px] leading-relaxed", mutedOnDark)}>
-          {project.summary}
-        </p>
-        <Tags items={project.stack} className="mt-6" tone="dark" max={4} />
-        <div className="mt-auto flex flex-wrap items-center gap-4 pt-7">
-          <ProjectActions project={project} tone="dark" />
-          <PillLink
-            href={`/projects/${project.slug}`}
-            variant="outline-dark"
-            size="sm"
-          >
-            Read case study
-          </PillLink>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-export function ProjectsIndex({ projects }: ProjectsIndexProps) {
-  const [activeDomain, setActiveDomain] = useState<(typeof projectDomains)[number]>(
-    "All",
-  );
-  const filteredProjects = useMemo(
-    () =>
-      activeDomain === "All"
-        ? projects
-        : projects.filter((project) => project.domains.includes(activeDomain)),
-    [activeDomain, projects],
-  );
-  const featured = filteredProjects.filter((project) => project.featured);
-  const more = filteredProjects.filter((project) => !project.featured);
-
-  return (
-    <div className="bg-night">
-      <section className="pb-12 pt-4 sm:pt-8 lg:pb-16" aria-label="Project filters">
-        <div className={cn(container, "space-y-6")}>
-          <div className="flex flex-wrap items-end justify-between gap-5">
-            <div>
-              <SectionLabel index="00" tone="dark">
-                Filter by domain
-              </SectionLabel>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-mist">
-                Browse the work by the problems and platforms each project brings together.
-              </p>
-            </div>
-            <ProjectCount count={filteredProjects.length} />
+    <section
+      aria-labelledby="index-title"
+      className="relative bg-night pb-24 pt-20 text-snow lg:pb-36 lg:pt-28"
+    >
+      <div className={container}>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-8">
+            <SectionLabel index="02">Index</SectionLabel>
+            <h2
+              id="index-title"
+              data-projects-heading
+              className="mt-6 font-display text-[clamp(2.25rem,4.2vw,3.75rem)] font-bold leading-none tracking-[-0.035em]"
+            >
+              Every build, <span className="text-sky">one list</span>.
+            </h2>
           </div>
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects by domain">
-            {projectDomains.map((domain) => {
-              const isActive = activeDomain === domain;
-              return (
-                <button
-                  key={domain}
-                  type="button"
-                  aria-pressed={isActive}
-                  onClick={() => setActiveDomain(domain)}
+          <p
+            aria-live="polite"
+            className={cn(label, "text-mist lg:col-span-4 lg:text-right")}
+          >
+            <span className="text-snow">{pad(shownCount)}</span> / {pad(projects.length)}{" "}
+            {shownCount === 1 ? "project" : "projects"} shown
+          </p>
+        </div>
+
+        <div
+          ref={railRef}
+          data-filter-rail
+          role="group"
+          aria-label="Filter projects by domain"
+          className="group/filters relative -mx-5 mt-10 flex gap-1.5 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+        >
+          <span
+            ref={indicatorRef}
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-0 hidden rounded-full bg-snow group-data-[ready=true]/filters:block"
+          />
+          {projectDomains.map((domain) => {
+            const pressed = domain === active;
+            return (
+              <button
+                key={domain}
+                type="button"
+                aria-pressed={pressed}
+                onClick={() => select(domain)}
+                className={cn(
+                  "relative z-10 inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky",
+                  pressed
+                    ? "border-transparent bg-snow text-night group-data-[ready=true]/filters:bg-transparent"
+                    : "border-white/12 text-snow/80 hover:border-white/30 hover:text-snow",
+                )}
+              >
+                {domain}
+                <span
                   className={cn(
-                    "rounded-full border px-4 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky",
-                    isActive
-                      ? "border-sky bg-sky text-night"
-                      : "border-white/15 text-snow hover:border-sky/60 hover:text-sky",
+                    "font-mono text-[10px] tabular-nums",
+                    pressed ? "text-night/55" : "text-mist",
                   )}
                 >
-                  {domain}
-                </button>
-              );
-            })}
-          </div>
+                  {pad(counts[domain])}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      </section>
 
-      <section className={cn(lightPanel, sectionY)} aria-labelledby="featured-projects-heading">
-        <div className={container}>
-          <SectionLabel index="01" tone="light">
-            Featured work
-          </SectionLabel>
-          <h2 id="featured-projects-heading" className={cn(display, "mt-6 max-w-4xl")}> 
-            Selected <Accent>work</Accent>
-          </h2>
-          <p className={cn("mt-6 max-w-xl text-base leading-relaxed", mutedOnLight)}>
-            Three end-to-end builds across education, AI, healthcare and the web.
-          </p>
-          <div className="mt-12 space-y-12 lg:mt-16 lg:space-y-16">
-            {featured.length > 0 ? (
-              featured.map((project, index) => (
-                <FeaturedProjectRow key={project.slug} project={project} index={index} />
-              ))
-            ) : (
-              <p className={cn("border-t border-ink/10 pt-8", mutedOnLight)}>
-                No featured projects match this domain yet.
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
+        <ol
+          ref={listRef}
+          data-index-list
+          className="group/list mt-10 border-b border-white/10 lg:mt-14"
+        >
+          {projects.map((project, index) => (
+            <li
+              key={project.slug}
+              data-index-row
+              data-flip-id={project.slug}
+              className={cn(!isShown(project) && "hidden")}
+            >
+              <div data-row-reveal>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  data-cursor="project"
+                  data-preview={project.slug}
+                  className="group/row relative grid grid-cols-[2.25rem_minmax(0,1fr)_auto] items-center gap-x-4 gap-y-3 border-t border-white/10 py-6 outline-none transition-opacity duration-500 ease-out-soft focus-visible:bg-white/[0.03] sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6 lg:grid-cols-[4.5rem_minmax(0,1fr)_15rem_4rem_auto] lg:gap-x-8 lg:py-8 [@media(hover:hover)]:group-hover/list:[&:not(:hover)]:opacity-30"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 -top-px h-px origin-left scale-x-0 bg-sky transition-transform duration-700 ease-out-soft group-hover/row:scale-x-100 group-focus-visible/row:scale-x-100"
+                  />
+                  <span className={cn(label, "flex items-center gap-2 self-start pt-2 text-mist lg:self-center lg:pt-0")}>
+                    {pad(index + 1)}
+                    {project.featured ? (
+                      <span aria-hidden="true" className="size-1.5 rounded-full bg-sky" />
+                    ) : null}
+                  </span>
 
-      <section className={cn(sectionY, "bg-night")} aria-labelledby="more-projects-heading">
-        <div className={container}>
-          <SectionLabel index="02" tone="dark">
-            More projects
-          </SectionLabel>
-          <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
-            <h2 id="more-projects-heading" className={cn(display, "max-w-3xl")}>
-              More <Accent>systems</Accent>
-            </h2>
-            <p className={cn("max-w-sm text-sm leading-relaxed lg:text-right", mutedOnDark)}>
-              Smaller surfaces, the same care for useful interfaces and dependable foundations.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">
-            {more.length > 0 ? (
-              more.map((project) => <MoreProjectCard key={project.slug} project={project} />)
-            ) : (
-              <p className={cn("md:col-span-2 lg:col-span-3", mutedOnDark)}>
-                No more projects match this domain yet.
-              </p>
-            )}
+                  <span className="min-w-0">
+                    <span className="relative block overflow-hidden">
+                      <span className="block font-display text-[clamp(1.75rem,4.2vw,3.75rem)] font-extrabold uppercase leading-[1.05] tracking-[-0.04em] text-snow transition-transform duration-500 ease-out-soft group-hover/row:-translate-y-full group-focus-visible/row:-translate-y-full">
+                        {project.title}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-x-0 top-full block font-display text-[clamp(1.75rem,4.2vw,3.75rem)] font-extrabold uppercase leading-[1.05] tracking-[-0.04em] text-sky transition-transform duration-500 ease-out-soft group-hover/row:-translate-y-full group-focus-visible/row:-translate-y-full"
+                      >
+                        {project.title}
+                      </span>
+                    </span>
+                    <span className="mt-2 block text-sm text-mist lg:hidden">
+                      {project.category}
+                    </span>
+                  </span>
+
+                  <span className="hidden text-sm leading-snug text-mist lg:block">
+                    {project.category}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="hidden font-jp text-2xl text-snow/25 transition-colors duration-500 group-hover/row:text-sky lg:block"
+                  >
+                    {project.kanji}
+                  </span>
+
+                  <span className="flex items-center gap-4">
+                    <RowThumb project={project} />
+                    <span
+                      aria-hidden="true"
+                      className="hidden size-12 shrink-0 place-items-center rounded-full border border-white/15 text-snow transition-[background-color,border-color,color,rotate] duration-500 ease-out-soft group-hover/row:rotate-45 group-hover/row:border-sky group-hover/row:bg-sky group-hover/row:text-night sm:grid"
+                    >
+                      <ArrowUpRight className="size-5" strokeWidth={1.75} />
+                    </span>
+                  </span>
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div
+        ref={previewRef}
+        aria-hidden="true"
+        className="pointer-events-none invisible fixed left-0 top-0 z-[70] aspect-[16/10] w-[clamp(300px,27vw,420px)]"
+      >
+        <div
+          data-preview-frame
+          className="relative h-full w-full overflow-hidden rounded-[18px] bg-night-3 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.85)] ring-1 ring-white/10"
+        >
+          {projects.map((project) => (
+            <div
+              key={project.slug}
+              data-preview-item={project.slug}
+              className="invisible absolute inset-0"
+            >
+              {project.image ? (
+                <Image
+                  src={project.image.src}
+                  alt=""
+                  fill
+                  sizes="420px"
+                  className="object-cover object-top"
+                />
+              ) : (
+                <EditorialVisual project={project} className="absolute inset-0 aspect-auto" />
+              )}
+            </div>
+          ))}
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-night/90 to-transparent px-4 pb-3 pt-12">
+            <span className={cn(label, "text-snow")}>View case study</span>
+            <ArrowUpRight className="size-4 text-sky" />
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

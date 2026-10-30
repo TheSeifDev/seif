@@ -1,12 +1,13 @@
 "use client";
 
 import gsap from "gsap";
+import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+  gsap.registerPlugin(ScrollTrigger, SplitText, Flip, useGSAP);
   // Mobile URL-bar show/hide must not re-measure every pin.
   ScrollTrigger.config({ ignoreMobileResize: true });
 }
@@ -21,6 +22,9 @@ export const motionQueries = {
   /** Motion allowed but the viewport is too small for pinning. */
   compact:
     "(prefers-reduced-motion: no-preference) and ((max-width: 1023px) or (max-height: 759px))",
+  /** Hover-capable fine pointer with motion allowed (cursor-driven effects). */
+  finePointer:
+    "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
 } as const;
 
-export { gsap, ScrollTrigger, SplitText, useGSAP };
+export { Flip, gsap, ScrollTrigger, SplitText, useGSAP };
