@@ -153,7 +153,7 @@ const about: SceneSetup = (root) => {
   });
 };
 
-/** Editorial chapters remain readable; one rail follows actual chapter positions. */
+/** Raised chapter cards reveal like Education; the rail follows static positions. */
 const journey: SceneSetup = (root) => {
   const mm = gsap.matchMedia();
   const chapters = all(root, "[data-chapter]");
@@ -176,6 +176,42 @@ const journey: SceneSetup = (root) => {
     const list = one(root, "[data-chapters]");
     const fill = one(root, "[data-rail-fill]");
     if (!list || !fill || chapters.length === 0) return;
+
+    chapters.forEach((chapter, index) => {
+      const card = one(chapter, "[data-journey-card]");
+      if (!card) return;
+      gsap.fromTo(
+        card,
+        { y: 70, clipPath: "inset(16% 5% 0% 5% round 32px)" },
+        {
+          y: 0,
+          clipPath: "inset(0% 0% 0% 0% round 32px)",
+          duration: 1.3,
+          ease: "expo.out",
+          scrollTrigger: {
+            id: `journey-card-${index + 1}`,
+            trigger: chapter,
+            start: "top 88%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+      const kanji = one(card, "[data-journey-kanji]");
+      if (kanji) {
+        gsap.fromTo(kanji, { yPercent: -10 }, {
+          yPercent: 12,
+          ease: "none",
+          scrollTrigger: {
+            id: `journey-kanji-${index + 1}`,
+            trigger: chapter,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.7,
+          },
+        });
+      }
+    });
+
     let active = -1;
     let positions: number[] = [];
     let frame = 0;

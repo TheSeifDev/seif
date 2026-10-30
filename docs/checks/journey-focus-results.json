@@ -1,0 +1,124 @@
+{
+  "journey": {
+    "reveal": {
+      "before": {
+        "y": 70,
+        "clip": "inset(16% 5% 0% round 32px)",
+        "radius": "32px",
+        "background": "rgb(11, 14, 19)"
+      },
+      "after": {
+        "y": 0.1909,
+        "clip": "inset(0.0436% 0.0136% 0% round 32px)",
+        "radius": "32px",
+        "background": "rgb(11, 14, 19)"
+      },
+      "reversed": {
+        "y": 70,
+        "clip": "inset(16% 5% 0% round 32px)",
+        "radius": "32px",
+        "background": "rgb(11, 14, 19)"
+      }
+    },
+    "progression": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "04",
+      "03",
+      "02",
+      "01"
+    ],
+    "mobile": [
+      {
+        "transform": "matrix(1, 0, 0, 1, 0, 0)",
+        "clip": "inset(0% round 32px)",
+        "overflow": 0
+      },
+      {
+        "transform": "matrix(1, 0, 0, 1, 0, 70)",
+        "clip": "inset(16% 5% 0% round 32px)",
+        "overflow": 0
+      },
+      {
+        "transform": "matrix(1, 0, 0, 1, 0, 70)",
+        "clip": "inset(16% 5% 0% round 32px)",
+        "overflow": 0
+      },
+      {
+        "transform": "matrix(1, 0, 0, 1, 0, 70)",
+        "clip": "inset(16% 5% 0% round 32px)",
+        "overflow": 0
+      }
+    ],
+    "reduced": [
+      {
+        "transform": "none",
+        "clip": "none",
+        "overflow": 0
+      },
+      {
+        "transform": "none",
+        "clip": "none",
+        "overflow": 0
+      },
+      {
+        "transform": "none",
+        "clip": "none",
+        "overflow": 0
+      },
+      {
+        "transform": "none",
+        "clip": "none",
+        "overflow": 0
+      }
+    ]
+  },
+  "focus": {
+    "1024x768": {
+      "width": 860.15625,
+      "left": 81.921875,
+      "right": 942.078125,
+      "overflow": 0
+    },
+    "1280x760": {
+      "width": 1075.1875,
+      "left": 102.40625,
+      "right": 1177.59375,
+      "overflow": 0
+    },
+    "1440x900": {
+      "width": 1209.59375,
+      "left": 115.203125,
+      "right": 1324.796875,
+      "overflow": 0
+    },
+    "1920x1080": {
+      "width": 1280,
+      "left": 320,
+      "right": 1600,
+      "overflow": 0
+    },
+    "768x1024": {
+      "width": 744,
+      "left": 12,
+      "right": 756,
+      "overflow": 0
+    },
+    "390x844": {
+      "width": 374,
+      "left": 8,
+      "right": 382,
+      "overflow": 0
+    }
+  },
+  "role": {
+    "home": "Vice Head IT Support",
+    "month": "Sep 2026",
+    "aboutVerified": true,
+    "staleJourneyTriggers": [],
+    "publicSummaryVerified": true
+  },
+  "failures": []
+}

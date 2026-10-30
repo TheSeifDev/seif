@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
 import { Accent, SectionHeading } from "@/components/system/primitives";
 
-/** Four factual chapters on an open editorial spread, not a stack of cards. */
+/** Four factual cards, borrowing Education's quiet light and raised surface. */
 export function Journey() {
   return (
     <Scene
@@ -53,27 +53,57 @@ export function Journey() {
             </div>
           </aside>
 
-          <ol data-chapters className="min-w-0 lg:col-span-9">
+          <ol data-chapters className="min-w-0 space-y-6 sm:space-y-8 lg:col-span-9 lg:space-y-10">
             {journey.map((chapter, index) => (
               <li
                 key={chapter.id}
                 data-chapter
                 data-active={index === 0 ? "" : undefined}
-                className="group/chapter relative border-t border-white/12 py-10 first:pt-8 last:pb-0 sm:py-14 lg:min-h-[440px] lg:py-16"
+                className="group/chapter relative"
               >
-                <article data-chapter-inner aria-labelledby={`chapter-${chapter.id}`} className="grid gap-7 sm:grid-cols-[4.5rem_minmax(0,1fr)] lg:gap-10">
-                  <div className="flex items-center justify-between sm:flex-col sm:items-start sm:justify-start">
-                    <p className="font-mono text-xs tracking-[0.16em] text-mist transition-colors duration-300 group-data-active/chapter:text-sky">{chapter.index}</p>
-                    <span lang="ja" aria-hidden="true" className="font-jp text-[2.75rem] font-medium leading-none text-snow/40 transition-colors duration-300 group-data-active/chapter:text-sky/80 sm:mt-12 sm:text-5xl">{chapter.kanji}</span>
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center justify-between gap-3">
+                <article
+                  data-chapter-inner
+                  data-journey-card
+                  data-spotlight
+                  data-cursor="preview"
+                  aria-labelledby={`chapter-${chapter.id}`}
+                  className="group/card relative isolate rounded-[32px] bg-white/[0.07] p-px transition-colors duration-500 group-data-active/chapter:bg-sky/25"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(300px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(125_200_255/0.22),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                  />
+                  <div className="relative flex min-h-[400px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-6 sm:min-h-[440px] sm:p-9 lg:min-h-[480px] lg:p-10">
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(70%_90%_at_90%_100%,rgb(77_182_255/0.12),transparent_70%)]"
+                    />
+                    <span
+                      data-journey-kanji
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-2 top-7 select-none font-jp text-[clamp(8rem,16vw,13rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_rgb(77_182_255/0.16)] sm:-right-1"
+                    >
+                      {chapter.kanji}
+                    </span>
+
+                    <div className="relative flex flex-wrap items-center justify-between gap-4">
+                      <p className={cn(label, "flex items-center gap-3 text-sky")}>
+                        <span>{chapter.index}</span>
+                        <span aria-hidden="true" className="h-px w-7 bg-sky/30" />
+                        <span>{chapter.meaning}</span>
+                      </p>
                       <p className={cn(label, "text-mist")}>{chapter.period}</p>
-                      <p aria-hidden="true" className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist">{chapter.reading} / {chapter.meaning}</p>
                     </div>
-                    <h3 id={`chapter-${chapter.id}`} className="mt-5 max-w-2xl scroll-mt-32 font-display text-[clamp(2rem,3.6vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.035em] text-snow text-balance">{chapter.title}</h3>
-                    <p className="mt-6 max-w-[37rem] text-base leading-[1.8] text-mist">{chapter.body}</p>
-                    <dl className="mt-8 grid gap-6 border-t border-white/8 pt-6 sm:grid-cols-3 lg:mt-10">
+                    <div className="relative flex-1">
+                      <h3
+                        id={`chapter-${chapter.id}`}
+                        className="mt-14 max-w-2xl scroll-mt-32 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.035em] text-snow text-balance"
+                      >
+                        {chapter.title}
+                      </h3>
+                      <p className="mt-6 max-w-[37rem] text-base leading-[1.8] text-mist">{chapter.body}</p>
+                    </div>
+                    <dl className="relative mt-9 grid gap-5 border-t border-white/[0.08] pt-6 sm:grid-cols-3 lg:mt-10">
                       {chapter.facts.map((fact) => (
                         <div key={fact.label} className="min-w-0">
                           <dt className="font-mono text-[10px] uppercase tracking-[0.15em] text-mist">{fact.label}</dt>

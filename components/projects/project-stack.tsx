@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { EditorialVisual, ProjectActions } from "@/components/system/project-media";
 import { Accent, SectionLabel } from "@/components/system/primitives";
 import type { Project } from "@/lib/content/projects";
-import { container, label, lightPanel } from "@/lib/ui/layout";
+import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
 /** Sticky offsets shared with `projects-scenes.ts` (px from the viewport top). */
@@ -20,8 +20,15 @@ const pad = (value: number) => String(value).padStart(2, "0");
  */
 export function ProjectStack({ projects }: { projects: readonly Project[] }) {
   return (
-    <section aria-labelledby="in-focus-title" className={cn(lightPanel, "py-24 lg:py-32")}>
-      <div className={container}>
+    <section
+      aria-labelledby="in-focus-title"
+      className={cn(
+        "relative mx-2 rounded-[28px] bg-paper text-ink [--accent-text:var(--color-sky-ink)] [color-scheme:light] sm:mx-3",
+        "lg:mx-auto lg:w-[84vw] lg:max-w-[1280px] lg:rounded-[40px]",
+        "py-24 lg:py-32",
+      )}
+    >
+      <div className={cn(container, "lg:px-8 xl:px-12")}>
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <SectionLabel index="03" tone="light">
@@ -60,7 +67,7 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                   className="pointer-events-none absolute inset-0 z-20 bg-night opacity-0"
                 />
 
-                <div className="relative z-10 flex flex-col p-7 sm:p-9 lg:col-span-6 lg:p-10 xl:col-span-5 xl:p-11 short:lg:p-9">
+                <div className="relative z-10 flex flex-col p-7 sm:p-9 lg:col-span-6 lg:p-8 xl:col-span-5 xl:p-10 short:lg:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <p className={cn(label, "flex items-center gap-3 text-mist")}>
                       <span className="text-sky">{pad(index + 1)}</span>
@@ -75,7 +82,7 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                     </p>
                   </div>
 
-                  <div data-stack-copy className="flex flex-1 flex-col justify-center py-8 short:py-5">
+                  <div data-stack-copy className="flex flex-1 flex-col justify-center py-8 short:py-5 lg:py-6 short:lg:py-4">
                     <p className={cn(label, "text-sky")}>{project.category}</p>
                     <h3
                       id={`stack-${project.slug}`}
@@ -143,7 +150,7 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                         fill
                         loading="lazy"
                         quality={85}
-                        sizes="(min-width: 1024px) 56vw, 100vw"
+                        sizes="(min-width: 1280px) 46vw, (min-width: 1024px) 41vw, 100vw"
                         className="object-cover object-top"
                       />
                     ) : (

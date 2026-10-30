@@ -97,10 +97,10 @@ export const experience = [
     ],
   },
   {
-    role: "IT Support Team Leader",
+    role: "Vice Head IT Support",
     organization: "University IT Club",
     location: "Alexandria, Egypt",
-    period: "2024 — Present",
+    period: "Sep 2026 — Present",
     points: [
       "Lead technical support operations, resolving software, networking and hardware issues to minimize downtime.",
       "Design and deliver technical workshops on IT fundamentals, networking and troubleshooting.",
@@ -189,9 +189,9 @@ export const journey = [
     kanji: "支",
     reading: "Sasae",
     meaning: "Support",
-    period: "2024 — Present",
-    title: "IT Support Team Leader",
-    body: "Leading technical support at the University IT Club — resolving software, networking and hardware issues, running workshops and supporting infrastructure for club-wide events.",
+    period: "Sep 2026 — Present",
+    title: "Vice Head IT Support",
+    body: "Promoted to Vice Head IT Support at the University IT Club — continuing to resolve software, networking and hardware issues, run workshops and support infrastructure for club-wide events.",
     facts: [
       { label: "Operations", value: "Software · Network · Hardware" },
       { label: "Teaching", value: "Workshops on IT fundamentals" },

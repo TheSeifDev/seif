@@ -167,3 +167,11 @@ Increase the existing footer grain's opacity and transform-only jitter speed/amp
 ## Static cursor-reactive footer background — 30 October 2026
 
 Blend the monochrome SVG grain directly into the footer's own background with a subtle `soft-light` blend; do not use a video or continuous/keyframed grain animation. On hover-capable fine pointers with motion enabled, reveal a softly blended local patch of the same texture beneath the pointer, updating its local coordinates through one animation-frame batch rather than React state. Clear the patch on pointer leave. Do not intercept footer interactions; disable tracking on touch and when reduced motion is requested, and remove listeners/cancel pending animation frames on cleanup.
+
+## Current follow-up — 30 October 2026: Journey surface and role update
+
+The user's new direction supersedes the earlier open-ledger treatment only for Home Journey: four separated raised dark cards, borrowing Education's rounded surface, quiet Light Blue border/lighting and restrained upward unmask as each card enters the viewport. Preserve the native chapter rail and all factual content; no new pinning, image assets or expensive initial-render work. Reduced motion stays fully open and static.
+
+The University IT Club's current role is now Vice Head IT Support, starting Sep 2026 according to the user's promotion update of about one month ago. The main software-development role and verified responsibilities do not change. Public About/Journey/machine-readable summaries continue to share the same factual source.
+
+The Projects In focus panel becomes narrower and centered on desktop, targeting 84vw with a 1280px cap while retaining comfortable small-screen gutters. Keep its three case studies, readable complete content and existing sticky stack; adjust local spacing/type only as needed for fit.

@@ -1,5 +1,5 @@
 import { getPublishedPosts } from "@/lib/content/blog";
-import { profile } from "@/lib/content/profile";
+import { experience, profile } from "@/lib/content/profile";
 import { projects } from "@/lib/content/projects";
 import { siteUrl } from "@/lib/seo/metadata";
 
@@ -13,6 +13,10 @@ export function GET() {
     "## Summary",
     "",
     profile.summary,
+    "",
+    "## Current experience",
+    "",
+    ...experience.map((role) => `- ${role.role} — ${role.organization}. ${role.period}.`),
     "",
     "## Canonical navigation",
     "",
