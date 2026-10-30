@@ -127,13 +127,31 @@ with sync_playwright() as p:
 
     scroll(page, position(page, "[data-site-footer]") + 40)
     grain = page.locator("[data-footer-grain]")
+    texture_response = page.request.get(BASE + "/images/footer-grain.svg")
     desktop["footer_grain"] = {
         "animation": grain.evaluate("e=>getComputedStyle(e).animationName"),
+        "duration": grain.evaluate("e=>getComputedStyle(e).animationDuration"),
+        "opacity": grain.evaluate("e=>getComputedStyle(e).opacity"),
+        "texture_url": grain.evaluate("e=>getComputedStyle(e).backgroundImage.includes('footer-grain.svg')"),
+        "background_size": grain.evaluate("e=>getComputedStyle(e).backgroundSize"),
+        "background_repeat": grain.evaluate("e=>getComputedStyle(e).backgroundRepeat"),
+        "texture_status": texture_response.status,
+        "texture_content_type": texture_response.headers.get("content-type", ""),
         "pointer_events": grain.evaluate("e=>getComputedStyle(e).pointerEvents"),
         "inside_footer": grain.evaluate("e=>e.closest('[data-site-footer]') !== null"),
+        "footer_overflow": grain.evaluate("e=>getComputedStyle(e.closest('[data-site-footer]')).overflow"),
     }
     if desktop["footer_grain"]["animation"] != "footer-grain-shift": fail("Footer grain is not animated")
-    if desktop["footer_grain"]["pointer_events"] != "none" or not desktop["footer_grain"]["inside_footer"]: fail("Footer grain is not safely contained")
+    if float(desktop["footer_grain"]["opacity"]) < 0.15: fail("Footer grain is too faint")
+    if float(desktop["footer_grain"]["duration"].replace("s", "")) > 1.3: fail("Footer grain movement is too slow")
+    if not desktop["footer_grain"]["texture_url"] or desktop["footer_grain"]["texture_status"] != 200 or "image/svg+xml" not in desktop["footer_grain"]["texture_content_type"]: fail("Footer grain SVG asset failed to load")
+    if desktop["footer_grain"]["background_size"] != "cover" or desktop["footer_grain"]["background_repeat"] != "no-repeat": fail("Footer grain texture is tiled")
+    if desktop["footer_grain"]["pointer_events"] != "none" or not desktop["footer_grain"]["inside_footer"] or desktop["footer_grain"]["footer_overflow"] != "hidden": fail("Footer grain is not safely contained")
+    transform_before = grain.evaluate("e=>getComputedStyle(e).transform")
+    page.wait_for_timeout(300)
+    transform_after = grain.evaluate("e=>getComputedStyle(e).transform")
+    desktop["footer_grain"]["transform_samples"] = [transform_before, transform_after]
+    if transform_before == transform_after: fail("Footer grain transform did not change over time")
     page.screenshot(path=str(SHOTS / "footer-grain.png"))
 
     scroll(page, position(page, "#work") + 3)

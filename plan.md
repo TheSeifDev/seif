@@ -157,4 +157,9 @@ The `/projects` index becomes its own piece instead of re-using the Home showcas
 
 ## Footer grain and cursor-light refinement — 30 October 2026
 
-Keep the portfolio's current composition and interaction system. Add a low-opacity, monochrome tiled SVG-noise layer only inside `components/site/footer.tsx`, below its content and clipped to the footer; animate that layer with small transform-only jitter in `app/globals.css`, and leave it static under reduced motion. In `components/site/custom-cursor.tsx`, reduce the Light Blue spotlight's opacity, core intensity, and radius substantially on both dark and light surfaces, while retaining mode distinctions, the native pointer, and current accessibility/lifecycle safeguards. Add no new runtime dependencies and no per-frame React state.
+Keep the portfolio's current composition and interaction system. Add a low-opacity, monochrome, non-repeating SVG-noise surface sized to cover the footer only, below its content and clipped to the footer; animate that layer with small transform-only jitter in `app/globals.css`, and leave it static under reduced motion. In `components/site/custom-cursor.tsx`, reduce the Light Blue spotlight's opacity, core intensity, and radius substantially on both dark and light surfaces, while retaining mode distinctions, the native pointer, and current accessibility/lifecycle safeguards. Add no new runtime dependencies and no per-frame React state.
+
+
+## Stronger footer grain follow-up — 30 October 2026
+
+Increase the existing footer grain's opacity and transform-only jitter speed/amplitude modestly so it becomes visibly perceptible, while keeping the monochrome texture clipped behind the footer content. Retain the same static fallback under reduced motion and leave the cursor spotlight unchanged.

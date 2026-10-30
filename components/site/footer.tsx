@@ -30,8 +30,7 @@ const elsewhere = [
   },
 ] as const;
 
-const footerGrain =
-  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E\")";
+const footerGrain = "url(\"/images/footer-grain.svg\")";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -44,7 +43,7 @@ export function Footer() {
       <span
         aria-hidden="true"
         data-footer-grain
-        className="pointer-events-none absolute -inset-[12%] z-0 bg-[length:180px_180px] opacity-[0.045] mix-blend-soft-light motion-safe:animate-footer-grain motion-reduce:animate-none will-change-transform"
+        className="pointer-events-none absolute -inset-[12%] z-0 bg-cover bg-no-repeat opacity-[0.16] mix-blend-screen motion-safe:animate-footer-grain motion-reduce:animate-none will-change-transform"
         style={{ backgroundImage: footerGrain }}
       />
       <div className={cn(container, "relative z-10 pb-10 pt-20 lg:pt-24")}>

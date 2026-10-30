@@ -93,3 +93,11 @@ Evidence: typecheck, lint and production build pass; `check-refinement.py`, `che
 - [x] Verify the built preview shows the grain only within the footer and the softened spotlight on both dark and light surfaces; run typecheck, lint, production build, and affected cursor/multipage checks. Report only checks actually run.
 
 Evidence: `npm run typecheck`, `npm run lint`, and `npm run build` passed. Updated `scripts/check-refinement.py` reports 0 failures: grain animation is active only in the footer with `pointer-events: none`, 480px ambient / 104px core cursor dimensions, correct touch/reduced-motion disabling, card-coordinate cleanup, magnetic CTA reset and route listener cleanup. `scripts/check-multipage.py` reports 0 failures. Visual review covered the footer grain and softened spotlight over dark and light surfaces.
+
+
+## Follow-up — stronger animated footer grain — 30 October 2026
+
+- [x] Make the existing footer grain visibly stronger and its movement more apparent: use one non-repeating monochrome SVG surface covering the footer, opacity `0.16`, and a `1.1s` six-step transform-only jitter; keep it clipped behind content and non-interactive. Keep it static under `prefers-reduced-motion`; do not change the already-softened cursor spotlight.
+- [x] Verify the grain is visibly perceptible without distracting from footer text, stays inside the footer, and is static under reduced motion; rerun typecheck, lint, build, and the affected browser checks.
+
+Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, and `python3 -m py_compile scripts/check-refinement.py` passed. Final `scripts/check-refinement.py` and `scripts/check-multipage.py` report 0 failures. Browser values: SVG asset HTTP 200; `background-size: cover`, `background-repeat: no-repeat`; opacity `0.16`; duration `1.1s`; transform samples differ; `pointer-events: none`; footer overflow clips the layer; reduced-motion reports animation `none`. The final screenshot was reviewed for texture strength and absence of tile seams.
