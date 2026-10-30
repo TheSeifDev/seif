@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { profile } from "@/lib/content/profile";
 import { createSiteVerification } from "@/lib/seo/site-verification";
 
-export const DEFAULT_SITE_ORIGIN = "https://prof-zeta-one.vercel.app";
+export const DEFAULT_SITE_ORIGIN = "https://theseif.vercel.app";
+export const RETIRED_SITE_ORIGIN = "https://prof-zeta-one.vercel.app";
 export const SITE_NAME = "Seif Ayman";
 export const SITE_TITLE = "Seif Ayman — Senior Full Stack Developer";
 export const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
@@ -26,7 +27,10 @@ export function getSiteOrigin(): string {
       ["localhost", "127.0.0.1", "0.0.0.0", "[::1]"].includes(url.hostname) ||
       url.hostname.endsWith(".localhost");
 
-    return isHttp && url.hostname && isOriginOnly && !isLocal ? url.origin : DEFAULT_SITE_ORIGIN;
+    if (!isHttp || !url.hostname || !isOriginOnly || isLocal) return DEFAULT_SITE_ORIGIN;
+
+    // Prevent a stale production environment value from reviving the obsolete canonical origin.
+    return url.origin === RETIRED_SITE_ORIGIN ? DEFAULT_SITE_ORIGIN : url.origin;
   } catch {
     return DEFAULT_SITE_ORIGIN;
   }

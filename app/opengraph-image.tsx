@@ -1,10 +1,13 @@
 import { ImageResponse } from "next/og";
+import { getSiteOrigin } from "@/lib/seo/metadata";
 
 export const alt = "Seif Ayman — Senior Full Stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
+  const siteHostname = new URL(getSiteOrigin()).hostname;
+
   return new ImageResponse(
     (
       <div
@@ -47,7 +50,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 21, color: "#77869c" }}>
           <span>Alexandria, Egypt</span>
-          <span>prof-zeta-one.vercel.app</span>
+          <span>{siteHostname}</span>
         </div>
       </div>
     ),

@@ -183,3 +183,7 @@ The latest user instruction supersedes Journey's separated-card scroll behavior:
 Enhance the existing Featured Projects section with Filter by Tech Stack sourced from verified project data. A compact accessible control and live count keep the layout calm; All retains every original case-study link in the initial HTML. Filter changes rebuild the scoped motion and refresh downstream measurements; a single result uses normal flow rather than an empty horizontal pin.
 
 Keep the actual public origin and server-rendered structured identity in SEO metadata, tighten route descriptions and preserve social/crawler consistency. Google Search Console uses the deployed URL-prefix property, an exact Google-issued HTML verification token and the public sitemap. Configuration readiness is not ownership verification: account login/verification and sitemap submission remain explicit external steps until actually completed.
+
+## Canonical origin update — 30 October 2026
+
+The user has moved the official portfolio to https://theseif.vercel.app/. All newly generated canonical/social/sitemap/robots/identity URLs and the Open Graph image's domain label use this explicit origin. Retire the old prof-zeta-one production alias in active configuration, preserving historical benchmark provenance. Verify the new exact URL-prefix property in the now-signed-in Search Console account with the actual Google-issued token and submit the new sitemap; do not change account permissions or unrelated properties.

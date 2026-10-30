@@ -72,7 +72,7 @@ def request(base, path, ua):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base", default="http://127.0.0.1:3000")
-    parser.add_argument("--canonical-origin", default="https://prof-zeta-one.vercel.app")
+    parser.add_argument("--canonical-origin", default="https://theseif.vercel.app")
     parser.add_argument("--out", default="docs/checks/seo-results.json")
     args = parser.parse_args()
     results = {"base": args.base, "canonical_origin": args.canonical_origin, "pages": {}, "failures": []}

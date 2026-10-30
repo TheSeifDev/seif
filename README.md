@@ -46,7 +46,7 @@ The script measures mobile and desktop separately using Lighthouse's default sim
 
 ## Performance and public discovery
 
-`lib/seo` centralizes metadata and public identity graphs. Set `SITE_URL` to the real production origin; the verified default is `https://prof-zeta-one.vercel.app`. Change it if the portfolio moves to a custom domain. Do not use a preview URL or localhost as the production canonical.
+`lib/seo` centralizes metadata and public identity graphs. Set `SITE_URL` to the real production origin; the verified default is `https://theseif.vercel.app`. The retired `https://prof-zeta-one.vercel.app` value is remapped to the new default so a stale production environment cannot resurrect the obsolete canonical. Change it if the portfolio moves to a custom domain. Do not use a preview URL or localhost as the production canonical.
 
 Public pages provide route-specific canonical, Open Graph and Twitter metadata in the server HTML. Linked Person/WebSite/ProfilePage and project/article/breadcrumb graphs use only curated public facts from `docs/content-sources.md`. The About FAQ is visible and uses the same source data as its markup. Draft posts are absent from listings, the sitemap and `/llms.txt`; missing pages return 404/noindex.
 
@@ -54,9 +54,9 @@ Public pages provide route-specific canonical, Open Graph and Twitter metadata i
 
 ### Google Search Console ownership and sitemap
 
-The site supports Google Search Console's **HTML tag** verification method through the root metadata. Create a **URL-prefix** property for the exact deployed origin, `https://prof-zeta-one.vercel.app`, then copy only the account-issued `content` value from Google's verification tag into `GOOGLE_SITE_VERIFICATION` in `.env.local` (or into `PUBLIC_GOOGLE_SITE_VERIFICATION` in `lib/seo/site-verification.ts` when a durable public configuration is preferred) and redeploy. The value is intentionally public in the rendered HTML, but it must be the genuine token for the property; never place Google API credentials in the application.
+The site supports Google Search Console's **HTML tag** verification method through the root metadata. Create a **URL-prefix** property for the exact deployed origin, `https://theseif.vercel.app`, then copy only the account-issued `content` value from Google's verification tag into `GOOGLE_SITE_VERIFICATION` in `.env.local` (or into `PUBLIC_GOOGLE_SITE_VERIFICATION` in `lib/seo/site-verification.ts` when a durable public configuration is preferred) and redeploy. The value is intentionally public in the rendered HTML, but it must be the genuine token for the property; never place Google API credentials in the application.
 
-After the deployment containing the token is live, complete **Verify** in the owning Search Console account. Then submit `https://prof-zeta-one.vercel.app/sitemap.xml` in that URL-prefix property and use URL Inspection if individual indexing requests are needed. The relevant Google guidance is [verify your website ownership](https://support.google.com/webmasters/answer/9008080?hl=en) and [submit a sitemap](https://support.google.com/webmasters/answer/7451001?hl=en). Code support only emits the verification tag and sitemap URL; it does not create or own the Search Console property, sign in to an account, or complete verification on the owner's behalf. With no token configured, no verification tag is emitted.
+After the deployment containing the genuine token is live, complete **Verify** in the owning Search Console account. Then submit `https://theseif.vercel.app/sitemap.xml` in that URL-prefix property and use URL Inspection if individual indexing requests are needed. The relevant Google guidance is [verify your website ownership](https://support.google.com/webmasters/answer/9008080?hl=en) and [submit a sitemap](https://support.google.com/webmasters/answer/7451001?hl=en). Code support only emits the verification tag and sitemap URL; it does not create or own the Search Console property, sign in to an account, or complete verification on the owner's behalf. Until the genuine token is configured and Google verification is completed, Search Console ownership remains pending; with no token configured, no verification tag is emitted.
 
 Large decorative images are conservatively compressed. Active background imports generate content-hashed URLs so replacing an asset also updates the optimized-image cache key. Next serves responsive AVIF/WebP with bounded quality options. Below-fold project images are lazy-loaded, full-resolution cursor previews mount on demand, and only the main Home portrait is preloaded. Three.js stays lazy and unavailable on low-power/reduced-motion/mobile fallbacks. SplitText/Flip are kept out of the shared Home motion bundle.
 
@@ -70,6 +70,6 @@ The contact route stores messages in PostgreSQL through Drizzle and can notify t
 
 Repository: https://github.com/TheSeifDev/seif
 
-Public site: https://prof-zeta-one.vercel.app
+Public site: https://theseif.vercel.app
 
 The portfolio was recovered from approved source snapshots and is now maintained in the user's `main` branch. Vercel deployment status must be verified separately from a successful Git push. No purchases, domain changes, private dashboard publication or contact-provider configuration are part of this pass.

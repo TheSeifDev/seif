@@ -1,13 +1,13 @@
 {
   "base": "http://127.0.0.1:3000",
-  "canonical_origin": "https://prof-zeta-one.vercel.app",
+  "canonical_origin": "https://theseif.vercel.app",
   "pages": {
     "/": {
       "visitor": {
         "status": 200,
         "title": "Seif Ayman — Senior Full Stack Developer",
         "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
-        "canonical": "https://prof-zeta-one.vercel.app",
+        "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
@@ -15,7 +15,7 @@
         "status": 200,
         "title": "Seif Ayman — Senior Full Stack Developer",
         "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
-        "canonical": "https://prof-zeta-one.vercel.app",
+        "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
@@ -23,7 +23,7 @@
         "status": 200,
         "title": "Seif Ayman — Senior Full Stack Developer",
         "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
-        "canonical": "https://prof-zeta-one.vercel.app",
+        "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
@@ -31,7 +31,7 @@
         "status": 200,
         "title": "Seif Ayman — Senior Full Stack Developer",
         "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
-        "canonical": "https://prof-zeta-one.vercel.app",
+        "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       }
@@ -41,7 +41,7 @@
         "status": 200,
         "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
-        "canonical": "https://prof-zeta-one.vercel.app/about",
+        "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
         "json_ld_blocks": 3
       },
@@ -49,7 +49,7 @@
         "status": 200,
         "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
-        "canonical": "https://prof-zeta-one.vercel.app/about",
+        "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
         "json_ld_blocks": 3
       },
@@ -57,7 +57,7 @@
         "status": 200,
         "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
-        "canonical": "https://prof-zeta-one.vercel.app/about",
+        "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
         "json_ld_blocks": 3
       },
@@ -65,7 +65,7 @@
         "status": 200,
         "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
-        "canonical": "https://prof-zeta-one.vercel.app/about",
+        "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
         "json_ld_blocks": 3
       }
@@ -75,7 +75,7 @@
         "status": 200,
         "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects",
+        "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
         "json_ld_blocks": 2
       },
@@ -83,7 +83,7 @@
         "status": 200,
         "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects",
+        "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
         "json_ld_blocks": 2
       },
@@ -91,7 +91,7 @@
         "status": 200,
         "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects",
+        "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
         "json_ld_blocks": 2
       },
@@ -99,7 +99,7 @@
         "status": 200,
         "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects",
+        "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
         "json_ld_blocks": 2
       }
@@ -109,7 +109,7 @@
         "status": 200,
         "title": "RAFIQ AI Assistant — Seif Ayman",
         "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects/rafiq",
+        "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
@@ -117,7 +117,7 @@
         "status": 200,
         "title": "RAFIQ AI Assistant — Seif Ayman",
         "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects/rafiq",
+        "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
@@ -125,7 +125,7 @@
         "status": 200,
         "title": "RAFIQ AI Assistant — Seif Ayman",
         "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects/rafiq",
+        "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
@@ -133,7 +133,7 @@
         "status": 200,
         "title": "RAFIQ AI Assistant — Seif Ayman",
         "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
-        "canonical": "https://prof-zeta-one.vercel.app/projects/rafiq",
+        "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       }
@@ -143,7 +143,7 @@
         "status": 200,
         "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
-        "canonical": "https://prof-zeta-one.vercel.app/contact",
+        "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
         "json_ld_blocks": 2
       },
@@ -151,7 +151,7 @@
         "status": 200,
         "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
-        "canonical": "https://prof-zeta-one.vercel.app/contact",
+        "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
         "json_ld_blocks": 2
       },
@@ -159,7 +159,7 @@
         "status": 200,
         "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
-        "canonical": "https://prof-zeta-one.vercel.app/contact",
+        "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
         "json_ld_blocks": 2
       },
@@ -167,7 +167,7 @@
         "status": 200,
         "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
-        "canonical": "https://prof-zeta-one.vercel.app/contact",
+        "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
         "json_ld_blocks": 2
       }
@@ -177,7 +177,7 @@
         "status": 200,
         "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
-        "canonical": "https://prof-zeta-one.vercel.app/blog",
+        "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
         "json_ld_blocks": 2
       },
@@ -185,7 +185,7 @@
         "status": 200,
         "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
-        "canonical": "https://prof-zeta-one.vercel.app/blog",
+        "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
         "json_ld_blocks": 2
       },
@@ -193,7 +193,7 @@
         "status": 200,
         "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
-        "canonical": "https://prof-zeta-one.vercel.app/blog",
+        "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
         "json_ld_blocks": 2
       },
@@ -201,7 +201,7 @@
         "status": 200,
         "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
-        "canonical": "https://prof-zeta-one.vercel.app/blog",
+        "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
         "json_ld_blocks": 2
       }
@@ -209,22 +209,22 @@
   },
   "failures": [],
   "sitemap_entries": [
-    "https://prof-zeta-one.vercel.app",
-    "https://prof-zeta-one.vercel.app/about",
-    "https://prof-zeta-one.vercel.app/projects",
-    "https://prof-zeta-one.vercel.app/projects/rafiq",
-    "https://prof-zeta-one.vercel.app/projects/it-sum",
-    "https://prof-zeta-one.vercel.app/projects/phantoms",
-    "https://prof-zeta-one.vercel.app/projects/nabd-masr",
-    "https://prof-zeta-one.vercel.app/projects/personal-portfolio",
-    "https://prof-zeta-one.vercel.app/projects/trackup",
-    "https://prof-zeta-one.vercel.app/blog",
-    "https://prof-zeta-one.vercel.app/contact"
+    "https://theseif.vercel.app",
+    "https://theseif.vercel.app/about",
+    "https://theseif.vercel.app/projects",
+    "https://theseif.vercel.app/projects/rafiq",
+    "https://theseif.vercel.app/projects/it-sum",
+    "https://theseif.vercel.app/projects/phantoms",
+    "https://theseif.vercel.app/projects/nabd-masr",
+    "https://theseif.vercel.app/projects/personal-portfolio",
+    "https://theseif.vercel.app/projects/trackup",
+    "https://theseif.vercel.app/blog",
+    "https://theseif.vercel.app/contact"
   ],
-  "robots": "User-Agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\n\nUser-Agent: OAI-SearchBot\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\n\nSitemap: https://prof-zeta-one.vercel.app/sitemap.xml\n",
+  "robots": "User-Agent: *\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\n\nUser-Agent: OAI-SearchBot\nAllow: /\nDisallow: /api/\nDisallow: /dashboard\n\nSitemap: https://theseif.vercel.app/sitemap.xml\n",
   "og_image": {
     "status": 200,
-    "bytes": 51103,
+    "bytes": 50374,
     "content_type": "image/png"
   }
 }
