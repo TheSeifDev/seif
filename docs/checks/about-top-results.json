@@ -1,0 +1,1019 @@
+{
+  "viewports": {
+    "1920x1080": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 1600,
+          "left": 160,
+          "right": 160
+        },
+        {
+          "selector": "#capabilities",
+          "width": 1600,
+          "left": 160,
+          "right": 160
+        },
+        {
+          "selector": "#about-faq",
+          "width": 1600,
+          "left": 160,
+          "right": 160
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 8.4259,
+          "summaryY": 18.7822
+        },
+        "scrolled": {
+          "titleY": -11.8227,
+          "backgroundY": -0.180301,
+          "headingY": 0,
+          "summaryY": 13.1405
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 8.4259,
+          "summaryY": 18.7822
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 28.7037,
+          "summaryY": 18.7822
+        },
+        "after": {
+          "titleY": -24,
+          "backgroundY": 12.1825,
+          "headingY": 0,
+          "summaryY": 2.6282
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 28.7037,
+          "summaryY": 18.7822
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    },
+    "1440x900": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 1360,
+          "left": 40,
+          "right": 40
+        },
+        {
+          "selector": "#capabilities",
+          "width": 1360,
+          "left": 40,
+          "right": 40
+        },
+        {
+          "selector": "#about-faq",
+          "width": 1360,
+          "left": 40,
+          "right": 40
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 19.6667,
+          "summaryY": 20
+        },
+        "scrolled": {
+          "titleY": -11.8227,
+          "backgroundY": -0.180301,
+          "headingY": 0,
+          "summaryY": 15.7029
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 19.6667,
+          "summaryY": 20
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 40,
+          "summaryY": 20
+        },
+        "after": {
+          "titleY": -24,
+          "backgroundY": 12.1825,
+          "headingY": 0,
+          "summaryY": 4.7667
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 40,
+          "summaryY": 20
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    },
+    "1280x760": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 1240,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#capabilities",
+          "width": 1240,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#about-faq",
+          "width": 1240,
+          "left": 20,
+          "right": 20
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 32.1053,
+          "summaryY": 20
+        },
+        "scrolled": {
+          "titleY": -11.8227,
+          "backgroundY": -0.180301,
+          "headingY": 0,
+          "summaryY": 17.532
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 32.1053,
+          "summaryY": 20
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 40,
+          "summaryY": 20
+        },
+        "after": {
+          "titleY": -24,
+          "backgroundY": 12.1825,
+          "headingY": 0,
+          "summaryY": 5.7216
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -12.1825,
+          "headingY": 40,
+          "summaryY": 20
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    },
+    "1024x768": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 984,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#capabilities",
+          "width": 984,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#about-faq",
+          "width": 984,
+          "left": 20,
+          "right": 20
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -13.2875,
+          "headingY": 38.5668,
+          "summaryY": 20
+        },
+        "scrolled": {
+          "titleY": -10.8434,
+          "backgroundY": -1.28092,
+          "headingY": 0,
+          "summaryY": 18.4648
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -13.2875,
+          "headingY": 38.5668,
+          "summaryY": 20
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -13.2875,
+          "headingY": 40,
+          "summaryY": 20
+        },
+        "after": {
+          "titleY": -24,
+          "backgroundY": 13.2875,
+          "headingY": 0,
+          "summaryY": 5.3235
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -13.2875,
+          "headingY": 40,
+          "summaryY": 20
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    },
+    "768x1024": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 728,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#capabilities",
+          "width": 728,
+          "left": 20,
+          "right": 20
+        },
+        {
+          "selector": "#about-faq",
+          "width": 728,
+          "left": 20,
+          "right": 20
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -10.8962,
+          "headingY": 5.1834,
+          "summaryY": 19.2126
+        },
+        "scrolled": {
+          "titleY": -6.6055,
+          "backgroundY": 1.09943,
+          "headingY": 0,
+          "summaryY": 14.2238
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -10.8962,
+          "headingY": 5.1834,
+          "summaryY": 19.2126
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -10.8962,
+          "headingY": 21.9071,
+          "summaryY": 19.2126
+        },
+        "after": {
+          "titleY": -12,
+          "backgroundY": 10.8962,
+          "headingY": 0,
+          "summaryY": 5.9924
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -10.8962,
+          "headingY": 21.9071,
+          "summaryY": 19.2126
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    },
+    "390x844": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product",
+      "heroOpacity": 1,
+      "originalBackground": true,
+      "rejectedArt": 0,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 366,
+          "left": 12,
+          "right": 12
+        },
+        {
+          "selector": "#capabilities",
+          "width": 366,
+          "left": 12,
+          "right": 12
+        },
+        {
+          "selector": "#about-faq",
+          "width": 366,
+          "left": 12,
+          "right": 12
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0,
+      "heroStates": {
+        "initial": {
+          "titleY": 0,
+          "backgroundY": -13.5981,
+          "headingY": 32.5444,
+          "summaryY": 20
+        },
+        "scrolled": {
+          "titleY": -5.2941,
+          "backgroundY": -1.59982,
+          "headingY": 0,
+          "summaryY": 19.7224
+        },
+        "returned": {
+          "titleY": 0,
+          "backgroundY": -13.5981,
+          "headingY": 32.5444,
+          "summaryY": 20
+        }
+      },
+      "introStates": {
+        "before": {
+          "titleY": 0,
+          "backgroundY": -13.5981,
+          "headingY": 40,
+          "summaryY": 20
+        },
+        "after": {
+          "titleY": -12,
+          "backgroundY": 13.5981,
+          "headingY": 0,
+          "summaryY": 10.4769
+        },
+        "reverse": {
+          "titleY": 0,
+          "backgroundY": -13.5981,
+          "headingY": 40,
+          "summaryY": 20
+        }
+      },
+      "faq": {
+        "open": [
+          true,
+          false,
+          false
+        ],
+        "questions": [
+          "Who is Seif Ayman?",
+          "What does Seif work on?",
+          "Is Seif available for new work?"
+        ],
+        "answers": [
+          "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms.",
+          "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment.",
+          "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+        ],
+        "schema": [
+          {
+            "question": "Who is Seif Ayman?",
+            "answer": "Seif Ayman Ahmed (TheSeifDev) is a Senior Full Stack Software Developer based in Alexandria, Egypt, with 5+ years of experience building production-grade platforms."
+          },
+          {
+            "question": "What does Seif work on?",
+            "answer": "He works across web and desktop products, AI and Retrieval-Augmented Generation workflows, real-time MQTT and IoT systems, APIs, databases and cloud deployment."
+          },
+          {
+            "question": "Is Seif available for new work?",
+            "answer": "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge."
+          }
+        ],
+        "keyboardToggle": true
+      },
+      "errors": []
+    }
+  },
+  "reduced": {
+    "heroOpacity": 1,
+    "summaryOpacity": 1,
+    "skills": 93,
+    "facts": 4,
+    "overflow": 0,
+    "triggers": []
+  },
+  "no_js": {
+    "heroOpacity": 1,
+    "summaryOpacity": 1,
+    "skills": 93,
+    "facts": 4,
+    "overflow": 0,
+    "triggers": []
+  },
+  "navigation": {
+    "leaked": [],
+    "reducedTriggers": []
+  },
+  "failures": []
+}

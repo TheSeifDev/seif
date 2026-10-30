@@ -187,3 +187,15 @@ Keep the actual public origin and server-rendered structured identity in SEO met
 ## Canonical origin update — 30 October 2026
 
 The user has moved the official portfolio to https://theseif.vercel.app/. All newly generated canonical/social/sitemap/robots/identity URLs and the Open Graph image's domain label use this explicit origin. Retire the old prof-zeta-one production alias in active configuration, preserving historical benchmark provenance. Verify the new exact URL-prefix property in the now-signed-in Search Console account with the actual Google-issued token and submit the new sitemap; do not change account permissions or unrelated properties.
+
+## About top-of-page refinement — 30 October 2026
+
+The user now explicitly expands the About scope to Hero and Introduction, superseding the earlier instruction to leave them unchanged. Keep the cinematic Japanese editorial language, Montserrat and sky/night palette. Use an About-only capped paper-surface recipe for Introduction and Capabilities (1280px maximum, desktop side inset, small mobile gutter), rather than changing global lightPanel. The hero becomes a distinctive identity spread with a strong product-engineering headline, current factual intro, CV/contact actions, and an atmospheric engineering-layer visual using existing assets. ScrollTrigger supplies a restrained reversible multi-layer hero drift and a dedicated Introduction portrait/copy/facts reveal; no new pins, invisible initial hero copy, WebGL or font families. Preserve other About chapters, all verified content, the single existing Principles pin, and static/reduced-motion fallbacks.
+
+## About user correction — 30 October 2026
+
+The user rejects the invented Hero engineering card / new left-right identity spread. Supersede that direction: restore the original PageHero, image background, typography, Japanese caption and links exactly; add only gentle reversible image/text scroll drift, not a new visual composition. Introduction, Capabilities and A few useful answers share an intermediate About-only surface width: 12px mobile inset, 20px minimum medium-screen gutters and a fluid wide-screen cap up to 1600px, roughly halfway between the earlier full-bleed and 1280px versions. Preserve the existing content container and all data. Modernize the answers with clean numbered native disclosures, a visible open state and keyboard focus, keeping all three original answers and JSON-LD in sync. No new imagery, fonts, Hero cards or pins.
+
+## Home Hero alignment correction — 30 October 2026
+
+Live measurements show the left copy follows the shared 1360px frame, but the experience card and Japanese side label are anchored to viewport edges. At 1920px this detaches the right-hand data from the composition. Move those two existing nodes inside the same relative content frame, preserving their vertical offsets, styles and every motion/data hook. Keep left copy, portrait placement, full-width image/glow and mobile layout unchanged; this is a shared-anchor correction, not a new Hero composition.

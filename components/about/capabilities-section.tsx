@@ -1,7 +1,8 @@
 import { Accent, SectionHeading } from "@/components/system/primitives";
 import { TechnologyIcon } from "@/components/system/technology-icon";
 import { skillGroups } from "@/lib/content/skills";
-import { container, lightPanel, sectionY } from "@/lib/ui/layout";
+import { aboutLightPanel } from "@/lib/ui/about-layout";
+import { container, sectionY } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
 const pad = (value: number) => String(value).padStart(2, "0");
@@ -22,7 +23,7 @@ export function CapabilitiesSection() {
     <section
       id="capabilities"
       data-about-chapter="capabilities"
-      className={cn(lightPanel, "overflow-hidden")}
+      className={cn(aboutLightPanel, "overflow-hidden")}
       aria-labelledby="capabilities-heading"
     >
       <div className={cn(container, sectionY)}>
@@ -44,7 +45,7 @@ export function CapabilitiesSection() {
             <ol
               key={columnIndex}
               start={columnIndex * half + 1}
-              className={cn("border-b border-ink/10", columnIndex === 1 && "max-lg:border-b-0")}
+              className={cn("min-w-0 border-b border-ink/10", columnIndex === 1 && "max-lg:border-b-0")}
             >
               {column.map((group, rowIndex) => (
                 <CapabilityRow
@@ -65,7 +66,7 @@ function CapabilityRow({ group, number }: { group: Group; number: number }) {
   const id = `capability-${slug(group.name)}`;
 
   return (
-    <li data-cap-row className="group/cap relative isolate border-t border-ink/10">
+    <li data-cap-row className="group/cap relative isolate min-w-0 border-t border-ink/10">
       <span
         aria-hidden="true"
         data-cap-line
@@ -77,14 +78,14 @@ function CapabilityRow({ group, number }: { group: Group; number: number }) {
       />
       <section
         aria-labelledby={id}
-        className="grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-3 px-1 py-6 transition-colors duration-500 sm:px-5 lg:py-7"
+        className="grid min-w-0 grid-cols-[2.5rem_minmax(0,1fr)_auto] items-baseline gap-x-3 px-1 py-6 transition-colors duration-500 sm:px-5 lg:py-7"
       >
         <span className="font-mono text-[11px] tracking-[0.14em] text-slate-ink transition-colors duration-500 group-hover/cap:text-sky">
           {pad(number)}
         </span>
         <h3
           id={id}
-          className="overflow-hidden font-display text-[clamp(1.6rem,2.6vw,2.4rem)] font-bold leading-[1.05] tracking-[-0.035em] text-ink transition-colors duration-500 group-hover/cap:text-snow"
+          className="min-w-0 overflow-hidden break-words font-display text-[clamp(1.6rem,2.6vw,2.4rem)] font-bold leading-[1.05] tracking-[-0.035em] text-ink transition-colors duration-500 group-hover/cap:text-snow"
         >
           <span data-cap-name className="block">
             {group.name}
@@ -94,17 +95,17 @@ function CapabilityRow({ group, number }: { group: Group; number: number }) {
           {pad(group.skills.length)}
         </span>
 
-        <ul className="col-span-2 col-start-2 mt-4 flex flex-wrap gap-x-5 gap-y-2.5">
+        <ul className="col-span-2 col-start-2 mt-4 flex min-w-0 flex-wrap gap-x-5 gap-y-2.5">
           {group.skills.map((skill) => (
             <li
               key={skill}
               data-cap-skill
-              className="flex items-center gap-2 text-[13px] text-slate-ink transition-colors duration-500 group-hover/cap:text-snow/85"
+              className="flex min-w-0 max-w-full items-center gap-2 break-words text-[13px] text-slate-ink transition-colors duration-500 group-hover/cap:text-snow/85"
             >
-              <span className="text-slate-ink/70 transition-colors duration-500 group-hover/cap:text-sky">
+              <span className="shrink-0 text-slate-ink/70 transition-colors duration-500 group-hover/cap:text-sky">
                 <TechnologyIcon name={skill} size={14} />
               </span>
-              {skill}
+              <span className="min-w-0 break-words">{skill}</span>
             </li>
           ))}
         </ul>
