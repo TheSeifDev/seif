@@ -1,0 +1,683 @@
+{
+  "viewports": {
+    "1440x900": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product.",
+      "heroOpacity": 1,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 1280,
+          "left": 80,
+          "right": 80
+        },
+        {
+          "selector": "#capabilities",
+          "width": 1280,
+          "left": 80,
+          "right": 80
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "scrolled": {
+          "copyY": -14.1732,
+          "artY": -21.2599,
+          "headingY": 31.5556,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "returned": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "introStates": {
+        "before": {
+          "copyY": -7.6063,
+          "artY": -11.4095,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "after": {
+          "copyY": -48,
+          "artY": -72,
+          "headingY": 0,
+          "summaryY": 5.4447,
+          "summaryOpacity": 0.9564
+        },
+        "reverse": {
+          "copyY": -7.6063,
+          "artY": -11.4095,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "errors": []
+    },
+    "1280x760": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product.",
+      "heroOpacity": 1,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 1216,
+          "left": 32,
+          "right": 32
+        },
+        {
+          "selector": "#capabilities",
+          "width": 1216,
+          "left": 32,
+          "right": 32
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "scrolled": {
+          "copyY": -14.7239,
+          "artY": -22.0859,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "returned": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "introStates": {
+        "before": {
+          "copyY": -12.5644,
+          "artY": -18.8466,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "after": {
+          "copyY": -48,
+          "artY": -72,
+          "headingY": 0,
+          "summaryY": 5.7141,
+          "summaryOpacity": 0.9543
+        },
+        "reverse": {
+          "copyY": -12.5644,
+          "artY": -18.8466,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "errors": []
+    },
+    "1024x768": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product.",
+      "heroOpacity": 1,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 960,
+          "left": 32,
+          "right": 32
+        },
+        {
+          "selector": "#capabilities",
+          "width": 960,
+          "left": 32,
+          "right": 32
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-page-principles",
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 1,
+      "heroStates": {
+        "initial": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "scrolled": {
+          "copyY": -15.2381,
+          "artY": -22.8571,
+          "headingY": 35.974,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "returned": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "introStates": {
+        "before": {
+          "copyY": -10.9714,
+          "artY": -16.4571,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "after": {
+          "copyY": -48,
+          "artY": -72,
+          "headingY": 0,
+          "summaryY": 5.3235,
+          "summaryOpacity": 0.9574
+        },
+        "reverse": {
+          "copyY": -10.9714,
+          "artY": -16.4571,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "errors": []
+    },
+    "768x1024": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product.",
+      "heroOpacity": 1,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 704,
+          "left": 32,
+          "right": 32
+        },
+        {
+          "selector": "#capabilities",
+          "width": 704,
+          "left": 32,
+          "right": 32
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0,
+      "heroStates": {
+        "initial": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "scrolled": {
+          "copyY": -4.7022,
+          "artY": -6.5831,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "returned": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "introStates": {
+        "before": {
+          "copyY": -4.7492,
+          "artY": -6.6489,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "after": {
+          "copyY": -20,
+          "artY": -28,
+          "headingY": 0,
+          "summaryY": 5.9984,
+          "summaryOpacity": 0.952
+        },
+        "reverse": {
+          "copyY": -4.7492,
+          "artY": -6.6489,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "errors": []
+    },
+    "390x844": {
+      "overflow": 0,
+      "h1Count": 1,
+      "h1Text": "Engineer of the whole product.",
+      "heroOpacity": 1,
+      "panels": [
+        {
+          "selector": "#introduction",
+          "width": 366,
+          "left": 12,
+          "right": 12
+        },
+        {
+          "selector": "#capabilities",
+          "width": 366,
+          "left": 12,
+          "right": 12
+        }
+      ],
+      "facts": 4,
+      "skills": 93,
+      "factOverflow": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "triggers": [
+        "about-reveal-1",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
+        "about-page-experience-meta",
+        "about-page-education-title",
+        "about-page-education-meta",
+        "about-page-capabilities-title",
+        "about-page-capabilities-meta",
+        "about-page-principles-title",
+        "about-page-principles-meta",
+        "about-page-role-1-marquee",
+        "about-page-role-1-meta",
+        "about-page-role-1-point-1",
+        "about-page-role-1-point-2",
+        "about-page-role-1-point-3",
+        "about-page-role-1-point-4",
+        "about-page-role-1-point-5",
+        "about-page-role-1-progress",
+        "about-page-role-1-stack",
+        "about-page-role-2-marquee",
+        "about-page-role-2-meta",
+        "about-page-role-2-point-1",
+        "about-page-role-2-point-2",
+        "about-page-role-2-point-3",
+        "about-page-role-2-progress",
+        "about-page-edu-card",
+        "about-page-edu-kanji",
+        "about-page-edu-degree",
+        "about-page-edu-group-1",
+        "about-page-edu-group-2",
+        "about-page-cap-1",
+        "about-page-cap-2",
+        "about-page-cap-3",
+        "about-page-cap-4",
+        "about-page-cap-5",
+        "about-page-cap-6",
+        "about-page-cap-7",
+        "about-page-cap-8",
+        "about-page-cap-9",
+        "about-page-cap-10",
+        "about-page-cap-11",
+        "about-page-cap-12",
+        "about-page-cap-13",
+        "about-page-cap-14",
+        "about-page-cap-15",
+        "about-page-principles-enter"
+      ],
+      "pins": 0,
+      "heroStates": {
+        "initial": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "scrolled": {
+          "copyY": -4.0027,
+          "artY": -5.6037,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "returned": {
+          "copyY": 0,
+          "artY": 0,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "introStates": {
+        "before": {
+          "copyY": -9.2995,
+          "artY": -13.0194,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        },
+        "after": {
+          "copyY": -20,
+          "artY": -28,
+          "headingY": 0,
+          "summaryY": 10.4769,
+          "summaryOpacity": 0.9162
+        },
+        "reverse": {
+          "copyY": -9.2995,
+          "artY": -13.0194,
+          "headingY": 40,
+          "summaryY": 20,
+          "summaryOpacity": 0.84
+        }
+      },
+      "errors": []
+    }
+  },
+  "reduced": {
+    "heroOpacity": 1,
+    "summaryOpacity": 1,
+    "skills": 93,
+    "facts": 4,
+    "overflow": 0,
+    "triggers": []
+  },
+  "no_js": {
+    "heroOpacity": 1,
+    "summaryOpacity": 1,
+    "skills": 93,
+    "facts": 4,
+    "overflow": 0,
+    "triggers": []
+  },
+  "navigation": {
+    "leaked": [],
+    "reducedTriggers": []
+  },
+  "failures": []
+}
