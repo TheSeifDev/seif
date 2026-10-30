@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Flip, gsap, motionQueries, ScrollTrigger, useGSAP } from "@/components/motion/gsap";
+import { gsap, motionQueries, ScrollTrigger, useGSAP } from "@/components/motion/gsap";
+import { Flip } from "@/components/motion/flip";
 import { EditorialVisual } from "@/components/system/project-media";
 import { SectionLabel } from "@/components/system/primitives";
 import { projectDomains, type Project } from "@/lib/content/projects";
@@ -32,6 +33,8 @@ function RowThumb({ project }: { project: Project }) {
           src={project.image.src}
           alt=""
           fill
+          loading="lazy"
+          quality={85}
           sizes="112px"
           className="object-cover object-top"
         />
@@ -55,6 +58,7 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
   const previewRef = useRef<HTMLDivElement>(null);
   const flipState = useRef<FlipState | null>(null);
   const firstPlacement = useRef(true);
+  const [previewSlug, setPreviewSlug] = useState<string | null>(null);
 
   const counts = useMemo(() => {
     const entries = projectDomains.map((domain) => [
@@ -69,6 +73,9 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
   const isShown = (project: Project) =>
     active === "All" || project.domains.includes(active);
   const shownCount = projects.filter(isShown).length;
+  const previewProject = previewSlug
+    ? projects.find((project) => project.slug === previewSlug)
+    : null;
 
   const select = (domain: Domain) => {
     if (domain === active) return;
@@ -156,11 +163,9 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
       const preview = previewRef.current;
       const frame = preview?.querySelector<HTMLElement>("[data-preview-frame]");
       if (!list || !preview || !frame) return;
-      const items = Array.from(preview.querySelectorAll<HTMLElement>("[data-preview-item]"));
 
       gsap.set(preview, { autoAlpha: 1 });
       gsap.set(frame, { clipPath: CLOSED });
-      gsap.set(items, { autoAlpha: 0 });
 
       const xTo = gsap.quickTo(preview, "x", { duration: 0.6, ease: "power3" });
       const yTo = gsap.quickTo(preview, "y", { duration: 0.6, ease: "power3" });
@@ -193,17 +198,7 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
         }
         if (slug === current) return;
         current = slug;
-        items.forEach((item) => {
-          if (item.dataset.previewItem === slug) {
-            gsap.fromTo(
-              item,
-              { autoAlpha: 0, yPercent: 10, scale: 1.08 },
-              { autoAlpha: 1, yPercent: 0, scale: 1, duration: 0.65, ease: "expo.out", overwrite: "auto" },
-            );
-          } else {
-            gsap.to(item, { autoAlpha: 0, duration: 0.35, ease: "power2.out", overwrite: "auto" });
-          }
-        });
+        setPreviewSlug(slug);
       };
 
       const hide = () => {
@@ -396,25 +391,24 @@ export function ProjectsIndex({ projects }: { projects: readonly Project[] }) {
           data-preview-frame
           className="relative h-full w-full overflow-hidden rounded-[18px] bg-night-3 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.85)] ring-1 ring-white/10"
         >
-          {projects.map((project) => (
-            <div
-              key={project.slug}
-              data-preview-item={project.slug}
-              className="invisible absolute inset-0"
-            >
-              {project.image ? (
+          {previewProject ? (
+            <div key={previewProject.slug} data-preview-item={previewProject.slug} className="absolute inset-0">
+              {previewProject.image ? (
                 <Image
-                  src={project.image.src}
+                  src={previewProject.image.src}
                   alt=""
                   fill
+                  loading="lazy"
+                  fetchPriority="low"
+                  quality={85}
                   sizes="420px"
                   className="object-cover object-top"
                 />
               ) : (
-                <EditorialVisual project={project} className="absolute inset-0 aspect-auto" />
+                <EditorialVisual project={previewProject} className="absolute inset-0 aspect-auto" />
               )}
             </div>
-          ))}
+          ) : null}
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-night/90 to-transparent px-4 pb-3 pt-12">
             <span className={cn(label, "text-snow")}>View case study</span>
             <ArrowUpRight className="size-4 text-sky" />

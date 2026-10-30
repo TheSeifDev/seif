@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Clock3 } from "lucide-react";
+import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { Accent, PillLink, Tags } from "@/components/system/primitives";
 import { getPublishedPosts } from "@/lib/content/blog";
 import { container, lightPanel, sectionY } from "@/lib/ui/layout";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { createCollectionPageGraph } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Blog",
   description:
     "Notes on architecture, interfaces and shipping from Seif Ayman.",
-};
+  path: "/blog",
+  keywords: ["Seif Ayman blog", "software architecture", "full stack development", "Next.js"],
+});
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en", {
@@ -24,6 +29,17 @@ export default function BlogPage() {
 
   return (
     <>
+      <JsonLd
+        data={createCollectionPageGraph({
+          path: "/blog",
+          name: "Blog by Seif Ayman",
+          description: "Notes on architecture, interfaces and shipping from Seif Ayman.",
+          breadcrumbs: [
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+          ],
+        })}
+      />
       <PageHero
         label="Blog"
         japanese="記事"

@@ -141,6 +141,8 @@ export function ProjectStack({ projects }: { projects: readonly Project[] }) {
                         src={project.image.src}
                         alt=""
                         fill
+                        loading="lazy"
+                        quality={85}
                         sizes="(min-width: 1024px) 56vw, 100vw"
                         className="object-cover object-top"
                       />

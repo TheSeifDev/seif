@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/seo/json-ld";
 import { ArticleBody } from "@/components/blog/article-body";
 import { Tags } from "@/components/system/primitives";
 import { getPublishedPost, getPublishedPosts } from "@/lib/content/blog";
 import { container, lightPanel } from "@/lib/ui/layout";
+import { createNoIndexMetadata, createPageMetadata } from "@/lib/seo/metadata";
+import { createArticleGraph } from "@/lib/seo/structured-data";
 
 type BlogArticleProps = {
   params: Promise<{ slug: string }>;
@@ -31,14 +34,18 @@ export async function generateMetadata(
   const post = getPublishedPost(slug);
 
   if (!post) {
-    return { title: "Not found", robots: { index: false } };
+    return createNoIndexMetadata();
   }
 
-  return {
+  return createPageMetadata({
     title: post.title,
     description: post.description,
-    robots: { index: true, follow: true },
-  };
+    path: `/blog/${post.slug}`,
+    type: "article",
+    keywords: post.tags,
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
+  });
 }
 
 function formatDate(value: string) {
@@ -60,6 +67,7 @@ export default async function BlogArticlePage(
 
   return (
     <>
+      <JsonLd data={createArticleGraph(post)} />
       <header className="bg-night pb-16 pt-32 text-snow sm:pt-40 lg:pb-24 lg:pt-48">
         <div className={container}>
           <Link

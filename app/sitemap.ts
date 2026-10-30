@@ -1,17 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/content/blog";
 import { projects } from "@/lib/content/projects";
-
-function siteBase() {
-  const configured = process.env.SITE_URL?.trim();
-  // SITE_URL must be set in production so crawlers receive the canonical origin.
-  return configured && /^https?:\/\//i.test(configured)
-    ? configured.replace(/\/+$/, "")
-    : "http://localhost:3000";
-}
+import { siteUrl } from "@/lib/seo/metadata";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteBase();
   const staticRoutes = [
     "/",
     "/about",
@@ -23,10 +15,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const publishedPosts = getPublishedPosts();
 
   return [
-    ...staticRoutes.map((route) => ({ url: `${base}${route}` })),
+    ...staticRoutes.map((route) => ({
+      url: siteUrl(route),
+      changeFrequency: route === "/" ? "weekly" as const : "monthly" as const,
+      priority: route === "/" ? 1 : route === "/projects" || route === "/about" ? 0.8 : 0.6,
+    })),
     ...publishedPosts.map((post) => ({
-      url: `${base}/blog/${post.slug}`,
+      url: siteUrl(`/blog/${post.slug}`),
       lastModified: post.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
   ];
 }

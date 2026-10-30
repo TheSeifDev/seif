@@ -38,6 +38,9 @@ export function ConnectCta() {
             src={assets.contactScene}
             alt=""
             fill
+            loading="lazy"
+            fetchPriority="low"
+            quality={60}
             sizes="100vw"
             className="object-cover object-[70%_50%]"
           />

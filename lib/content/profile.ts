@@ -1,3 +1,8 @@
+import heroBackground from "@/public/images/hero-landscape.webp";
+import heroWorld from "@/public/images/blue-hour-world.webp";
+import aboutInk from "@/public/images/about-ink.webp";
+import contactScene from "@/public/images/contact-moon.webp";
+
 // Professional content curated from the user-supplied CV (29 Oct 2026).
 // Sources and constraints: docs/content-sources.md. Do not add metrics,
 // clients or achievements that are not in that file.
@@ -28,10 +33,10 @@ export const profile = {
 } as const;
 
 export const assets = {
-  heroBackground: "/images/hero-landscape.webp",
-  heroWorld: "/images/blue-hour-world.webp",
-  aboutInk: "/images/about-ink.webp",
-  contactScene: "/images/contact-moon.webp",
+  heroBackground: heroBackground.src,
+  heroWorld: heroWorld.src,
+  aboutInk: aboutInk.src,
+  contactScene: contactScene.src,
   portrait: "/images/seif-portrait.webp",
 } as const;
 

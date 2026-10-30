@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -23,6 +24,8 @@ import {
   sectionY,
 } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { createProjectGraph } from "@/lib/seo/structured-data";
 
 export const dynamicParams = false;
 
@@ -38,10 +41,12 @@ export async function generateMetadata(
 
   if (!project) notFound();
 
-  return {
+  return createPageMetadata({
     title: project.title,
     description: project.summary,
-  };
+    path: `/projects/${project.slug}`,
+    keywords: [...project.domains, ...project.stack],
+  });
 }
 
 function ArchitectureFlow({
@@ -226,6 +231,7 @@ export default async function ProjectCaseStudyPage(
 
   return (
     <main>
+      <JsonLd data={createProjectGraph(project)} />
       <section className="relative isolate overflow-hidden bg-night pb-20 pt-32 text-snow sm:pt-40 lg:pb-28 lg:pt-48">
         <div aria-hidden="true" className="pointer-events-none absolute right-[-4vw] top-24 hidden font-jp text-[22rem] leading-none text-white/[0.035] lg:block">
           {project.kanji}

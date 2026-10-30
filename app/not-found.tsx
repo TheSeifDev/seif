@@ -1,5 +1,8 @@
 import { Logo } from "@/components/site/logo";
 import { PillLink } from "@/components/system/primitives";
+import { createNoIndexMetadata } from "@/lib/seo";
+
+export const metadata = createNoIndexMetadata();
 
 export default function NotFound() {
   return (

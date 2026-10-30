@@ -71,6 +71,19 @@ def attach_errors(page, bucket: list):
     page.on("pageerror", lambda e: bucket.append(f"pageerror: {e}"))
 
 
+def visit_home_scenes(page):
+    """Exercise viewport-gated motion before comparing full-route lifecycles."""
+    names = page.locator("[data-scene]").evaluate_all("es=>es.map(e=>e.dataset.scene)")
+    for name in names:
+        element = page.locator(f"[data-scene='{name}']").first
+        y = element.evaluate("e=>e.getBoundingClientRect().top+scrollY-innerHeight*.6")
+        scroll_to(page, y)
+        page.wait_for_function("name=>document.querySelector(`[data-scene='${name}']`)?.dataset.motionReady==='true'", arg=name, timeout=5000)
+        settle(page, 8)
+    scroll_to(page, 0)
+    page.wait_for_timeout(400)
+
+
 with sync_playwright() as p:
     browser = launch(p)
 
@@ -106,6 +119,11 @@ with sync_playwright() as p:
     attach_errors(page, errors)
     page.goto(BASE + "/", wait_until="networkidle")
     settle(page)
+    initial_motion = motion(page)
+    results["home"]["initial_triggers"] = (initial_motion or {}).get("triggers", [])
+    if "journey-rail" in results["home"]["initial_triggers"]:
+        fail("Far-below-fold non-pinned motion was initialized during initial page load")
+    visit_home_scenes(page)
     m = motion(page)
     home = results["home"]
     home["triggers"] = m["triggers"] if m else None
@@ -239,6 +257,7 @@ with sync_playwright() as p:
     page.wait_for_url(BASE + "/")
     page.wait_for_timeout(800)
     settle(page)
+    visit_home_scenes(page)
     m_back = motion(page)
     nav["home_after_return"] = m_back
     if m_back and sorted(m_back["triggers"]) != sorted(home["triggers"] or []):

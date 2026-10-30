@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Clock3, FileText, GitBranch, Mail, MapPin, type LucideIcon } from "lucide-react";
+import { JsonLd } from "@/components/seo/json-ld";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Accent } from "@/components/system/primitives";
 import { PageHero } from "@/components/site/page-hero";
 import { assets, profile } from "@/lib/content/profile";
 import { container, label, mutedOnDark } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { createContactPageGraph } from "@/lib/seo/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
   description: "Start a conversation with Seif Ayman about a product, platform, or freelance collaboration.",
-};
+  path: "/contact",
+  keywords: ["contact Seif Ayman", "freelance full stack developer", "remote developer", "Alexandria Egypt"],
+});
 
 type ContactDetail = {
   label: string;
@@ -31,6 +36,17 @@ const details: readonly ContactDetail[] = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={createContactPageGraph({
+          path: "/contact",
+          name: "Contact Seif Ayman",
+          description: "Start a conversation with Seif Ayman about a product, platform, or freelance collaboration.",
+          breadcrumbs: [
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ],
+        })}
+      />
       <PageHero
         label="Contact"
         title={<>Let&apos;s build something <Accent>that matters</Accent></>}

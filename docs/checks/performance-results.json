@@ -1,0 +1,344 @@
+{
+  "measuredAt": "2026-10-30",
+  "page": "http://127.0.0.1:3000/",
+  "productionOrigin": "https://prof-zeta-one.vercel.app",
+  "method": "Lighthouse 13.6.0; production build; cold browser profiles; default simulated mobile and desktop presets; server image cache warmed; no competing build/browser jobs",
+  "runs": {
+    "before": {
+      "mobile": {
+        "scores": {
+          "performance": 42,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 92
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 1662.12,
+            "displayValue": "1.7 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 7837.949999999999,
+            "displayValue": "7.8 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 2005.94,
+            "displayValue": "2,010 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 5716.218286200467,
+            "displayValue": "5.7 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 21,
+            "transferBytes": 543326
+          },
+          "Stylesheet": {
+            "requests": 3,
+            "transferBytes": 88461
+          },
+          "Script": {
+            "requests": 12,
+            "transferBytes": 272351
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 140895
+          }
+        },
+        "totalTransferBytes": 1150168,
+        "lighthouseVersion": "13.6.0"
+      },
+      "desktop": {
+        "scores": {
+          "performance": 72,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 92
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 454.1704,
+            "displayValue": "0.5 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 1418.9686000000002,
+            "displayValue": "1.4 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 519.0000000000001,
+            "displayValue": "520 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 1408.902379666703,
+            "displayValue": "1.4 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 22,
+            "transferBytes": 566498
+          },
+          "Stylesheet": {
+            "requests": 3,
+            "transferBytes": 88461
+          },
+          "Script": {
+            "requests": 15,
+            "transferBytes": 319256
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 197294
+          }
+        },
+        "totalTransferBytes": 1337417,
+        "lighthouseVersion": "13.6.0"
+      }
+    },
+    "after": {
+      "mobile": {
+        "scores": {
+          "performance": 77,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 1630.1592,
+            "displayValue": "1.6 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 4018.0572,
+            "displayValue": "4.0 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 347.5,
+            "displayValue": "350 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 3319.777457720465,
+            "displayValue": "3.3 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 1,
+            "transferBytes": 35808
+          },
+          "Stylesheet": {
+            "requests": 1,
+            "transferBytes": 19523
+          },
+          "Script": {
+            "requests": 13,
+            "transferBytes": 275095
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 99729
+          }
+        },
+        "totalTransferBytes": 539889,
+        "lighthouseVersion": "13.6.0"
+      },
+      "desktop": {
+        "scores": {
+          "performance": 83,
+          "accessibility": 97,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 424.70675,
+            "displayValue": "0.4 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 791.1202500000002,
+            "displayValue": "0.8 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 375.64662500000014,
+            "displayValue": "380 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 1066.8402523643595,
+            "displayValue": "1.1 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 1,
+            "transferBytes": 35808
+          },
+          "Stylesheet": {
+            "requests": 1,
+            "transferBytes": 19523
+          },
+          "Script": {
+            "requests": 16,
+            "transferBytes": 325075
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 109532
+          }
+        },
+        "totalTransferBytes": 662093,
+        "lighthouseVersion": "13.6.0"
+      }
+    },
+    "final": {
+      "mobile": {
+        "scores": {
+          "performance": 85,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 1514.85555,
+            "displayValue": "1.5 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 3708.494425,
+            "displayValue": "3.7 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 185.5,
+            "displayValue": "190 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 3291.391759957356,
+            "displayValue": "3.3 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 1,
+            "transferBytes": 35808
+          },
+          "Stylesheet": {
+            "requests": 1,
+            "transferBytes": 19558
+          },
+          "Script": {
+            "requests": 13,
+            "transferBytes": 275131
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 86303
+          }
+        },
+        "totalTransferBytes": 526596,
+        "lighthouseVersion": "13.6.0"
+      },
+      "desktop": {
+        "scores": {
+          "performance": 99,
+          "accessibility": 100,
+          "best-practices": 100,
+          "seo": 100
+        },
+        "metrics": {
+          "first-contentful-paint": {
+            "numericValue": 431.1033,
+            "displayValue": "0.4 s"
+          },
+          "largest-contentful-paint": {
+            "numericValue": 780.8099,
+            "displayValue": "0.8 s"
+          },
+          "total-blocking-time": {
+            "numericValue": 102.44835,
+            "displayValue": "100 ms"
+          },
+          "cumulative-layout-shift": {
+            "numericValue": 0,
+            "displayValue": "0"
+          },
+          "speed-index": {
+            "numericValue": 875.6318453937212,
+            "displayValue": "0.9 s"
+          }
+        },
+        "network": {
+          "Font": {
+            "requests": 1,
+            "transferBytes": 35808
+          },
+          "Stylesheet": {
+            "requests": 1,
+            "transferBytes": 19558
+          },
+          "Script": {
+            "requests": 16,
+            "transferBytes": 325111
+          },
+          "Image": {
+            "requests": 6,
+            "transferBytes": 89161
+          }
+        },
+        "totalTransferBytes": 641842,
+        "lighthouseVersion": "13.6.0"
+      }
+    }
+  },
+  "comparison": {
+    "mobile": {
+      "scoreDelta": {
+        "performance": 43,
+        "accessibility": 3,
+        "best-practices": 0,
+        "seo": 8
+      },
+      "byteSavingsPercent": {
+        "Font": 93.41,
+        "Stylesheet": 77.89,
+        "Script": -1.02,
+        "Image": 38.75
+      }
+    },
+    "desktop": {
+      "scoreDelta": {
+        "performance": 27,
+        "accessibility": 3,
+        "best-practices": 0,
+        "seo": 8
+      },
+      "byteSavingsPercent": {
+        "Font": 93.68,
+        "Stylesheet": 77.89,
+        "Script": -1.83,
+        "Image": 54.81
+      }
+    }
+  }
+}

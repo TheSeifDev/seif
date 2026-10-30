@@ -11,11 +11,7 @@ declare global {
   }
 }
 
-/**
- * Pages own their triggers through scoped useGSAP hooks, which revert on
- * unmount. This component only re-measures once the new route has painted
- * and once web fonts finish loading, so pin spacing reflects final layout.
- */
+/** Coalesce route/font layout measurements and cancel them on navigation. */
 export function RouteMotion() {
   const pathname = usePathname();
 
@@ -29,12 +25,18 @@ export function RouteMotion() {
 
   useEffect(() => {
     let cancelled = false;
-    const frame = requestAnimationFrame(() => {
-      if (!cancelled) ScrollTrigger.refresh();
-    });
-    document.fonts?.ready.then(() => {
-      if (!cancelled) ScrollTrigger.refresh();
-    });
+    let frame = 0;
+    const scheduleRefresh = () => {
+      if (cancelled || frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (!cancelled) ScrollTrigger.refresh();
+      });
+    };
+    scheduleRefresh();
+    if (document.fonts?.status !== "loaded") {
+      document.fonts?.ready.then(scheduleRefresh);
+    }
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);

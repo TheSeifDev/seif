@@ -11,6 +11,8 @@ export function BrowserFrame({
   alt,
   url,
   sizes,
+  preload,
+  /** @deprecated Use preload for Next 16 compatibility. */
   priority,
   tone = "dark",
   className,
@@ -20,11 +22,13 @@ export function BrowserFrame({
   alt: string;
   url?: string;
   sizes: string;
+  preload?: boolean;
   priority?: boolean;
   tone?: Tone;
   className?: string;
   imageClassName?: string;
 }) {
+  const shouldPreload = preload ?? priority;
   return (
     <div
       className={cn(
@@ -68,7 +72,8 @@ export function BrowserFrame({
           alt={alt}
           fill
           sizes={sizes}
-          priority={priority}
+          preload={shouldPreload}
+          quality={85}
           className={cn("object-cover object-top", imageClassName)}
         />
       </div>

@@ -60,7 +60,7 @@ export function CaseStudyMedia({ project }: { project: Project }) {
             alt={project.image.alt}
             url={project.live?.url}
             sizes="(min-width: 1280px) 1180px, 92vw"
-            priority
+            preload
             tone="dark"
             className="rounded-none border-0"
           />

@@ -28,7 +28,10 @@ const one = (root: HTMLElement, selector: string) =>
 const hero: SceneSetup = (root) => {
   const mm = gsap.matchMedia();
 
-  mm.add(motionQueries.motion, () => {
+  // Small screens paint their primary content immediately, without an
+  // opacity/clip entrance holding back the largest contentful paint.
+  root.dataset.entrance = "complete";
+  mm.add(motionQueries.stage, () => {
     const heroRoot = one(root, "[data-hero]");
     if (!heroRoot || window.scrollY > heroRoot.offsetHeight) return;
     root.dataset.entrance = "playing";
@@ -43,7 +46,7 @@ const hero: SceneSetup = (root) => {
       .fromTo(one(root, "[data-hero-portrait-reveal]"), { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.72, ease: "power2.inOut" }, 0.94)
       .fromTo(one(root, "[data-hero-bg-inner]"), { scale: 1.08 }, { scale: 1, duration: 1.4, ease: "power2.out" }, 0)
       .fromTo(one(root, "[data-hero-glow]"), { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power1.out" }, 0);
-    return () => { delete root.dataset.entrance; };
+    return () => { root.dataset.entrance = "complete"; };
   });
 
   mm.add(motionQueries.stage, () => {
@@ -115,7 +118,7 @@ const about: SceneSetup = (root) => {
     if (statement) {
       gsap.fromTo(
         all(statement, "[data-word]"),
-        { opacity: 0.16 },
+        { opacity: 0.6 },
         {
           opacity: 1,
           stagger: 0.05,
@@ -175,10 +178,23 @@ const journey: SceneSetup = (root) => {
     if (!list || !fill || chapters.length === 0) return;
     let active = -1;
     let positions: number[] = [];
+    let frame = 0;
+    const syncActive = () => {
+      const readingLine = window.scrollY + window.innerHeight * 0.35 + 2;
+      let index = 0;
+      positions.forEach((position, i) => { if (readingLine >= position) index = i; });
+      if (index !== active) { active = index; setActive(index); }
+    };
+    const scheduleSync = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => { frame = 0; syncActive(); });
+    };
     const measure = () => {
       positions = chapters.map((chapter) => chapter.getBoundingClientRect().top + window.scrollY);
+      scheduleSync();
     };
     measure();
+    window.addEventListener("scroll", scheduleSync, { passive: true });
     gsap.fromTo(fill, { scaleY: 0 }, {
       scaleY: 1,
       ease: "none",
@@ -190,15 +206,14 @@ const journey: SceneSetup = (root) => {
         scrub: 0.25,
         invalidateOnRefresh: true,
         onRefresh: measure,
-        onUpdate() {
-          const readingLine = window.scrollY + window.innerHeight * 0.35 + 2;
-          let index = 0;
-          positions.forEach((position, i) => { if (readingLine >= position) index = i; });
-          if (index !== active) { active = index; setActive(index); }
-        },
+        onUpdate: syncActive,
       },
     });
-    return () => setActive(0);
+    return () => {
+      window.removeEventListener("scroll", scheduleSync);
+      cancelAnimationFrame(frame);
+      setActive(0);
+    };
   });
 };
 
@@ -384,10 +399,26 @@ const process: SceneSetup = (root) => {
     const steps = all(list, "[data-process-compact-step]");
     let positions: number[] = [];
     let active = -1;
+    let frame = 0;
+    const syncActive = () => {
+      const readingLine = window.scrollY + window.innerHeight * 0.7;
+      let index = 0;
+      positions.forEach((position, i) => { if (readingLine >= position) index = i; });
+      if (active !== index) {
+        active = index;
+        steps.forEach((step, i) => step.toggleAttribute("data-active", i === index));
+      }
+    };
+    const scheduleSync = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => { frame = 0; syncActive(); });
+    };
     const measure = () => {
       positions = steps.map((step) => step.getBoundingClientRect().top + window.scrollY);
+      scheduleSync();
     };
     measure();
+    window.addEventListener("scroll", scheduleSync, { passive: true });
     gsap.fromTo(
       one(list, "[data-process-vfill]"),
       { scaleY: 0 },
@@ -401,19 +432,15 @@ const process: SceneSetup = (root) => {
           end: "bottom 70%",
           scrub: true,
           onRefresh: measure,
-          onUpdate() {
-            const readingLine = window.scrollY + window.innerHeight * 0.7;
-            let index = 0;
-            positions.forEach((position, i) => { if (readingLine >= position) index = i; });
-            if (active !== index) {
-              active = index;
-              steps.forEach((step, i) => step.toggleAttribute("data-active", i === index));
-            }
-          },
+          onUpdate: syncActive,
         },
       },
     );
-    return () => steps.forEach((step, i) => step.toggleAttribute("data-active", i === 0));
+    return () => {
+      window.removeEventListener("scroll", scheduleSync);
+      cancelAnimationFrame(frame);
+      steps.forEach((step, i) => step.toggleAttribute("data-active", i === 0));
+    };
   });
 };
 

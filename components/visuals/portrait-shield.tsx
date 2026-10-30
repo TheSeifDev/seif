@@ -91,8 +91,8 @@ export function PortraitShield({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div ref={root} data-portrait-shield data-active="false" data-tracking="false" className="pointer-events-auto absolute inset-0 isolate">
-      <svg aria-hidden="true" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMax meet" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+    <div ref={root} data-portrait-shield data-active="false" data-tracking="false" className="group/shield pointer-events-auto absolute inset-0 isolate">
+      <svg aria-hidden="true" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMax meet" className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible opacity-0 transition-opacity duration-250 group-data-[tracking=true]/shield:block group-data-[active=true]/shield:opacity-100 motion-reduce:hidden motion-reduce:transition-none">
         <defs>
           <filter id={edgeId} x="-5%" y="-5%" width="110%" height="110%" colorInterpolationFilters="sRGB">
             <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="expanded" />

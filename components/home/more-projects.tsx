@@ -85,7 +85,8 @@ export function MoreProjects() {
                           src={project.image.src}
                           alt={project.image.alt}
                           fill
-                          priority={index === 0}
+                          loading="lazy"
+                          quality={85}
                           sizes="(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"
                           className="object-cover object-top transition-transform duration-[900ms] ease-out-soft group-hover/card:scale-[1.04]"
                         />
@@ -120,7 +121,7 @@ export function MoreProjects() {
                         </p>
                         <span
                           aria-hidden="true"
-                          className="shrink-0 font-jp text-sm tracking-[0.2em] text-snow/30"
+                          className="shrink-0 font-jp text-sm tracking-[0.2em] text-snow/60"
                         >
                           {project.kanji}
                         </span>

@@ -34,7 +34,9 @@ export function PageHero({
             src={image}
             alt=""
             fill
-            priority
+            loading="lazy"
+            fetchPriority="low"
+            quality={60}
             sizes="100vw"
             className="object-cover object-[70%_40%] opacity-35"
           />

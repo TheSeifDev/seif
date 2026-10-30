@@ -36,8 +36,8 @@
   --color-sky: #4db6ff; /* on dark surfaces, 9.1:1 */
   --color-sky-ink: #0a6cc0; /* on light surfaces, 4.9:1 */
 
-  --font-display: var(--font-archivo), var(--font-geist-sans), sans-serif;
-  --font-jp: var(--font-noto-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-display: var(--font-montserrat), Arial, sans-serif;
+  --font-jp: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -69,8 +69,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat), Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-heading: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

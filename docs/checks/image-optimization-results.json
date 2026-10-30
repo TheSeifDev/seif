@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-10-30",
+  "scope": {
+    "repository": "/home/ubuntu/seif",
+    "assetDirectory": "public/images",
+    "originalBackup": "/home/ubuntu/seif-image-originals",
+    "components": [
+      "components/home/hero.tsx",
+      "components/home/featured-projects.tsx",
+      "components/home/more-projects.tsx",
+      "components/home/about.tsx",
+      "components/home/identity.tsx",
+      "components/home/connect-cta.tsx",
+      "components/site/page-hero.tsx",
+      "components/system/project-media.tsx",
+      "components/projects/case-study-media.tsx",
+      "components/projects/project-stack.tsx",
+      "components/projects/projects-index.tsx"
+    ]
+  },
+  "assetSummary": {
+    "allRasterBytesBefore": 2285213,
+    "allRasterBytesAfter": 1060127,
+    "allRasterBytesSaved": 1225086,
+    "allRasterSavingsPercent": 53.61,
+    "optimizedDecorativeBytesBefore": 1787468,
+    "optimizedDecorativeBytesAfter": 562382,
+    "optimizedDecorativeBytesSaved": 1225086,
+    "optimizedDecorativeSavingsPercent": 68.54,
+    "method": "Sharp WebP re-encode with effort 6; decorative images resized only when wider than 1600px, without enlargement; same filenames and extensions retained."
+  },
+  "optimizedAssets": [
+    {
+      "path": "public/images/about-ink.webp",
+      "bytesBefore": 466272,
+      "bytesAfter": 149050,
+      "bytesSaved": 317222,
+      "dimensionsBefore": "1920x1440",
+      "dimensionsAfter": "1600x1200",
+      "alphaBefore": false,
+      "alphaAfter": false,
+      "role": "decorative About artwork"
+    },
+    {
+      "path": "public/images/blue-hour-world.webp",
+      "bytesBefore": 145102,
+      "bytesAfter": 34254,
+      "bytesSaved": 110848,
+      "dimensionsBefore": "1920x1080",
+      "dimensionsAfter": "1600x900",
+      "alphaBefore": false,
+      "alphaAfter": false,
+      "role": "decorative world background"
+    },
+    {
+      "path": "public/images/contact-moon.webp",
+      "bytesBefore": 344804,
+      "bytesAfter": 96296,
+      "bytesSaved": 248508,
+      "dimensionsBefore": "1920x1080",
+      "dimensionsAfter": "1600x900",
+      "alphaBefore": false,
+      "alphaAfter": false,
+      "role": "decorative Connect background"
+    },
+    {
+      "path": "public/images/hero-landscape.webp",
+      "bytesBefore": 209688,
+      "bytesAfter": 84718,
+      "bytesSaved": 124970,
+      "dimensionsBefore": "1920x823",
+      "dimensionsAfter": "1920x823",
+      "alphaBefore": false,
+      "alphaAfter": false,
+      "role": "decorative hero/page background"
+    },
+    {
+      "path": "public/images/torii-foreground.webp",
+      "bytesBefore": 621602,
+      "bytesAfter": 198064,
+      "bytesSaved": 423538,
+      "dimensionsBefore": "1920x1440",
+      "dimensionsAfter": "1600x1200",
+      "alphaBefore": true,
+      "alphaAfter": true,
+      "role": "transparent decorative foreground"
+    }
+  ],
+  "unchangedAssets": {
+    "portraits": [
+      "public/images/seif-portrait.webp",
+      "public/images/portrait-silhouette.png"
+    ],
+    "projectScreenshots": [
+      "public/images/projects/rafiq.webp",
+      "public/images/projects/itsum.webp",
+      "public/images/projects/phantoms.webp",
+      "public/images/projects/portfolio.webp",
+      "public/images/projects/trackup.webp"
+    ],
+    "reason": "Portrait pixels and alpha were preserved exactly; small readable project captures were not blindly recompressed."
+  },
+  "componentChanges": [
+    "Hero background now uses low fetch priority; the main hero portrait is the only home image using Next preload and uses readable quality 85.",
+    "Below-fold About, Identity, Connect, featured cards, more-project cards, project-stack cards, and row thumbnails are explicitly lazy-loaded.",
+    "Decorative backgrounds use low fetch priority and final quality 60; screenshot-like project media and portraits use quality 85.",
+    "BrowserFrame accepts the new preload prop while retaining the priority prop as a compatibility alias; CaseStudyMedia now calls preload.",
+    "ProjectsIndex keeps accessible inline mobile thumbnails but mounts only the currently requested full-resolution hover preview after the first fine-pointer hover. GSAP hover behavior and no-JS/touch row content remain intact.",
+    "ProjectsIndex imports Flip from components/motion/flip so the shared GSAP module can remain lighter."
+  ],
+  "validation": {
+    "optimizedTemporaryFilesRemoved": true,
+    "alphaPreserved": true,
+    "portraitsByteIdentical": true,
+    "projectScreenshotsByteIdentical": true,
+    "visualSpotChecks": [
+      "contact-moon.webp retained its composition after re-encode",
+      "torii-foreground.webp retained transparent artwork after resize/re-encode"
+    ],
+    "typescriptNote": "A full no-emit check was not clean because the parent task is concurrently splitting GSAP plugins; the observed errors are existing SplitText/Flip exports and implicit-any callback diagnostics, not image prop errors. No build or server was run by this task."
+  },
+  "remainingRecommendations": [
+    "Keep quality 85 for project screenshots where small text must remain legible; verify new captures at target viewports before reducing quality."
+  ],
+  "parentFinalValidation": {
+    "build": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "browser_refinement": "passed",
+    "crawler_html": "passed",
+    "lighthouse_mobile_performance": 85,
+    "lighthouse_desktop_performance": 99,
+    "seo": 100,
+    "accessibility": 100,
+    "best_practices": 100
+  },
+  "integratedParentFollowup": [
+    "Applied About page responsive sizes and lazy-loading props.",
+    "Configured AVIF/WebP/quality/device sizes and cache policy.",
+    "Active background assets now use content-hashed URLs.",
+    "Portrait silhouette filters draw only during supported pointer hover; clean touch/reduced-motion portrait.",
+    "Final lab results are in docs/checks/performance-results.json."
+  ]
+}

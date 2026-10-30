@@ -24,7 +24,7 @@
       "core_px": "104px"
     },
     "magnetic": {
-      "translate": "2.63437px 0.878123px",
+      "translate": "2.7px 0.899998px",
       "mode": "link",
       "after_leave": "none"
     },
@@ -39,11 +39,11 @@
       "reveal_coordinates": [
         [
           "504.0px",
-          "236.3px"
+          "294.7px"
         ],
         [
           "936.0px",
-          "391.5px"
+          "488.4px"
         ]
       ],
       "reveal_blend_mode": "soft-light",
@@ -56,7 +56,7 @@
       "inside_footer": true,
       "footer_overflow": "hidden",
       "tracking_after_leave": "false",
-      "reveal_opacity_after_leave": "1.33716e-09",
+      "reveal_opacity_after_leave": "0",
       "background_position_samples": [
         "50% 50%",
         "50% 50%",
@@ -68,7 +68,7 @@
     "scroll_cursor": "scroll-right",
     "keyboard_last_slide": {
       "x": 283.59375,
-      "y": 277.765625,
+      "y": 276.90625,
       "width": 1036.796875,
       "height": 500
     },
@@ -112,7 +112,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 665.1875,
+        "bottom": 665.078125,
         "viewport": 760
       }
     },
@@ -130,7 +130,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 642.53125,
+        "bottom": 642,
         "viewport": 768
       }
     },
@@ -139,7 +139,7 @@
       "errors": [],
       "process": {
         "overflowY": 0,
-        "bottom": 823.3125,
+        "bottom": 823.0625,
         "viewport": 1080
       }
     },

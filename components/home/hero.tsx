@@ -24,7 +24,8 @@ export function Hero() {
             src={assets.heroBackground}
             alt=""
             fill
-            priority
+            fetchPriority="low"
+            quality={60}
             sizes="100vw"
             className="object-cover object-[62%_50%]"
           />
@@ -96,8 +97,9 @@ export function Hero() {
                 src={assets.portrait}
                 alt="Seif Ayman"
                 fill
-                priority
-                sizes="(min-width: 1024px) 42vw, 90vw"
+                preload
+                quality={85}
+                sizes="(min-width: 1024px) 42vw, min(90vw, 390px)"
                 className="object-contain object-bottom"
               />
             </PortraitShield>

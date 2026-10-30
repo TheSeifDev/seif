@@ -1,4 +1,5 @@
-import { gsap, ScrollTrigger, SplitText } from "@/components/motion/gsap";
+import { gsap, ScrollTrigger } from "@/components/motion/gsap";
+import { SplitText } from "@/components/motion/split-text";
 
 /**
  * GSAP scenes for the /about chapters (02 Experience → 05 Principles).

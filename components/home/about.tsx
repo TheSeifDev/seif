@@ -45,6 +45,9 @@ export function About() {
                 src={assets.aboutInk}
                 alt=""
                 fill
+                loading="lazy"
+                fetchPriority="low"
+                quality={60}
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover object-[12%_60%]"
               />

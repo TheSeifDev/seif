@@ -140,7 +140,9 @@ export function Identity() {
                     src={assets.portrait}
                     alt=""
                     fill
-                    sizes="(min-width: 1024px) 34vw, 80vw"
+                    loading="lazy"
+                    quality={85}
+                    sizes="(min-width: 1024px) 34vw, min(80vw, 368px)"
                     className="object-contain object-bottom"
                   />
                 </div>

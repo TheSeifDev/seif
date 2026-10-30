@@ -1,4 +1,5 @@
-import { gsap, ScrollTrigger, SplitText } from "@/components/motion/gsap";
+import { gsap, ScrollTrigger } from "@/components/motion/gsap";
+import { SplitText } from "@/components/motion/split-text";
 import { STACK_STEP, STACK_TOP } from "@/components/projects/project-stack";
 
 /**

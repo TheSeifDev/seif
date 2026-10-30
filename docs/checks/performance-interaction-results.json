@@ -1,0 +1,17 @@
+{
+  "mobile": {
+    "tracking": "false",
+    "svgDisplay": "none",
+    "svgOpacity": "0",
+    "font": "Montserrat, \"Montserrat Fallback\", Arial, sans-serif",
+    "overflow": 0
+  },
+  "desktop": {
+    "tracking": "true",
+    "svgDisplay": "block",
+    "svgOpacity": "0",
+    "font": "Montserrat, \"Montserrat Fallback\", Arial, sans-serif",
+    "overflow": 0,
+    "hoverOpacity": "1"
+  }
+}
