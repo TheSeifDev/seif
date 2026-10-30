@@ -101,3 +101,11 @@ Evidence: `npm run typecheck`, `npm run lint`, and `npm run build` passed. Updat
 - [x] Verify the grain is visibly perceptible without distracting from footer text, stays inside the footer, and is static under reduced motion; rerun typecheck, lint, build, and the affected browser checks.
 
 Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, and `python3 -m py_compile scripts/check-refinement.py` passed. Final `scripts/check-refinement.py` and `scripts/check-multipage.py` report 0 failures. Browser values: SVG asset HTTP 200; `background-size: cover`, `background-repeat: no-repeat`; opacity `0.16`; duration `1.1s`; transform samples differ; `pointer-events: none`; footer overflow clips the layer; reduced-motion reports animation `none`. The final screenshot was reviewed for texture strength and absence of tile seams.
+
+## Follow-up — lighter cursor-reactive footer grain
+
+- [x] Reduce the existing footer grain's resting opacity and jitter amplitude while retaining a quiet animated base texture clipped to the footer and behind its content.
+- [x] On hover-capable fine pointers with motion enabled, reveal only a soft local patch of the grain beneath the pointer; clear it on pointer leave and never intercept links or controls. Keep the feature disabled on touch and under `prefers-reduced-motion`, with no React state updates per frame and full listener/RAF cleanup.
+- [x] Verify pointer tracking/cleanup, reduced-motion and touch behavior, footer containment, route lifecycle, TypeScript, lint, and production build; record only checks actually run.
+
+Evidence: After `npm run build`, `npm run typecheck` and `npm run lint` passed; `python3 -m py_compile scripts/check-refinement.py` passed. The production Playwright check reports 0 failures across desktop, tablet, and mobile; all six tested widths have zero horizontal overflow. The base grain opacity is `0.055`, cursor reveal opacity is `0.095`, coordinates follow the pointer, the reveal clears on leave, and the SVG loads with `background-size: cover`/`no-repeat`. Footer listeners are present once on desktop and absent under reduced motion or touch; reduced motion also removes the animation. `git diff --check` passed.

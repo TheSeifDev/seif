@@ -71,13 +71,13 @@
       transform: translate3d(0, 0, 0);
     }
     25% {
-      transform: translate3d(-2.5%, 1.6%, 0);
+      transform: translate3d(-1.4%, 0.9%, 0);
     }
     50% {
-      transform: translate3d(1.6%, -2.5%, 0);
+      transform: translate3d(0.9%, -1.4%, 0);
     }
     75% {
-      transform: translate3d(2.5%, 1.1%, 0);
+      transform: translate3d(1.4%, 0.6%, 0);
     }
   }
 }

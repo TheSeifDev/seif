@@ -4,6 +4,7 @@ import { SiGithub } from "react-icons/si";
 import { navigation, profile } from "@/lib/content/profile";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
+import { FooterGrain } from "./footer-grain";
 import { Logo } from "./logo";
 
 const elsewhere = [
@@ -40,12 +41,7 @@ export function Footer() {
       data-site-footer
       className="relative overflow-hidden border-t border-white/[0.08] bg-night text-snow"
     >
-      <span
-        aria-hidden="true"
-        data-footer-grain
-        className="pointer-events-none absolute -inset-[12%] z-0 bg-cover bg-no-repeat opacity-[0.16] mix-blend-screen motion-safe:animate-footer-grain motion-reduce:animate-none will-change-transform"
-        style={{ backgroundImage: footerGrain }}
-      />
+      <FooterGrain texture={footerGrain} />
       <div className={cn(container, "relative z-10 pb-10 pt-20 lg:pt-24")}>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">

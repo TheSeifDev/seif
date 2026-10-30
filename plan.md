@@ -163,3 +163,7 @@ Keep the portfolio's current composition and interaction system. Add a low-opaci
 ## Stronger footer grain follow-up — 30 October 2026
 
 Increase the existing footer grain's opacity and transform-only jitter speed/amplitude modestly so it becomes visibly perceptible, while keeping the monochrome texture clipped behind the footer content. Retain the same static fallback under reduced motion and leave the cursor spotlight unchanged.
+
+## Cursor-reactive footer grain follow-up — 30 October 2026
+
+Keep the footer's monochrome SVG grain at a low resting opacity and soften its transform-only jitter. On hover-capable fine pointers with motion enabled, reveal a small, faintly brighter circular patch of the same texture under the pointer; update its local coordinates through one animation-frame batch rather than React state. Clear the patch on pointer leave. Do not intercept footer interactions; disable tracking and animation on touch or when reduced motion is requested, and remove listeners/cancel pending animation frames on cleanup.

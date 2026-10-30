@@ -32,7 +32,20 @@
     "footer_grain": {
       "animation": "footer-grain-shift",
       "duration": "1.1s",
-      "opacity": "0.16",
+      "opacity": "0.055",
+      "tracking": "true",
+      "enabled": "true",
+      "reveal_opacity": "0.095",
+      "reveal_coordinates": [
+        [
+          "625.0px",
+          "293.0px"
+        ],
+        [
+          "1160.6px",
+          "485.5px"
+        ]
+      ],
       "texture_url": true,
       "background_size": "cover",
       "background_repeat": "no-repeat",
@@ -41,9 +54,11 @@
       "pointer_events": "none",
       "inside_footer": true,
       "footer_overflow": "hidden",
+      "tracking_after_leave": "false",
+      "reveal_opacity_after_leave": "0",
       "transform_samples": [
-        "matrix(1, 0, 0, 1, 28.5695, -20.9258)",
-        "matrix(1, 0, 0, 1, 37.1999, 7.67279)"
+        "matrix(1, 0, 0, 1, 24.9983, 5.02219)",
+        "matrix(1, 0, 0, 1, -4.16639, 1.25555)"
       ]
     },
     "project_cursor": "project",
@@ -82,7 +97,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 1,
       "shield:pointermove": 1,
-      "shield:pointerleave": 1
+      "shield:pointerleave": 1,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     },
     "button_cursor": "button",
     "errors": []
@@ -152,11 +169,15 @@
       "document:pointerover": 2,
       "shield:pointerenter": 0,
       "shield:pointermove": 0,
-      "shield:pointerleave": 0
+      "shield:pointerleave": 0,
+      "footer:pointermove": 0,
+      "footer:pointerleave": 0
     },
     "cursor_enabled": "false",
     "shield_tracking": "false",
     "footer_grain_animation": "none",
+    "grain_tracking_enabled": "false",
+    "grain_reveal_opacity": "0",
     "triggers": []
   },
   "touch": {
@@ -167,6 +188,7 @@
     },
     "cursor_enabled": "false",
     "shield_tracking": "false",
+    "grain_enabled": "false",
     "errors": []
   },
   "navigation": {
@@ -176,7 +198,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 0,
       "shield:pointermove": 0,
-      "shield:pointerleave": 0
+      "shield:pointerleave": 0,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     },
     "/about1": {
       "document:pointermove": 3,
@@ -184,7 +208,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 0,
       "shield:pointermove": 0,
-      "shield:pointerleave": 0
+      "shield:pointerleave": 0,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     },
     "/2": {
       "document:pointermove": 3,
@@ -192,7 +218,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 1,
       "shield:pointermove": 1,
-      "shield:pointerleave": 1
+      "shield:pointerleave": 1,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     },
     "/contact3": {
       "document:pointermove": 3,
@@ -200,7 +228,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 0,
       "shield:pointermove": 0,
-      "shield:pointerleave": 0
+      "shield:pointerleave": 0,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     },
     "/4": {
       "document:pointermove": 3,
@@ -208,7 +238,9 @@
       "document:pointerover": 3,
       "shield:pointerenter": 1,
       "shield:pointermove": 1,
-      "shield:pointerleave": 1
+      "shield:pointerleave": 1,
+      "footer:pointermove": 1,
+      "footer:pointerleave": 1
     }
   },
   "failures": []

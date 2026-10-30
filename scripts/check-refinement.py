@@ -16,6 +16,7 @@ INSTRUMENT = """(() => {
   const registry = new Map();
   function key(target, type) {
     if (target === document && ['pointermove','pointerover','pointerout'].includes(type)) return 'document:' + type;
+    if (target instanceof Element && target.hasAttribute('data-site-footer') && ['pointermove','pointerleave'].includes(type)) return 'footer:' + type;
     if (target instanceof Element && target.hasAttribute('data-portrait-shield') && type.startsWith('pointer')) return 'shield:' + type;
     return null;
   }
@@ -43,7 +44,11 @@ def open_home(ctx):
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
     page.goto(BASE, wait_until="networkidle")
-    page.wait_for_timeout(1600)
+    page.wait_for_function("""() => {
+      const hero = document.querySelector('[data-scene=hero]');
+      const actions = document.querySelector('[data-hero-actions]');
+      return hero?.dataset.entrance === 'complete' && actions && getComputedStyle(actions).opacity === '1';
+    }""", timeout=10000)
     return page, errors
 
 
@@ -127,11 +132,25 @@ with sync_playwright() as p:
 
     scroll(page, position(page, "[data-site-footer]") + 40)
     grain = page.locator("[data-footer-grain]")
+    grain_root = page.locator("[data-footer-grain-interaction]")
+    grain_reveal = page.locator("[data-footer-grain-reveal]")
+    grain_box = grain_root.bounding_box()
+    page.mouse.move(grain_box["x"] + grain_box["width"] * .35, grain_box["y"] + grain_box["height"] * .35)
+    page.wait_for_timeout(120)
+    first_reveal = grain_root.evaluate("e=>[e.style.getPropertyValue('--grain-x'),e.style.getPropertyValue('--grain-y')]")
+    page.mouse.move(grain_box["x"] + grain_box["width"] * .65, grain_box["y"] + grain_box["height"] * .58)
+    page.wait_for_timeout(360)
+    second_reveal = grain_root.evaluate("e=>[e.style.getPropertyValue('--grain-x'),e.style.getPropertyValue('--grain-y')]")
+    reveal_opacity = grain_reveal.evaluate("e=>getComputedStyle(e).opacity")
     texture_response = page.request.get(BASE + "/images/footer-grain.svg")
     desktop["footer_grain"] = {
         "animation": grain.evaluate("e=>getComputedStyle(e).animationName"),
         "duration": grain.evaluate("e=>getComputedStyle(e).animationDuration"),
         "opacity": grain.evaluate("e=>getComputedStyle(e).opacity"),
+        "tracking": grain_root.get_attribute("data-tracking"),
+        "enabled": grain_root.get_attribute("data-enabled"),
+        "reveal_opacity": reveal_opacity,
+        "reveal_coordinates": [first_reveal, second_reveal],
         "texture_url": grain.evaluate("e=>getComputedStyle(e).backgroundImage.includes('footer-grain.svg')"),
         "background_size": grain.evaluate("e=>getComputedStyle(e).backgroundSize"),
         "background_repeat": grain.evaluate("e=>getComputedStyle(e).backgroundRepeat"),
@@ -142,11 +161,19 @@ with sync_playwright() as p:
         "footer_overflow": grain.evaluate("e=>getComputedStyle(e.closest('[data-site-footer]')).overflow"),
     }
     if desktop["footer_grain"]["animation"] != "footer-grain-shift": fail("Footer grain is not animated")
-    if float(desktop["footer_grain"]["opacity"]) < 0.15: fail("Footer grain is too faint")
+    if not 0.045 <= float(desktop["footer_grain"]["opacity"]) <= 0.07: fail("Footer grain base opacity is not restrained")
+    if desktop["footer_grain"]["enabled"] != "true" or desktop["footer_grain"]["tracking"] != "true": fail("Footer grain did not enable pointer tracking")
+    if float(desktop["footer_grain"]["reveal_opacity"]) < 0.08: fail("Cursor-local grain reveal is missing")
+    if desktop["footer_grain"]["reveal_coordinates"][0] == desktop["footer_grain"]["reveal_coordinates"][1]: fail("Footer grain reveal did not follow the pointer")
     if float(desktop["footer_grain"]["duration"].replace("s", "")) > 1.3: fail("Footer grain movement is too slow")
     if not desktop["footer_grain"]["texture_url"] or desktop["footer_grain"]["texture_status"] != 200 or "image/svg+xml" not in desktop["footer_grain"]["texture_content_type"]: fail("Footer grain SVG asset failed to load")
     if desktop["footer_grain"]["background_size"] != "cover" or desktop["footer_grain"]["background_repeat"] != "no-repeat": fail("Footer grain texture is tiled")
     if desktop["footer_grain"]["pointer_events"] != "none" or not desktop["footer_grain"]["inside_footer"] or desktop["footer_grain"]["footer_overflow"] != "hidden": fail("Footer grain is not safely contained")
+    page.mouse.move(12, 12)
+    page.wait_for_timeout(350)
+    desktop["footer_grain"]["tracking_after_leave"] = grain_root.get_attribute("data-tracking")
+    desktop["footer_grain"]["reveal_opacity_after_leave"] = grain_reveal.evaluate("e=>getComputedStyle(e).opacity")
+    if desktop["footer_grain"]["tracking_after_leave"] != "false" or float(desktop["footer_grain"]["reveal_opacity_after_leave"]) > 0.01: fail("Footer grain reveal did not clear on pointer leave")
     transform_before = grain.evaluate("e=>getComputedStyle(e).transform")
     page.wait_for_timeout(300)
     transform_after = grain.evaluate("e=>getComputedStyle(e).transform")
@@ -205,6 +232,9 @@ with sync_playwright() as p:
     if forward != ["01", "02", "03", "04"] or backward != ["04", "03", "02", "01"]: fail(f"Journey progression mismatch {desktop['journey']}")
     desktop["listeners"] = counts(page)
     pointer_total = desktop["listeners"].get("document:pointermove", 0)
+    footer_pointer_total = desktop["listeners"].get("footer:pointermove", 0)
+    footer_leave_total = desktop["listeners"].get("footer:pointerleave", 0)
+    if footer_pointer_total != 1 or footer_leave_total != 1: fail("Footer grain pointer listeners are missing or duplicated")
 
     for route in ("/projects", "/about", "/", "/contact", "/"):
         page.locator(f"header nav a[href='{route}']").first.click()
@@ -212,6 +242,7 @@ with sync_playwright() as p:
         page.wait_for_timeout(1500)
         results["navigation"][route + str(len(results["navigation"]))] = counts(page)
         if counts(page).get("document:pointermove") != pointer_total: fail(f"Cursor pointer listener duplicated on {route}")
+        if counts(page).get("footer:pointermove", 0) != footer_pointer_total or counts(page).get("footer:pointerleave", 0) != footer_leave_total: fail(f"Footer grain listeners duplicated on {route}")
         expected = 1 if route == "/" else 0
         if counts(page).get("shield:pointermove", 0) != expected: fail(f"Portrait listeners leaked on {route}")
         if route == "/projects":
@@ -220,13 +251,29 @@ with sync_playwright() as p:
             desktop["button_cursor"] = mode(page)
             if desktop["button_cursor"] != "button": fail("Button cursor mode incorrect")
     page.emulate_media(reduced_motion="reduce")
-    page.wait_for_timeout(300)
-    results["reduced"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "footer_grain_animation": page.locator("[data-footer-grain]").evaluate("e=>getComputedStyle(e).animationName"), "triggers": page.evaluate("window.__motion.triggers()")}
+    page.wait_for_function("""expected => {
+      const counts = window.__listenerCounts?.() ?? {};
+      const cursor = document.querySelector('[data-cursor-follower]');
+      const shield = document.querySelector('[data-portrait-shield]');
+      const grain = document.querySelector('[data-footer-grain-interaction]');
+      return cursor?.dataset.enabled === 'false' && shield?.dataset.tracking === 'false' &&
+        grain?.dataset.enabled === 'false' && counts['document:pointermove'] === expected - 1 &&
+        !counts['shield:pointermove'] && !counts['footer:pointermove'] &&
+        !counts['footer:pointerleave'] && window.__motion?.triggers().length === 0;
+    }""", arg=pointer_total, timeout=5000)
+    results["reduced"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "footer_grain_animation": page.locator("[data-footer-grain]").evaluate("e=>getComputedStyle(e).animationName"), "grain_tracking_enabled": page.locator("[data-footer-grain-interaction]").get_attribute("data-enabled"), "grain_reveal_opacity": page.locator("[data-footer-grain-reveal]").evaluate("e=>getComputedStyle(e).opacity"), "triggers": page.evaluate("window.__motion.triggers()")}
     if results["reduced"]["listeners"].get("document:pointermove") != pointer_total - 1 or results["reduced"]["listeners"].get("shield:pointermove"): fail("Reduced motion retained the custom pointer listeners")
+    if results["reduced"]["listeners"].get("footer:pointermove") or results["reduced"]["listeners"].get("footer:pointerleave"): fail("Reduced motion retained footer grain listeners")
     if results["reduced"]["footer_grain_animation"] != "none": fail("Reduced motion retained footer grain animation")
+    if results["reduced"]["grain_tracking_enabled"] != "false" or float(results["reduced"]["grain_reveal_opacity"]) > 0.01: fail("Reduced motion retained cursor-reactive footer grain")
     if results["reduced"]["triggers"]: fail("Reduced motion retained ScrollTriggers")
     page.emulate_media(reduced_motion="no-preference")
-    page.wait_for_timeout(1600)
+    page.wait_for_function("""expected => {
+      const counts = window.__listenerCounts?.() ?? {};
+      return document.querySelector('[data-cursor-follower]')?.dataset.enabled === 'true' &&
+        counts['document:pointermove'] === expected && counts['shield:pointermove'] === 1 &&
+        counts['footer:pointermove'] === 1 && counts['footer:pointerleave'] === 1;
+    }""", arg=pointer_total, timeout=5000)
     if counts(page).get("document:pointermove") != pointer_total or counts(page).get("shield:pointermove") != 1: fail("Media reconfiguration duplicated/missed listeners")
     desktop["errors"] = errors
     if errors: fail(f"Desktop page errors {errors}")
@@ -255,8 +302,10 @@ with sync_playwright() as p:
     ctx = browser.new_context(viewport={"width":390,"height":844}, is_mobile=True, has_touch=True)
     ctx.add_init_script(INSTRUMENT)
     page, errors = open_home(ctx)
-    results["touch"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "errors": errors}
+    results["touch"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "grain_enabled": page.locator("[data-footer-grain-interaction]").get_attribute("data-enabled"), "errors": errors}
     if results["touch"]["cursor_enabled"] != "false" or results["touch"]["shield_tracking"] != "false": fail("Touch requires hover")
+    if results["touch"]["grain_enabled"] != "false": fail("Touch enabled the cursor-reactive footer grain")
+    if results["touch"]["listeners"].get("footer:pointermove") or results["touch"]["listeners"].get("footer:pointerleave"): fail("Touch registered footer grain listeners")
     ctx.close()
     browser.close()
 
