@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
 import { AboutMotion } from "@/components/about/about-motion";
 import { AboutHero } from "@/components/about/about-hero";
+import { AboutFaqSection } from "@/components/about/about-faq-section";
 import { IntroductionSection } from "@/components/about/introduction-section";
 import { CapabilitiesSection } from "@/components/about/capabilities-section";
 import { EducationSection } from "@/components/about/education-section";
 import { ExperienceSection } from "@/components/about/experience-section";
 import { PrinciplesSection } from "@/components/about/principles-section";
-import { Accent, PillLink, SectionHeading, SectionLabel } from "@/components/system/primitives";
+import { Accent, PillLink, SectionLabel } from "@/components/system/primitives";
 import { profile } from "@/lib/content/profile";
-import { container, lightPanel, sectionY } from "@/lib/ui/layout";
+import { container } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 import { createPageMetadata } from "@/lib/seo/metadata";
 import { createFaqPageGraph, createProfilePageGraph, type FaqItem } from "@/lib/seo/structured-data";
@@ -57,26 +58,7 @@ export default function AboutPage() {
       <EducationSection />
       <CapabilitiesSection />
       <PrinciplesSection />
-
-      <section className={cn(lightPanel, sectionY)} aria-labelledby="about-faq-heading">
-        <div className={container}>
-          <SectionHeading
-            index="FAQ"
-            label="A few useful answers"
-            title={<>About the <Accent>work</Accent></>}
-            tone="light"
-            id="about-faq-heading"
-          />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {faqItems.map((item) => (
-              <article key={item.question} className="rounded-3xl border border-ink/10 bg-white p-6 sm:p-7">
-                <h3 className="font-display text-xl font-bold tracking-[-0.025em] text-ink">{item.question}</h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-slate-ink">{item.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <AboutFaqSection items={faqItems} />
 
       <section className="bg-night-3" aria-labelledby="about-cta-heading">
         <div className={cn(container, "py-20 lg:py-28")}>

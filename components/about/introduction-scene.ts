@@ -25,7 +25,7 @@ export function introductionScene(root: HTMLElement): Cleanup {
       y: 0, opacity: 1, ease: "none",
       scrollTrigger: {
         id: "about-page-introduction-heading",
-        trigger: section,
+        trigger: heading,
         start: "top 88%",
         end: "top 48%",
         scrub: 0.6,

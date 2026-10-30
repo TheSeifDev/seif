@@ -4,6 +4,7 @@ import { useRef } from "react";
 import type { ReactNode } from "react";
 import { aboutHeroScene } from "@/components/about/about-hero-scene";
 import { introductionScene } from "@/components/about/introduction-scene";
+import { faqLayoutScene } from "@/components/about/faq-layout-scene";
 import {
   capabilitiesScene,
   chapterTitles,
@@ -48,6 +49,7 @@ export function AboutMotion({ children }: { children: ReactNode }) {
         const cleanups = [
           aboutHeroScene(root),
           introductionScene(root),
+          faqLayoutScene(root),
           chapterTitles(root),
           experienceScene(root),
           educationScene(root),
