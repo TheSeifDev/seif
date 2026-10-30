@@ -1,0 +1,18 @@
+{
+  "property": "https://theseif.vercel.app/",
+  "propertyType": "URL-prefix",
+  "ownership": "verified",
+  "verificationMethod": "HTML tag",
+  "ownershipConfirmation": "Ownership verified",
+  "sitemap": "https://theseif.vercel.app/sitemap.xml",
+  "sitemapProcessing": "success",
+  "sitemapConfirmation": "Sitemap processed successfully",
+  "lastRead": "2026-10-30",
+  "discoveredPages": 11,
+  "discoveredVideos": 0,
+  "publishedCodeCommit": "c8be579",
+  "publicSeoFailures": 0,
+  "genuineTokenInPublishedHead": true,
+  "initialFetchStatus": "Couldn't fetch; superseded by successful processing",
+  "note": "Discovered URLs are not a guarantee of indexing or ranking."
+}
