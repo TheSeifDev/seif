@@ -40,12 +40,12 @@ export function EducationSection() {
           >
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(340px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(125_200_255/0.55),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+              className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(300px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(125_200_255/0.22),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
             />
             <div className="relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-7 sm:p-10 lg:min-h-[520px]">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-[radial-gradient(560px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(77_182_255/0.09),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(500px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(77_182_255/0.03),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
               />
               <span
                 aria-hidden="true"

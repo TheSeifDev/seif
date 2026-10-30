@@ -133,14 +133,14 @@ function FeaturedCard({ project, index }: { project: FeaturedProject; index: num
       {/* Border light, visible only through the 1px gap around the surface. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 rounded-[inherit] bg-[radial-gradient(360px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(125_200_255/0.75),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-[inherit] bg-[radial-gradient(320px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(125_200_255/0.28),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
       />
 
       <div className="relative grid h-full overflow-hidden rounded-[27px] bg-night-2 lg:grid-cols-12 lg:rounded-[31px]">
         {/* Surface sheen that follows the pointer. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(620px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(77_182_255/0.08),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(520px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(77_182_255/0.03),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
         />
 
         <div

@@ -64,14 +64,14 @@ export function MoreProjects() {
                   {/* Border light: visible only through the 1px gap around the inner surface. */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 -z-10 rounded-[28px] bg-[radial-gradient(300px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(125_200_255/0.7),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                    className="pointer-events-none absolute inset-0 -z-10 rounded-[28px] bg-[radial-gradient(280px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(125_200_255/0.25),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                   />
 
                   <div className="relative flex h-full flex-col overflow-hidden rounded-[27px] bg-night-2 p-2.5">
                     {/* Surface sheen that follows the pointer. */}
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 bg-[radial-gradient(520px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(77_182_255/0.08),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
+                      className="pointer-events-none absolute inset-0 bg-[radial-gradient(460px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(77_182_255/0.028),transparent_65%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                     />
 
                     <Link

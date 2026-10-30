@@ -19,15 +19,24 @@
       "after_leave": "false"
     },
     "pointer_events": "none",
+    "cursor_light": {
+      "ambient_px": "480px",
+      "core_px": "104px"
+    },
     "magnetic": {
       "translate": "2.7px 0.899998px",
       "mode": "link",
       "after_leave": "none"
     },
     "keyboard_cursor_opacity": "0",
+    "footer_grain": {
+      "animation": "footer-grain-shift",
+      "pointer_events": "none",
+      "inside_footer": true
+    },
     "project_cursor": "project",
     "featured_tone": "light",
-    "scroll_cursor": "scroll-left",
+    "scroll_cursor": "scroll-right",
     "keyboard_last_slide": {
       "x": 283.59375,
       "y": 277.765625,
@@ -135,6 +144,7 @@
     },
     "cursor_enabled": "false",
     "shield_tracking": "false",
+    "footer_grain_animation": "none",
     "triggers": []
   },
   "touch": {

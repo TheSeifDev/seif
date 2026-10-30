@@ -99,6 +99,16 @@ with sync_playwright() as p:
     desktop["pointer_events"] = page.locator("[data-cursor-follower]").evaluate("e=>getComputedStyle(e).pointerEvents")
     if desktop["pointer_events"] != "none": fail("Cursor blocks pointer events")
 
+    cursor_layers = page.locator("[data-cursor-follower] > span")
+    desktop["cursor_light"] = {
+        "ambient_px": cursor_layers.nth(0).evaluate("e=>getComputedStyle(e).width"),
+        "core_px": cursor_layers.nth(1).evaluate("e=>getComputedStyle(e).width"),
+    }
+    if float(desktop["cursor_light"]["ambient_px"].replace("px", "")) > 500:
+        fail("Cursor ambient spotlight is too large")
+    if float(desktop["cursor_light"]["core_px"].replace("px", "")) > 110:
+        fail("Cursor core spotlight is too large")
+
     cta = page.locator("[data-magnetic=true]").first
     cbox = cta.bounding_box()
     page.mouse.move(cbox["x"] + cbox["width"] * .8, cbox["y"] + cbox["height"] * .6)
@@ -114,6 +124,17 @@ with sync_playwright() as p:
     page.wait_for_timeout(250)
     desktop["magnetic"]["after_leave"] = cta.evaluate("e=>getComputedStyle(e).translate")
     if desktop["magnetic"]["after_leave"] != "none": fail("CTA magnetic transform not restored")
+
+    scroll(page, position(page, "[data-site-footer]") + 40)
+    grain = page.locator("[data-footer-grain]")
+    desktop["footer_grain"] = {
+        "animation": grain.evaluate("e=>getComputedStyle(e).animationName"),
+        "pointer_events": grain.evaluate("e=>getComputedStyle(e).pointerEvents"),
+        "inside_footer": grain.evaluate("e=>e.closest('[data-site-footer]') !== null"),
+    }
+    if desktop["footer_grain"]["animation"] != "footer-grain-shift": fail("Footer grain is not animated")
+    if desktop["footer_grain"]["pointer_events"] != "none" or not desktop["footer_grain"]["inside_footer"]: fail("Footer grain is not safely contained")
+    page.screenshot(path=str(SHOTS / "footer-grain.png"))
 
     scroll(page, position(page, "#work") + 3)
     project = page.locator("[data-slide][data-current] a[data-cursor=project]").first
@@ -182,8 +203,9 @@ with sync_playwright() as p:
             if desktop["button_cursor"] != "button": fail("Button cursor mode incorrect")
     page.emulate_media(reduced_motion="reduce")
     page.wait_for_timeout(300)
-    results["reduced"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "triggers": page.evaluate("window.__motion.triggers()")}
+    results["reduced"] = {"listeners": counts(page), "cursor_enabled": page.locator("[data-cursor-follower]").get_attribute("data-enabled"), "shield_tracking": page.locator("[data-portrait-shield]").get_attribute("data-tracking"), "footer_grain_animation": page.locator("[data-footer-grain]").evaluate("e=>getComputedStyle(e).animationName"), "triggers": page.evaluate("window.__motion.triggers()")}
     if results["reduced"]["listeners"].get("document:pointermove") != pointer_total - 1 or results["reduced"]["listeners"].get("shield:pointermove"): fail("Reduced motion retained the custom pointer listeners")
+    if results["reduced"]["footer_grain_animation"] != "none": fail("Reduced motion retained footer grain animation")
     if results["reduced"]["triggers"]: fail("Reduced motion retained ScrollTriggers")
     page.emulate_media(reduced_motion="no-preference")
     page.wait_for_timeout(1600)

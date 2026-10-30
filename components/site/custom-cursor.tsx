@@ -46,26 +46,26 @@ type ResolvedTarget = {
  * the small core only appears on things that respond to a click.
  */
 const SPOTLIGHT: Record<CursorMode, { ambient: string; core: string }> = {
-  normal: { ambient: "1", core: "0" },
-  link: { ambient: "0.58", core: "1" },
-  button: { ambient: "0.66", core: "1" },
-  project: { ambient: "1.16", core: "1" },
-  preview: { ambient: "0.86", core: "0" },
-  "scroll-left": { ambient: "1.5 1.05", core: "0" },
-  "scroll-right": { ambient: "1.5 1.05", core: "0" },
+  normal: { ambient: "0.8", core: "0" },
+  link: { ambient: "0.52", core: "0.62" },
+  button: { ambient: "0.58", core: "0.68" },
+  project: { ambient: "0.92", core: "0.72" },
+  preview: { ambient: "0.7", core: "0" },
+  "scroll-left": { ambient: "1.08 0.82", core: "0" },
+  "scroll-right": { ambient: "1.08 0.82", core: "0" },
 };
 
-/** Light Blue spotlight: a wide tinted halo plus a brighter core. */
+/** Light Blue spotlight: deliberately quiet halo with a small interaction cue. */
 const AMBIENT_LIGHT: Record<Tone, string> = {
-  dark: "radial-gradient(closest-side, rgb(120 196 255 / 0.22), rgb(77 182 255 / 0.09) 38%, rgb(77 182 255 / 0.025) 66%, rgb(77 182 255 / 0) 100%)",
+  dark: "radial-gradient(closest-side, rgb(120 196 255 / 0.09), rgb(77 182 255 / 0.035) 38%, rgb(77 182 255 / 0.008) 66%, rgb(77 182 255 / 0) 100%)",
   light:
-    "radial-gradient(closest-side, rgb(77 182 255 / 0.2), rgb(77 182 255 / 0.08) 38%, rgb(77 182 255 / 0.02) 66%, rgb(77 182 255 / 0) 100%)",
+    "radial-gradient(closest-side, rgb(77 182 255 / 0.075), rgb(77 182 255 / 0.028) 38%, rgb(77 182 255 / 0.006) 66%, rgb(77 182 255 / 0) 100%)",
 };
 
 const CORE_LIGHT: Record<Tone, string> = {
-  dark: "radial-gradient(closest-side, rgb(214 238 255 / 0.26), rgb(125 200 255 / 0.08) 55%, rgb(125 200 255 / 0) 100%)",
+  dark: "radial-gradient(closest-side, rgb(214 238 255 / 0.12), rgb(125 200 255 / 0.032) 55%, rgb(125 200 255 / 0) 100%)",
   light:
-    "radial-gradient(closest-side, rgb(30 136 229 / 0.16), rgb(30 136 229 / 0.04) 55%, rgb(30 136 229 / 0) 100%)",
+    "radial-gradient(closest-side, rgb(30 136 229 / 0.075), rgb(30 136 229 / 0.018) 55%, rgb(30 136 229 / 0) 100%)",
 };
 
 /** Screen blending lets the light brighten dark content instead of veiling it. */
@@ -536,12 +536,12 @@ export function CustomCursor() {
     >
       <span
         ref={ambientRef}
-        className="absolute left-0 top-0 block size-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[scale] duration-500 ease-out-soft will-change-transform"
+        className="absolute left-0 top-0 block size-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full transition-[scale] duration-500 ease-out-soft will-change-transform"
         style={{ backgroundImage: AMBIENT_LIGHT.dark }}
       />
       <span
         ref={coreRef}
-        className="absolute left-0 top-0 block size-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 ease-out-soft"
+        className="absolute left-0 top-0 block size-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-300 ease-out-soft"
         style={{ backgroundImage: CORE_LIGHT.dark }}
       />
     </div>
