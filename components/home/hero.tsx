@@ -40,20 +40,21 @@ export function Hero() {
         className="absolute bottom-[-12%] right-[-10%] -z-10 h-[70%] w-[90%] rounded-full bg-[radial-gradient(closest-side,rgba(77,182,255,0.32),rgba(77,182,255,0.08)_55%,transparent)] blur-2xl lg:right-[8%] lg:h-[88%] lg:w-[44%]"
       />
 
-      <p
-        lang="ja"
-        aria-hidden="true"
-        className="absolute right-5 top-28 z-10 hidden font-jp text-4xl font-bold tracking-[0.12em] text-snow/90 sm:right-8 lg:right-12 lg:top-32 lg:block xl:text-5xl"
-      >
-        サムライ
-      </p>
-
       <div
+        data-hero-frame
         className={cn(
           container,
           "relative flex flex-col pt-28 sm:pt-32 lg:h-full lg:pb-16 lg:pt-36",
         )}
       >
+        <p
+          lang="ja"
+          aria-hidden="true"
+          className="absolute right-5 top-28 z-10 hidden font-jp text-4xl font-bold tracking-[0.12em] text-snow/90 sm:right-8 lg:right-12 lg:top-32 lg:block xl:text-5xl"
+        >
+          サムライ
+        </p>
+
         <div data-hero-content className="relative z-10 lg:max-w-[40rem]">
           <div data-hero-role><SectionLabel className="text-snow/80">{profile.shortRole}</SectionLabel></div>
           <h1 id="hero-title" className={cn(displayXL, "mt-6")}>
@@ -105,32 +106,32 @@ export function Hero() {
             </PortraitShield>
           </div>
         </div>
-      </div>
 
-      <aside
-        data-hero-card
-        aria-label="Experience"
-        className="absolute bottom-14 right-5 z-10 hidden w-64 rounded-3xl border border-white/10 bg-night/45 p-6 backdrop-blur-md sm:right-8 lg:right-12 lg:block"
-      >
-        <div data-hero-meta>
-        <Sparkles className="size-5 text-sky" aria-hidden="true" />
-        <p className="mt-5 font-display text-6xl font-extrabold leading-none tracking-[-0.04em]">
-          {profile.experienceYears}
-        </p>
-        <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-snow/80">
-          Years experience
-        </p>
-        <p className="mt-4 text-[13px] leading-relaxed text-mist">
-          Turning ideas into real products with clean code and meaningful
-          design.
-        </p>
-        <div className="mt-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-mist">
-          <span>{profile.handle}</span>
-          <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
-          <span>Alexandria</span>
-        </div>
-        </div>
-      </aside>
+        <aside
+          data-hero-card
+          aria-label="Experience"
+          className="absolute bottom-14 right-5 z-10 hidden w-64 rounded-3xl border border-white/10 bg-night/45 p-6 backdrop-blur-md sm:right-8 lg:right-12 lg:block"
+        >
+          <div data-hero-meta>
+            <Sparkles className="size-5 text-sky" aria-hidden="true" />
+            <p className="mt-5 font-display text-6xl font-extrabold leading-none tracking-[-0.04em]">
+              {profile.experienceYears}
+            </p>
+            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-snow/80">
+              Years experience
+            </p>
+            <p className="mt-4 text-[13px] leading-relaxed text-mist">
+              Turning ideas into real products with clean code and meaningful
+              design.
+            </p>
+            <div className="mt-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-mist">
+              <span>{profile.handle}</span>
+              <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
+              <span>Alexandria</span>
+            </div>
+          </div>
+        </aside>
+      </div>
 
       <div
         data-hero-shade

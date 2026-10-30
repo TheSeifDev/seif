@@ -1,0 +1,451 @@
+{
+  "viewports": {
+    "1920x1080": {
+      "frame": {
+        "left": 280,
+        "right": 1640,
+        "top": 0,
+        "bottom": 1080,
+        "width": 1360,
+        "height": 1080,
+        "display": "flex"
+      },
+      "content": {
+        "left": 328,
+        "right": 968,
+        "top": 144,
+        "bottom": 733.78125,
+        "width": 640,
+        "height": 589.78125,
+        "display": "block"
+      },
+      "card": {
+        "left": 1336,
+        "right": 1592,
+        "top": 735.125,
+        "bottom": 1024,
+        "width": 256,
+        "height": 288.875,
+        "display": "block"
+      },
+      "label": {
+        "left": 1380.3125,
+        "right": 1592,
+        "top": 128,
+        "bottom": 176,
+        "width": 211.6875,
+        "height": 48,
+        "display": "block"
+      },
+      "portrait": {
+        "left": 693.40625,
+        "right": 1422.40625,
+        "top": 108,
+        "bottom": 1080,
+        "width": 729,
+        "height": 972,
+        "display": "block"
+      },
+      "paddingLeft": 48,
+      "paddingRight": 48,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-overlap",
+        "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
+        "journey-rail",
+        "featured-horizontal",
+        "process-pin",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    },
+    "1440x900": {
+      "frame": {
+        "left": 40,
+        "right": 1400,
+        "top": 0,
+        "bottom": 900,
+        "width": 1360,
+        "height": 900,
+        "display": "flex"
+      },
+      "content": {
+        "left": 88,
+        "right": 728,
+        "top": 144,
+        "bottom": 730.9375,
+        "width": 640,
+        "height": 586.9375,
+        "display": "block"
+      },
+      "card": {
+        "left": 1096,
+        "right": 1352,
+        "top": 555.125,
+        "bottom": 844,
+        "width": 256,
+        "height": 288.875,
+        "display": "block"
+      },
+      "label": {
+        "left": 1140.3125,
+        "right": 1352,
+        "top": 128,
+        "bottom": 176,
+        "width": 211.6875,
+        "height": 48,
+        "display": "block"
+      },
+      "portrait": {
+        "left": 574.90625,
+        "right": 1182.40625,
+        "top": 90,
+        "bottom": 900,
+        "width": 607.5,
+        "height": 810,
+        "display": "block"
+      },
+      "paddingLeft": 48,
+      "paddingRight": 48,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-overlap",
+        "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
+        "journey-rail",
+        "featured-horizontal",
+        "process-pin",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    },
+    "1280x760": {
+      "frame": {
+        "left": 0,
+        "right": 1280,
+        "top": 0,
+        "bottom": 760,
+        "width": 1280,
+        "height": 760,
+        "display": "flex"
+      },
+      "content": {
+        "left": 48,
+        "right": 688,
+        "top": 144,
+        "bottom": 699.59375,
+        "width": 640,
+        "height": 555.59375,
+        "display": "block"
+      },
+      "card": {
+        "left": 976,
+        "right": 1232,
+        "top": 415.125,
+        "bottom": 704,
+        "width": 256,
+        "height": 288.875,
+        "display": "block"
+      },
+      "label": {
+        "left": 1020.3125,
+        "right": 1232,
+        "top": 128,
+        "bottom": 176,
+        "width": 211.6875,
+        "height": 48,
+        "display": "block"
+      },
+      "portrait": {
+        "left": 562.203125,
+        "right": 1075.203125,
+        "top": 76,
+        "bottom": 760,
+        "width": 513,
+        "height": 684,
+        "display": "block"
+      },
+      "paddingLeft": 48,
+      "paddingRight": 48,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-overlap",
+        "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
+        "journey-rail",
+        "featured-horizontal",
+        "process-pin",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    },
+    "1024x768": {
+      "frame": {
+        "left": 0,
+        "right": 1024,
+        "top": 0,
+        "bottom": 768,
+        "width": 1024,
+        "height": 768,
+        "display": "flex"
+      },
+      "content": {
+        "left": 48,
+        "right": 688,
+        "top": 144,
+        "bottom": 649.46875,
+        "width": 640,
+        "height": 505.46875,
+        "display": "block"
+      },
+      "card": {
+        "left": 720,
+        "right": 976,
+        "top": 423.125,
+        "bottom": 712,
+        "width": 256,
+        "height": 288.875,
+        "display": "block"
+      },
+      "label": {
+        "left": 817.234375,
+        "right": 976,
+        "top": 128,
+        "bottom": 168,
+        "width": 158.765625,
+        "height": 40,
+        "display": "block"
+      },
+      "portrait": {
+        "left": 341.78125,
+        "right": 860.171875,
+        "top": 76.8125,
+        "bottom": 768,
+        "width": 518.390625,
+        "height": 691.1875,
+        "display": "block"
+      },
+      "paddingLeft": 48,
+      "paddingRight": 48,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-overlap",
+        "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
+        "journey-rail",
+        "featured-horizontal",
+        "process-pin",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    },
+    "768x1024": {
+      "frame": {
+        "left": 0,
+        "right": 768,
+        "top": 0,
+        "bottom": 1207.375,
+        "width": 768,
+        "height": 1207.375,
+        "display": "flex"
+      },
+      "content": {
+        "left": 32,
+        "right": 736,
+        "top": 128,
+        "bottom": 583.375,
+        "width": 704,
+        "height": 455.375,
+        "display": "block"
+      },
+      "card": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "display": "none"
+      },
+      "label": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "display": "none"
+      },
+      "portrait": {
+        "left": 159,
+        "right": 609,
+        "top": 607.375,
+        "bottom": 1207.375,
+        "width": 450,
+        "height": 600,
+        "display": "block"
+      },
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-parallax",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    },
+    "390x844": {
+      "frame": {
+        "left": 0,
+        "right": 390,
+        "top": 0,
+        "bottom": 1130.328125,
+        "width": 390,
+        "height": 1130.328125,
+        "display": "flex"
+      },
+      "content": {
+        "left": 20,
+        "right": 370,
+        "top": 112,
+        "bottom": 586.328125,
+        "width": 350,
+        "height": 474.328125,
+        "display": "block"
+      },
+      "card": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "display": "none"
+      },
+      "label": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0,
+        "width": 0,
+        "height": 0,
+        "display": "none"
+      },
+      "portrait": {
+        "left": 20,
+        "right": 370,
+        "top": 610.328125,
+        "bottom": 1130.328125,
+        "width": 350,
+        "height": 520,
+        "display": "block"
+      },
+      "paddingLeft": 20,
+      "paddingRight": 20,
+      "overflow": 0,
+      "fit": "contain",
+      "imageAlt": "Seif Ayman",
+      "headings": 1,
+      "heroText": "SeifAyman",
+      "hrefs": [
+        "/projects",
+        "/documents/seif-ayman-cv.pdf"
+      ],
+      "triggers": [
+        "hero-parallax",
+        "about-heading",
+        "about-statement",
+        "about-principles"
+      ],
+      "actionsOpacity": 1
+    }
+  },
+  "static": {
+    "reduced": {
+      "overflow": 0,
+      "opacity": 1,
+      "links": 2
+    },
+    "no_js": {
+      "overflow": 0,
+      "opacity": 1,
+      "links": 2
+    }
+  },
+  "failures": []
+}
