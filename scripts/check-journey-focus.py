@@ -1,4 +1,4 @@
-"""Check Journey card reveals/current role and the narrower Projects panel."""
+"""Check Journey stacking, featured tech filtering, and unchanged profile/panel facts."""
 import json
 import shutil
 from pathlib import Path
@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 BASE = "http://127.0.0.1:3000"
 OUT = Path("docs/checks")
 (OUT / "shots").mkdir(parents=True, exist_ok=True)
-results = {"journey": {}, "focus": {}, "role": {}, "failures": []}
+results = {"journey": {}, "featured": {}, "focus": {}, "role": {}, "failures": []}
 
 
 def check(condition, message):
@@ -20,88 +20,129 @@ def doc_top(locator):
     return locator.evaluate("e => e.getBoundingClientRect().top + scrollY")
 
 
-CARD_STATE = """e => ({
-  y: new DOMMatrixReadOnly(getComputedStyle(e).transform === 'none' ? undefined : getComputedStyle(e).transform).m42,
-  clip: getComputedStyle(e).clipPath,
-  radius: getComputedStyle(e).borderRadius,
-  background: getComputedStyle(e.lastElementChild).backgroundColor
+def scroll(page, y, wait=800):
+    page.evaluate("y => scrollTo({top:y,behavior:'instant'})", y)
+    page.wait_for_timeout(wait)
+
+
+STACK_STATE = """() => [...document.querySelectorAll('[data-chapter]')].map(e=>{
+  const card=e.querySelector('[data-journey-card]'), body=card.lastElementChild;
+  const r=e.getBoundingClientRect(),m=new DOMMatrixReadOnly(getComputedStyle(card).transform==='none'?undefined:getComputedStyle(card).transform);
+  return {top:r.top,bottom:r.bottom,height:e.offsetHeight,position:getComputedStyle(e).position,
+    y:m.m42,scale:m.a,clip:getComputedStyle(card).clipPath,
+    shade:Number(getComputedStyle(card.querySelector('[data-journey-shade]')).opacity),
+    contentOverflow:body.scrollHeight-body.clientHeight};
 })"""
+
+FEATURE_FIT = """() => {
+  const panel=document.querySelector('[data-featured-panel]'),r=panel.getBoundingClientRect();
+  const slides=[...document.querySelectorAll('#work [data-slide]')].filter(e=>!e.hidden);
+  const links=slides.flatMap(e=>[...e.querySelectorAll('a')]);
+  const clippedVertically=links.filter(e=>{const b=e.getBoundingClientRect();return b.bottom>r.bottom+1 || b.top<r.top-1;}).map(e=>e.getAttribute('aria-label')||e.textContent.trim());
+  return {panelTop:r.top,panelBottom:r.bottom,clippedVertically,overflow:document.documentElement.scrollWidth-innerWidth};
+}"""
+
+
+def current_slugs(page):
+    return page.locator("#work [data-slide]").evaluate_all("es=>es.filter(e=>!e.hidden).map(e=>e.dataset.projectSlug)")
+
 
 with sync_playwright() as p:
     browser = p.chromium.launch(executable_path=shutil.which("chromium"))
-    page = browser.new_page(viewport={"width": 1440, "height": 900})
-    page.goto(BASE + "/", wait_until="networkidle")
-    page.wait_for_function("() => document.querySelector('[data-scene=hero]')?.dataset.entrance === 'complete'")
-    check(page.locator("[data-journey-card]").count() == 4, "Journey must retain four cards")
-    check(page.locator("#chapter-community").inner_text() == "Vice Head IT Support", "Home current role is wrong")
-    first = page.locator("[data-chapter]").first
-    card = page.locator("[data-journey-card]").first
-    top = doc_top(first)
-    page.evaluate("y => scrollTo(0,y)", top - 900 * 0.98)
-    page.wait_for_function("() => window.__motion?.triggers().includes('journey-card-1')")
-    page.wait_for_timeout(200)
-    closed = card.evaluate(CARD_STATE)
-    page.evaluate("y => scrollTo(0,y)", top - 900 * 0.5)
-    page.wait_for_function("() => Math.abs(new DOMMatrixReadOnly(getComputedStyle(document.querySelector('[data-journey-card]')).transform).m42)<0.2", timeout=10000)
-    opened = card.evaluate(CARD_STATE)
-    check(closed["y"] > 60 and abs(opened["y"]) < 0.2, f"Card did not rise: {closed} -> {opened}")
-    check(opened["radius"] == "32px" and opened["background"] == "rgb(11, 14, 19)", "Journey surface differs from raised Education surface")
-    card.screenshot(path=str(OUT / "shots" / "journey-card-new.png"))
-    page.evaluate("y => scrollTo(0,y)", top - 900)
-    page.wait_for_function("() => new DOMMatrixReadOnly(getComputedStyle(document.querySelector('[data-journey-card]')).transform).m42>69", timeout=10000)
-    reversed_state = card.evaluate(CARD_STATE)
-    results["journey"]["reveal"] = {"before": closed, "after": opened, "reversed": reversed_state}
-    progression = []
-    for index in [0, 1, 2, 3, 3, 2, 1, 0]:
-        chapter_top = doc_top(page.locator("[data-chapter]").nth(index))
-        page.evaluate("y=>scrollTo(0,y)", chapter_top - 900 * 0.35 + 5)
-        page.wait_for_timeout(180)
-        progression.append(page.locator("[data-rail-counter]").inner_text())
-    check(progression == ["01", "02", "03", "04", "04", "03", "02", "01"], f"Journey rail progression changed: {progression}")
-    results["journey"]["progression"] = progression
-    page.locator("header nav a[href='/about']").first.click()
-    page.wait_for_url("**/about")
-    page.wait_for_timeout(500)
-    about_text = page.locator("main").text_content() or ""
-    check("Vice Head IT Support" in about_text, "About current role is missing")
-    check("Sep 2026" in about_text, "About promotion month is missing")
-    stale = [t for t in page.evaluate("() => window.__motion?.triggers() || []") if t.startswith("journey-")]
-    check(not stale, f"Journey triggers leaked after navigation: {stale}")
-    results["role"] = {"home": "Vice Head IT Support", "month": "Sep 2026", "aboutVerified": True, "staleJourneyTriggers": stale}
-    page.close()
-
-    for width, height in [(1024, 768), (1280, 760), (1440, 900), (1920, 1080), (768, 1024), (390, 844)]:
+    for width, height in [(1440, 900), (1280, 760), (1024, 768)]:
         page = browser.new_page(viewport={"width": width, "height": height})
-        page.goto(BASE + "/projects", wait_until="networkidle")
-        panel = page.locator("section[aria-labelledby='in-focus-title']")
-        geometry = panel.evaluate("e => {const r=e.getBoundingClientRect();return {width:r.width,left:r.left,right:r.right,overflow:document.documentElement.scrollWidth-innerWidth}}")
-        if width >= 1024:
-            expected = min(width * 0.84, 1280)
-            check(abs(geometry["width"] - expected) < 1, f"{width}: panel width {geometry}")
-            check(abs(geometry["left"] - (width - expected) / 2) < 1, f"{width}: panel is not centered")
-        check(geometry["overflow"] <= 1, f"{width}: Projects horizontal overflow")
-        check(page.locator("[data-stack-card]").count() == 3, f"{width}: wrong number of featured case files")
-        results["focus"][f"{width}x{height}"] = geometry
+        page.goto(BASE + "/", wait_until="networkidle")
+        page.wait_for_function("() => document.querySelector('[data-scene=hero]')?.dataset.entrance === 'complete'")
+        check(page.locator("#journey").get_attribute("data-stacked") == "true", f"{width}: stack not enabled")
+        check(page.locator("[data-chapter]").count() == 4, "Journey must retain four chapters")
+        top = doc_top(page.locator("[data-chapters]"))
+        card_height = page.locator("[data-chapter]").first.evaluate("e=>e.offsetHeight")
+        snapshots = []
+        for index in range(4):
+            scroll(page, top + index * card_height - (96 + index * 16) + 1)
+            state = page.evaluate(STACK_STATE)
+            current = state[index]
+            check(current["position"] == "sticky", f"{width}: chapter {index+1} not sticky")
+            check(abs(current["top"] - (96 + index * 16)) < 2, f"{width}: wrong stack top {current}")
+            check(current["bottom"] <= height + 1 and current["contentOverflow"] <= 1, f"{width}: clipped Journey content {current}")
+            if index:
+                check(state[index-1]["scale"] < 0.94 and state[index-1]["shade"] > 0.5, f"{width}: previous card did not settle under next card")
+            snapshots.append(state)
+        scroll(page, top - 96 + 1)
+        check(page.evaluate(STACK_STATE)[0]["scale"] > 0.97, f"{width}: stack depth not reversible")
+        progression = []
+        for index in [0, 1, 2, 3, 3, 2, 1, 0]:
+            scroll(page, top + index * card_height - height * 0.35 + 5, 180)
+            progression.append(page.locator("[data-rail-counter]").inner_text())
+        check(progression == ["01", "02", "03", "04", "04", "03", "02", "01"], f"{width}: rail progression {progression}")
+        results["journey"][f"{width}x{height}"] = {"cards": snapshots, "progression": progression}
+        if width == 1440:
+            page.locator("[data-rail-item] a[href='#chapter-community']").click()
+            page.wait_for_timeout(800)
+            check(page.locator("[data-rail-counter]").inner_text() == "03", "Native rail anchor targets wrong stacked card")
+            page.screenshot(path=str(OUT / "shots" / "journey-stacked.png"))
+        scroll(page, doc_top(page.locator("#work")) + 16)
+        fit = page.evaluate(FEATURE_FIT)
+        check(not fit["clippedVertically"], f"{width}: Featured links clipped vertically {fit}")
+        check(fit["panelTop"] >= -1 and fit["panelBottom"] <= height + 1, f"{width}: pinned Featured panel outside viewport {fit}")
+        check(fit["overflow"] <= 1, f"{width}: horizontal overflow")
+        results["featured"][f"fit-{width}x{height}"] = fit
+        if width == 1440:
+            original = page.locator("#work [data-slide]").evaluate_all("es=>es.map(e=>({slug:e.dataset.projectSlug,stack:e.dataset.techStack.split('|')}))")
+            options = page.locator("#featured-tech-stack option").evaluate_all("es=>es.map(e=>e.value)")
+            entries = []
+            for technology in options[1:] + ["all"]:
+                page.locator("#featured-tech-stack").select_option(technology)
+                page.wait_for_timeout(350)
+                expected = [e["slug"] for e in original if technology == "all" or technology in e["stack"]]
+                actual = current_slugs(page)
+                pins = page.evaluate("() => (window.__motion?.triggers()||[]).filter(t=>t==='featured-horizontal').length")
+                check(actual == expected, f"Tech filter {technology}: {actual} != {expected}")
+                check(pins == (1 if len(expected) > 1 else 0), f"Tech filter {technology}: stale/missing pin {pins}")
+                check(page.locator("[data-featured-filter] [aria-live]").inner_text().startswith(str(len(expected))), "Incorrect filter result count")
+                entries.append({"technology": technology, "slugs": actual, "horizontalPins": pins})
+            results["featured"]["filters"] = entries
+            page.locator("header nav a[href='/about']").first.click()
+            page.wait_for_url("**/about")
+            page.wait_for_timeout(500)
+            text = page.locator("main").text_content() or ""
+            check("Vice Head IT Support" in text and "Sep 2026" in text, "About current role/date missing")
+            stale = [t for t in page.evaluate("() => window.__motion?.triggers() || []") if t.startswith(("journey-", "featured-"))]
+            check(not stale, f"Motion leaks after navigation: {stale}")
+            results["role"] = {"current": "Vice Head IT Support", "month": "Sep 2026", "staleHomeTriggers": stale}
         page.close()
 
-    for label, options in [("mobile", {"viewport": {"width": 390, "height": 844}, "has_touch": True, "is_mobile": True}), ("reduced", {"viewport": {"width": 1440, "height": 900}, "reduced_motion": "reduce"})]:
+    modes = [("mobile", {"viewport": {"width": 390, "height": 844}, "has_touch": True, "is_mobile": True}),
+             ("short", {"viewport": {"width": 1280, "height": 700}}),
+             ("reduced", {"viewport": {"width": 1440, "height": 900}, "reduced_motion": "reduce"}),
+             ("no-js", {"viewport": {"width": 1440, "height": 900}, "java_script_enabled": False})]
+    for label, options in modes:
         page = browser.new_page(**options)
         page.goto(BASE + "/", wait_until="networkidle")
-        page.locator("[data-journey-card]").first.scroll_into_view_if_needed()
-        page.wait_for_timeout(1600)
-        cards = page.locator("[data-journey-card]").evaluate_all("es => es.map(e=>({transform:getComputedStyle(e).transform,clip:getComputedStyle(e).clipPath,overflow:e.lastElementChild.scrollHeight-e.lastElementChild.clientHeight}))")
-        check(all(c["overflow"] <= 1 for c in cards), f"{label}: Journey content clipped")
-        check(page.evaluate("document.documentElement.scrollWidth-innerWidth") <= 1, f"{label}: Home horizontal overflow")
-        if label == "reduced":
-            check(all(c["transform"] == "none" and c["clip"] == "none" for c in cards), "Reduced-motion cards not fully static/open")
+        check(page.locator("#journey").get_attribute("data-stacked") != "true", f"{label}: sticky stack should be disabled")
+        cards = page.evaluate(STACK_STATE)
+        check(all(c["position"] != "sticky" and c["contentOverflow"] <= 1 for c in cards), f"{label}: Journey static/fit failure")
+        if label in ["reduced", "no-js"]:
+            check(all(c["y"] == 0 and c["clip"] == "none" for c in cards), f"{label}: cards not fully open")
+        check(page.evaluate("document.documentElement.scrollWidth-innerWidth") <= 1, f"{label}: horizontal overflow")
+        if label != "no-js":
+            page.locator("#featured-tech-stack").select_option("Electron")
+            page.locator("#work [data-slide]:not([hidden])").scroll_into_view_if_needed()
+            page.wait_for_timeout(1000)
+            check(current_slugs(page) == ["rafiq"], f"{label}: single-tech filtering failed")
+            alpha = page.locator("#work [data-slide]:not([hidden])").evaluate("e=>Number(getComputedStyle(e).opacity)")
+            check(alpha > 0.95, f"{label}: filtered result remains transparent")
+            page.locator("#featured-tech-stack").select_option("all")
+            page.wait_for_timeout(350)
+            check(len(current_slugs(page)) == 3, f"{label}: All reset failed")
         results["journey"][label] = cards
         page.close()
     browser.close()
 
 with urlopen(BASE + "/llms.txt") as response:
     summary = response.read().decode()
-check("Vice Head IT Support" in summary and "IT Support Team Leader" not in summary, "Public machine-readable summary still presents former role")
-results["role"]["publicSummaryVerified"] = not any("summary" in f for f in results["failures"])
+check("Vice Head IT Support" in summary and "IT Support Team Leader" not in summary, "Public summary current role wrong")
+results["role"]["publicSummaryVerified"] = "Vice Head IT Support" in summary
 (OUT / "journey-focus-results.json").write_text(json.dumps(results, indent=2) + "\n")
 print(json.dumps(results, indent=2))
 raise SystemExit(1 if results["failures"] else 0)

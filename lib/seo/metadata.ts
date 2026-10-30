@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { profile } from "@/lib/content/profile";
+import { createSiteVerification } from "@/lib/seo/site-verification";
 
 export const DEFAULT_SITE_ORIGIN = "https://prof-zeta-one.vercel.app";
 export const SITE_NAME = "Seif Ayman";
@@ -21,7 +22,8 @@ export function getSiteOrigin(): string {
     const isHttp = url.protocol === "http:" || url.protocol === "https:";
     const isOriginOnly =
       url.pathname === "/" && !url.search && !url.hash && !url.username && !url.password;
-    const isLocal = ["localhost", "127.0.0.1", "0.0.0.0", "[::1]"].includes(url.hostname) ||
+    const isLocal =
+      ["localhost", "127.0.0.1", "0.0.0.0", "[::1]"].includes(url.hostname) ||
       url.hostname.endsWith(".localhost");
 
     return isHttp && url.hostname && isOriginOnly && !isLocal ? url.origin : DEFAULT_SITE_ORIGIN;
@@ -44,7 +46,6 @@ export type PageMetadataOptions = {
   description: string;
   path: string;
   type?: "website" | "article";
-  keywords?: string[];
   publishedTime?: string;
   modifiedTime?: string;
 };
@@ -58,7 +59,6 @@ export function createPageMetadata({
   description,
   path,
   type = "website",
-  keywords,
   publishedTime,
   modifiedTime,
 }: PageMetadataOptions): Metadata {
@@ -68,9 +68,8 @@ export function createPageMetadata({
 
   return {
     metadataBase: new URL(getSiteOrigin()),
-    title: path === "/" ? { absolute: SITE_TITLE } : title,
+    title: { absolute: socialTitle },
     description,
-    keywords,
     alternates: { canonical },
     openGraph: {
       type,
@@ -95,14 +94,25 @@ export function createPageMetadata({
       description,
       images: [image],
     },
-    robots: { index: true, follow: true },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }
 
 export function createRootMetadata(): Metadata {
   const description =
-    "Seif Ayman Ahmed (TheSeifDev), Senior Full Stack Software Developer in Alexandria, Egypt, building production-grade web, desktop, AI and IoT products end to end.";
+    "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.";
   const image = siteOgImageUrl();
+  const verification = createSiteVerification();
 
   return {
     metadataBase: new URL(getSiteOrigin()),
@@ -115,16 +125,6 @@ export function createRootMetadata(): Metadata {
     authors: [{ name: profile.fullName, url: siteUrl("/") }],
     creator: profile.fullName,
     publisher: SITE_NAME,
-    keywords: [
-      "Seif Ayman",
-      "TheSeifDev",
-      "senior full stack developer",
-      "Next.js developer",
-      "TypeScript developer",
-      "React developer",
-      "AI systems",
-      "IoT software",
-    ],
     alternates: { canonical: siteUrl("/") },
     openGraph: {
       type: "website",
@@ -159,6 +159,7 @@ export function createRootMetadata(): Metadata {
         "max-video-preview": -1,
       },
     },
+    ...(verification ? { verification } : {}),
   };
 }
 

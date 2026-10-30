@@ -100,7 +100,18 @@ def main():
             check(bool(document.meta.get("description")), f"{route} {label}: missing description")
             for key in ["og:title", "og:description", "og:url", "og:image", "twitter:card"]:
                 check(bool(document.meta.get(key)), f"{route} {label}: missing {key}")
+            check(document.meta.get("og:title") == document.title, f"{route} {label}: title and og:title differ")
+            check(document.meta.get("twitter:title") == document.title, f"{route} {label}: title and twitter:title differ")
             check(document.meta.get("og:url") == expected, f"{route} {label}: incorrect og:url")
+            googlebot = " ".join((document.meta.get("googlebot") or "").lower().split())
+            for directive in [
+                "index",
+                "follow",
+                "max-image-preview:large",
+                "max-snippet:-1",
+                "max-video-preview:-1",
+            ]:
+                check(directive in googlebot, f"{route} {label}: missing googlebot {directive}")
             check(len(" ".join(document.text)) > 400, f"{route} {label}: no meaningful body text")
             check(bool(document.schemas), f"{route} {label}: missing structured data")
             samples[label] = {"status": status, "title": document.title, "description": document.meta.get("description"), "canonical": document.canonical, "h1": " ".join(document.h1), "json_ld_blocks": len(document.schemas)}

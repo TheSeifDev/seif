@@ -1,5 +1,6 @@
 import { journey } from "@/lib/content/profile";
 import { container, label } from "@/lib/ui/layout";
+import { JOURNEY_STACK_STEP, JOURNEY_STACK_TOP } from "@/lib/ui/journey-stack";
 import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
 import { Accent, SectionHeading } from "@/components/system/primitives";
@@ -12,7 +13,7 @@ export function Journey() {
       as="section"
       id="journey"
       aria-labelledby="journey-title"
-      className="relative bg-night py-24 lg:py-36"
+      className="group/journey relative bg-night py-24 lg:py-36"
     >
       <div className={container}>
         <SectionHeading
@@ -53,13 +54,14 @@ export function Journey() {
             </div>
           </aside>
 
-          <ol data-chapters className="min-w-0 space-y-6 sm:space-y-8 lg:col-span-9 lg:space-y-10">
+          <ol data-chapters className="flex min-w-0 flex-col gap-6 sm:gap-8 lg:col-span-9 lg:gap-10 stage:group-data-[stacked=true]/journey:gap-0">
             {journey.map((chapter, index) => (
               <li
                 key={chapter.id}
                 data-chapter
                 data-active={index === 0 ? "" : undefined}
-                className="group/chapter relative"
+                className="group/chapter group-data-[stacked=true]/journey:sticky group-data-[stacked=true]/journey:h-[calc(100svh-10rem)]"
+                style={{ top: `${JOURNEY_STACK_TOP + index * JOURNEY_STACK_STEP}px` }}
               >
                 <article
                   data-chapter-inner
@@ -67,13 +69,14 @@ export function Journey() {
                   data-spotlight
                   data-cursor="preview"
                   aria-labelledby={`chapter-${chapter.id}`}
-                  className="group/card relative isolate rounded-[32px] bg-white/[0.07] p-px transition-colors duration-500 group-data-active/chapter:bg-sky/25"
+                  className="group/card relative isolate origin-top rounded-[32px] bg-white/[0.07] p-px transition-colors duration-500 group-data-active/chapter:bg-sky/25 group-data-[stacked=true]/journey:h-full"
                 >
+                  <span data-journey-shade aria-hidden="true" className="pointer-events-none absolute inset-0 z-20 rounded-[32px] bg-night opacity-0" />
                   <span
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(300px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(125_200_255/0.22),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                   />
-                  <div className="relative flex min-h-[400px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-6 sm:min-h-[440px] sm:p-9 lg:min-h-[480px] lg:p-10">
+                  <div className="relative flex min-h-[400px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-6 sm:min-h-[440px] sm:p-9 lg:min-h-[480px] lg:p-10 group-data-[stacked=true]/journey:h-full group-data-[stacked=true]/journey:min-h-0 short:lg:p-7">
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(70%_90%_at_90%_100%,rgb(77_182_255/0.12),transparent_70%)]"

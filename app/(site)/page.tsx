@@ -16,9 +16,8 @@ import { createPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Home",
   description:
-    "Seif Ayman Ahmed (TheSeifDev), Senior Full Stack Software Developer in Alexandria, Egypt, building production-grade web, desktop, AI and IoT products end to end.",
+    "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
   path: "/",
-  keywords: ["Seif Ayman", "senior full stack developer", "AI systems", "IoT software"],
 });
 
 export default function HomePage() {

@@ -12,9 +12,8 @@ import { createContactPageGraph } from "@/lib/seo/structured-data";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact",
-  description: "Start a conversation with Seif Ayman about a product, platform, or freelance collaboration.",
+  description: "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
   path: "/contact",
-  keywords: ["contact Seif Ayman", "freelance full stack developer", "remote developer", "Alexandria Egypt"],
 });
 
 type ContactDetail = {

@@ -7,10 +7,14 @@ import { cn } from "@/lib/utils";
 import { Scene } from "@/components/motion/scene";
 import { Accent, PillLink, SectionHeading } from "@/components/system/primitives";
 import { EditorialVisual, ProjectActions } from "@/components/system/project-media";
+import { FeaturedTechFilter } from "./featured-filter";
 
 /** Panel width on desktop; slides are 80% of it so the next project peeks. */
 const PANEL_WIDTH = "lg:w-[min(90vw,1680px)]";
 const SLIDE_WIDTH = "group-data-[enhanced=true]/featured:w-[min(72vw,1344px)]";
+const featuredTechnologies = Array.from(
+  new Set(featuredProjects.flatMap((project) => project.stack)),
+);
 
 export function FeaturedProjects() {
   const total = String(featuredProjects.length).padStart(2, "0");
@@ -62,7 +66,12 @@ export function FeaturedProjects() {
               }
             />
 
-            <div className={cn("mt-12", "group-data-[enhanced=true]/featured:mt-8")}>
+            <FeaturedTechFilter
+              technologies={featuredTechnologies}
+              total={featuredProjects.length}
+            />
+
+            <div className={cn("mt-8", "group-data-[enhanced=true]/featured:mt-8")}>
               <ol
                 data-featured-track
                 data-cursor="scroll"
@@ -76,6 +85,8 @@ export function FeaturedProjects() {
                   <li
                     key={project.slug}
                     data-slide
+                    data-project-slug={project.slug}
+                    data-tech-stack={project.stack.join("|")}
                     className={cn(
                       "w-full shrink-0",
                       "group-data-[enhanced=true]/featured:h-[min(520px,calc(100svh-25rem))]",
@@ -100,7 +111,7 @@ export function FeaturedProjects() {
                 <span data-featured-counter className="text-ink">
                   01
                 </span>{" "}
-                / {total}
+                / <span data-featured-total>{total}</span>
               </p>
               <span className="relative h-px flex-1 bg-ink/10">
                 <span

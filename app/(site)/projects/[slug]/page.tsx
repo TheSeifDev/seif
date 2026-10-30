@@ -45,7 +45,6 @@ export async function generateMetadata(
     title: project.title,
     description: project.summary,
     path: `/projects/${project.slug}`,
-    keywords: [...project.domains, ...project.stack],
   });
 }
 

@@ -12,9 +12,8 @@ import { createCollectionPageGraph } from "@/lib/seo/structured-data";
 export const metadata: Metadata = createPageMetadata({
   title: "Blog",
   description:
-    "Notes on architecture, interfaces and shipping from Seif Ayman.",
+    "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
   path: "/blog",
-  keywords: ["Seif Ayman blog", "software architecture", "full stack development", "Next.js"],
 });
 
 function formatDate(value: string) {

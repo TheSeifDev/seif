@@ -175,3 +175,11 @@ The user's new direction supersedes the earlier open-ledger treatment only for H
 The University IT Club's current role is now Vice Head IT Support, starting Sep 2026 according to the user's promotion update of about one month ago. The main software-development role and verified responsibilities do not change. Public About/Journey/machine-readable summaries continue to share the same factual source.
 
 The Projects In focus panel becomes narrower and centered on desktop, targeting 84vw with a 1280px cap while retaining comfortable small-screen gutters. Keep its three case studies, readable complete content and existing sticky stack; adjust local spacing/type only as needed for fit.
+
+## Current direction — 30 October 2026: stacked Journey and tech filtering
+
+The latest user instruction supersedes Journey's separated-card scroll behavior: use the same CSS-sticky stacking model as the Projects page's In focus cards, with increasing top offsets and scroll-scrubbed scale/shade of the previous card as the next covers it. Keep the Education-inspired surfaces, four chapters and active rail, but measure scroll from non-sticky flow positions. Establish desktop flow heights before first paint and retain static, fully readable no-JS/reduced-motion and compact layouts.
+
+Enhance the existing Featured Projects section with Filter by Tech Stack sourced from verified project data. A compact accessible control and live count keep the layout calm; All retains every original case-study link in the initial HTML. Filter changes rebuild the scoped motion and refresh downstream measurements; a single result uses normal flow rather than an empty horizontal pin.
+
+Keep the actual public origin and server-rendered structured identity in SEO metadata, tighten route descriptions and preserve social/crawler consistency. Google Search Console uses the deployed URL-prefix property, an exact Google-issued HTML verification token and the public sitemap. Configuration readiness is not ownership verification: account login/verification and sitemap submission remain explicit external steps until actually completed.

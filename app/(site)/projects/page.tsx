@@ -15,9 +15,8 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "Projects",
   description:
-    "Explore Seif Ayman’s published case studies across education, healthcare, AI, IoT, analytics and full-stack web platforms.",
+    "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
   path: "/projects",
-  keywords: ["Seif Ayman projects", "full stack case studies", "AI IoT projects", "Next.js projects"],
 });
 
 export default function ProjectsPage() {

@@ -27,9 +27,8 @@ import {
 export const metadata: Metadata = createPageMetadata({
   title: "About",
   description:
-    "Learn about Seif Ayman, a Senior Full Stack Software Developer in Alexandria, Egypt, who architects and delivers production-grade platforms across web, desktop, AI and IoT.",
+    "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
   path: "/about",
-  keywords: ["Seif Ayman", "full stack developer", "software architecture", "Alexandria Egypt"],
 });
 
 const facts = [

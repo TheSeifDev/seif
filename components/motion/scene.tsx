@@ -30,7 +30,7 @@ export function Scene({ name, as = "div", children, ...rest }: SceneProps) {
         scenes[name](root);
       });
 
-      const needsInitialPinLayout = ["identity", "featured", "process"].includes(name) &&
+      const needsInitialPinLayout = ["identity", "journey", "featured", "process"].includes(name) &&
         window.matchMedia(motionQueries.stage).matches;
       // Establish desktop pin spacing before the first paint; delaying it
       // would move downstream anchors when a user jumps between sections.
