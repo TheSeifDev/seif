@@ -104,7 +104,7 @@ export function Journey({ content }: { content: SiteContent }) {
                 key={chapter.id}
                 data-chapter
                 data-active={index === 0 ? "" : undefined}
-                className="group/chapter group-data-[stacked=true]/journey:sticky group-data-[stacked=true]/journey:h-[calc(100svh-10rem)]"
+                className="group/chapter group-data-[stacked=true]/journey:sticky group-data-[stacked=true]/journey:h-[calc(100svh-12rem)]"
                 style={{
                   top: `${JOURNEY_STACK_TOP + index * JOURNEY_STACK_STEP}px`,
                 }}
@@ -126,7 +126,7 @@ export function Journey({ content }: { content: SiteContent }) {
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 -z-10 rounded-[32px] bg-[radial-gradient(300px_circle_at_var(--spot-x,30%)_var(--spot-y,0px),rgb(125_200_255/0.22),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
                   />
-                  <div className="relative flex min-h-[400px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-6 sm:min-h-[440px] sm:p-9 lg:min-h-[480px] lg:p-10 group-data-[stacked=true]/journey:h-full group-data-[stacked=true]/journey:min-h-0 short:lg:p-7">
+                  <div className="relative flex min-h-[360px] flex-col overflow-hidden rounded-[31px] bg-night-2 p-6 sm:min-h-[400px] sm:p-9 lg:min-h-[440px] lg:p-10 group-data-[stacked=true]/journey:h-full group-data-[stacked=true]/journey:min-h-0 short:lg:p-7">
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(70%_90%_at_90%_100%,rgb(77_182_255/0.12),transparent_70%)]"

@@ -18,7 +18,7 @@ export function AboutFaqSection({
   return (
     <section
       id="about-faq"
-      className={cn(aboutLightPanel, "overflow-hidden")}
+      className={cn(aboutLightPanel, "mb-12 overflow-hidden lg:mb-20")}
       aria-labelledby="about-faq-heading"
     >
       <div className={cn(container, sectionY)}>

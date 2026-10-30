@@ -146,11 +146,6 @@ export const defaultCopy: Record<string, string> = {
   "about.faq.question.3": "Is Seif available for new work?",
   "about.faq.answer.3":
     "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge.",
-  "about.next.sectionLabel": "Next step",
-  "about.next.title": "See what this approach looks like in real products.",
-  "about.next.viewProjectsCta": "View projects",
-  "about.next.startConversationCta": "Start a conversation",
-
   "projects.hero.sectionLabel": "Projects · Archive",
   "projects.hero.description":
     "Products across education, healthcare, AI, analytics and the web — each one built end to end, from schema to screen.",
