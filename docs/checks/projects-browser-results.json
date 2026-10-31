@@ -65,7 +65,7 @@
       "pressed": [
         "Healthcare01"
       ],
-      "indicator_gap": 0.203125,
+      "indicator_gap": 0.53125,
       "opacities": [
         1
       ],
@@ -77,9 +77,9 @@
         {
           "index": 0,
           "top": 96,
-          "bottom": 836,
+          "bottom": 606,
           "position": "sticky",
-          "scale": 0.9933,
+          "scale": 0.9699,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -87,9 +87,9 @@
         {
           "index": 1,
           "top": 112,
-          "bottom": 852,
+          "bottom": 622,
           "position": "sticky",
-          "scale": 0.9948,
+          "scale": 0.971,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -97,7 +97,7 @@
         {
           "index": 2,
           "top": 125.890625,
-          "bottom": 865.890625,
+          "bottom": 635.890625,
           "position": "sticky",
           "scale": 1,
           "clip": "inset(0% round 24px)",
@@ -117,9 +117,9 @@
       {
         "index": 0,
         "top": 96,
-        "bottom": 836,
+        "bottom": 606,
         "position": "sticky",
-        "scale": 0.9933,
+        "scale": 0.9699,
         "clip": "inset(0% round 24px)",
         "copyOverflow": 0,
         "clipped": []
@@ -127,9 +127,9 @@
       {
         "index": 1,
         "top": 112,
-        "bottom": 852,
+        "bottom": 622,
         "position": "sticky",
-        "scale": 0.9948,
+        "scale": 0.971,
         "clip": "inset(0% round 24px)",
         "copyOverflow": 0,
         "clipped": []
@@ -137,7 +137,7 @@
       {
         "index": 2,
         "top": 125.890625,
-        "bottom": 865.890625,
+        "bottom": 635.890625,
         "position": "sticky",
         "scale": 1,
         "clip": "inset(0% round 24px)",
@@ -148,12 +148,12 @@
     "stack_scale": {
       "after_second": [
         0.92,
-        0.995,
+        0.971,
         1
       ],
       "shade_after_second": [
         0.55,
-        0.04,
+        0.2,
         0
       ],
       "back_first": [
@@ -161,7 +161,7 @@
         1,
         1
       ],
-      "clip_first": "inset(2.5263% 1.8947% round 24px)"
+      "clip_first": "inset(3.193% 2.3947% round 24px)"
     },
     "cta": {
       "text": "Have a product worth building?"
@@ -176,9 +176,9 @@
         {
           "index": 0,
           "top": 96,
-          "bottom": 696,
+          "bottom": 556,
           "position": "sticky",
-          "scale": 0.9919,
+          "scale": 0.9746,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -186,9 +186,9 @@
         {
           "index": 1,
           "top": 112,
-          "bottom": 712,
+          "bottom": 572,
           "position": "sticky",
-          "scale": 0.9937,
+          "scale": 0.9759,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -196,7 +196,7 @@
         {
           "index": 2,
           "top": 125.6875,
-          "bottom": 725.6875,
+          "bottom": 585.6875,
           "position": "sticky",
           "scale": 1,
           "clip": "inset(0% round 24px)",
@@ -212,9 +212,9 @@
         {
           "index": 0,
           "top": 96,
-          "bottom": 704,
+          "bottom": 556,
           "position": "sticky",
-          "scale": 0.992,
+          "scale": 0.9739,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -222,9 +222,9 @@
         {
           "index": 1,
           "top": 112,
-          "bottom": 720,
+          "bottom": 572,
           "position": "sticky",
-          "scale": 0.9938,
+          "scale": 0.9753,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -232,7 +232,7 @@
         {
           "index": 2,
           "top": 126.078125,
-          "bottom": 734.078125,
+          "bottom": 586.078125,
           "position": "sticky",
           "scale": 1,
           "clip": "inset(0% round 24px)",
@@ -248,9 +248,9 @@
         {
           "index": 0,
           "top": 96,
-          "bottom": 1016,
+          "bottom": 606,
           "position": "sticky",
-          "scale": 0.9945,
+          "scale": 0.9607,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -258,17 +258,17 @@
         {
           "index": 1,
           "top": 112,
-          "bottom": 1032,
+          "bottom": 622,
           "position": "sticky",
-          "scale": 0.9958,
+          "scale": 0.9613,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
         },
         {
           "index": 2,
-          "top": 125.65625,
-          "bottom": 1045.65625,
+          "top": 126.46875,
+          "bottom": 636.46875,
           "position": "sticky",
           "scale": 1,
           "clip": "inset(0% round 24px)",

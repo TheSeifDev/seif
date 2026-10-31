@@ -293,7 +293,11 @@ with sync_playwright() as p:
     scroll_to(page, stack_top + height - 112 + 2, 900)
     after_second = page.evaluate(STACK_JS)
     page.screenshot(path=str(SHOTS / "projects-1440-stack-2.png"))
-    scroll_to(page, stack_top - 360, 1100)
+    # Scroll back to where card 2 is still just below the viewport bottom. The old fixed
+    # `stack_top - 360` assumed ~740px cards; with the shorter 510px cards card 2 is already
+    # inside the viewport (and legitimately settling card 1) at that offset.
+    viewport_h = page.evaluate("() => innerHeight")
+    scroll_to(page, stack_top + height - viewport_h - 8, 1100)
     back_first = page.evaluate(STACK_JS)
     page.screenshot(path=str(SHOTS / "projects-1440-stack-1.png"))
     d["stack_scale"] = {"after_second": [round(c["scale"], 3) for c in after_second],

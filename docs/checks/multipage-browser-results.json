@@ -33,7 +33,6 @@
       "motion": {
         "triggers": [
           "about-page-principles",
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
@@ -53,12 +52,14 @@
           "about-page-role-1-point-3",
           "about-page-role-1-point-4",
           "about-page-role-1-point-5",
+          "about-page-role-1-progress",
           "about-page-role-1-stack",
           "about-page-role-2-marquee",
           "about-page-role-2-meta",
           "about-page-role-2-point-1",
           "about-page-role-2-point-2",
           "about-page-role-2-point-3",
+          "about-page-role-2-progress",
           "about-page-edu-card",
           "about-page-edu-kanji",
           "about-page-edu-degree",
@@ -215,10 +216,10 @@
       "04"
     ],
     "featured_x": [
-      -1.8934,
-      -653.5,
-      -1335.79,
-      -1927.15
+      -1.7328,
+      -603.898,
+      -1285.66,
+      -1877.34
     ],
     "featured_current": [
       0,
@@ -226,7 +227,7 @@
       1,
       2
     ],
-    "featured_last_slide_right": 1320.876220703125,
+    "featured_last_slide_right": 1329.4229736328125,
     "more_cards": 3,
     "more_live_links": 2,
     "more_repo_links": 1,
@@ -237,18 +238,12 @@
       3
     ],
     "process_active_after_reverse": 0,
-    "errors": [],
-    "initial_layout_policy_recheck": {
-      "passed": true,
-      "eagerJourneyIsBaselineBehavior": true,
-      "distantCtaRemainsDeferred": true
-    }
+    "errors": []
   },
   "navigation": {
     "about_after_home": {
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -268,12 +263,14 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
+        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
+        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -353,7 +350,6 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
@@ -373,12 +369,14 @@
           "about-page-role-1-point-3",
           "about-page-role-1-point-4",
           "about-page-role-1-point-5",
+          "about-page-role-1-progress",
           "about-page-role-1-stack",
           "about-page-role-2-marquee",
           "about-page-role-2-meta",
           "about-page-role-2-point-1",
           "about-page-role-2-point-2",
           "about-page-role-2-point-3",
+          "about-page-role-2-progress",
           "about-page-edu-card",
           "about-page-edu-kanji",
           "about-page-edu-degree",
@@ -493,7 +491,6 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
@@ -513,12 +510,14 @@
           "about-page-role-1-point-3",
           "about-page-role-1-point-4",
           "about-page-role-1-point-5",
+          "about-page-role-1-progress",
           "about-page-role-1-stack",
           "about-page-role-2-marquee",
           "about-page-role-2-meta",
           "about-page-role-2-point-1",
           "about-page-role-2-point-2",
           "about-page-role-2-point-3",
+          "about-page-role-2-progress",
           "about-page-edu-card",
           "about-page-edu-kanji",
           "about-page-edu-degree",

@@ -6,6 +6,7 @@ import { headers as nextHeaders } from "next/headers";
 import { getDb } from "@/lib/db/client";
 import { account as authAccount, authSchema } from "@/lib/auth/schema";
 import { getSiteOrigin, siteUrl } from "@/lib/seo/metadata";
+import { assertSiteOriginIsolation } from "@/lib/config/environment-guard";
 
 const REQUIRED_ENVIRONMENT_VARIABLES = [
   "BETTER_AUTH_SECRET",
@@ -48,6 +49,7 @@ function createAuth() {
   if (!database) return null;
 
   const origin = getSiteOrigin();
+  assertSiteOriginIsolation(origin);
   const frontendIsHttps = new URL(origin).protocol === "https:";
   const secret = process.env.BETTER_AUTH_SECRET!.trim();
   const clientId = process.env.GITHUB_CLIENT_ID!.trim();

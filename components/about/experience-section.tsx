@@ -5,8 +5,16 @@ import type { SiteContent } from "@/lib/cms/schema";
 import { getCopy } from "@/lib/cms/copy";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
+
 const pad = (value: number) => String(value).padStart(2, "0");
+
 type Role = SiteContent["experience"][number];
+
+/**
+ * 02 Experience — one chapter per role. Motion hooks (`data-role-*`) are
+ * driven by `components/about/about-scenes.ts`; without motion every
+ * statement is fully visible.
+ */
 export function ExperienceSection({ content }: { content: SiteContent }) {
   const { experience, copy } = content;
   const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
@@ -37,6 +45,7 @@ export function ExperienceSection({ content }: { content: SiteContent }) {
           )}
         />
       </div>
+
       <div className="mt-14 lg:mt-20">
         {experience.map((role, index) => (
           <RoleChapter
@@ -51,6 +60,7 @@ export function ExperienceSection({ content }: { content: SiteContent }) {
     </section>
   );
 }
+
 function RoleChapter({
   role,
   index,
@@ -64,6 +74,7 @@ function RoleChapter({
 }) {
   const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   const headingId = `role-${index + 1}-title`;
+
   return (
     <article
       data-role
@@ -71,6 +82,7 @@ function RoleChapter({
       className="relative border-t border-white/[0.07] pb-24 lg:pb-36"
       aria-labelledby={headingId}
     >
+      {/* Oversized outline organisation name — drifts with scroll. */}
       <div
         aria-hidden="true"
         className="pointer-events-none overflow-hidden py-8 lg:py-12"
@@ -86,6 +98,7 @@ function RoleChapter({
           {role.organization}
         </p>
       </div>
+
       <div className={cn(container, "grid gap-12 lg:grid-cols-12 lg:gap-10")}>
         <header className="lg:col-span-5 xl:col-span-4">
           <div className="lg:sticky lg:top-28">
@@ -105,6 +118,7 @@ function RoleChapter({
             <p className="mt-4 text-[15px] font-medium text-sky">
               {role.organization}
             </p>
+
             <dl className="mt-9 grid grid-cols-2 border-y border-white/[0.08]">
               <div className="py-4 pr-4">
                 <dt className={cn(label, "text-mist")}>
@@ -123,8 +137,30 @@ function RoleChapter({
                 </dd>
               </div>
             </dl>
+
+            <div
+              aria-hidden="true"
+              className="mt-8 hidden items-center gap-4 lg:flex"
+            >
+              <span
+                data-role-counter
+                className="w-6 font-mono text-[12px] tabular-nums tracking-[0.12em] text-snow"
+              >
+                01
+              </span>
+              <span className="relative h-px flex-1 overflow-hidden bg-white/10">
+                <span
+                  data-role-fill
+                  className="absolute inset-0 origin-left bg-sky [transform:scaleX(0)]"
+                />
+              </span>
+              <span className="font-mono text-[12px] tabular-nums tracking-[0.12em] text-mist">
+                {pad(role.points.length)}
+              </span>
+            </div>
           </div>
         </header>
+
         <div className="lg:col-span-7 xl:col-start-6">
           <ol
             data-role-points
@@ -151,6 +187,7 @@ function RoleChapter({
               </li>
             ))}
           </ol>
+
           {role.stack.length > 0 ? (
             <div className="mt-10 lg:pl-[3.25rem]">
               <p className={cn(label, "text-mist")}>

@@ -394,15 +394,14 @@ with sync_playwright() as p:
         attach_errors(page, errors)
         page.goto(BASE + "/", wait_until="load")
         settle(page, 800)
-        m = motion(page)
-        ids = (m or {}).get("triggers", [])
-        info = {"motion": m, "errors": errors}
-        if ids.count("identity-reveal") != 1 or "identity-sequence" in ids:
-            fail(f"{label}: expected one identity-reveal and no pin ({ids})")
         top = page.evaluate("() => document.getElementById('identity').getBoundingClientRect().top + scrollY")
         height = page.evaluate("() => document.getElementById('identity').offsetHeight")
-        info["section_height"] = height
         scroll_to(page, top - vp["height"] * 0.1, 1200)
+        m = motion(page)
+        ids = (m or {}).get("triggers", [])
+        info = {"motion": m, "errors": errors, "section_height": height}
+        if ids.count("identity-reveal") != 1 or "identity-sequence" in ids:
+            fail(f"{label}: expected one identity-reveal and no pin ({ids})")
         page.screenshot(path=str(SHOTS / f"identity-{label}-start.png"))
         scroll_to(page, top + height * 0.35, 1200)
         page.screenshot(path=str(SHOTS / f"identity-{label}-mid.png"))
@@ -466,3 +465,4 @@ with sync_playwright() as p:
 (OUT / "identity-browser-results.json").write_text(json.dumps(results, indent=2, default=str))
 print(json.dumps({k: results[k] for k in ("webgl", "no_webgl")}, indent=1, default=str)[:3000])
 print("FAILURES:", len(results["failures"]))
+raise SystemExit(1 if results["failures"] else 0)

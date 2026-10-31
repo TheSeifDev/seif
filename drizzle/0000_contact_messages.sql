@@ -1,4 +1,4 @@
-CREATE TABLE "contact_messages" (
+CREATE TABLE IF NOT EXISTS "contact_messages" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
@@ -11,4 +11,4 @@ CREATE TABLE "contact_messages" (
 	"read_at" timestamp with time zone
 );
 --> statement-breakpoint
-CREATE INDEX "contact_messages_ip_hash_created_at_idx" ON "contact_messages" USING btree ("ip_hash","created_at");
+CREATE INDEX IF NOT EXISTS "contact_messages_ip_hash_created_at_idx" ON "contact_messages" USING btree ("ip_hash","created_at");

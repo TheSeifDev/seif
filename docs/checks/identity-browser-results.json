@@ -4,28 +4,32 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-heading",
-          "about-statement",
-          "about-principles",
           "hero-overlap",
           "identity-sequence",
+          "journey-card-1",
+          "journey-stack-1",
+          "journey-card-2",
+          "journey-stack-2",
+          "journey-card-3",
+          "journey-stack-3",
+          "journey-card-4",
           "journey-rail",
           "featured-horizontal",
-          "more-cards",
           "process-pin",
-          "connect-parallax",
-          "connect-heading"
+          "about-heading",
+          "about-statement",
+          "about-principles"
         ],
         "pins": 3
       },
       "box": {
-        "top": 2317.390625,
+        "top": 2419.53125,
         "spacer": 3780,
         "pinH": 900,
-        "journey": 6097.390625,
+        "journey": 6199.53125,
         "vh": 900
       },
-      "after_release_pin_top": -539.609375,
+      "after_release_pin_top": -540.46875,
       "down": {
         "0.0": {
           "sequence": "pinned",
@@ -40,12 +44,12 @@
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -79,27 +83,27 @@
             "frames": 1,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.08": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "t": "matrix(1, 0, 0, 1, 0, 26.9615)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "t": "matrix(1, 0, 0, 1, 0, 26.9615)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -114,12 +118,12 @@
             "clip": "none"
           },
           "lines": [
-            "matrix(1, 0, 0, 1, 0, 0.596951)",
-            "matrix(1, 0, 0, 1, 0, 23.7125)",
+            "matrix(1, 0, 0, 1, 0, 0.625283)",
+            "matrix(1, 0, 0, 1, 0, 24.1556)",
             "matrix(1, 0, 0, 1, 0, 110.95)",
             "matrix(1, 0, 0, 1, 0, 110.95)"
           ],
-          "kicker": "1",
+          "kicker": "0.9983",
           "caption": "0",
           "next": "0",
           "moonWrap": "0",
@@ -133,27 +137,27 @@
             "frames": 1,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.18": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "t": "matrix(1, 0, 0, 1, 0, 10.6349)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "t": "matrix(1, 0, 0, 1, 0, 10.6349)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -170,8 +174,8 @@
           "lines": [
             "matrix(1, 0, 0, 1, 0, 0)",
             "matrix(1, 0, 0, 1, 0, 0)",
-            "matrix(1, 0, 0, 1, 0, 0.116299)",
-            "matrix(1, 0, 0, 1, 0, 13.3549)"
+            "matrix(1, 0, 0, 1, 0, 0.124621)",
+            "matrix(1, 0, 0, 1, 0, 13.6434)"
           ],
           "kicker": "1",
           "caption": "0",
@@ -187,7 +191,7 @@
             "frames": 1,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.3": {
           "sequence": "pinned",
@@ -202,12 +206,12 @@
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -241,27 +245,27 @@
             "frames": 1,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.4": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "t": "matrix(0.7004, 0, 0, 0.7004, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "t": "matrix(0.7004, 0, 0, 0.7004, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -295,27 +299,27 @@
             "frames": 1,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.5": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 122.918)",
+            "t": "matrix(1, 0, 0, 1, 0, 120.763)",
             "o": "0.936",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -113.437)",
+            "t": "matrix(1, 0, 0, 1, 0, -111.282)",
             "o": "0.7254",
             "clip": "none"
           },
@@ -346,30 +350,30 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 5,
+            "frames": 13,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.62": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 118.971)",
             "o": "1",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -118.971)",
             "o": "1",
             "clip": "none"
           },
@@ -393,37 +397,37 @@
           "caption": "1",
           "next": "0",
           "moonWrap": "1",
-          "disc": "matrix(1, 0, 0, 1, 0, 76.9756)",
-          "rise": "0.6335",
+          "disc": "matrix(1, 0, 0, 1, 0, 77.4224)",
+          "rise": "0.6314",
           "exit": "0.0000",
           "renderer": "webgl",
           "canvas": {
-            "rise": "0.634",
+            "rise": "0.631",
             "exit": "0.000",
-            "frames": 10,
+            "frames": 31,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.77": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 118.971)",
             "o": "1",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -118.971)",
             "o": "1",
             "clip": "none"
           },
@@ -454,36 +458,36 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 13,
+            "frames": 36,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.86": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -4.9763)",
-            "o": "0.921",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -4.8906)",
+            "o": "0.9224",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -3.2411)",
-            "o": "0.9486",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -3.1767)",
+            "o": "0.9496",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 113.224)",
-            "o": "0.8746",
+            "t": "matrix(1, 0, 0, 1, 0, 111.205)",
+            "o": "0.8767",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -129.029)",
-            "o": "0.8746",
+            "t": "matrix(1, 0, 0, 1, 0, -126.737)",
+            "o": "0.8767",
             "clip": "none"
           },
           "portrait": {
-            "t": "matrix(1, 0, 0, 1, 0, -0.9895)",
-            "o": "0.9843",
+            "t": "matrix(1, 0, 0, 1, 0, -0.964)",
+            "o": "0.9847",
             "clip": "inset(0%)"
           },
           "img": {
@@ -497,41 +501,41 @@
             "matrix(1, 0, 0, 1, 0, 0)",
             "matrix(1, 0, 0, 1, 0, 0)"
           ],
-          "kicker": "0.2491",
-          "caption": "0.2491",
-          "next": "0.0009",
+          "kicker": "0.2535",
+          "caption": "0.2535",
+          "next": "0",
           "moonWrap": "1",
-          "disc": "matrix(1, 0, 0, 1, 0, -8.01592)",
+          "disc": "matrix(1, 0, 0, 1, 0, -7.92303)",
           "rise": "1.0000",
-          "exit": "0.0902",
+          "exit": "0.0892",
           "renderer": "webgl",
           "canvas": {
             "rise": "1.000",
-            "exit": "0.090",
-            "frames": 18,
+            "exit": "0.089",
+            "frames": 51,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.95": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, 55.9713)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -181.971)",
             "o": "0",
             "clip": "none"
           },
@@ -562,30 +566,30 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.562",
-            "frames": 23,
+            "frames": 68,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "1.0": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, 55.9713)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -181.971)",
             "o": "0",
             "clip": "none"
           },
@@ -616,32 +620,32 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 29,
+            "frames": 87,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         }
       },
       "up": {
         "1.0": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, 55.9713)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -181.971)",
             "o": "0",
             "clip": "none"
           },
@@ -672,30 +676,30 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 34,
+            "frames": 87,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.95": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -63)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -63)",
             "o": "0",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 58.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, 55.9713)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -184.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -181.971)",
             "o": "0",
             "clip": "none"
           },
@@ -726,36 +730,36 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 39,
+            "frames": 103,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.86": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -4.9763)",
-            "o": "0.921",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -4.8906)",
+            "o": "0.9224",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, -3.2411)",
-            "o": "0.9486",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, -3.1767)",
+            "o": "0.9496",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 113.224)",
-            "o": "0.8746",
+            "t": "matrix(1, 0, 0, 1, 0, 111.205)",
+            "o": "0.8767",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -129.029)",
-            "o": "0.8746",
+            "t": "matrix(1, 0, 0, 1, 0, -126.737)",
+            "o": "0.8767",
             "clip": "none"
           },
           "portrait": {
-            "t": "matrix(1, 0, 0, 1, 0, -0.9895)",
-            "o": "0.9843",
+            "t": "matrix(1, 0, 0, 1, 0, -0.964)",
+            "o": "0.9847",
             "clip": "inset(0%)"
           },
           "img": {
@@ -769,41 +773,41 @@
             "matrix(1, 0, 0, 1, 0, 0)",
             "matrix(1, 0, 0, 1, 0, 0)"
           ],
-          "kicker": "0.2491",
-          "caption": "0.2491",
-          "next": "0.0009",
+          "kicker": "0.2535",
+          "caption": "0.2535",
+          "next": "0",
           "moonWrap": "1",
-          "disc": "matrix(1, 0, 0, 1, 0, -8.01592)",
+          "disc": "matrix(1, 0, 0, 1, 0, -7.92303)",
           "rise": "1.0000",
-          "exit": "0.0902",
+          "exit": "0.0892",
           "renderer": "webgl",
           "canvas": {
             "rise": "1.000",
-            "exit": "0.090",
-            "frames": 44,
+            "exit": "0.089",
+            "frames": 117,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.77": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 118.971)",
             "o": "1",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -118.971)",
             "o": "1",
             "clip": "none"
           },
@@ -834,30 +838,30 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 46,
+            "frames": 121,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.62": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 118.971)",
             "o": "1",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -121.126)",
+            "t": "matrix(1, 0, 0, 1, 0, -118.971)",
             "o": "1",
             "clip": "none"
           },
@@ -881,37 +885,37 @@
           "caption": "1",
           "next": "0",
           "moonWrap": "1",
-          "disc": "matrix(1, 0, 0, 1, 0, 76.9756)",
-          "rise": "0.6335",
+          "disc": "matrix(1, 0, 0, 1, 0, 77.4224)",
+          "rise": "0.6314",
           "exit": "0.0000",
           "renderer": "webgl",
           "canvas": {
-            "rise": "0.634",
+            "rise": "0.631",
             "exit": "0.000",
-            "frames": 53,
+            "frames": 140,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.5": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.4112, 0, 0, 0.4112, 0, 0)",
+            "t": "matrix(0.4008, 0, 0, 0.4008, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 122.918)",
+            "t": "matrix(1, 0, 0, 1, 0, 120.763)",
             "o": "0.936",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -113.437)",
+            "t": "matrix(1, 0, 0, 1, 0, -111.282)",
             "o": "0.7254",
             "clip": "none"
           },
@@ -942,30 +946,30 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 58,
+            "frames": 155,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.4": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "t": "matrix(0.7004, 0, 0, 0.7004, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(0.7056, 0, 0, 0.7056, 0, 0)",
+            "t": "matrix(0.7004, 0, 0, 0.7004, 0, 0)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -996,10 +1000,10 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 157,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.3": {
           "sequence": "pinned",
@@ -1014,12 +1018,12 @@
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -1050,30 +1054,30 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 157,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.18": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "t": "matrix(1, 0, 0, 1, 0, 10.6349)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(1, 0, 0, 1, 0, 10.5783)",
+            "t": "matrix(1, 0, 0, 1, 0, 10.6349)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -1090,8 +1094,8 @@
           "lines": [
             "matrix(1, 0, 0, 1, 0, 0)",
             "matrix(1, 0, 0, 1, 0, 0)",
-            "matrix(1, 0, 0, 1, 0, 0.116299)",
-            "matrix(1, 0, 0, 1, 0, 13.3549)"
+            "matrix(1, 0, 0, 1, 0, 0.124621)",
+            "matrix(1, 0, 0, 1, 0, 13.6434)"
           ],
           "kicker": "1",
           "caption": "0",
@@ -1104,30 +1108,30 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 157,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.08": {
           "sequence": "pinned",
           "halfA": {
-            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "t": "matrix(1, 0, 0, 1, 0, 26.9615)",
             "o": "1",
             "clip": "none"
           },
           "halfB": {
-            "t": "matrix(1, 0, 0, 1, 0, 26.9048)",
+            "t": "matrix(1, 0, 0, 1, 0, 26.9615)",
             "o": "1",
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -1142,12 +1146,12 @@
             "clip": "none"
           },
           "lines": [
-            "matrix(1, 0, 0, 1, 0, 0.596951)",
-            "matrix(1, 0, 0, 1, 0, 23.7125)",
+            "matrix(1, 0, 0, 1, 0, 0.625283)",
+            "matrix(1, 0, 0, 1, 0, 24.1556)",
             "matrix(1, 0, 0, 1, 0, 110.95)",
             "matrix(1, 0, 0, 1, 0, 110.95)"
           ],
-          "kicker": "1",
+          "kicker": "0.9983",
           "caption": "0",
           "next": "0",
           "moonWrap": "0",
@@ -1158,10 +1162,10 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 157,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         },
         "0.0": {
           "sequence": "pinned",
@@ -1176,12 +1180,12 @@
             "clip": "none"
           },
           "copyA": {
-            "t": "matrix(1, 0, 0, 1, 0, 149.126)",
+            "t": "matrix(1, 0, 0, 1, 0, 146.971)",
             "o": "0",
             "clip": "none"
           },
           "copyB": {
-            "t": "matrix(1, 0, 0, 1, 0, -93.1264)",
+            "t": "matrix(1, 0, 0, 1, 0, -90.9713)",
             "o": "0",
             "clip": "none"
           },
@@ -1212,10 +1216,10 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 60,
+            "frames": 157,
             "dpr": "1"
           },
-          "pinTop": 0.390625
+          "pinTop": -0.46875
         }
       },
       "reverse_mismatches": []
@@ -1224,17 +1228,21 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-heading",
-          "about-statement",
-          "about-principles",
           "hero-overlap",
           "identity-sequence",
+          "journey-card-1",
+          "journey-stack-1",
+          "journey-card-2",
+          "journey-stack-2",
+          "journey-card-3",
+          "journey-stack-3",
+          "journey-card-4",
           "journey-rail",
           "featured-horizontal",
-          "more-cards",
           "process-pin",
-          "connect-parallax",
-          "connect-heading"
+          "about-heading",
+          "about-statement",
+          "about-principles"
         ],
         "pins": 3
       },
@@ -1250,17 +1258,21 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-heading",
-          "about-statement",
-          "about-principles",
           "hero-overlap",
           "identity-sequence",
+          "journey-card-1",
+          "journey-stack-1",
+          "journey-card-2",
+          "journey-stack-2",
+          "journey-card-3",
+          "journey-stack-3",
+          "journey-card-4",
           "journey-rail",
           "featured-horizontal",
-          "more-cards",
           "process-pin",
-          "connect-parallax",
-          "connect-heading"
+          "about-heading",
+          "about-statement",
+          "about-principles"
         ],
         "pins": 3
       },
@@ -1276,25 +1288,29 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-heading",
-          "about-statement",
-          "about-principles",
           "hero-overlap",
           "identity-sequence",
+          "journey-card-1",
+          "journey-stack-1",
+          "journey-card-2",
+          "journey-stack-2",
+          "journey-card-3",
+          "journey-stack-3",
+          "journey-card-4",
           "journey-rail",
           "featured-horizontal",
-          "more-cards",
           "process-pin",
-          "connect-parallax",
-          "connect-heading"
+          "about-heading",
+          "about-statement",
+          "about-principles"
         ],
         "pins": 3
       },
       "box": {
-        "top": 2269.640625,
+        "top": 2360.109375,
         "spacer": 3226,
         "pinH": 768,
-        "journey": 5495.640625,
+        "journey": 5586.109375,
         "vh": 768
       }
     }
@@ -1305,47 +1321,47 @@
       "vh": 900,
       "halfA": {
         "l": 57.59375,
-        "t": 136.390625,
-        "r": 532.632568359375,
-        "b": 221.63751220703125,
-        "w": 475.038818359375,
-        "h": 85.24688720703125
+        "t": 135.53125,
+        "r": 532.5291748046875,
+        "b": 218.62210083007812,
+        "w": 474.9354248046875,
+        "h": 83.09085083007812
       },
       "halfB": {
-        "l": 1063.1416015625,
-        "t": 707.1437377929688,
+        "l": 1080.203125,
+        "t": 708.4404296875,
         "r": 1382.40625,
-        "b": 792.390625,
-        "w": 319.2646484375,
-        "h": 85.24688720703125
+        "b": 791.53125,
+        "w": 302.203125,
+        "h": 83.0908203125
       },
       "copyA": {
         "l": 57.59375,
-        "t": 257.51702880859375,
+        "t": 254.50254821777344,
         "r": 393.59375,
-        "b": 458.51702880859375,
+        "b": 481.7525634765625,
         "w": 336,
-        "h": 201
+        "h": 227.25001525878906
       },
       "copyB": {
         "l": 1046.40625,
-        "t": 470.26422119140625,
+        "t": 471.5599365234375,
         "r": 1382.40625,
-        "b": 671.2642211914062,
+        "b": 672.5599365234375,
         "w": 336,
         "h": 201
       },
       "figure": {
         "l": 482.40625,
-        "t": 266.796875,
+        "t": 265.9375,
         "r": 957.59375,
-        "b": 900.390625,
+        "b": 899.53125,
         "w": 475.1875,
         "h": 633.59375
       },
       "moon": {
         "cx": 734.25,
-        "cy": 377.671875,
+        "cy": 376.8125,
         "r": 173.6796875
       },
       "img": {
@@ -1355,9 +1371,9 @@
         ],
         "box": {
           "l": 482.40625,
-          "t": 266.796875,
+          "t": 265.9375,
           "r": 957.59375,
-          "b": 900.390625,
+          "b": 899.53125,
           "w": 475.1875,
           "h": 633.59375
         },
@@ -1373,26 +1389,26 @@
       "halfA": {
         "l": 76.796875,
         "t": 162.421875,
-        "r": 649.6702880859375,
+        "r": 664.3374633789062,
         "b": 265.22998046875,
-        "w": 572.8734130859375,
+        "w": 587.5405883789062,
         "h": 102.80810546875
       },
       "halfB": {
-        "l": 1458.1878662109375,
+        "l": 1469.3441162109375,
         "t": 848.02001953125,
         "r": 1843.203125,
         "b": 950.828125,
-        "w": 385.0152587890625,
+        "w": 373.8590087890625,
         "h": 102.80810546875
       },
       "copyA": {
         "l": 76.796875,
         "t": 301.3218688964844,
         "r": 412.796875,
-        "b": 502.3218688964844,
+        "b": 528.5718994140625,
         "w": 336,
-        "h": 201
+        "h": 227.25003051757812
       },
       "copyB": {
         "l": 1507.203125,
@@ -1440,32 +1456,32 @@
       "halfA": {
         "l": 51.1875,
         "t": 135.703125,
-        "r": 470.2679443359375,
-        "b": 210.92105102539062,
-        "w": 419.0804443359375,
-        "h": 75.21792602539062
+        "r": 470.4058837890625,
+        "b": 209.05950927734375,
+        "w": 419.2183837890625,
+        "h": 73.35638427734375
       },
       "halfB": {
-        "l": 947.1597290039062,
-        "t": 628.4852294921875,
+        "l": 962.0654296875,
+        "t": 630.3467407226562,
         "r": 1228.8125,
         "b": 703.703125,
-        "w": 281.65277099609375,
-        "h": 75.2178955078125
+        "w": 266.7470703125,
+        "h": 73.35638427734375
       },
       "copyA": {
         "l": 51.1875,
-        "t": 246.79022216796875,
+        "t": 244.93621826171875,
         "r": 387.1875,
-        "b": 447.79022216796875,
+        "b": 472.18621826171875,
         "w": 336,
-        "h": 201
+        "h": 227.25
       },
       "copyB": {
         "l": 892.8125,
-        "t": 391.61602783203125,
+        "t": 393.47003173828125,
         "r": 1228.8125,
-        "b": 592.6160278320312,
+        "b": 594.4700317382812,
         "w": 336,
         "h": 201
       },
@@ -1506,47 +1522,47 @@
       "vh": 768,
       "halfA": {
         "l": 48,
-        "t": 135.640625,
-        "r": 370.8310852050781,
-        "b": 193.5712890625,
-        "w": 322.8310852050781,
-        "h": 57.9306640625
+        "t": 136.109375,
+        "r": 370.48455810546875,
+        "b": 192.52174377441406,
+        "w": 322.48455810546875,
+        "h": 56.41236877441406
       },
       "halfB": {
-        "l": 759.0333251953125,
-        "t": 617.5537109375,
+        "l": 770.801025390625,
+        "t": 619.540771484375,
         "r": 976,
-        "b": 675.484375,
-        "w": 216.9666748046875,
-        "h": 57.9306640625
+        "b": 675.953125,
+        "w": 205.198974609375,
+        "h": 56.412353515625
       },
       "copyA": {
         "l": 48,
-        "t": 229.40792846679688,
+        "t": 228.36917114257812,
         "r": 311.03125,
-        "b": 482.9079284667969,
+        "b": 481.8691711425781,
         "w": 263.03125,
         "h": 253.5
       },
       "copyB": {
         "l": 712.96875,
-        "t": 354.4670715332031,
+        "t": 330.1933288574219,
         "r": 976,
-        "b": 581.717041015625,
+        "b": 583.693359375,
         "w": 263.03125,
-        "h": 227.24996948242188
+        "h": 253.50003051757812
       },
       "figure": {
         "l": 343.046875,
-        "t": 317.09375,
+        "t": 317.5625,
         "r": 680.953125,
-        "b": 767.640625,
+        "b": 768.109375,
         "w": 337.90625,
         "h": 450.546875
       },
       "moon": {
         "cx": 522.125,
-        "cy": 395.9375,
+        "cy": 396.40625,
         "r": 123.5040625
       },
       "img": {
@@ -1556,9 +1572,9 @@
         ],
         "box": {
           "l": 343.046875,
-          "t": 317.09375,
+          "t": 317.5625,
           "r": 680.953125,
-          "b": 767.640625,
+          "b": 768.109375,
           "w": 337.90625,
           "h": 450.546875
         },
@@ -1572,15 +1588,15 @@
   "webgl": {
     "canvas_at_page_top": false,
     "navigator": {
-      "deviceMemory": 16,
-      "cores": 6
+      "deviceMemory": 8,
+      "cores": 12
     },
     "1440x900": {
       "renderer": "webgl",
       "canvas": {
         "rise": "1.000",
         "exit": "0.000",
-        "frames": 62,
+        "frames": 163,
         "dpr": "1"
       },
       "idle_frames_added": 0
@@ -1647,26 +1663,18 @@
       "exit": null,
       "renderer": "fallback",
       "canvas": null,
-      "pinTop": 96.390625
+      "pinTop": 95.53125
     },
     "errors": []
   },
   "mobile": {
     "motion": {
       "triggers": [
+        "hero-parallax",
         "about-heading",
         "about-statement",
         "about-principles",
-        "hero-parallax",
-        "identity-reveal",
-        "journey-rail",
-        "featured-reveal-1",
-        "featured-reveal-2",
-        "featured-reveal-3",
-        "more-cards",
-        "process-line",
-        "connect-parallax",
-        "connect-heading"
+        "identity-reveal"
       ],
       "pins": 0
     },
@@ -1719,26 +1727,18 @@
       "exit": null,
       "renderer": "fallback",
       "canvas": null,
-      "pinTop": -860.703125
+      "pinTop": -860.734375
     },
     "overflow": 0
   },
   "short": {
     "motion": {
       "triggers": [
+        "hero-parallax",
         "about-heading",
         "about-statement",
         "about-principles",
-        "hero-parallax",
-        "identity-reveal",
-        "journey-rail",
-        "featured-reveal-1",
-        "featured-reveal-2",
-        "featured-reveal-3",
-        "more-cards",
-        "process-line",
-        "connect-parallax",
-        "connect-heading"
+        "identity-reveal"
       ],
       "pins": 0
     },
@@ -1798,17 +1798,21 @@
   "navigation": {
     "home": {
       "triggers": [
-        "about-heading",
-        "about-statement",
-        "about-principles",
         "hero-overlap",
         "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
         "journey-rail",
         "featured-horizontal",
-        "more-cards",
         "process-pin",
-        "connect-parallax",
-        "connect-heading"
+        "about-heading",
+        "about-statement",
+        "about-principles"
       ],
       "pins": 3
     },
@@ -1816,14 +1820,17 @@
     "about": {
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
-        "about-reveal-2",
-        "about-reveal-3",
-        "about-reveal-4",
-        "about-portrait",
+        "about-page-hero-scroll",
+        "about-page-introduction-heading",
+        "about-page-introduction-reveal",
+        "about-page-introduction-portrait",
+        "about-page-experience-title",
         "about-page-experience-meta",
+        "about-page-education-title",
         "about-page-education-meta",
+        "about-page-capabilities-title",
         "about-page-capabilities-meta",
+        "about-page-principles-title",
         "about-page-principles-meta",
         "about-page-role-1-marquee",
         "about-page-role-1-meta",
@@ -1842,6 +1849,7 @@
         "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
+        "about-page-edu-degree",
         "about-page-edu-group-1",
         "about-page-edu-group-2",
         "about-page-cap-1",
@@ -1859,29 +1867,28 @@
         "about-page-cap-13",
         "about-page-cap-14",
         "about-page-cap-15",
-        "about-page-principles-enter",
-        "about-page-experience-title",
-        "about-page-education-title",
-        "about-page-capabilities-title",
-        "about-page-principles-title",
-        "about-page-edu-degree"
+        "about-page-principles-enter"
       ],
       "pins": 1
     },
     "canvases_on_about": 0,
     "back": {
       "triggers": [
-        "about-heading",
-        "about-statement",
-        "about-principles",
         "hero-overlap",
         "identity-sequence",
+        "journey-card-1",
+        "journey-stack-1",
+        "journey-card-2",
+        "journey-stack-2",
+        "journey-card-3",
+        "journey-stack-3",
+        "journey-card-4",
         "journey-rail",
         "featured-horizontal",
-        "more-cards",
         "process-pin",
-        "connect-parallax",
-        "connect-heading"
+        "about-heading",
+        "about-statement",
+        "about-principles"
       ],
       "pins": 3
     },
