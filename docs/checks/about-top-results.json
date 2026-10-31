@@ -41,7 +41,6 @@
       ],
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -61,14 +60,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -96,40 +93,40 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 8.4259,
-          "summaryY": 18.7822
+          "headingY": 30.7407,
+          "summaryY": 18.8689
         },
         "scrolled": {
           "titleY": -11.8227,
           "backgroundY": -0.180301,
-          "headingY": 0,
-          "summaryY": 13.1405
+          "headingY": 2.963,
+          "summaryY": 13.3085
         },
         "returned": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 8.4259,
-          "summaryY": 18.7822
+          "headingY": 30.7408,
+          "summaryY": 18.8689
         }
       },
       "introStates": {
         "before": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 28.7037,
-          "summaryY": 18.7822
+          "headingY": 30.7408,
+          "summaryY": 18.8689
         },
         "after": {
           "titleY": -24,
           "backgroundY": 12.1825,
           "headingY": 0,
-          "summaryY": 2.6282
+          "summaryY": 2.9475
         },
         "reverse": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 28.7037,
-          "summaryY": 18.7822
+          "headingY": 30.7408,
+          "summaryY": 18.8689
         }
       },
       "faq": {
@@ -207,7 +204,6 @@
       ],
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -227,14 +223,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -262,19 +256,19 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 19.6667,
+          "headingY": 40,
           "summaryY": 20
         },
         "scrolled": {
           "titleY": -11.8227,
           "backgroundY": -0.180301,
-          "headingY": 0,
-          "summaryY": 15.7029
+          "headingY": 13.2222,
+          "summaryY": 15.8332
         },
         "returned": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 19.6667,
+          "headingY": 40,
           "summaryY": 20
         }
       },
@@ -289,7 +283,7 @@
           "titleY": -24,
           "backgroundY": 12.1825,
           "headingY": 0,
-          "summaryY": 4.7667
+          "summaryY": 5.0538
         },
         "reverse": {
           "titleY": 0,
@@ -373,7 +367,6 @@
       ],
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -393,14 +386,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -428,19 +419,19 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 32.1053,
+          "headingY": 40,
           "summaryY": 20
         },
         "scrolled": {
           "titleY": -11.8227,
           "backgroundY": -0.180301,
-          "headingY": 0,
-          "summaryY": 17.532
+          "headingY": 26.0526,
+          "summaryY": 17.7092
         },
         "returned": {
           "titleY": 0,
           "backgroundY": -12.1825,
-          "headingY": 32.1053,
+          "headingY": 40,
           "summaryY": 20
         }
       },
@@ -455,7 +446,7 @@
           "titleY": -24,
           "backgroundY": 12.1825,
           "headingY": 0,
-          "summaryY": 5.7216
+          "summaryY": 6.1866
         },
         "reverse": {
           "titleY": 0,
@@ -539,7 +530,6 @@
       ],
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -559,14 +549,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -594,19 +582,19 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -13.2875,
-          "headingY": 38.5668,
+          "headingY": 40,
           "summaryY": 20
         },
         "scrolled": {
           "titleY": -10.8434,
           "backgroundY": -1.28092,
-          "headingY": 0,
-          "summaryY": 18.4648
+          "headingY": 35.3094,
+          "summaryY": 18.7113
         },
         "returned": {
           "titleY": 0,
           "backgroundY": -13.2875,
-          "headingY": 38.5668,
+          "headingY": 40,
           "summaryY": 20
         }
       },
@@ -621,7 +609,7 @@
           "titleY": -24,
           "backgroundY": 13.2875,
           "headingY": 0,
-          "summaryY": 5.3235
+          "summaryY": 6.0814
         },
         "reverse": {
           "titleY": 0,
@@ -704,7 +692,6 @@
         0
       ],
       "triggers": [
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -724,14 +711,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -759,7 +744,7 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -10.8962,
-          "headingY": 5.1834,
+          "headingY": 21.9071,
           "summaryY": 19.2126
         },
         "scrolled": {
@@ -771,7 +756,7 @@
         "returned": {
           "titleY": 0,
           "backgroundY": -10.8962,
-          "headingY": 5.1834,
+          "headingY": 21.9071,
           "summaryY": 19.2126
         }
       },
@@ -869,7 +854,6 @@
         0
       ],
       "triggers": [
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -889,14 +873,12 @@
         "about-page-role-1-point-3",
         "about-page-role-1-point-4",
         "about-page-role-1-point-5",
-        "about-page-role-1-progress",
         "about-page-role-1-stack",
         "about-page-role-2-marquee",
         "about-page-role-2-meta",
         "about-page-role-2-point-1",
         "about-page-role-2-point-2",
         "about-page-role-2-point-3",
-        "about-page-role-2-progress",
         "about-page-edu-card",
         "about-page-edu-kanji",
         "about-page-edu-degree",
@@ -924,19 +906,19 @@
         "initial": {
           "titleY": 0,
           "backgroundY": -13.5981,
-          "headingY": 32.5444,
+          "headingY": 40,
           "summaryY": 20
         },
         "scrolled": {
           "titleY": -5.2941,
           "backgroundY": -1.59982,
-          "headingY": 0,
+          "headingY": 17.2781,
           "summaryY": 19.7224
         },
         "returned": {
           "titleY": 0,
           "backgroundY": -13.5981,
-          "headingY": 32.5444,
+          "headingY": 40,
           "summaryY": 20
         }
       },

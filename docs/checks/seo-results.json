@@ -5,32 +5,32 @@
     "/": {
       "visitor": {
         "status": 200,
-        "title": "Seif Ayman â€” Senior Full Stack Developer",
-        "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
+        "title": "Seif Ayman — Senior Full Stack Developer",
+        "description": "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
       "google": {
         "status": 200,
-        "title": "Seif Ayman â€” Senior Full Stack Developer",
-        "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
+        "title": "Seif Ayman — Senior Full Stack Developer",
+        "description": "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
       "ai_search": {
         "status": 200,
-        "title": "Seif Ayman â€” Senior Full Stack Developer",
-        "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
+        "title": "Seif Ayman — Senior Full Stack Developer",
+        "description": "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
       },
       "social": {
         "status": 200,
-        "title": "Seif Ayman â€” Senior Full Stack Developer",
-        "description": "Senior Full Stack Developer in Alexandria, Egypt, building web, desktop, AI and IoT products end to end.",
+        "title": "Seif Ayman — Senior Full Stack Developer",
+        "description": "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app",
         "h1": "Seif Ayman",
         "json_ld_blocks": 2
@@ -39,7 +39,7 @@
     "/about": {
       "visitor": {
         "status": 200,
-        "title": "About â€” Seif Ayman",
+        "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
@@ -47,7 +47,7 @@
       },
       "google": {
         "status": 200,
-        "title": "About â€” Seif Ayman",
+        "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
@@ -55,7 +55,7 @@
       },
       "ai_search": {
         "status": 200,
-        "title": "About â€” Seif Ayman",
+        "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
@@ -63,7 +63,7 @@
       },
       "social": {
         "status": 200,
-        "title": "About â€” Seif Ayman",
+        "title": "About — Seif Ayman",
         "description": "Professional background, capabilities and working approach of Seif Ayman, a Senior Full Stack Developer in Alexandria, Egypt.",
         "canonical": "https://theseif.vercel.app/about",
         "h1": "Engineer of the  whole product",
@@ -73,7 +73,7 @@
     "/projects": {
       "visitor": {
         "status": 200,
-        "title": "Projects â€” Seif Ayman",
+        "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
         "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
@@ -81,7 +81,7 @@
       },
       "google": {
         "status": 200,
-        "title": "Projects â€” Seif Ayman",
+        "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
         "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
@@ -89,7 +89,7 @@
       },
       "ai_search": {
         "status": 200,
-        "title": "Projects â€” Seif Ayman",
+        "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
         "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
@@ -97,7 +97,7 @@
       },
       "social": {
         "status": 200,
-        "title": "Projects â€” Seif Ayman",
+        "title": "Projects — Seif Ayman",
         "description": "Published software case studies by Seif Ayman across AI, healthcare, education, analytics and full-stack web platforms.",
         "canonical": "https://theseif.vercel.app/projects",
         "h1": "Selected   Work   ( 06 )",
@@ -107,32 +107,32 @@
     "/projects/rafiq": {
       "visitor": {
         "status": 200,
-        "title": "RAFIQ AI Assistant â€” Seif Ayman",
-        "description": "An AI-powered smart medical and home assistant â€” a local-first desktop app with a modular RAG workflow and real-time MQTT.",
+        "title": "RAFIQ AI Assistant — Seif Ayman",
+        "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
         "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
       "google": {
         "status": 200,
-        "title": "RAFIQ AI Assistant â€” Seif Ayman",
-        "description": "An AI-powered smart medical and home assistant â€” a local-first desktop app with a modular RAG workflow and real-time MQTT.",
+        "title": "RAFIQ AI Assistant — Seif Ayman",
+        "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
         "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
       "ai_search": {
         "status": 200,
-        "title": "RAFIQ AI Assistant â€” Seif Ayman",
-        "description": "An AI-powered smart medical and home assistant â€” a local-first desktop app with a modular RAG workflow and real-time MQTT.",
+        "title": "RAFIQ AI Assistant — Seif Ayman",
+        "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
         "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
       },
       "social": {
         "status": 200,
-        "title": "RAFIQ AI Assistant â€” Seif Ayman",
-        "description": "An AI-powered smart medical and home assistant â€” a local-first desktop app with a modular RAG workflow and real-time MQTT.",
+        "title": "RAFIQ AI Assistant — Seif Ayman",
+        "description": "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
         "canonical": "https://theseif.vercel.app/projects/rafiq",
         "h1": "RAFIQ AI Assistant",
         "json_ld_blocks": 2
@@ -141,7 +141,7 @@
     "/contact": {
       "visitor": {
         "status": 200,
-        "title": "Contact â€” Seif Ayman",
+        "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
         "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
@@ -149,7 +149,7 @@
       },
       "google": {
         "status": 200,
-        "title": "Contact â€” Seif Ayman",
+        "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
         "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
@@ -157,7 +157,7 @@
       },
       "ai_search": {
         "status": 200,
-        "title": "Contact â€” Seif Ayman",
+        "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
         "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
@@ -165,7 +165,7 @@
       },
       "social": {
         "status": 200,
-        "title": "Contact â€” Seif Ayman",
+        "title": "Contact — Seif Ayman",
         "description": "Contact Seif Ayman about a product, platform or freelance software development collaboration.",
         "canonical": "https://theseif.vercel.app/contact",
         "h1": "Let's build something  that matters",
@@ -175,7 +175,7 @@
     "/blog": {
       "visitor": {
         "status": 200,
-        "title": "Blog â€” Seif Ayman",
+        "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
         "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
@@ -183,7 +183,7 @@
       },
       "google": {
         "status": 200,
-        "title": "Blog â€” Seif Ayman",
+        "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
         "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
@@ -191,7 +191,7 @@
       },
       "ai_search": {
         "status": 200,
-        "title": "Blog â€” Seif Ayman",
+        "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
         "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",
@@ -199,7 +199,7 @@
       },
       "social": {
         "status": 200,
-        "title": "Blog â€” Seif Ayman",
+        "title": "Blog — Seif Ayman",
         "description": "Practical notes from Seif Ayman on software architecture, interfaces, validation and shipping.",
         "canonical": "https://theseif.vercel.app/blog",
         "h1": "Notes on  building",

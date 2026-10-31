@@ -33,7 +33,6 @@
       "motion": {
         "triggers": [
           "about-page-principles",
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
@@ -215,10 +214,10 @@
       "04"
     ],
     "featured_x": [
-      -1.8934,
-      -653.5,
-      -1335.79,
-      -1927.15
+      -1.7759,
+      -616.431,
+      -1278.39,
+      -1868.04
     ],
     "featured_current": [
       0,
@@ -226,7 +225,7 @@
       1,
       2
     ],
-    "featured_last_slide_right": 1320.876220703125,
+    "featured_last_slide_right": 1338.4669189453125,
     "more_cards": 3,
     "more_live_links": 2,
     "more_repo_links": 1,
@@ -237,18 +236,12 @@
       3
     ],
     "process_active_after_reverse": 0,
-    "errors": [],
-    "initial_layout_policy_recheck": {
-      "passed": true,
-      "eagerJourneyIsBaselineBehavior": true,
-      "distantCtaRemainsDeferred": true
-    }
+    "errors": []
   },
   "navigation": {
     "about_after_home": {
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -353,7 +346,6 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
@@ -493,7 +485,6 @@
       "errors": [],
       "motion": {
         "triggers": [
-          "about-reveal-1",
           "about-page-hero-scroll",
           "about-page-introduction-heading",
           "about-page-introduction-reveal",
