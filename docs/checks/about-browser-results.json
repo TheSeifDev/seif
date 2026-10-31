@@ -3,7 +3,6 @@
     "motion": {
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -102,8 +101,8 @@
           0
         ],
         "counter": "01",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -128,8 +127,8 @@
           0
         ],
         "counter": "02",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -154,8 +153,8 @@
           0
         ],
         "counter": "03",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -180,8 +179,8 @@
           1
         ],
         "counter": "04",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -208,8 +207,8 @@
           0
         ],
         "counter": "03",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -234,8 +233,8 @@
           0
         ],
         "counter": "02",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -260,8 +259,8 @@
           0
         ],
         "counter": "01",
-        "pinTop": -0.0,
-        "rowBottom": 790,
+        "pinTop": 0,
+        "rowBottom": 791,
         "progressBottom": 824,
         "clipped": [
           0,
@@ -292,9 +291,9 @@
           0
         ],
         "counter": "01",
-        "pinTop": -0.0,
+        "pinTop": 0,
         "rowBottom": 666,
-        "progressBottom": 699,
+        "progressBottom": 700,
         "clipped": [
           0,
           0,
@@ -318,9 +317,9 @@
           1
         ],
         "counter": "04",
-        "pinTop": -0.0,
+        "pinTop": 0,
         "rowBottom": 666,
-        "progressBottom": 699,
+        "progressBottom": 700,
         "clipped": [
           0,
           0,
@@ -335,7 +334,6 @@
   "tablet": {
     "motion": {
       "triggers": [
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -399,7 +397,6 @@
   "mobile": {
     "motion": {
       "triggers": [
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",
@@ -494,7 +491,6 @@
     "about_again": {
       "triggers": [
         "about-page-principles",
-        "about-reveal-1",
         "about-page-hero-scroll",
         "about-page-introduction-heading",
         "about-page-introduction-reveal",

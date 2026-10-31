@@ -79,7 +79,7 @@
           "top": 96,
           "bottom": 606,
           "position": "sticky",
-          "scale": 0.9699,
+          "scale": 0.9997,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -89,7 +89,7 @@
           "top": 112,
           "bottom": 622,
           "position": "sticky",
-          "scale": 0.971,
+          "scale": 0.9997,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -119,7 +119,7 @@
         "top": 96,
         "bottom": 606,
         "position": "sticky",
-        "scale": 0.9699,
+        "scale": 0.9997,
         "clip": "inset(0% round 24px)",
         "copyOverflow": 0,
         "clipped": []
@@ -129,7 +129,7 @@
         "top": 112,
         "bottom": 622,
         "position": "sticky",
-        "scale": 0.971,
+        "scale": 0.9997,
         "clip": "inset(0% round 24px)",
         "copyOverflow": 0,
         "clipped": []
@@ -148,16 +148,16 @@
     "stack_scale": {
       "after_second": [
         0.92,
-        0.971,
+        1.0,
         1
       ],
       "shade_after_second": [
         0.55,
-        0.2,
+        0.0,
         0
       ],
       "back_first": [
-        0.997,
+        1,
         1,
         1
       ],
@@ -178,7 +178,7 @@
           "top": 96,
           "bottom": 556,
           "position": "sticky",
-          "scale": 0.9746,
+          "scale": 0.9996,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -188,7 +188,7 @@
           "top": 112,
           "bottom": 572,
           "position": "sticky",
-          "scale": 0.9759,
+          "scale": 0.9996,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -214,7 +214,7 @@
           "top": 96,
           "bottom": 556,
           "position": "sticky",
-          "scale": 0.9739,
+          "scale": 0.9996,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -224,7 +224,7 @@
           "top": 112,
           "bottom": 572,
           "position": "sticky",
-          "scale": 0.9753,
+          "scale": 0.9996,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -250,7 +250,7 @@
           "top": 96,
           "bottom": 606,
           "position": "sticky",
-          "scale": 0.9607,
+          "scale": 0.9997,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -260,7 +260,7 @@
           "top": 112,
           "bottom": 622,
           "position": "sticky",
-          "scale": 0.9613,
+          "scale": 0.9997,
           "clip": "inset(0% round 24px)",
           "copyOverflow": 0,
           "clipped": []
@@ -562,7 +562,5 @@
     "leaked": [],
     "back_triggers": 14
   },
-  "failures": [
-    "stack not reversible {'after_second': [0.92, 0.971, 1], 'shade_after_second': [0.55, 0.2, 0], 'back_first': [0.997, 1, 1], 'clip_first': 'inset(2.5263% 1.8947% round 24px)'}"
-  ]
+  "failures": []
 }

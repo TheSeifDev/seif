@@ -225,7 +225,8 @@ export function stackStage(root: HTMLElement): Cleanup {
       scrollTrigger: {
         id: `projects-page-stack-${index + 1}`,
         trigger: stack,
-        start: () => `top+=${(index + 1) * height()} bottom`,
+        start: () =>
+          `top+=${(index + 1) * height()} ${Math.min(window.innerHeight, stickyTop(index) + height())}px`,
         end: () => `top+=${(index + 1) * height()} ${stickyTop(index + 1)}px`,
         scrub: true,
         invalidateOnRefresh: true,

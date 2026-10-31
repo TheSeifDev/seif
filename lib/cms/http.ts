@@ -3,21 +3,58 @@ import { CmsError } from "@/lib/cms/repository";
 import { getSiteOrigin } from "@/lib/seo/metadata";
 import { ZodError } from "zod";
 
+const LOCAL_DEV_HOSTS = new Set(["localhost", "127.0.0.1"]);
+
+/**
+ * Validate state-changing admin requests.
+ * - Rejects cross-site Fetch Metadata (`Sec-Fetch-Site: cross-site`) and missing/malformed `Origin`.
+ * - Always accepts the verified canonical site origin (`getSiteOrigin()`).
+ * - Outside production (`NODE_ENV !== "production"`), also accepts an exact same-origin
+ *   `http://localhost(:port)` or `http://127.0.0.1(:port)` request matching the target request URL,
+ *   without weakening production origin checks or altering public metadata / OAuth callback URLs.
+ */
+export function isAllowedAdminMutationOrigin(
+  request: Request,
+  nodeEnv: string | undefined = process.env.NODE_ENV,
+): boolean {
+  if (request.headers.get("sec-fetch-site") === "cross-site") return false;
+  const origin = request.headers.get("origin")?.trim();
+  if (!origin) return false;
+
+  try {
+    const originUrl = new URL(origin);
+    if (originUrl.origin !== origin) return false;
+    if (originUrl.origin === getSiteOrigin()) return true;
+
+    if (nodeEnv && nodeEnv !== "production") {
+      const requestUrl = new URL(request.url);
+      const isLocalOrigin =
+        originUrl.protocol === "http:" &&
+        LOCAL_DEV_HOSTS.has(originUrl.hostname) &&
+        !originUrl.username &&
+        !originUrl.password;
+      const isSameLocalTarget =
+        requestUrl.protocol === "http:" &&
+        LOCAL_DEV_HOSTS.has(requestUrl.hostname) &&
+        originUrl.origin === requestUrl.origin;
+
+      return isLocalOrigin && isSameLocalTarget;
+    }
+
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 export async function adminRequest(request: Request, mutation = false) {
   const principal = await requireAdmin(request);
-  if (mutation) {
-    const origin = request.headers.get("origin");
-    if (
-      !origin ||
-      origin !== getSiteOrigin() ||
-      request.headers.get("sec-fetch-site") === "cross-site"
-    ) {
-      throw new AuthError(
-        "FORBIDDEN",
-        403,
-        "This request origin is not allowed.",
-      );
-    }
+  if (mutation && !isAllowedAdminMutationOrigin(request)) {
+    throw new AuthError(
+      "FORBIDDEN",
+      403,
+      "This request origin is not allowed.",
+    );
   }
   return principal;
 }
