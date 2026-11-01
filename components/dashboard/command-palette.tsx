@@ -30,6 +30,7 @@ export function CommandPalette({
   open: boolean;
   onClose: () => void;
 }) {
+  console.log("COMMAND PALETTE RENDER, open=", open);
   if (!open) return null;
   return <CommandPaletteModal onClose={onClose} />;
 }

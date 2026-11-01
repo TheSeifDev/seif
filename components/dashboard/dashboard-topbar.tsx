@@ -94,7 +94,7 @@ export function DashboardTopbar({
             type="button"
             onClick={onOpenMobileNav}
             className="lg:hidden inline-flex size-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-mist hover:text-snow shrink-0"
-            aria-label="Open mobile navigation"
+            aria-label="Open admin navigation"
           >
             <Menu className="size-4" />
           </button>
@@ -118,7 +118,10 @@ export function DashboardTopbar({
           {/* Global Command Search (Ctrl+K) */}
           <button
             type="button"
-            onClick={onOpenCommandPalette}
+            onClick={() => {
+              console.log("TOPBAR: Command palette button clicked");
+              onOpenCommandPalette();
+            }}
             className="hidden md:inline-flex items-center gap-2 h-8 px-2.5 rounded-xl border border-white/10 bg-white/[0.03] text-xs text-mist hover:border-white/20 hover:text-snow transition-all"
             title="Search commands, pages, and projects (Ctrl+K)"
           >

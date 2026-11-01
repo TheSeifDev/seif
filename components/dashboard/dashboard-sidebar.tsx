@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -327,10 +328,10 @@ export function DashboardSidebar({
                   const Icon = item.icon;
                   const active = isItemActive(item.href);
                   return (
-                    <button
-                      type="button"
+                    <Link
+                      href={item.href}
+                      role="button"
                       key={item.key}
-                      onClick={() => router.push(item.href)}
                       title={collapsed ? item.label : undefined}
                       aria-label={item.label}
                       className={cn(
@@ -403,7 +404,7 @@ export function DashboardSidebar({
                           )}
                         />
                       )}
-                    </button>
+                    </Link>
                   );
                 })}
               </nav>
@@ -420,6 +421,7 @@ export function DashboardSidebar({
             type="button"
             onClick={onToggleCollapse}
             title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             className={cn(
               "flex w-full items-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-mist hover:text-snow hover:bg-white/[0.05] transition-colors py-1.5",
               collapsed ? "justify-center px-1" : "justify-between px-2.5",

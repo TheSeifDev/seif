@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import type { SiteContent, SiteProject } from "@/lib/cms/schema";
+import { getFeaturedProjects, type SiteContent, type SiteProject } from "@/lib/cms/schema";
 import { getCopy } from "@/lib/cms/copy";
 import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
@@ -20,7 +20,7 @@ const PANEL_WIDTH = "lg:w-[min(90vw,1680px)]";
 const SLIDE_WIDTH = "group-data-[enhanced=true]/featured:w-[min(72vw,1344px)]";
 export function FeaturedProjects({ content }: { content: SiteContent }) {
   const { projects, copy } = content;
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = getFeaturedProjects(projects);
   const featuredTechnologies = Array.from(
     new Set(featuredProjects.flatMap((project) => project.stack)),
   );

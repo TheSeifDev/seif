@@ -21,12 +21,20 @@ import { projects } from "@/lib/content/projects";
 import { posts } from "@/lib/content/blog";
 import { marqueeRows, skillGroups } from "@/lib/content/skills";
 import { defaultCopy } from "@/lib/cms/copy";
-import { siteContentSchema, type SiteContent } from "@/lib/cms/schema";
+import {
+  DEFAULT_HOME_SECTIONS,
+  siteContentSchema,
+  type SiteContent,
+} from "@/lib/cms/schema";
 
-const projectDefaults = projects.map((project) => ({
+const projectDefaults = projects.map((project, index) => ({
   ...project,
   id: `project-${project.slug}`,
   status: "published" as const,
+  placement: {
+    featured: { enabled: Boolean(project.featured), order: index },
+    more: { enabled: !project.featured, order: index },
+  },
 }));
 
 const initialContent = {
@@ -61,6 +69,14 @@ const initialContent = {
     googleSiteVerification: PUBLIC_GOOGLE_SITE_VERIFICATION,
     robots: { index: true, follow: true },
   },
+  home: {
+    sections: [...DEFAULT_HOME_SECTIONS],
+  },
+  faq: [1, 2, 3].map((index) => ({
+    id: `faq-${index}`,
+    question: defaultCopy[`about.faq.question.${index}`] || "",
+    answer: defaultCopy[`about.faq.answer.${index}`] || "",
+  })),
 };
 
 /**

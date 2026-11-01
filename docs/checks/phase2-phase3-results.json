@@ -1,0 +1,142 @@
+{
+  "checks": [
+    {
+      "name": "Public Home renders featured work section",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Public Home renders more projects section",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Public Home renders skills section",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Public Projects page renders with headings and stack",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Public About page renders FAQ section",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Public About page contains FAQPage JSON-LD graph",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Dashboard /dashboard/projects loads Projects Management title",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Projects page displays metrics bar (Total, Featured, More, Drafts)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Clicking Featured Board tab switches active view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Clicking More Projects tab switches active view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Clicking All Projects tab restores full view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Sort position numeric input fields are rendered",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Board placement checkboxes rendered for fast toggle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Case Study Editor panel is open with active project",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Direct Preview Draft link available in editor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Projects page renders responsively on mobile (390x844)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Dashboard /dashboard/blog loads Articles & Blog Management title",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Blog page displays all 5 distinct tabbed views with live counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Needs Review tab filters articles to reviewRequired items",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Review Gate Active banner displayed for unreviewed fixture drafts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Publishing unreviewed article is intercepted and blocked by review gate",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Batch selection activates floating toolbar with bulk actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Block editor allows adding structured content blocks dynamically",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Article editor includes Scheduled At and Cover Image URL inputs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Blog page renders responsively on mobile (390x844)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Zero JavaScript runtime errors across all flows",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "screenshots": [
+    "public-home.png",
+    "dashboard-projects-desktop.png",
+    "dashboard-projects-mobile.png",
+    "dashboard-blog-desktop.png",
+    "dashboard-blog-mobile.png"
+  ],
+  "failures": []
+}

@@ -13,6 +13,11 @@ import { Skills } from "@/components/home/skills";
 import { createHomeGraph } from "@/lib/seo/structured-data";
 import { createCmsPageMetadata, withCmsGraph } from "@/lib/cms/metadata";
 import { getSiteContent } from "@/lib/cms/server";
+import {
+  getHomeSections,
+  type HomeSectionId,
+  type SiteContent,
+} from "@/lib/cms/schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getSiteContent();
@@ -22,22 +27,39 @@ export async function generateMetadata(): Promise<Metadata> {
   );
 }
 
+const sectionRenderers: Record<
+  HomeSectionId,
+  (content: SiteContent) => React.ReactNode
+> = {
+  hero: (content) => (
+    <Scene key="hero" name="hero" className="relative">
+      <Hero content={content} />
+      <About content={content} />
+    </Scene>
+  ),
+  identity: (content) => <Identity key="identity" content={content} />,
+  journey: (content) => <Journey key="journey" content={content} />,
+  featuredProjects: (content) => (
+    <FeaturedProjects key="featuredProjects" content={content} />
+  ),
+  moreProjects: (content) => (
+    <MoreProjects key="moreProjects" content={content} />
+  ),
+  skills: (content) => <Skills key="skills" content={content} />,
+  process: (content) => <Process key="process" content={content} />,
+  connectCta: (content) => <ConnectCta key="connectCta" content={content} />,
+};
+
 export default async function HomePage() {
   const content = await getSiteContent();
+  const sections = getHomeSections(content);
+
   return (
     <>
       <JsonLd data={withCmsGraph(createHomeGraph(), content)} />
-      <Scene name="hero" className="relative">
-        <Hero content={content} />
-        <About content={content} />
-      </Scene>
-      <Identity content={content} />
-      <Journey content={content} />
-      <FeaturedProjects content={content} />
-      <MoreProjects content={content} />
-      <Skills content={content} />
-      <Process content={content} />
-      <ConnectCta content={content} />
+      {sections
+        .filter((section) => section.enabled)
+        .map((section) => sectionRenderers[section.id]?.(content))}
     </>
   );
 }

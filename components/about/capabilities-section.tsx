@@ -1,7 +1,7 @@
 import { SectionHeading } from "@/components/system/primitives";
 import { CmsTitle } from "@/components/system/cms-title";
 import { TechnologyIcon } from "@/components/system/technology-icon";
-import type { SiteContent } from "@/lib/cms/schema";
+import { getSkillName, type SiteContent } from "@/lib/cms/schema";
 import { getCopy } from "@/lib/cms/copy";
 import { aboutLightPanel } from "@/lib/ui/about-layout";
 import { container, sectionY } from "@/lib/ui/layout";
@@ -113,18 +113,22 @@ function CapabilityRow({ group, number }: { group: Group; number: number }) {
         </span>
 
         <ul className="col-span-2 col-start-2 mt-4 flex min-w-0 flex-wrap gap-x-5 gap-y-2.5">
-          {group.skills.map((skill) => (
-            <li
-              key={skill}
-              data-cap-skill
-              className="flex min-w-0 max-w-full items-center gap-2 break-words text-[13px] text-slate-ink transition-colors duration-500 group-hover/cap:text-snow/85"
-            >
-              <span className="shrink-0 text-slate-ink/70 transition-colors duration-500 group-hover/cap:text-sky">
-                <TechnologyIcon name={skill} size={14} />
-              </span>
-              <span className="min-w-0 break-words">{skill}</span>
-            </li>
-          ))}
+          {group.skills.map((skill) => {
+            const skillName = getSkillName(skill);
+            const iconName = typeof skill === "object" && skill.icon ? skill.icon : skillName;
+            return (
+              <li
+                key={skillName}
+                data-cap-skill
+                className="flex min-w-0 max-w-full items-center gap-2 break-words text-[13px] text-slate-ink transition-colors duration-500 group-hover/cap:text-snow/85"
+              >
+                <span className="shrink-0 text-slate-ink/70 transition-colors duration-500 group-hover/cap:text-sky">
+                  <TechnologyIcon name={iconName} size={14} />
+                </span>
+                <span className="min-w-0 break-words">{skillName}</span>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </li>

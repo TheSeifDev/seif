@@ -8,9 +8,9 @@ import { CapabilitiesSection } from "@/components/about/capabilities-section";
 import { EducationSection } from "@/components/about/education-section";
 import { ExperienceSection } from "@/components/about/experience-section";
 import { PrinciplesSection } from "@/components/about/principles-section";
-import { getCopy } from "@/lib/cms/copy";
 import { createCmsPageMetadata, withCmsGraph } from "@/lib/cms/metadata";
 import { getSiteContent } from "@/lib/cms/server";
+import { getFaqItems } from "@/lib/cms/schema";
 import {
   createFaqPageGraph,
   createProfilePageGraph,
@@ -27,14 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutPage() {
   const content = await getSiteContent();
-  const c = (key: string, fallback: string) =>
-    getCopy(content.copy, key, fallback);
-  const faqItems: readonly FaqItem[] = [1, 2, 3]
-    .map((index) => ({
-      question: c(`about.faq.question.${index}`, ""),
-      answer: c(`about.faq.answer.${index}`, ""),
-    }))
-    .filter((item) => item.question && item.answer);
+  const faqItems: readonly FaqItem[] = getFaqItems(content);
   return (
     <AboutMotion>
       <JsonLd

@@ -219,9 +219,24 @@ const navigationSchema = z
   )
   .max(100);
 
-const skillGroupsSchema = z
-  .array(z.object({ name: text(120), skills: nonEmptyTextArray(120) }).strict())
-  .max(200);
+export const skillItemSchema = z.union([
+  text(120),
+  z
+    .object({
+      name: text(120),
+      icon: optionalText(80),
+    })
+    .strict(),
+]);
+
+export const skillGroupSchema = z
+  .object({
+    name: text(120),
+    skills: z.array(skillItemSchema).min(1).max(500),
+  })
+  .strict();
+
+export const skillGroupsSchema = z.array(skillGroupSchema).max(200);
 
 const marqueeRowsSchema = z
   .array(
@@ -235,6 +250,22 @@ const marqueeRowsSchema = z
       .strict(),
   )
   .max(100);
+
+export const projectPlacementItemSchema = z
+  .object({
+    enabled: z.boolean(),
+    order: z.number().int().min(0).default(0),
+  })
+  .strict();
+
+export const projectPlacementSchema = z
+  .object({
+    featured: projectPlacementItemSchema.default({ enabled: false, order: 0 }),
+    more: projectPlacementItemSchema.default({ enabled: false, order: 0 }),
+  })
+  .strict();
+
+export type ProjectPlacement = z.infer<typeof projectPlacementSchema>;
 
 const projectLinkSchema = z
   .object({
@@ -281,6 +312,7 @@ const projectSchema = z
       .optional(),
     availability: optionalText(500),
     featured: z.boolean(),
+    placement: projectPlacementSchema.optional(),
     status: z.enum(["draft", "published"]).default("published"),
     sources: nonEmptyTextArray(500),
   })
@@ -316,8 +348,62 @@ const postSchema = z
     readingMinutes: z.number().int().min(1).max(1440),
     tags: nonEmptyTextArray(120),
     body: z.array(blogBlockSchema).min(1).max(1000),
+    scheduledAt: isoDate.optional(),
+    coverImage: publicUrl.optional(),
   })
   .strict();
+
+export const homeSectionIdSchema = z.enum([
+  "hero",
+  "identity",
+  "journey",
+  "featuredProjects",
+  "moreProjects",
+  "skills",
+  "process",
+  "connectCta",
+]);
+
+export type HomeSectionId = z.infer<typeof homeSectionIdSchema>;
+
+export const homeSectionSchema = z
+  .object({
+    id: homeSectionIdSchema,
+    enabled: z.boolean().default(true),
+    order: z.number().int().min(0).default(0),
+  })
+  .strict();
+
+export type HomeSectionConfig = z.infer<typeof homeSectionSchema>;
+
+export const homeConfigSchema = z
+  .object({
+    sections: z.array(homeSectionSchema).default([]),
+  })
+  .strict();
+
+export type HomeConfig = z.infer<typeof homeConfigSchema>;
+
+export const DEFAULT_HOME_SECTIONS: readonly HomeSectionConfig[] = [
+  { id: "hero", enabled: true, order: 0 },
+  { id: "identity", enabled: true, order: 1 },
+  { id: "journey", enabled: true, order: 2 },
+  { id: "featuredProjects", enabled: true, order: 3 },
+  { id: "moreProjects", enabled: true, order: 4 },
+  { id: "skills", enabled: true, order: 5 },
+  { id: "process", enabled: true, order: 6 },
+  { id: "connectCta", enabled: true, order: 7 },
+];
+
+export const faqItemSchema = z
+  .object({
+    id: identifier.optional(),
+    question: text(300),
+    answer: text(4000),
+  })
+  .strict();
+
+export type FaqItemConfig = z.infer<typeof faqItemSchema>;
 
 const seoSchema = z
   .object({
@@ -372,6 +458,8 @@ const siteContentBaseSchema = z
     posts: z.array(postSchema).max(1000),
     copy: z.record(z.string(), text(12000)),
     seo: seoSchema,
+    home: homeConfigSchema.optional(),
+    faq: z.array(faqItemSchema).max(50).optional(),
   })
   .strict();
 
@@ -501,3 +589,103 @@ export type SiteContent = z.infer<typeof siteContentSchema>;
 export type SiteContentInput = z.input<typeof siteContentSchema>;
 export type BlogBlock = SiteContent["posts"][number]["body"][number];
 export type SiteProject = SiteContent["projects"][number];
+
+
+export function normalizeProjectPlacement(project: {
+  featured: boolean;
+  placement?: ProjectPlacement;
+}): ProjectPlacement {
+  if (project.placement) {
+    return {
+      featured: {
+        enabled: Boolean(project.placement.featured?.enabled),
+        order: Number(project.placement.featured?.order ?? 0),
+      },
+      more: {
+        enabled: Boolean(project.placement.more?.enabled),
+        order: Number(project.placement.more?.order ?? 0),
+      },
+    };
+  }
+  return {
+    featured: {
+      enabled: project.featured === true,
+      order: 0,
+    },
+    more: {
+      enabled: project.featured === false,
+      order: 0,
+    },
+  };
+}
+
+export function getFeaturedProjects<
+  T extends { featured: boolean; placement?: ProjectPlacement; status?: string },
+>(projects: T[]): T[] {
+  return projects
+    .filter(
+      (p) =>
+        (p.status ? p.status === "published" : true) &&
+        normalizeProjectPlacement(p).featured.enabled,
+    )
+    .sort(
+      (a, b) =>
+        normalizeProjectPlacement(a).featured.order -
+        normalizeProjectPlacement(b).featured.order,
+    );
+}
+
+export function getMoreProjects<
+  T extends { featured: boolean; placement?: ProjectPlacement; status?: string },
+>(projects: T[]): T[] {
+  return projects
+    .filter(
+      (p) =>
+        (p.status ? p.status === "published" : true) &&
+        normalizeProjectPlacement(p).more.enabled,
+    )
+    .sort(
+      (a, b) =>
+        normalizeProjectPlacement(a).more.order -
+        normalizeProjectPlacement(b).more.order,
+    );
+}
+
+export function getHomeSections(content: {
+  home?: HomeConfig | null;
+}): readonly HomeSectionConfig[] {
+  if (content.home?.sections && content.home.sections.length > 0) {
+    return [...content.home.sections].sort((a, b) => a.order - b.order);
+  }
+  return DEFAULT_HOME_SECTIONS;
+}
+
+export function getFaqItems(content: {
+  faq?: FaqItemConfig[];
+  copy?: Record<string, string>;
+}): { question: string; answer: string }[] {
+  if (content.faq && content.faq.length > 0) {
+    return content.faq
+      .filter((item) => item.question && item.question.trim().length > 0 && item.answer && item.answer.trim().length > 0)
+      .map((item) => ({
+        question: item.question.trim(),
+        answer: item.answer.trim(),
+      }));
+  }
+  const copy = content.copy || {};
+  return [1, 2, 3]
+    .map((index) => ({
+      question: (copy['about.faq.question.' + index] || '').trim(),
+      answer: (copy['about.faq.answer.' + index] || '').trim(),
+    }))
+    .filter((item) => item.question.length > 0 && item.answer.length > 0);
+}
+
+export function getSkillName(
+  skill: string | { name: string; icon?: string },
+): string {
+  return typeof skill === 'string' ? skill : skill.name;
+}
+
+export type BlogPost = SiteContent["posts"][number];
+export type SkillItem = z.infer<typeof skillItemSchema>;

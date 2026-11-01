@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import type { SiteContent } from "@/lib/cms/schema";
+import { getMoreProjects, type SiteContent } from "@/lib/cms/schema";
 import { getCopy } from "@/lib/cms/copy";
 import { isUnoptimizedCmsImage } from "@/components/site/cms-image";
 import { container, label } from "@/lib/ui/layout";
@@ -18,7 +18,7 @@ const STACK_PREVIEW = 4;
 
 export function MoreProjects({ content }: { content: SiteContent }) {
   const { projects, copy } = content;
-  const moreProjects = projects.filter((project) => !project.featured);
+  const moreProjects = getMoreProjects(projects);
   const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
   return (
     <Scene

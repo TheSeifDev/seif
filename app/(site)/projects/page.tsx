@@ -7,6 +7,7 @@ import { ProjectsIndex } from "@/components/projects/projects-index";
 import { ProjectsMotion } from "@/components/projects/projects-motion";
 import { createCmsPageMetadata, withCmsGraph } from "@/lib/cms/metadata";
 import { getSiteContent } from "@/lib/cms/server";
+import { getFeaturedProjects } from "@/lib/cms/schema";
 import { createCollectionPageGraph } from "@/lib/seo/structured-data";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -25,7 +26,7 @@ export default async function ProjectsPage() {
   const projects = content.projects.filter(
     (project) => project.status === "published",
   );
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = getFeaturedProjects(projects);
   return (
     <main>
       <JsonLd

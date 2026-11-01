@@ -1,4 +1,4 @@
-import type { SiteContent } from "@/lib/cms/schema";
+import { getSkillName, type SiteContent } from "@/lib/cms/schema";
 import { getCopy } from "@/lib/cms/copy";
 import { container, label } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,7 @@ export function Skills({ content }: { content: SiteContent }) {
                 </span>
               </dt>
               <dd className="mt-3 text-[14px] leading-7 text-mist">
-                {group.skills.join(" · ")}
+                {group.skills.map(getSkillName).join(" · ")}
               </dd>
             </div>
           ))}

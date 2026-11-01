@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Activity,
   Calendar,
@@ -43,7 +44,6 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   });
   const [commandPaletteOpen, setCommandPaletteOpen] = React.useState(false);
 
-  const router = useRouter();
   const pathname = usePathname();
 
   const {
@@ -207,11 +207,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                             ? pathname === "/dashboard"
                             : pathname.startsWith(item.href);
                         return (
-                          <button
-                            type="button"
+                          <Link
+                            href={item.href}
+                            role="button"
                             key={item.key}
+                            aria-label={item.label}
                             onClick={() => {
-                              router.push(item.href);
                               setMobileNavOpen(false);
                             }}
                             className={cn(
@@ -230,7 +231,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                                 {item.badge}
                               </span>
                             )}
-                          </button>
+                          </Link>
                         );
                       })}
                     </nav>
@@ -268,7 +269,10 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       >
         <DashboardTopbar
           onOpenMobileNav={() => setMobileNavOpen(true)}
-          onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+          onOpenCommandPalette={() => {
+            console.log("SHELL: setCommandPaletteOpen(true)");
+            setCommandPaletteOpen(true);
+          }}
         />
 
         <main id="main" className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full space-y-6">

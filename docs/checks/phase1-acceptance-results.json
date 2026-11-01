@@ -1,0 +1,77 @@
+{
+  "checks": [
+    {
+      "name": "10. Logout and unauthorized-access protection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Dashboard loads authenticated workspace with Overview heading",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "1. Sidebar navigation across all dashboard routes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "2. Desktop collapse and expansion with persistent state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "4. Ctrl+K / Cmd+K Command Palette search and navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "5. Quick Create actions for projects, articles, and media",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "6. Notifications and their actual destinations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "7. Contextual Save, Discard, and Publish actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "8. Unsaved changes persistence when switching dashboard pages",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "9. Settings revision restore panel loaded cleanly",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "3. Mobile navigation and keyboard accessibility",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Zero JavaScript runtime errors across all flows",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "screenshots": [
+    "check-10-unauthorized-access.png",
+    "dashboard-overview-desktop.png",
+    "dashboard-sidebar-collapsed.png",
+    "dashboard-command-palette.png",
+    "dashboard-quick-create.png",
+    "dashboard-notifications-panel.png",
+    "dashboard-publish-dialog.png",
+    "dashboard-settings-desktop.png",
+    "dashboard-mobile-drawer.png",
+    "dashboard-mobile-blog.png"
+  ],
+  "failures": []
+}

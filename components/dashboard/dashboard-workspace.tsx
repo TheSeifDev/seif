@@ -43,7 +43,7 @@ export type DashboardWorkspaceProps = {
   configured: boolean;
 };
 
-type PathPart = string | number;
+export type PathPart = string | number;
 type ContentValue = unknown;
 type Notice = { tone: "success" | "error" | "info"; message: string };
 type MediaItem = {
@@ -104,7 +104,7 @@ const emptyFor = (value: unknown): unknown => {
 
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
-function setAt(
+export function setAt(
   root: ContentValue,
   path: PathPart[],
   value: ContentValue,
@@ -170,7 +170,7 @@ export function formatDate(value?: string) {
     }).format(date);
 }
 
-function formatDateTimeLocal(value?: string) {
+export function formatDateTimeLocal(value?: string) {
   if (!value) return "";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
@@ -359,7 +359,7 @@ export function FieldHelp({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TextField({
+export function TextField({
   label,
   value,
   onChange,
@@ -402,7 +402,7 @@ function TextField({
   );
 }
 
-function BooleanField({
+export function BooleanField({
   label,
   value,
   onChange,
@@ -431,7 +431,7 @@ function BooleanField({
   );
 }
 
-function ArrayEditor({
+export function ArrayEditor({
   value,
   path,
   label,
@@ -554,7 +554,7 @@ function moveItem<T>(items: T[], index: number, direction: -1 | 1) {
   return next;
 }
 
-function StructuredValue({
+export function StructuredValue({
   value,
   path,
   label,
@@ -681,7 +681,7 @@ function OptionalFieldCard({
   );
 }
 
-function ProjectOptionalFields({
+export function ProjectOptionalFields({
   project,
   update,
 }: {
