@@ -350,7 +350,7 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 12,
+            "frames": 13,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -404,7 +404,7 @@
           "canvas": {
             "rise": "0.631",
             "exit": "0.000",
-            "frames": 28,
+            "frames": 31,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -458,7 +458,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 34,
+            "frames": 36,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -512,7 +512,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.089",
-            "frames": 46,
+            "frames": 51,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -565,8 +565,8 @@
           "renderer": "webgl",
           "canvas": {
             "rise": "1.000",
-            "exit": "0.563",
-            "frames": 60,
+            "exit": "0.562",
+            "frames": 68,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -620,7 +620,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 75,
+            "frames": 87,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -676,7 +676,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "1.000",
-            "frames": 75,
+            "frames": 87,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -730,7 +730,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.563",
-            "frames": 87,
+            "frames": 103,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -784,7 +784,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.089",
-            "frames": 98,
+            "frames": 117,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -838,7 +838,7 @@
           "canvas": {
             "rise": "1.000",
             "exit": "0.000",
-            "frames": 102,
+            "frames": 121,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -892,7 +892,7 @@
           "canvas": {
             "rise": "0.631",
             "exit": "0.000",
-            "frames": 119,
+            "frames": 140,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -946,7 +946,7 @@
           "canvas": {
             "rise": "0.041",
             "exit": "0.000",
-            "frames": 131,
+            "frames": 155,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1000,7 +1000,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 134,
+            "frames": 157,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1054,7 +1054,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 134,
+            "frames": 157,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1108,7 +1108,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 134,
+            "frames": 157,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1162,7 +1162,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 134,
+            "frames": 157,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1216,7 +1216,7 @@
           "canvas": {
             "rise": "0.000",
             "exit": "0.000",
-            "frames": 134,
+            "frames": 157,
             "dpr": "1"
           },
           "pinTop": -0.46875
@@ -1596,7 +1596,7 @@
       "canvas": {
         "rise": "1.000",
         "exit": "0.000",
-        "frames": 140,
+        "frames": 163,
         "dpr": "1"
       },
       "idle_frames_added": 0

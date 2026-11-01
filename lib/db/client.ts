@@ -1,6 +1,7 @@
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "@/lib/db/schema";
+import { assertDatabaseIsolation } from "@/lib/config/environment-guard";
 
 type ContactDb = NodePgDatabase<typeof schema>;
 
@@ -15,6 +16,8 @@ const globals = globalThis as DbGlobals;
 export function getDb(): ContactDb | null {
   const connectionString = process.env.DATABASE_URL?.trim();
   if (!connectionString) return null;
+
+  assertDatabaseIsolation(connectionString);
 
   if (globals.__contactDb && globals.__contactPoolUrl === connectionString) {
     return globals.__contactDb;
