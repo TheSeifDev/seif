@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "name": "Unauthorized access to /dashboard/preview/home is blocked (renders login guard)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Dashboard /dashboard/home loads Home Split Live Preview heading",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Section hierarchy board is visible with active count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Core sections listed on reordering board (Hero, Featured, Skills)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Section visibility toggle toggles section state cleanly",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Section reordering arrow moves section position",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Reset to default order restores standard section hierarchy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Hero copy & motto accordion expands with editable fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Live preview iframe is embedded and rendered",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Tablet 768px viewport switch resizes preview frame",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Mobile 390px viewport switch resizes preview frame",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "FAQ Manager panel is visible in /dashboard/about",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Existing FAQ items rendered (count: 3)",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Add Question button appends a new editable FAQ item",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Question input field accepts live edits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Reordering FAQ question moves item up",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Zero JavaScript runtime errors across all flows",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "screenshots": [
+    "dashboard-home-split-desktop.png",
+    "dashboard-home-split-tablet.png",
+    "dashboard-home-split-mobile.png",
+    "dashboard-faq-manager.png"
+  ],
+  "failures": []
+}
