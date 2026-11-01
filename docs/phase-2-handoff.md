@@ -1,4 +1,4 @@
-# Seif Portfolio — تسليم إصلاح Home بـTailwind
+# Seif Portfolio تسليم إصلاح Home بـTailwind
 
 تم إصلاح الكود فعليًا فوق النسخة الحالية من مستودع `TheSeifDev/seif`، وليس تقديم خطة جديدة. الصفحة الإنجليزية تحافظ على Next.js وTypeScript وTailwind وshadcn/Base UI وGSAP وNeon. هذه النسخة تخص Home؛ لا تشمل dashboard أو التكاملات أو نشرًا على Vercel.
 

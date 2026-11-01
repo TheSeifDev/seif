@@ -51,7 +51,7 @@ const initialContent = {
     siteOrigin: DEFAULT_SITE_ORIGIN,
     siteName: SITE_NAME,
     defaultTitle: SITE_TITLE,
-    titleTemplate: "%s — Seif Ayman",
+    titleTemplate: "%s Seif Ayman",
     description:
       "Portfolio of Seif Ayman Ahmed, Senior Full Stack Software Developer in Alexandria, Egypt.",
     locale: "en_US",

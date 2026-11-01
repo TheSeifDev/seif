@@ -48,7 +48,7 @@ export function ProjectsCta({ content }: { content: SiteContent }) {
           </span>
         </Link>
         <p className="mt-12 max-w-md border-t border-white/10 pt-8 text-[15px] leading-relaxed text-mist">
-          Tell me what you are building and where it is stuck — the contact page
+          Tell me what you are building and where it is stuck the contact page
           has the form and direct details.
         </p>
       </div>

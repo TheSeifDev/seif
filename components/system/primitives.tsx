@@ -17,7 +17,7 @@ export function Accent({ children }: { children: ReactNode }) {
   return <span className={accentText}>{children}</span>;
 }
 
-/** "● 01 ——— ABOUT ME" */
+/** "● 01 ABOUT ME" */
 export function SectionLabel({
   index,
   children,

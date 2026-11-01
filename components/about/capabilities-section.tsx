@@ -13,7 +13,7 @@ const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 type Group = SiteContent["skillGroups"][number];
 
 /**
- * 04 Capabilities — every skill group as a row in a typographic index.
+ * 04 Capabilities every skill group as a row in a typographic index.
  * Motion hooks: `data-cap-*`. Hover fill only applies on hover-capable
  * devices (Tailwind v4 `hover:` is gated by `(hover: hover)`).
  */

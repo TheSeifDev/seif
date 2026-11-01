@@ -5,7 +5,7 @@ import { createSiteVerification } from "@/lib/seo/site-verification";
 export const DEFAULT_SITE_ORIGIN = "https://theseif.vercel.app";
 export const RETIRED_SITE_ORIGIN = "https://prof-zeta-one.vercel.app";
 export const SITE_NAME = "Seif Ayman";
-export const SITE_TITLE = "Seif Ayman — Senior Full Stack Developer";
+export const SITE_TITLE = "Seif Ayman Senior Full Stack Developer";
 export const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 
 /**
@@ -55,7 +55,7 @@ export type PageMetadataOptions = {
 };
 
 function pageTitle(title: string, path: string) {
-  return path === "/" ? SITE_TITLE : `${title} — ${profile.name}`;
+  return path === "/" ? SITE_TITLE : `${title} ${profile.name}`;
 }
 
 export function createPageMetadata({
@@ -86,7 +86,7 @@ export function createPageMetadata({
           url: image,
           width: 1200,
           height: 630,
-          alt: `${socialTitle} — ${SITE_NAME}`,
+          alt: `${socialTitle} ${SITE_NAME}`,
         },
       ],
       ...(type === "article" && publishedTime ? { publishedTime } : {}),
@@ -122,7 +122,7 @@ export function createRootMetadata(): Metadata {
     metadataBase: new URL(getSiteOrigin()),
     title: {
       default: SITE_TITLE,
-      template: "%s — Seif Ayman",
+      template: "%s Seif Ayman",
     },
     description,
     applicationName: SITE_NAME,
@@ -169,7 +169,7 @@ export function createRootMetadata(): Metadata {
 
 export function createNoIndexMetadata(title = "Not found"): Metadata {
   return {
-    title: { absolute: `${title} — ${SITE_NAME}` },
+    title: { absolute: `${title} ${SITE_NAME}` },
     robots: { index: false, follow: false },
   };
 }

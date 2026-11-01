@@ -93,7 +93,7 @@ export function Hero({ content }: { content: SiteContent }) {
           >
             {c(
               "home.hero.description",
-              "I build production web, desktop and AI products — from TypeScript interfaces to NestJS APIs and PostgreSQL data models.",
+              "I build production web, desktop and AI products from TypeScript interfaces to NestJS APIs and PostgreSQL data models.",
             )}
           </p>
           <div data-hero-actions className="mt-8 flex flex-wrap gap-3">

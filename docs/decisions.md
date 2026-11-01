@@ -1,12 +1,12 @@
 # Decision record
 
-## Final decisions — 29 October 2026 (settled, do not reopen)
+## Final decisions 29 October 2026 (settled, do not reopen)
 
 1. **Multi-page public site**: `/`, `/about`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`. The private dashboard is a separate area built in a later phase.
 2. **Contact**: dedicated `/contact` page with the complete form. Home ends with a concise "Let's Connect" CTA linking to `/contact`. Server-side validation and honest feedback; success is shown only when the message has actually been persisted (and notification status is reported separately).
 3. **Submission workflow: Neon PostgreSQL + Resend.** Messages are persisted in Neon (Drizzle migrations) for later review in the dashboard; Resend sends an owner notification when configured. Store only what is needed (name, email, message, status, timestamps, keyed IP hash for rate limiting). Server-side validation, honeypot + timing spam checks, rate limiting. No keys in client code. Missing DB config → message is NOT accepted and the UI says so. Saved but email failed/not configured → UI says the message was saved and the notification did not go out. Integrations are not claimed operational until configured and tested against the real services.
 4. **Blog**: three initial article drafts based on CV subjects, `status: "draft"`, `origin: "initial-draft"`. Never shown on `/blog`, article routes (404), sitemap or metadata until explicitly published. No invented personal experiences or results. The dashboard must label them as initial drafts.
-5. **More Projects**: exactly three on desktop — Nabd Masr, Personal Portfolio, TrackUp (https://trakeup.vercel.app/, https://github.com/TheSeifDev/traking). Featured: RAFIQ, IT-SUM, PHANTOMS. No duplicates. `Watch Live` / `Go to Repo` only for verified URLs.
+5. **More Projects**: exactly three on desktop Nabd Masr, Personal Portfolio, TrackUp (https://trakeup.vercel.app/, https://github.com/TheSeifDev/traking). Featured: RAFIQ, IT-SUM, PHANTOMS. No duplicates. `Watch Live` / `Go to Repo` only for verified URLs.
 6. **Visual system**: black/white structural contrast; Light Blue is the single accent family (two steps: on-dark and on-light). No Crimson, no Three.js moon/circle in the Hero. Three.js removed because it did not contribute to the composition.
 7. **Styling**: Tailwind utilities only (theme tokens and keyframes live in `app/globals.css` `@theme`). GSAP + ScrollTrigger via `@gsap/react` `useGSAP` scoped per component so route changes revert triggers.
 

@@ -7,7 +7,7 @@ import { aboutLightPanel } from "@/lib/ui/about-layout";
 import { container, sectionY } from "@/lib/ui/layout";
 import { cn } from "@/lib/utils";
 
-/** 06 FAQ — restrained, native disclosures for the work behind the portfolio. */
+/** 06 FAQ restrained, native disclosures for the work behind the portfolio. */
 export function AboutFaqSection({
   items,
   content,

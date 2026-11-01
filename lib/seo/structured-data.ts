@@ -127,14 +127,14 @@ export function createCollectionPageGraph({
   const pageUrl = siteUrl(path);
   const itemList = items
     ? {
-        "@type": "ItemList",
-        itemListElement: items.map((item, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          name: item.name,
-          url: siteUrl(item.path),
-        })),
-      }
+      "@type": "ItemList",
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: siteUrl(item.path),
+      })),
+    }
     : undefined;
 
   return {
@@ -268,7 +268,7 @@ export function createHomeGraph() {
         "@type": "ProfilePage",
         "@id": `${pageUrl}#profile`,
         url: pageUrl,
-        name: "Seif Ayman — Senior Full Stack Developer",
+        name: "Seif Ayman Senior Full Stack Developer",
         description: profile.summary,
         isPartOf: websiteReference,
         mainEntity: personReference,

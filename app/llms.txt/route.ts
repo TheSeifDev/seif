@@ -16,7 +16,7 @@ export async function GET() {
     "## Current experience",
     "",
     ...experience.map(
-      (role) => `- ${role.role} — ${role.organization}. ${role.period}.`,
+      (role) => `- ${role.role} ${role.organization}. ${role.period}.`,
     ),
     "",
     "## Canonical navigation",
@@ -27,19 +27,19 @@ export async function GET() {
     "",
     ...projects.map(
       (project) =>
-        `- [${project.title}](${url(`/projects/${project.slug}`)}) — ${project.summary} Domains: ${project.domains.join(", ")}. Stack: ${project.stack.join(", ")}.`,
+        `- [${project.title}](${url(`/projects/${project.slug}`)}) ${project.summary} Domains: ${project.domains.join(", ")}. Stack: ${project.stack.join(", ")}.`,
     ),
     "",
     "## Published writing",
     "",
     ...(posts.length
       ? posts.map(
-          (post) =>
-            `- [${post.title}](${url(`/blog/${post.slug}`)}) — ${post.description}`,
-        )
+        (post) =>
+          `- [${post.title}](${url(`/blog/${post.slug}`)}) ${post.description}`,
+      )
       : [
-          "No blog articles are published yet; draft posts are intentionally excluded.",
-        ]),
+        "No blog articles are published yet; draft posts are intentionally excluded.",
+      ]),
     "",
     "## Identity facts",
     "",

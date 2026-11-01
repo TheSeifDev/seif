@@ -50,15 +50,15 @@
 | `components/home/process.tsx` | مسار الأرقام والمرحلة المركزية والتخطيط المضغوط دون بطاقات/أيقونات |
 | `components/home/hero.tsx` | hooks الكشف ودمج الدرع وCTA المغناطيسي |
 | `components/motion/scenes.ts` | Hero timeline موحد، Journey rail واحد، active state لتخطيط Process المضغوط |
-| `components/site/custom-cursor.tsx` — جديد | المؤشر العام، التصنيف والمغناطيسية والتعطيل والتنظيف |
-| `components/visuals/portrait-shield.tsx` — جديد | كفاف SVG والإضاءة المحلية والتتبع الخفيف والنسخة الثابتة |
+| `components/site/custom-cursor.tsx` جديد | المؤشر العام، التصنيف والمغناطيسية والتعطيل والتنظيف |
+| `components/visuals/portrait-shield.tsx` جديد | كفاف SVG والإضاءة المحلية والتتبع الخفيف والنسخة الثابتة |
 | `app/(site)/layout.tsx` | تركيب المؤشر مرة واحدة في layout العام |
-| `public/images/portrait-silhouette.png` — جديد | بيانات alpha mask منفصلة، لا صورة شخصية بديلة |
-| `scripts/extract-portrait-mask.py` — جديد | استخراج القناع بشكل قابل لإعادة التنفيذ في Python منفصل عن dependencies الموقع |
-| `scripts/check-refinement.py` — جديد | فحص التفاعلات الجديدة والهندسة والتنظيف والـresponsive |
+| `public/images/portrait-silhouette.png` جديد | بيانات alpha mask منفصلة، لا صورة شخصية بديلة |
+| `scripts/extract-portrait-mask.py` جديد | استخراج القناع بشكل قابل لإعادة التنفيذ في Python منفصل عن dependencies الموقع |
+| `scripts/check-refinement.py` جديد | فحص التفاعلات الجديدة والهندسة والتنظيف والـresponsive |
 | `.gitignore` | استبعاد Python caches المحلية |
 | `plan.md` و`TODO.md` | قرارات هذا التنقيح ومعايير القبول وحالتها وأدلتها |
-| `docs/checks/refinement-browser-results.json` — جديد | نتائج الاختبار النهائي للتنقيح |
+| `docs/checks/refinement-browser-results.json` جديد | نتائج الاختبار النهائي للتنقيح |
 | `docs/checks/multipage-browser-results.json` | إعادة تشغيل فحص المسارات والتنقل والحركة والتخطيطات |
 | `docs/checks/identity-browser-results.json` | إعادة تشغيل regression لقسم Identity الحالي |
 | `docs/refinement-handoff.md` | هذا التقرير |

@@ -27,7 +27,7 @@ export const profile = {
   japaneseMottoMeaning: "Building a better future through technology.",
   headline: "I build products that solve real problems.",
   intro:
-    "I architect and deliver production-grade platforms end to end — from TypeScript, React and Next.js interfaces to NestJS and Node.js APIs, PostgreSQL data models and cloud deployment.",
+    "I architect and deliver production-grade platforms end to end from TypeScript, React and Next.js interfaces to NestJS and Node.js APIs, PostgreSQL data models and cloud deployment.",
   summary:
     "Senior Full Stack Software Developer who architects and delivers production-grade web platforms end to end. I have shipped five production platforms across education, healthcare and AI-driven products, including a RAG-powered assistant and real-time MQTT/IoT systems. I pair system design, clean architecture and scalable API design with technical leadership: setting engineering standards, driving code reviews and mentoring cross-functional engineers.",
 } as const;
@@ -56,17 +56,17 @@ export const identity = {
       kanji: "技",
       reading: "Waza",
       title: "The system",
-      body: "Data models, APIs, services and deployment designed as one system — typed end to end, validated at every boundary and built on clean architecture that keeps working after launch.",
+      body: "Data models, APIs, services and deployment designed as one system typed end to end, validated at every boundary and built on clean architecture that keeps working after launch.",
     },
     {
       kanji: "匠",
       reading: "Takumi",
       title: "The experience",
-      body: "Interfaces held to the same discipline — clear hierarchy, purposeful motion and accessibility treated as requirements, so the complexity underneath stays out of the way.",
+      body: "Interfaces held to the same discipline clear hierarchy, purposeful motion and accessibility treated as requirements, so the complexity underneath stays out of the way.",
     },
   ],
   caption: "技と匠",
-  next: "Next — The journey",
+  next: "Next The journey",
 } as const;
 
 export const experience = [
@@ -74,7 +74,7 @@ export const experience = [
     role: "Lead Full Stack Software Developer & Technical Lead",
     organization: "PHANTOMS Technology Team",
     location: "Alexandria, Egypt",
-    period: "2025 — Present",
+    period: "2025 Present",
     points: [
       "Architect and deliver five production platforms spanning web, desktop and IoT, owning every layer from database schema and REST APIs to frontend and deployment.",
       "Define software architecture, API conventions and coding standards for a cross-functional engineering group covering software, UI/UX and hardware.",
@@ -100,7 +100,7 @@ export const experience = [
     role: "Vice Head IT Support",
     organization: "University IT Club",
     location: "Alexandria, Egypt",
-    period: "Sep 2026 — Present",
+    period: "Sep 2026 Present",
     points: [
       "Lead technical support operations, resolving software, networking and hardware issues to minimize downtime.",
       "Design and deliver technical workshops on IT fundamentals, networking and troubleshooting.",
@@ -113,7 +113,7 @@ export const experience = [
 export const education = {
   degree: "Bachelor of Technology in Information Technology",
   institution: "Borg El Arab Technological University",
-  period: "2025 — Present",
+  period: "2025 Present",
 } as const;
 
 export const training = [
@@ -141,7 +141,7 @@ export const principles = [
   },
   {
     title: "End-to-end ownership",
-    body: "From database schema and APIs to interface and deployment — one accountable owner.",
+    body: "From database schema and APIs to interface and deployment one accountable owner.",
     icon: "layers",
   },
   {
@@ -151,7 +151,7 @@ export const principles = [
   },
 ] as const;
 
-/** Home Journey chapters — each maps to a CV fact. */
+/** Home Journey chapters each maps to a CV fact. */
 export const journey = [
   {
     id: "foundations",
@@ -161,7 +161,7 @@ export const journey = [
     meaning: "Foundation",
     period: "5+ years",
     title: "Full-stack foundations",
-    body: "Five-plus years of building across every layer — interfaces in React and Next.js, APIs in Node.js, NestJS and Laravel, and relational data in PostgreSQL and MySQL.",
+    body: "Five-plus years of building across every layer interfaces in React and Next.js, APIs in Node.js, NestJS and Laravel, and relational data in PostgreSQL and MySQL.",
     facts: [
       { label: "Interface", value: "React · Next.js · TypeScript" },
       { label: "Services", value: "Node.js · NestJS · Laravel" },
@@ -180,7 +180,7 @@ export const journey = [
     facts: [
       { label: "Cisco", value: "IoT · Cybersecurity · JavaScript" },
       { label: "New Horizons", value: "Full-stack web development" },
-      { label: "University", value: "B.Tech IT · 2025 — Present" },
+      { label: "University", value: "B.Tech IT · 2025 Present" },
     ],
   },
   {
@@ -189,9 +189,9 @@ export const journey = [
     kanji: "支",
     reading: "Sasae",
     meaning: "Support",
-    period: "Sep 2026 — Present",
+    period: "Sep 2026 Present",
     title: "Vice Head IT Support",
-    body: "Promoted to Vice Head IT Support at the University IT Club — continuing to resolve software, networking and hardware issues, run workshops and support infrastructure for club-wide events.",
+    body: "Promoted to Vice Head IT Support at the University IT Club continuing to resolve software, networking and hardware issues, run workshops and support infrastructure for club-wide events.",
     facts: [
       { label: "Operations", value: "Software · Network · Hardware" },
       { label: "Teaching", value: "Workshops on IT fundamentals" },
@@ -204,7 +204,7 @@ export const journey = [
     kanji: "導",
     reading: "Michibiki",
     meaning: "Guidance",
-    period: "2025 — Present",
+    period: "2025 Present",
     title: "Lead Developer & Technical Lead",
     body: "At PHANTOMS Technology Team I define architecture, API conventions and coding standards, lead sprint planning and reviews, and mentor engineers across web, desktop, AI and IoT work.",
     facts: [
@@ -215,7 +215,7 @@ export const journey = [
   },
 ] as const;
 
-/** How I work — Discover, Design, Build, Ship. */
+/** How I work Discover, Design, Build, Ship. */
 export const processSteps = [
   {
     id: "discover",
@@ -254,7 +254,7 @@ export const processSteps = [
     kanji: "届",
     summary: "Deploy, measure and keep improving.",
     detail:
-      "Configure environments, deploy, and watch real behaviour in production — then iterate on performance, reliability and experience.",
+      "Configure environments, deploy, and watch real behaviour in production then iterate on performance, reliability and experience.",
     outputs: ["Deployment", "Environment config", "Iteration plan"],
   },
 ] as const;

@@ -1,4 +1,4 @@
-# Seif Ayman Portfolio — Implementation plan (multi-page rebuild)
+# Seif Ayman Portfolio Implementation plan (multi-page rebuild)
 
 Settled decisions live in `docs/decisions.md`; verified facts in `docs/content-sources.md`. This plan replaces the previous one-page Home plan.
 
@@ -46,15 +46,15 @@ drizzle/       generated SQL migrations
 
 Reference: the user's Light Blue Home mock (cinematic dark hero, rounded light panels, Japanese ink landscapes), which is the existing project style. Crimson is removed. Three.js is used only for the moon inside the Cinematic Identity Sequence (lazy, on demand).
 
-- **Design movement**: Japanese ink-wash minimalism meets Swiss editorial grids — dark cinematic stages alternating with paper-white panels.
+- **Design movement**: Japanese ink-wash minimalism meets Swiss editorial grids dark cinematic stages alternating with paper-white panels.
 - **Core principles**: one accent, used with intent; black/white structural contrast carries the hierarchy; every animation explains structure or progress; typography does the heavy lifting.
-- **Color philosophy**: night ink `#05070A` and paper `#F3F4F6` are the two surfaces (raised: `#0B0E13`/`#11151B` and white). Light Blue is the only accent family — `accent #4DB6FF` on dark (9.1:1) and `accent-ink #0A6CC0` on light (4.9:1). Muted text `#8A94A3` on dark (6.6:1), `#5A6370` on light (5.5:1). Blue marks the active, the important and the interactive; it never floods whole surfaces.
+- **Color philosophy**: night ink `#05070A` and paper `#F3F4F6` are the two surfaces (raised: `#0B0E13`/`#11151B` and white). Light Blue is the only accent family `accent #4DB6FF` on dark (9.1:1) and `accent-ink #0A6CC0` on light (4.9:1). Muted text `#8A94A3` on dark (6.6:1), `#5A6370` on light (5.5:1). Blue marks the active, the important and the interactive; it never floods whole surfaces.
 - **Layout paradigm**: asymmetric 12-column editorial grid inside one container (`max-w-[1360px]`, `px-5 sm:px-8 lg:px-12`). Light panels are rounded sheets (`rounded-[28px] lg:rounded-[40px]`) that slide over dark stages. Section rhythm `py-24 lg:py-36`.
-- **Signature elements**: the numbered section label (`01 ——— ABOUT ME`); vertical Japanese captions; hairline rules and progress rails in accent.
-- **Interaction philosophy**: calm and precise — hover brightens borders and reveals arrows; nothing bounces.
+- **Signature elements**: the numbered section label (`01 ABOUT ME`); vertical Japanese captions; hairline rules and progress rails in accent.
+- **Interaction philosophy**: calm and precise hover brightens borders and reveals arrows; nothing bounces.
 - **Animation**: scrubbed timelines tied to scroll on Home and case studies; lighter enter reveals on inner pages; UI transitions 200–500ms; `prefers-reduced-motion` gives static, fully visible layouts with no pins or marquees.
 - **Typography**: Archivo (700–800, uppercase, tracking −0.04em, leading 0.9) for display; Geist for body/UI; Geist Mono for labels (11px, uppercase, tracking 0.2em); Noto Sans JP for Japanese captions. Scale: display-xl clamp(4.5rem,11vw,10rem), display clamp(2.75rem,6vw,5.5rem), h2 clamp(2.25rem,4.2vw,3.75rem), h3 1.5–2rem, body-lg 1.125rem/1.65.
-- **Brand essence**: a senior full-stack engineer who owns products from schema to interface — precise, calm, ambitious.
+- **Brand essence**: a senior full-stack engineer who owns products from schema to interface precise, calm, ambitious.
 - **Brand voice**: direct and concrete. "I build products that solve real problems." / "Start a conversation".
 - **Wordmark**: "SA" monogram with an accent slash, beside SEIF AYMAN set in Archivo.
 - **Signature brand color**: Light Blue `#4DB6FF`.
@@ -62,14 +62,14 @@ Reference: the user's Light Blue Home mock (cinematic dark hero, rounded light p
 ## Route compositions and motion map
 
 Home (strongest storytelling):
-1. Hero (dark, full viewport) — typography and portrait readable immediately; background settles on load; CSS sticky so the About panel slides over it; scrubbed parallax/fade of hero layers during the overlap.
-2. About (light panel) — heading lines unmask, ink landscape reveals with clip-path, statement words fill from muted to ink, principles rise; all scrubbed to section progress (no pin).
-3. Cinematic Identity Sequence (dark, pinned) — see the dedicated section below.
-4. Journey (dark) — sticky stacking chapters (Foundations → Training → Community → Leadership) with kanji visuals; the previous chapter scales/dims as the next covers it; the rail fills with progress and highlights the active chapter. Mobile keeps the CSS sticky stack in compact form.
-5. Featured projects (light panel) — desktop pinned horizontal track of the three featured case studies with progress bar and counter; ends exactly at the last slide; vertical stack below `lg` or on short viewports. Links to `/projects/[slug]` and `/projects`.
-6. More projects (dark) — exactly three cards (Nabd Masr, Personal Portfolio, TrackUp) with Watch Live / Go to Repo only when verified; 3 columns desktop, 2 tablet, 1 mobile.
-7. Skills (dark) — three CSS marquee rows (left, right, left), neutral monochrome icons with accent on hover, pause control, offscreen pause; grouped index below.
-8. Process (light panel) — pinned on desktop: a connected progress path fills with scroll and activates four stages while the stage detail crossfades. Mobile: vertical timeline with scrubbed line fill.
+1. Hero (dark, full viewport) typography and portrait readable immediately; background settles on load; CSS sticky so the About panel slides over it; scrubbed parallax/fade of hero layers during the overlap.
+2. About (light panel) heading lines unmask, ink landscape reveals with clip-path, statement words fill from muted to ink, principles rise; all scrubbed to section progress (no pin).
+3. Cinematic Identity Sequence (dark, pinned) see the dedicated section below.
+4. Journey (dark) sticky stacking chapters (Foundations → Training → Community → Leadership) with kanji visuals; the previous chapter scales/dims as the next covers it; the rail fills with progress and highlights the active chapter. Mobile keeps the CSS sticky stack in compact form.
+5. Featured projects (light panel) desktop pinned horizontal track of the three featured case studies with progress bar and counter; ends exactly at the last slide; vertical stack below `lg` or on short viewports. Links to `/projects/[slug]` and `/projects`.
+6. More projects (dark) exactly three cards (Nabd Masr, Personal Portfolio, TrackUp) with Watch Live / Go to Repo only when verified; 3 columns desktop, 2 tablet, 1 mobile.
+7. Skills (dark) three CSS marquee rows (left, right, left), neutral monochrome icons with accent on hover, pause control, offscreen pause; grouped index below.
+8. Process (light panel) pinned on desktop: a connected progress path fills with scroll and activates four stages while the stage detail crossfades. Mobile: vertical timeline with scrubbed line fill.
 9. Let's Connect CTA (dark) linking to `/contact`, then the Footer.
 
 Inner pages (lighter, content-focused): shared `PageHero`; `/about` biography, experience, education and training, capabilities, principles; `/projects` filterable index; `/projects/[slug]` case-study hero with screenshot scale-in scrub, overview, verified features, stack, links, next project; `/blog` published list or honest empty state; `/blog/[slug]` article layout; `/contact` form plus direct details.
@@ -78,17 +78,17 @@ Route lifecycle: every animated component owns its triggers via `useGSAP({ scope
 
 ## Cinematic Identity Sequence (Home, between About and Journey)
 
-Position: after the About paper panel and before The Journey, labelled `02 — Identity` (later Home sections renumber 03–08). It bridges *what I do* (About) and *how I got here* (Journey): an engineering-philosophy statement anchored to Seif's portrait.
+Position: after the About paper panel and before The Journey, labelled `02 Identity` (later Home sections renumber 03–08). It bridges *what I do* (About) and *how I got here* (Journey): an engineering-philosophy statement anchored to Seif's portrait.
 
-Composition — desktop stage (≥1024 px wide, ≥760 px tall, motion allowed), one pinned 100svh night stage, layers back to front:
+Composition desktop stage (≥1024 px wide, ≥760 px tall, motion allowed), one pinned 100svh night stage, layers back to front:
 1. Night backdrop with a faint Light Blue radial wash and a bottom mist gradient.
 2. Moon host: a square centred on the portrait's head (17.5% from the portrait top), 170% of the portrait width; holds the lazy Three.js canvas and a CSS moon fallback.
 3. Portrait figure: the transparent cut-out at natural 3:4 proportions, bottom-anchored and centred, height `min(84svh, 50vw)`; revealed through a clip-path mask; never scaled, distorted or recoloured (only a night fade over its bottom edge).
-4. Statement typography in two halves — Half A top-left "I ENGINEER / THE WHOLE SYSTEM", Half B bottom-right "SO IT FEELS / EFFORTLESS." — display size `clamp(4rem, 8vw, 8.5rem)`, accent words in sky, each half anchored by `transform-origin` to its corner.
+4. Statement typography in two halves Half A top-left "I ENGINEER / THE WHOLE SYSTEM", Half B bottom-right "SO IT FEELS / EFFORTLESS." display size `clamp(4rem, 8vw, 8.5rem)`, accent words in sky, each half anchored by `transform-origin` to its corner.
 5. Supporting copy: left block 技 "The system" under Half A's final position; right block 匠 "The experience" above Half B's final position.
-6. Vertical caption 技と匠 on the right edge, the `02 — Identity` label, and a "Next — The journey" cue.
+6. Vertical caption 技と匠 on the right edge, the `02 Identity` label, and a "Next The journey" cue.
 
-Master timeline — one GSAP timeline, one ScrollTrigger (`id: identity-sequence`, pin the stage, `start: top top`, `end: +=320%` of viewport height, `scrub: 0.6`, `anticipatePin`, `invalidateOnRefresh`), 10 units:
+Master timeline one GSAP timeline, one ScrollTrigger (`id: identity-sequence`, pin the stage, `start: top top`, `end: +=320%` of viewport height, `scrub: 0.6`, `anticipatePin`, `invalidateOnRefresh`), 10 units:
 
 | Units | Phase | What moves |
 | --- | --- | --- |
@@ -97,7 +97,7 @@ Master timeline — one GSAP timeline, one ScrollTrigger (`id: identity-sequence
 | 3.0 – 5.0 | Split | Half A scales to 0.42 from its top-left origin, Half B to 0.42 from its bottom-right origin, so they separate to opposite corners; the portrait mask opens from the centre seam (`inset(0 50% 0 50%) → inset(0)`) while the image settles (`y 6% → 0`); copy blocks rise in. |
 | 4.6 – 7.4 | Depth | `moon.rise 0 → 1`, tweened inside the same timeline and published to the Three.js scene: the moon rises from behind the shoulders to behind the head, the camera dollies in (z 11 → 8.6), the moon rotates, key light and blue atmosphere strengthen. The CSS fallback disc follows the same rise. Vertical caption appears. |
 | 7.4 – 8.0 | Hold | Full identity frame. |
-| 8.0 – 10 | Exit | Typography, copy and portrait lift and fade; `moon.exit 0 → 1` recedes the camera and drifts and dims the moon; the "Next — The journey" cue appears; the pin releases straight into The Journey on the same night surface. |
+| 8.0 – 10 | Exit | Typography, copy and portrait lift and fade; `moon.exit 0 → 1` recedes the camera and drifts and dims the moon; the "Next The journey" cue appears; the pin releases straight into The Journey on the same night surface. |
 
 Scrub makes every phase reversible: scrolling up replays the same values backwards.
 
@@ -106,7 +106,7 @@ Fallbacks:
 - Reduced motion or no JavaScript: the same stacked / three-column layout, fully visible, no triggers.
 - WebGL loads only in pinned stage mode, after the section is within one viewport and the browser is idle (dynamic `import("three")`). It renders on demand only (timeline updates and resizes), caps DPR at 1.5, and degrades after slow frames. The CSS moon remains if WebGL is unavailable, fails or loses its context. Leaving the mode or the route disposes the renderer, geometries, materials and textures.
 
-## Visual refinement pass — 29 October 2026
+## Visual refinement pass 29 October 2026
 
 This focused pass implements the user's supplied `Visual Refinement Pass` without changing the App Router architecture, curated facts, routes, contact service, or existing Three.js Identity scene. Existing server-rendered components and scoped GSAP infrastructure remain the base; no new dependencies or WebGL scenes are needed. No publication is authorized.
 
@@ -122,11 +122,11 @@ A global `components/site/custom-cursor.tsx` is mounted once in the shared site 
 
 Existing assets are reused, all lighting remains in the Light Blue family, neutral text carries legibility, and no speculative metrics, screenshots, features or links are introduced. Shared component changes are limited to explicit interaction metadata and optional restrained action presentation. `TODO.md` records the full requested acceptance clauses; detailed checks and changed-file reporting will distinguish genuinely rerun results from prior evidence.
 
-## About page chapters pass — Experience → Principles (29 October 2026)
+## About page chapters pass Experience → Principles (29 October 2026)
 
 Scope is the `/about` route from section 02 Experience through section 05 Principles. The page hero, Introduction and closing CTA keep their current composition. Content stays sourced from `lib/content/profile.ts` and `lib/content/skills.ts`; no new facts, metrics or links are introduced. Each chapter moves into its own component under `components/about/` and the page composes them, so `app/(site)/about/page.tsx` stays a thin server component.
 
-Design language: "editorial motion chapters" — the existing night/paper/Light Blue system, oversized display type, outline numerals and kanji, hairline rules, and one motion idea per chapter so the page reads as a sequence rather than repeated fade-ups. Every chapter title uses a SplitText line-mask reveal (expo-out, staggered lines, reversible on scroll-back).
+Design language: "editorial motion chapters" the existing night/paper/Light Blue system, oversized display type, outline numerals and kanji, hairline rules, and one motion idea per chapter so the page reads as a sequence rather than repeated fade-ups. Every chapter title uses a SplitText line-mask reveal (expo-out, staggered lines, reversible on scroll-back).
 
 02 Experience (night): each role is a chapter opened by an oversized outline organisation name that drifts horizontally with scroll (scrubbed, alternating direction per role). A sticky meta column holds the role index (01 of 02), title, organisation, a period/location ledger and a Light Blue progress rail with a live point counter. The responsibilities become large numbered statements that brighten from dim to full as they cross the reading line (scrubbed opacity, reversible); the stack chips stagger in afterwards. Sticky behaviour relies on CSS, so the section must not create a scroll container (clipping only on the marquee band).
 
@@ -134,17 +134,17 @@ Design language: "editorial motion chapters" — the existing night/paper/Light 
 
 04 Capabilities (paper panel): a two-column typographic index of all fifteen groups (01–08 / 09–15). Each row has the index, the group name in display type, the count and every skill with its icon. Rows reveal with a masked name rise, a hairline draw and a skill stagger; on hover-capable devices an ink fill sweeps up and inverts the row.
 
-05 Principles (night): on stage viewports (≥1024×760 with motion) the section pins and four vertical panels expand in turn — one scrubbed GSAP timeline animates `flex-grow`, body/collapsed-label opacity and the Light Blue glow, with label snapping, a counter and a progress bar. Collapsed panels show index, vertical title and icon; content stays in the accessibility tree (opacity only). Compact viewports get a two-column grid of full cards with a staggered rise; reduced motion and no-JS show the full static grid.
+05 Principles (night): on stage viewports (≥1024×760 with motion) the section pins and four vertical panels expand in turn one scrubbed GSAP timeline animates `flex-grow`, body/collapsed-label opacity and the Light Blue glow, with label snapping, a counter and a progress bar. Collapsed panels show index, vertical title and icon; content stays in the accessibility tree (opacity only). Compact viewports get a two-column grid of full cards with a staggered rise; reduced motion and no-JS show the full static grid.
 
 Motion lifecycle: one `useGSAP` scope in `AboutMotion` with `gsap.matchMedia()` (motion / stage / compact); SplitText is registered once in `components/motion/gsap.ts`, created with `autoSplit` and explicitly reverted in cleanup; ScrollTrigger ids are prefixed `about-`. Route changes revert everything, so Home triggers never leak into About and vice versa; the only pin on `/about` is `about-principles` on stage viewports. Browser checks are updated to accept exactly that pin on `/about` while still failing on any leaked Home trigger or pin.
 
-## Projects page — 作品集 Archive redesign
+## Projects page 作品集 Archive redesign
 
 The `/projects` index becomes its own piece instead of re-using the Home showcase patterns. It keeps every project, every verified link and the domain filter; content still comes only from `lib/content/projects.ts`. The case-study route `/projects/[slug]` is unchanged.
 
 **Structure.** `app/(site)/projects/page.tsx` composes four new components inside one `ProjectsMotion` scope (single `useGSAP` + `gsap.matchMedia`, cleanups for SplitText): `ProjectsHero`, `ProjectsIndex`, `ProjectStack`, `ProjectsCta`. Scene functions live in `components/projects/projects-scenes.ts`; `Flip` is registered once in `components/motion/gsap.ts`. Trigger ids use the `projects-page-` prefix.
 
-**01 Hero.** Oversized two-line wordmark "Selected / Work (06)" — line one left, line two right-aligned with a mono superscript count — over a faint 12-column hairline grid and a Light Blue glow. Characters rise through SplitText line masks on load; on scroll the two lines drift apart (scrubbed, reversible). A ledger row shows live counts (projects, case files, domains) that count up, and a domain ticker runs along the bottom edge.
+**01 Hero.** Oversized two-line wordmark "Selected / Work (06)" line one left, line two right-aligned with a mono superscript count over a faint 12-column hairline grid and a Light Blue glow. Characters rise through SplitText line masks on load; on scroll the two lines drift apart (scrubbed, reversible). A ledger row shows live counts (projects, case files, domains) that count up, and a domain ticker runs along the bottom edge.
 
 **02 Index.** A typographic list of all projects: index, large uppercase title with a roll-up hover (Light Blue copy slides in), category, kanji and an arrow disc; siblings dim while one row is hovered and a hairline draws across the active row. On fine pointers with motion, a floating preview follows the cursor (GSAP `quickTo`, velocity tilt, clip-path open/close, cross-fade between projects; Nabd Masr shows its editorial kanji tile, never a fake capture). Touch/compact rows carry an inline thumbnail instead. The domain filter is a pill rail with per-domain counts and a sliding indicator; filtering animates with GSAP Flip (rows stay in the DOM and toggle `display`, so leaving rows animate out and entering rows rise in). Count is announced with `aria-live`.
 
@@ -155,20 +155,20 @@ The `/projects` index becomes its own piece instead of re-using the Home showcas
 **Motion rules.** Everything is reversible or scrubbed; reduced motion and no-JS show the complete static page (filter still works instantly, no preview, no sticky stacking). No ScrollTrigger pins on this route, no horizontal overflow, no clipped card content at 1440×900, 1280×760, 1024×768, tablet and mobile.
 
 
-## Footer grain and cursor-light refinement — 30 October 2026
+## Footer grain and cursor-light refinement 30 October 2026
 
 Keep the portfolio's current composition and interaction system. Add a low-opacity, monochrome, non-repeating SVG-noise surface sized to cover the footer only, below its content and clipped to the footer; animate that layer with small transform-only jitter in `app/globals.css`, and leave it static under reduced motion. In `components/site/custom-cursor.tsx`, reduce the Light Blue spotlight's opacity, core intensity, and radius substantially on both dark and light surfaces, while retaining mode distinctions, the native pointer, and current accessibility/lifecycle safeguards. Add no new runtime dependencies and no per-frame React state.
 
 
-## Stronger footer grain follow-up — 30 October 2026
+## Stronger footer grain follow-up 30 October 2026
 
 Increase the existing footer grain's opacity and transform-only jitter speed/amplitude modestly so it becomes visibly perceptible, while keeping the monochrome texture clipped behind the footer content. Retain the same static fallback under reduced motion and leave the cursor spotlight unchanged.
 
-## Static cursor-reactive footer background — 30 October 2026
+## Static cursor-reactive footer background 30 October 2026
 
 Blend the monochrome SVG grain directly into the footer's own background with a subtle `soft-light` blend; do not use a video or continuous/keyframed grain animation. On hover-capable fine pointers with motion enabled, reveal a softly blended local patch of the same texture beneath the pointer, updating its local coordinates through one animation-frame batch rather than React state. Clear the patch on pointer leave. Do not intercept footer interactions; disable tracking on touch and when reduced motion is requested, and remove listeners/cancel pending animation frames on cleanup.
 
-## Current follow-up — 30 October 2026: Journey surface and role update
+## Current follow-up 30 October 2026: Journey surface and role update
 
 The user's new direction supersedes the earlier open-ledger treatment only for Home Journey: four separated raised dark cards, borrowing Education's rounded surface, quiet Light Blue border/lighting and restrained upward unmask as each card enters the viewport. Preserve the native chapter rail and all factual content; no new pinning, image assets or expensive initial-render work. Reduced motion stays fully open and static.
 
@@ -176,7 +176,7 @@ The University IT Club's current role is now Vice Head IT Support, starting Sep 
 
 The Projects In focus panel becomes narrower and centered on desktop, targeting 84vw with a 1280px cap while retaining comfortable small-screen gutters. Keep its three case studies, readable complete content and existing sticky stack; adjust local spacing/type only as needed for fit.
 
-## Current direction — 30 October 2026: stacked Journey and tech filtering
+## Current direction 30 October 2026: stacked Journey and tech filtering
 
 The latest user instruction supersedes Journey's separated-card scroll behavior: use the same CSS-sticky stacking model as the Projects page's In focus cards, with increasing top offsets and scroll-scrubbed scale/shade of the previous card as the next covers it. Keep the Education-inspired surfaces, four chapters and active rail, but measure scroll from non-sticky flow positions. Establish desktop flow heights before first paint and retain static, fully readable no-JS/reduced-motion and compact layouts.
 
@@ -184,23 +184,23 @@ Enhance the existing Featured Projects section with Filter by Tech Stack sourced
 
 Keep the actual public origin and server-rendered structured identity in SEO metadata, tighten route descriptions and preserve social/crawler consistency. Google Search Console uses the deployed URL-prefix property, an exact Google-issued HTML verification token and the public sitemap. Configuration readiness is not ownership verification: account login/verification and sitemap submission remain explicit external steps until actually completed.
 
-## Canonical origin update — 30 October 2026
+## Canonical origin update 30 October 2026
 
 The user has moved the official portfolio to https://theseif.vercel.app/. All newly generated canonical/social/sitemap/robots/identity URLs and the Open Graph image's domain label use this explicit origin. Retire the old prof-zeta-one production alias in active configuration, preserving historical benchmark provenance. Verify the new exact URL-prefix property in the now-signed-in Search Console account with the actual Google-issued token and submit the new sitemap; do not change account permissions or unrelated properties.
 
-## About top-of-page refinement — 30 October 2026
+## About top-of-page refinement 30 October 2026
 
 The user now explicitly expands the About scope to Hero and Introduction, superseding the earlier instruction to leave them unchanged. Keep the cinematic Japanese editorial language, Montserrat and sky/night palette. Use an About-only capped paper-surface recipe for Introduction and Capabilities (1280px maximum, desktop side inset, small mobile gutter), rather than changing global lightPanel. The hero becomes a distinctive identity spread with a strong product-engineering headline, current factual intro, CV/contact actions, and an atmospheric engineering-layer visual using existing assets. ScrollTrigger supplies a restrained reversible multi-layer hero drift and a dedicated Introduction portrait/copy/facts reveal; no new pins, invisible initial hero copy, WebGL or font families. Preserve other About chapters, all verified content, the single existing Principles pin, and static/reduced-motion fallbacks.
 
-## About user correction — 30 October 2026
+## About user correction 30 October 2026
 
 The user rejects the invented Hero engineering card / new left-right identity spread. Supersede that direction: restore the original PageHero, image background, typography, Japanese caption and links exactly; add only gentle reversible image/text scroll drift, not a new visual composition. Introduction, Capabilities and A few useful answers share an intermediate About-only surface width: 12px mobile inset, 20px minimum medium-screen gutters and a fluid wide-screen cap up to 1600px, roughly halfway between the earlier full-bleed and 1280px versions. Preserve the existing content container and all data. Modernize the answers with clean numbered native disclosures, a visible open state and keyboard focus, keeping all three original answers and JSON-LD in sync. No new imagery, fonts, Hero cards or pins.
 
-## Home Hero alignment correction — 30 October 2026
+## Home Hero alignment correction 30 October 2026
 
 Live measurements show the left copy follows the shared 1360px frame, but the experience card and Japanese side label are anchored to viewport edges. At 1920px this detaches the right-hand data from the composition. Move those two existing nodes inside the same relative content frame, preserving their vertical offsets, styles and every motion/data hook. Keep left copy, portrait placement, full-width image/glow and mobile layout unchanged; this is a shared-anchor correction, not a new Hero composition.
 
-## Full private content dashboard — 30 October 2026
+## Full private content dashboard 30 October 2026
 
 Build `/dashboard` as a separate private App Router area in the existing Next.js repository, keeping the current public site and its Vercel origin unchanged. Preserve the settled Neon/PostgreSQL + Drizzle and Better Auth/GitHub OAuth decisions. Authorize only GitHub numeric owner ID 167328383 (TheSeifDev), with no public registration or development login bypass. Protect every admin read/mutation and asset-preview endpoint server-side; never put credentials in browser bundles.
 

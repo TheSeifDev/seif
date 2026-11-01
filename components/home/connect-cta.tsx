@@ -41,12 +41,12 @@ export function ConnectCta({ content }: { content: SiteContent }) {
     ...(at < 0
       ? [text]
       : [
-          text.slice(0, at).trim(),
-          <Accent key="accent">
-            {accent}
-            {text.slice(at + accent.length)}
-          </Accent>,
-        ]),
+        text.slice(0, at).trim(),
+        <Accent key="accent">
+          {accent}
+          {text.slice(at + accent.length)}
+        </Accent>,
+      ]),
   ];
 
   return (
@@ -101,7 +101,7 @@ export function ConnectCta({ content }: { content: SiteContent }) {
           <p className="mt-8 max-w-md text-[17px] leading-relaxed text-mist">
             {c(
               "home.connect.description",
-              "Have a project in mind or just want to say hi? Send a message — it goes straight to me.",
+              "Have a project in mind or just want to say hi? Send a message it goes straight to me.",
             )}
           </p>
           <div className="mt-10 flex flex-wrap gap-3">

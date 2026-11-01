@@ -59,7 +59,7 @@ export function Footer({ content }: { content: SiteContent }) {
               ariaLabel={getCopy(
                 copy,
                 "site.logo.ariaLabel",
-                `${profile.name} — home`,
+                `${profile.name} home`,
               )}
               subtitle={profile.shortRole}
             />
@@ -67,7 +67,7 @@ export function Footer({ content }: { content: SiteContent }) {
               {getCopy(
                 copy,
                 "site.footer.description",
-                "Production web, desktop and AI products — owned from the database schema to the last detail of the interface.",
+                "Production web, desktop and AI products owned from the database schema to the last detail of the interface.",
               )}
             </p>
             <p

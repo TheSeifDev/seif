@@ -34,6 +34,7 @@ import {
   X,
 } from "lucide-react";
 import type { BlogBlock, SiteContent, SiteProject } from "@/lib/cms/schema";
+import { container, darkCard, label as labelClass } from "@/lib/ui/layout";
 
 export type DashboardUser = {
   name: string;
@@ -195,7 +196,7 @@ function isUrlKey(key: string) {
 }
 
 function formatBytes(size: number) {
-  if (!size) return "—";
+  if (!size) return "";
   if (size < 1024) return `${size} B`;
   if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
@@ -207,9 +208,9 @@ function formatDate(value?: string) {
   return Number.isNaN(date.getTime())
     ? value
     : new Intl.DateTimeFormat("en", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      }).format(date);
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(date);
 }
 
 function formatDateTimeLocal(value?: string) {
@@ -297,12 +298,13 @@ function cx(...classes: Array<string | false | null | undefined>) {
 }
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition disabled:cursor-not-allowed disabled:opacity-45";
-const buttonSecondary = `${buttonBase} border-white/10 bg-white/[0.035] text-slate-300 hover:border-sky-300/35 hover:bg-sky-300/[0.08] hover:text-sky-100`;
-const buttonPrimary = `${buttonBase} border-sky-300/50 bg-sky-300 text-[#06101b] shadow-[0_0_22px_rgba(77,182,255,0.2)] hover:bg-sky-200`;
-const buttonDanger = `${buttonBase} border-red-300/20 bg-red-400/[0.08] text-red-100 hover:bg-red-400/[0.14]`;
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-sky";
+const buttonSecondary = `${buttonBase} h-10 px-4 text-[13px] border border-white/15 bg-white/[0.04] text-snow hover:border-sky/60 hover:text-sky`;
+const buttonPrimary = `${buttonBase} h-10 px-5 text-[13px] bg-snow text-night hover:bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]`;
+const buttonDanger = `${buttonBase} h-10 px-4 text-[13px] border border-red-500/20 bg-red-500/10 text-red-200 hover:bg-red-500/20`;
+const buttonAccent = `${buttonBase} h-10 px-5 text-[13px] bg-sky text-night hover:bg-[#7cc9ff] shadow-[0_8px_24px_-12px_rgba(77,182,255,0.3)]`;
 const fieldClass =
-  "w-full rounded-lg border border-white/10 bg-[#091422]/80 px-3 py-2.5 text-sm text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-sky-300/60 focus:ring-2 focus:ring-sky-300/10";
+  "w-full rounded-xl border border-white/10 bg-night-3 px-4 py-2.5 text-[14px] text-snow outline-none transition-colors placeholder:text-mist/50 focus:border-sky focus:ring-1 focus:ring-sky/40";
 
 function NotchedPanel({
   className,
@@ -314,7 +316,7 @@ function NotchedPanel({
   return (
     <section
       className={cx(
-        "relative rounded-t-[24px] rounded-bl-[24px] border border-sky-200/[0.08] bg-[#0c1929]/90 shadow-[0_20px_80px_rgba(0,0,0,0.24)] [background-image:radial-gradient(ellipse_at_90%_0%,rgba(65,105,245,0.07),transparent_65%)] [mask-image:radial-gradient(circle_30px_at_100%_100%,transparent_0_27px,#000_28px)] [-webkit-mask-image:radial-gradient(circle_30px_at_100%_100%,transparent_0_27px,#000_28px)]",
+        darkCard, "p-6 sm:p-8 shadow-sm",
         className,
       )}
     >
@@ -328,21 +330,36 @@ function StatusPill({
   tone = "neutral",
 }: {
   children: React.ReactNode;
-  tone?: "neutral" | "success" | "warning" | "danger";
+  tone?: "neutral" | "success" | "warning" | "danger" | "sky";
 }) {
   return (
     <span
       className={cx(
-        "inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em]",
+        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider",
         tone === "success" &&
-          "border-emerald-300/20 bg-emerald-300/10 text-emerald-200",
+          "border-emerald-500/25 bg-emerald-500/10 text-emerald-400",
         tone === "warning" &&
-          "border-amber-300/20 bg-amber-300/10 text-amber-100",
-        tone === "danger" && "border-red-300/20 bg-red-300/10 text-red-100",
-        tone === "neutral" && "border-white/10 bg-white/[0.04] text-slate-400",
+          "border-amber-500/25 bg-amber-500/10 text-amber-300",
+        tone === "danger" &&
+          "border-red-500/25 bg-red-500/10 text-red-300",
+        tone === "sky" &&
+          "border-sky/25 bg-sky/10 text-sky",
+        tone === "neutral" && "border-white/10 bg-white/[0.04] text-mist",
       )}
     >
-      {children}
+      {tone === "success" && (
+        <span className="size-1.5 rounded-full bg-emerald-400" />
+      )}
+      {tone === "warning" && (
+        <span className="size-1.5 rounded-full bg-amber-400" />
+      )}
+      {tone === "danger" && (
+        <span className="size-1.5 rounded-full bg-red-400" />
+      )}
+      {tone === "sky" && (
+        <span className="size-1.5 rounded-full bg-sky" />
+      )}
+      <span>{children}</span>
     </span>
   );
 }
@@ -359,28 +376,29 @@ function SectionHeading({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 border-b border-white/[0.08] pb-5 sm:flex-row sm:items-end sm:justify-between">
+    <div className="mb-8 flex flex-col gap-4 border-b border-white/[0.08] pb-6 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.23em] text-sky-300/75">
-          {eyebrow ?? "Content"}
+        <div className="mb-2 flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-sky" />
+          <span>{eyebrow ?? "Content"}</span>
         </div>
-        <h2 className="font-display text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-[-0.03em] text-snow">
           {title}
         </h2>
         {description && (
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-mist">
             {description}
           </p>
         )}
       </div>
-      {action}
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }
 
 function FieldHelp({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-1 text-[11px] leading-5 text-slate-500">{children}</p>
+    <p className="mt-1.5 text-xs leading-relaxed text-mist">{children}</p>
   );
 }
 
@@ -403,12 +421,12 @@ function TextField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+      <span className={cx(labelClass, "mb-2 block text-mist")}>
         {label}
       </span>
       {multiline ? (
         <textarea
-          className={cx(fieldClass, "min-h-28 resize-y leading-6")}
+          className={cx(fieldClass, "min-h-28 resize-y leading-relaxed")}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
@@ -439,15 +457,15 @@ function BooleanField({
   help?: React.ReactNode;
 }) {
   return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-white/8 bg-white/[0.025] p-3">
+    <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/10 bg-night-3 p-4 transition-colors hover:border-white/20">
       <input
-        className="mt-0.5 size-4 accent-sky-300"
+        className="mt-1 size-4 accent-sky rounded"
         type="checkbox"
         checked={value}
         onChange={(event) => onChange(event.target.checked)}
       />
       <span>
-        <span className="block text-xs font-semibold text-slate-200">
+        <span className="block text-xs font-semibold text-snow">
           {label}
         </span>
         {help && <FieldHelp>{help}</FieldHelp>}
@@ -482,7 +500,7 @@ function ArrayEditor({
     >
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+          <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-snow">
             {label}
           </h4>
           <FieldHelp>
@@ -507,7 +525,7 @@ function ArrayEditor({
         )}
       </div>
       {value.length === 0 && (
-        <div className="rounded-lg border border-dashed border-white/10 px-4 py-5 text-center text-xs text-slate-500">
+        <div className="rounded-lg border border-dashed border-white/10 px-4 py-5 text-center text-xs text-mist">
           {fixedShape
             ? "This layout requires exactly two blocks; the current value cannot be edited until it is restored to that shape."
             : "No items yet. Add the first one to start editing."}
@@ -516,17 +534,17 @@ function ArrayEditor({
       {value.map((item, index) => (
         <div
           key={`${label}-${index}`}
-          className="rounded-xl border border-white/8 bg-[#081320]/75 p-3"
+          className="rounded-2xl border border-white/10 bg-night-3 p-4 sm:p-5"
         >
           <div className="mb-3 flex items-center justify-between gap-3">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-500">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-mist">
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
                 aria-label={`Move ${label} item up`}
-                className="rounded-md p-1.5 text-slate-500 hover:bg-white/8 hover:text-white disabled:opacity-25"
+                className="rounded-md p-1.5 text-mist hover:bg-white/8 hover:text-white disabled:opacity-25"
                 disabled={index === 0}
                 onClick={() => update(path, moveItem(value, index, -1))}
               >
@@ -535,7 +553,7 @@ function ArrayEditor({
               <button
                 type="button"
                 aria-label={`Move ${label} item down`}
-                className="rounded-md p-1.5 text-slate-500 hover:bg-white/8 hover:text-white disabled:opacity-25"
+                className="rounded-md p-1.5 text-mist hover:bg-white/8 hover:text-white disabled:opacity-25"
                 disabled={index === value.length - 1}
                 onClick={() => update(path, moveItem(value, index, 1))}
               >
@@ -545,7 +563,7 @@ function ArrayEditor({
                 <button
                   type="button"
                   aria-label={`Delete ${label} item`}
-                  className="rounded-md p-1.5 text-slate-500 hover:bg-white/8 hover:text-white"
+                  className="rounded-md p-1.5 text-mist hover:bg-white/8 hover:text-white"
                   onClick={() =>
                     update(
                       path,
@@ -683,10 +701,10 @@ function OptionalFieldCard({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4">
+    <div className="rounded-2xl border border-white/10 bg-night-3 p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-300">
+          <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-snow">
             {title}
           </h4>
           <FieldHelp>{description}</FieldHelp>
@@ -720,7 +738,7 @@ function ProjectOptionalFields({
   return (
     <div className="space-y-4">
       <div className="mb-2">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
           Optional project fields
         </div>
         <FieldHelp>
@@ -1010,17 +1028,17 @@ function ProjectEditor({
       <NotchedPanel className="h-fit p-4">
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
               Collection
             </div>
             <div className="mt-1 text-lg font-semibold text-white">
               Projects{" "}
-              <span className="text-sm text-slate-500">{projects.length}</span>
+              <span className="text-sm text-mist">{projects.length}</span>
             </div>
           </div>
           <button
             type="button"
-            className="rounded-lg border border-sky-300/20 bg-sky-300/10 p-2 text-sky-200 hover:bg-sky-300/20"
+            className="rounded-lg border border-sky/20 bg-sky/10 p-2 text-sky-200 hover:bg-sky/20"
             onClick={addProject}
             aria-label="Add project"
           >
@@ -1028,7 +1046,7 @@ function ProjectEditor({
           </button>
         </div>
         <label className="relative mb-3 block">
-          <Search className="pointer-events-none absolute left-3 top-2.5 size-4 text-slate-600" />
+          <Search className="pointer-events-none absolute left-3 top-2.5 size-4 text-mist" />
           <input
             className={cx(fieldClass, "pl-9 text-xs")}
             value={query}
@@ -1045,12 +1063,12 @@ function ProjectEditor({
               className={cx(
                 "w-full rounded-lg border px-3 py-3 text-left transition",
                 active === index
-                  ? "border-sky-300/35 bg-sky-300/[0.09]"
+                  ? "border-sky/35 bg-sky/[0.09]"
                   : "border-transparent hover:border-white/8 hover:bg-white/[0.03]",
               )}
             >
               <span className="flex items-center justify-between gap-2">
-                <span className="truncate text-sm font-medium text-slate-200">
+                <span className="truncate text-sm font-medium text-snow">
                   {item.title}
                 </span>
                 <StatusPill
@@ -1059,13 +1077,13 @@ function ProjectEditor({
                   {item.status}
                 </StatusPill>
               </span>
-              <span className="mt-1 block truncate text-[11px] text-slate-500">
+              <span className="mt-1 block truncate text-[11px] text-mist">
                 /{item.slug}
               </span>
             </button>
           ))}
           {filtered.length === 0 && (
-            <p className="px-2 py-5 text-center text-xs text-slate-500">
+            <p className="px-2 py-5 text-center text-xs text-mist">
               No projects match.
             </p>
           )}
@@ -1153,7 +1171,7 @@ function ProjectEditor({
               help="Controls featured placements on the public home page."
             />
             <label className="block">
-              <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+              <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-mist">
                 Visibility status
               </span>
               <select
@@ -1165,9 +1183,9 @@ function ProjectEditor({
                   })
                 }
               >
-                <option value="draft">Draft — keep private</option>
+                <option value="draft">Draft keep private</option>
                 <option value="published">
-                  Published — visible after publish
+                  Published visible after publish
                 </option>
               </select>
               <FieldHelp>
@@ -1196,7 +1214,7 @@ function ProjectEditor({
         </NotchedPanel>
       ) : (
         <NotchedPanel className="p-7">
-          <p className="text-sm text-slate-400">Select a project to edit.</p>
+          <p className="text-sm text-mist">Select a project to edit.</p>
         </NotchedPanel>
       )}
     </div>
@@ -1269,17 +1287,17 @@ function BlogEditor({
       <NotchedPanel className="h-fit p-4">
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
               Collection
             </div>
             <div className="mt-1 text-lg font-semibold text-white">
               Articles{" "}
-              <span className="text-sm text-slate-500">{posts.length}</span>
+              <span className="text-sm text-mist">{posts.length}</span>
             </div>
           </div>
           <button
             type="button"
-            className="rounded-lg border border-sky-300/20 bg-sky-300/10 p-2 text-sky-200 hover:bg-sky-300/20"
+            className="rounded-lg border border-sky/20 bg-sky/10 p-2 text-sky-200 hover:bg-sky/20"
             onClick={addPost}
             aria-label="Add article"
           >
@@ -1287,7 +1305,7 @@ function BlogEditor({
           </button>
         </div>
         <label className="relative mb-3 block">
-          <Search className="pointer-events-none absolute left-3 top-2.5 size-4 text-slate-600" />
+          <Search className="pointer-events-none absolute left-3 top-2.5 size-4 text-mist" />
           <input
             className={cx(fieldClass, "pl-9 text-xs")}
             value={query}
@@ -1304,12 +1322,12 @@ function BlogEditor({
               className={cx(
                 "w-full rounded-lg border px-3 py-3 text-left transition",
                 active === index
-                  ? "border-sky-300/35 bg-sky-300/[0.09]"
+                  ? "border-sky/35 bg-sky/[0.09]"
                   : "border-transparent hover:border-white/8 hover:bg-white/[0.03]",
               )}
             >
               <span className="flex items-center justify-between gap-2">
-                <span className="truncate text-sm font-medium text-slate-200">
+                <span className="truncate text-sm font-medium text-snow">
                   {item.title}
                 </span>
                 <StatusPill
@@ -1318,7 +1336,7 @@ function BlogEditor({
                   {item.status}
                 </StatusPill>
               </span>
-              <span className="mt-1 block truncate text-[11px] text-slate-500">
+              <span className="mt-1 block truncate text-[11px] text-mist">
                 /{item.slug}
               </span>
               {item.origin === "initial-draft" && (
@@ -1329,7 +1347,7 @@ function BlogEditor({
             </button>
           ))}
           {filtered.length === 0 && (
-            <p className="px-2 py-5 text-center text-xs text-slate-500">
+            <p className="px-2 py-5 text-center text-xs text-mist">
               No articles match.
             </p>
           )}
@@ -1373,7 +1391,7 @@ function BlogEditor({
           <div className="mt-4 flex flex-wrap items-center gap-2">
             {post.origin === "initial-draft" && (
               <StatusPill tone="warning">
-                Initial draft{post.reviewRequired ? " — needs review" : ""}
+                Initial draft{post.reviewRequired ? " needs review" : ""}
               </StatusPill>
             )}
             <button
@@ -1398,7 +1416,7 @@ function BlogEditor({
             >
               <ArrowDown className="size-3.5" /> Move article down
             </button>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-mist">
               Modified {formatDate(post.updatedAt)} · stamped automatically on
               save
             </span>
@@ -1457,7 +1475,7 @@ function BlogEditor({
               }
             />
             <label className="block">
-              <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+              <span className="mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-mist">
                 Visibility status
               </span>
               <select
@@ -1469,9 +1487,9 @@ function BlogEditor({
                   })
                 }
               >
-                <option value="draft">Draft — keep private</option>
+                <option value="draft">Draft keep private</option>
                 <option value="published">
-                  Published — visible after publish
+                  Published visible after publish
                 </option>
               </select>
             </label>
@@ -1484,7 +1502,7 @@ function BlogEditor({
           <div className="mt-7 border-t border-white/[0.08] pt-6">
             <div className="mb-4 flex items-end justify-between gap-3">
               <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
                   Structured article
                 </div>
                 <h3 className="mt-1 text-lg font-semibold text-white">
@@ -1513,14 +1531,14 @@ function BlogEditor({
               {post.body.map((block, index) => (
                 <div
                   key={`${block.type}-${index}`}
-                  className="rounded-xl border border-white/8 bg-[#081320]/75 p-4"
+                  className="rounded-2xl border border-white/10 bg-night-3 p-4 sm:p-5"
                 >
                   <div className="mb-3 flex items-center justify-between">
                     <StatusPill>{block.type}</StatusPill>
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
-                        className="rounded-md p-1.5 text-slate-500 hover:text-white disabled:opacity-25"
+                        className="rounded-md p-1.5 text-mist hover:text-white disabled:opacity-25"
                         disabled={index === 0}
                         onClick={() =>
                           setPost({ body: moveArrayItem(post.body, index, -1) })
@@ -1530,7 +1548,7 @@ function BlogEditor({
                       </button>
                       <button
                         type="button"
-                        className="rounded-md p-1.5 text-slate-500 hover:text-white disabled:opacity-25"
+                        className="rounded-md p-1.5 text-mist hover:text-white disabled:opacity-25"
                         disabled={index === post.body.length - 1}
                         onClick={() =>
                           setPost({ body: moveArrayItem(post.body, index, 1) })
@@ -1540,7 +1558,7 @@ function BlogEditor({
                       </button>
                       <button
                         type="button"
-                        className="rounded-md p-1.5 text-slate-500 hover:text-red-200"
+                        className="rounded-md p-1.5 text-mist hover:text-red-200"
                         onClick={() =>
                           setPost({
                             body: post.body.filter(
@@ -1609,7 +1627,7 @@ function BlogEditor({
         </NotchedPanel>
       ) : (
         <NotchedPanel className="p-7">
-          <p className="text-sm text-slate-400">Select an article to edit.</p>
+          <p className="text-sm text-mist">Select an article to edit.</p>
         </NotchedPanel>
       )}
     </div>
@@ -1688,7 +1706,7 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
       if (response.status === 409) {
         setError(
           payload?.message ??
-            "This media item is still in use. Nothing was deleted.",
+          "This media item is still in use. Nothing was deleted.",
         );
         return;
       }
@@ -1747,12 +1765,12 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
         </div>
       )}
       {loading ? (
-        <p className="text-sm text-slate-500">Loading media library…</p>
+        <p className="text-sm text-mist">Loading media library…</p>
       ) : items.length === 0 ? (
         <div className="rounded-xl border border-dashed border-white/10 px-6 py-12 text-center">
-          <FileImage className="mx-auto mb-3 size-8 text-slate-600" />
-          <p className="text-sm text-slate-400">No uploaded media yet.</p>
-          <p className="mt-1 text-xs text-slate-600">
+          <FileImage className="mx-auto mb-3 size-8 text-mist" />
+          <p className="text-sm text-mist">No uploaded media yet.</p>
+          <p className="mt-1 text-xs text-mist">
             Nothing is fabricated here; upload an image to see it appear.
           </p>
         </div>
@@ -1761,9 +1779,9 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
           {items.map((item) => (
             <div
               key={item.id}
-              className="overflow-hidden rounded-xl border border-white/8 bg-[#081320]/75"
+              className="overflow-hidden rounded-xl border border-white/8 bg-night-3/75"
             >
-              <div className="aspect-[4/3] bg-[#06101b]">
+              <div className="aspect-[4/3] bg-night">
                 {item.type.startsWith("image/") ? (
                   <Image
                     src={item.url}
@@ -1775,15 +1793,15 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
                   />
                 ) : (
                   <div className="flex size-full items-center justify-center">
-                    <FileImage className="size-8 text-slate-600" />
+                    <FileImage className="size-8 text-mist" />
                   </div>
                 )}
               </div>
               <div className="p-3">
-                <div className="truncate text-sm font-medium text-slate-200">
+                <div className="truncate text-sm font-medium text-snow">
                   {item.name}
                 </div>
-                <div className="mt-1 text-[11px] text-slate-500">
+                <div className="mt-1 text-[11px] text-mist">
                   {formatBytes(item.size)} · {formatDate(item.createdAt)}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -1795,7 +1813,7 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
                     <Check className="size-3.5" /> Use URL
                   </button>
                   <a
-                    className="inline-flex items-center justify-center rounded-lg border border-white/10 px-3 text-slate-400 hover:text-white"
+                    className="inline-flex items-center justify-center rounded-lg border border-white/10 px-3 text-mist hover:text-white"
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
@@ -1924,11 +1942,11 @@ function InboxPanel() {
           </div>
         )}
         {loading ? (
-          <p className="text-sm text-slate-500">Loading inbox…</p>
+          <p className="text-sm text-mist">Loading inbox…</p>
         ) : messages.length === 0 ? (
           <div className="rounded-xl border border-dashed border-white/10 px-6 py-12 text-center">
-            <MessageSquare className="mx-auto mb-3 size-8 text-slate-600" />
-            <p className="text-sm text-slate-400">No messages.</p>
+            <MessageSquare className="mx-auto mb-3 size-8 text-mist" />
+            <p className="text-sm text-mist">No messages.</p>
           </div>
         ) : (
           <div className="space-y-2">
@@ -1940,16 +1958,16 @@ function InboxPanel() {
                 className={cx(
                   "w-full rounded-xl border p-4 text-left transition",
                   selected === message.id
-                    ? "border-sky-300/35 bg-sky-300/[0.08]"
-                    : "border-white/8 bg-[#081320]/75 hover:border-white/15",
+                    ? "border-sky/35 bg-sky/[0.08]"
+                    : "border-white/8 bg-night-3/75 hover:border-white/15",
                 )}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold text-slate-100">
+                    <div className="truncate text-sm font-semibold text-snow">
                       {message.subject || "No subject"}
                     </div>
-                    <div className="mt-1 truncate text-xs text-slate-500">
+                    <div className="mt-1 truncate text-xs text-mist">
                       {message.name || "Unknown sender"}{" "}
                       {message.email ? `· ${message.email}` : ""}
                     </div>
@@ -1960,10 +1978,10 @@ function InboxPanel() {
                     {message.status || "new"}
                   </StatusPill>
                 </div>
-                <div className="mt-3 truncate text-xs text-slate-400">
+                <div className="mt-3 truncate text-xs text-mist">
                   {message.message || "No message body"}
                 </div>
-                <div className="mt-2 text-[10px] uppercase tracking-[0.14em] text-slate-600">
+                <div className="mt-2 text-[10px] uppercase tracking-[0.14em] text-mist">
                   {formatDate(message.createdAt)}
                 </div>
               </button>
@@ -1975,7 +1993,7 @@ function InboxPanel() {
         <NotchedPanel className="h-fit p-5 sm:p-6">
           <div className="mb-5 flex items-start justify-between gap-3">
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
                 Message
               </div>
               <h3 className="mt-1 text-xl font-semibold text-white">
@@ -1984,7 +2002,7 @@ function InboxPanel() {
             </div>
             <button
               type="button"
-              className="rounded-lg p-1.5 text-slate-500 hover:bg-white/8 hover:text-white"
+              className="rounded-lg p-1.5 text-mist hover:bg-white/8 hover:text-white"
               onClick={() => setSelected(null)}
             >
               <X className="size-4" />
@@ -1992,24 +2010,24 @@ function InboxPanel() {
           </div>
           <dl className="space-y-3 border-b border-white/[0.08] pb-5 text-sm">
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.14em] text-slate-600">
+              <dt className="text-[10px] uppercase tracking-[0.14em] text-mist">
                 From
               </dt>
-              <dd className="mt-1 text-slate-200">
+              <dd className="mt-1 text-snow">
                 {active.name || "Unknown"}
                 {active.email ? ` · ${active.email}` : ""}
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.14em] text-slate-600">
+              <dt className="text-[10px] uppercase tracking-[0.14em] text-mist">
                 Received
               </dt>
-              <dd className="mt-1 text-slate-200">
+              <dd className="mt-1 text-snow">
                 {formatDate(active.createdAt)}
               </dd>
             </div>
           </dl>
-          <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-slate-300">
+          <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-snow">
             {active.message || "No message body"}
           </p>
           <div className="mt-7 flex flex-wrap gap-2">
@@ -2047,8 +2065,8 @@ function InboxPanel() {
       ) : (
         <NotchedPanel className="flex min-h-72 items-center justify-center p-7">
           <div className="text-center">
-            <MessageSquare className="mx-auto mb-3 size-8 text-slate-700" />
-            <p className="text-sm text-slate-500">
+            <MessageSquare className="mx-auto mb-3 size-8 text-mist" />
+            <p className="text-sm text-mist">
               Select a message to read it.
             </p>
           </div>
@@ -2115,27 +2133,28 @@ function Overview({
             type="button"
             key={stat.label}
             onClick={() => setSection(stat.key)}
-            className="group relative overflow-hidden rounded-xl border border-white/8 bg-[#0a1828]/80 p-5 text-left transition hover:-translate-y-0.5 hover:border-sky-300/30"
+            className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-night-2 p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:border-sky/40 shadow-sm"
           >
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-              {stat.label}
+            <div className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+              <span className="size-1.5 rounded-full bg-sky" />
+              <span>{stat.label}</span>
             </div>
-            <div className="mt-4 font-display text-4xl font-semibold text-white">
+            <div className="mt-4 font-display text-4xl sm:text-5xl font-extrabold text-snow tracking-tight">
               {stat.value}
             </div>
-            <div className="mt-2 text-xs text-slate-500">{stat.detail}</div>
-            <div className="absolute bottom-0 left-0 h-0.5 w-1/2 bg-sky-300/70 transition-all group-hover:w-full" />
+            <div className="mt-2 text-xs text-mist">{stat.detail}</div>
+            <div className="absolute bottom-0 left-0 h-0.5 w-1/3 bg-sky transition-all duration-300 group-hover:w-full" />
           </button>
         ))}
       </div>
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.3fr_1fr]">
         <NotchedPanel className="p-5 sm:p-7">
           <div className="mb-5 flex items-center gap-3">
-            <div className="rounded-lg border border-sky-300/20 bg-sky-300/10 p-2 text-sky-200">
+            <div className="rounded-lg border border-sky/20 bg-sky/10 p-2 text-sky-200">
               <Activity className="size-4" />
             </div>
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky-300/75">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/75">
                 Revision status
               </div>
               <h3 className="mt-1 text-lg font-semibold text-white">
@@ -2145,7 +2164,7 @@ function Overview({
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-slate-600">
+              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
                 Working revision
               </div>
               <div className="mt-2 text-2xl font-semibold text-white">
@@ -2153,7 +2172,7 @@ function Overview({
               </div>
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-slate-600">
+              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
                 Published revision
               </div>
               <div className="mt-2 text-2xl font-semibold text-white">
@@ -2161,7 +2180,7 @@ function Overview({
               </div>
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-slate-600">
+              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
                 Public state
               </div>
               <div className="mt-2">
@@ -2175,13 +2194,13 @@ function Overview({
               </div>
             </div>
           </div>
-          <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.025] p-3 text-xs leading-5 text-slate-500">
+          <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.025] p-3 text-xs leading-5 text-mist">
             Save creates a new working revision. Publish is a separate, explicit
             action that affects the public site.
           </div>
         </NotchedPanel>
         <NotchedPanel className="p-5 sm:p-7">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky-300/75">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/75">
             Editor map
           </div>
           <h3 className="mt-1 text-lg font-semibold text-white">
@@ -2202,10 +2221,10 @@ function Overview({
                 onClick={() =>
                   setSection(key === "navigation" ? "home" : "about")
                 }
-                className="flex w-full items-center justify-between rounded-lg border border-white/8 bg-white/[0.025] px-3 py-2.5 text-left text-xs text-slate-300 hover:border-sky-300/25 hover:text-white"
+                className="flex w-full items-center justify-between rounded-lg border border-white/8 bg-white/[0.025] px-3 py-2.5 text-left text-xs text-snow hover:border-sky/25 hover:text-white"
               >
                 <span>{sectionLabels[key]}</span>
-                <ChevronRight className="size-3.5 text-slate-600" />
+                <ChevronRight className="size-3.5 text-mist" />
               </button>
             ))}
           </div>
@@ -2385,111 +2404,6 @@ export function DashboardWorkspace({
         : null;
     setConfirmPublish(true);
   };
-  const sidebar = (
-    <aside
-      className={cx(
-        "fixed inset-y-0 left-0 z-40 flex w-[230px] flex-col border-r border-white/[0.07] bg-[#07111d]/95 px-4 py-5 backdrop-blur-xl transition-transform lg:static lg:translate-x-0",
-        mobileNav ? "translate-x-0" : "-translate-x-full",
-      )}
-    >
-      <div className="flex items-center justify-between px-2">
-        <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-sky-300/80">
-            SEIF / CMS
-          </div>
-          <div className="mt-1 text-xs text-slate-500">Private workspace</div>
-        </div>
-        <button
-          type="button"
-          className="rounded-md p-1.5 text-slate-500 hover:text-white lg:hidden"
-          onClick={() => setMobileNav(false)}
-        >
-          <X className="size-4" />
-        </button>
-      </div>
-      <div className="mt-8 flex-1 space-y-7 overflow-y-auto">
-        {(["workspace", "content", "system"] as const).map((group) => (
-          <div key={group}>
-            <div className="mb-2 px-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-              {group === "workspace"
-                ? "Workspace"
-                : group === "content"
-                  ? "Content"
-                  : "System"}
-            </div>
-            <nav className="space-y-1">
-              {navItems
-                .filter((item) => item.group === group)
-                .map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      type="button"
-                      key={item.key}
-                      onClick={() => {
-                        setSection(item.key);
-                        setMobileNav(false);
-                      }}
-                      className={cx(
-                        "group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-xs font-medium transition",
-                        section === item.key
-                          ? "bg-sky-300/[0.1] text-sky-100"
-                          : "text-slate-500 hover:bg-white/[0.04] hover:text-slate-200",
-                      )}
-                    >
-                      <Icon
-                        className={cx(
-                          "size-4",
-                          section === item.key
-                            ? "text-sky-300"
-                            : "text-slate-600 group-hover:text-slate-300",
-                        )}
-                      />
-                      {item.label}
-                      {section === item.key && (
-                        <span className="absolute right-2 h-1.5 w-1.5 rounded-full bg-sky-300 shadow-[0_0_10px_rgba(77,182,255,0.9)]" />
-                      )}
-                    </button>
-                  );
-                })}
-            </nav>
-          </div>
-        ))}
-      </div>
-      <div className="mt-5 border-t border-white/[0.07] pt-4">
-        <div className="flex items-center gap-2 px-2">
-          <div className="flex size-7 items-center justify-center overflow-hidden rounded-full border border-sky-300/20 bg-sky-300/10 text-xs text-sky-100">
-            {user.image ? (
-              <Image
-                src={user.image}
-                alt=""
-                width={28}
-                height={28}
-                unoptimized
-                className="size-full object-cover"
-              />
-            ) : (
-              user.name.slice(0, 1).toUpperCase()
-            )}
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-xs font-medium text-slate-200">
-              {user.name}
-            </div>
-            <div className="text-[10px] text-slate-600">Administrator</div>
-          </div>
-          <button
-            type="button"
-            className="rounded-md p-1.5 text-slate-600 hover:text-slate-200"
-            onClick={() => void logout()}
-            aria-label="Log out"
-          >
-            <LogOut className="size-3.5" />
-          </button>
-        </div>
-      </div>
-    </aside>
-  );
   const renderSection = () => {
     if (section === "overview")
       return (
@@ -2633,195 +2547,398 @@ export function DashboardWorkspace({
     );
   };
   return (
-    <div className="min-h-screen bg-[#050b13] font-sans text-slate-100">
-      <div className="pointer-events-none fixed inset-0 opacity-70 [background-image:linear-gradient(rgba(77,182,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(77,182,255,0.035)_1px,transparent_1px)] [background-size:48px_48px]" />
-      <div className="relative flex min-h-screen lg:pl-0">
-        {sidebar}
-        <div
-          className={cx(
-            "fixed inset-0 z-30 bg-black/60 lg:hidden",
-            mobileNav ? "block" : "hidden",
-          )}
-          onClick={() => setMobileNav(false)}
-        />
-        <main id="main" className="min-w-0 flex-1">
-          <header className="sticky top-0 z-20 border-b border-white/[0.07] bg-[#050b13]/85 px-4 py-4 backdrop-blur-xl sm:px-7 lg:px-10">
-            <div className="mx-auto flex max-w-[1500px] flex-col items-stretch justify-between gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <div className="flex min-w-0 items-center gap-3">
+    <div className="relative min-h-screen bg-night text-snow pt-28 sm:pt-32 lg:pt-36 pb-24">
+      {/* Mobile Drawer (Admin Navigation) */}
+      <div
+        className={cx(
+          "fixed inset-0 z-50 flex bg-night/95 backdrop-blur-xl transition-all duration-300 lg:hidden",
+          mobileNav
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none",
+        )}
+      >
+        <div className="flex flex-col w-full h-full p-6 sm:p-8">
+          <div className="flex items-center justify-between pb-6 border-b border-white/[0.08]">
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+              <span
+                aria-hidden="true"
+                className="size-2 rounded-full bg-sky shadow-[0_0_0_4px_rgba(77,182,255,0.18)]"
+              />
+              <span>ADMIN NAVIGATION</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMobileNav(false)}
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-snow hover:bg-white/10 transition-colors"
+              aria-label="Close admin navigation"
+            >
+              <X className="size-5" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto py-6 space-y-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = section === item.key;
+              return (
                 <button
                   type="button"
-                  className="rounded-lg border border-white/10 p-2 text-slate-400 lg:hidden"
-                  aria-label="Open admin navigation"
-                  onClick={() => setMobileNav(true)}
+                  key={item.key}
+                  onClick={() => {
+                    setSection(item.key);
+                    setMobileNav(false);
+                  }}
+                  className={cx(
+                    "w-full flex items-center justify-between rounded-2xl px-5 py-4 text-left font-display text-xl font-bold uppercase tracking-tight transition-colors",
+                    active
+                      ? "bg-white/[0.08] text-sky border border-sky/30"
+                      : "text-snow hover:bg-white/[0.03] border border-transparent",
+                  )}
                 >
-                  <Menu className="size-4" />
+                  <span className="flex items-center gap-3">
+                    <Icon
+                      className={cx(
+                        "size-5",
+                        active ? "text-sky" : "text-mist",
+                      )}
+                    />
+                    <span>{item.label}</span>
+                  </span>
+                  {active ? (
+                    <span className="size-2 rounded-full bg-sky" />
+                  ) : null}
                 </button>
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-                    Dashboard / {title}
-                  </div>
-                  <div className="mt-1 text-sm text-slate-300">
-                    {dirty ? (
-                      <span className="text-amber-200">Unsaved changes</span>
-                    ) : revision === published ? (
-                      "Saved revision is published"
-                    ) : (
-                      "Working revision"
-                    )}
-                  </div>
-                </div>
+              );
+            })}
+          </div>
+          <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs text-mist">
+            <span>Logged in as {user.name}</span>
+            <button
+              type="button"
+              onClick={() => void logout()}
+              className="text-red-300 hover:text-red-200"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className={container}>
+        {/* Workspace Top Bar */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between pb-8 border-b border-white/[0.08]">
+          <div>
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+              <span
+                aria-hidden="true"
+                className="size-2 rounded-full bg-sky shadow-[0_0_0_4px_rgba(77,182,255,0.18)]"
+              />
+              <span>PRIVATE WORKSPACE</span>
+              <span
+                aria-hidden="true"
+                className="h-px w-6 bg-current opacity-30"
+              />
+              <span className="text-snow/80">{title}</span>
+            </div>
+            <h1 className="mt-3 font-display text-[clamp(2.25rem,4vw,3.5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-snow">
+              Workspace
+            </h1>
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-mist">
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-mist">
+                  Working rev:
+                </span>
+                <span className="font-mono text-snow font-medium">
+                  #{revision}
+                </span>
               </div>
-              <div className="flex min-w-0 flex-wrap items-center gap-2">
-                <div className="hidden sm:block">
-                  <button
-                    type="button"
-                    className={buttonSecondary}
-                    onClick={() => setContent(clone(savedContent))}
-                    disabled={!dirty}
-                  >
-                    <RefreshCcw className="size-3.5" /> Discard
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  className={buttonPrimary}
-                  onClick={() => void save()}
-                  disabled={!dirty || saving || !configured}
-                >
-                  <Save className="size-3.5" /> {saving ? "Saving" : "Save"}
-                </button>
-                <button
-                  ref={publishTriggerRef}
-                  type="button"
-                  className={buttonSecondary}
-                  onClick={() =>
-                    dirty
-                      ? setNotice({
-                          tone: "info",
-                          message: "Save your changes before publishing.",
-                        })
-                      : openPublish()
-                  }
-                  disabled={publishing || !configured}
-                >
-                  <Send className="size-3.5" /> Publish
-                </button>
+              <span className="text-white/20">/</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-[11px] uppercase tracking-wider text-mist">
+                  Published rev:
+                </span>
+                <span className="font-mono text-snow font-medium">
+                  #{published}
+                </span>
+              </div>
+              <span className="text-white/20">/</span>
+              <div>
+                {dirty ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-amber-300">
+                    <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    Unsaved changes
+                  </span>
+                ) : revision === published ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-emerald-300">
+                    <span className="size-1.5 rounded-full bg-emerald-400" />
+                    In sync with public
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky/30 bg-sky/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-sky">
+                    <span className="size-1.5 rounded-full bg-sky" />
+                    Working revision ahead
+                  </span>
+                )}
               </div>
             </div>
-          </header>
-          <div className="mx-auto max-w-[1500px] px-4 py-7 sm:px-7 lg:px-10 lg:py-10">
-            {notice && (
-              <div
-                className={cx(
-                  "mb-5 flex items-start gap-3 rounded-xl border p-3 text-sm",
-                  notice.tone === "success" &&
-                    "border-emerald-300/20 bg-emerald-300/[0.08] text-emerald-100",
-                  notice.tone === "error" &&
-                    "border-red-300/20 bg-red-400/[0.08] text-red-100",
-                  notice.tone === "info" &&
-                    "border-sky-300/20 bg-sky-300/[0.08] text-sky-100",
+          </div>
+
+          {/* Action Toolbar */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* User pill */}
+            <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-night-2 py-1.5 pl-2 pr-3.5 shadow-sm">
+              <div className="relative flex size-7 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-night-3 text-xs font-semibold text-snow">
+                {user.image ? (
+                  <Image
+                    src={user.image}
+                    alt={user.name}
+                    width={28}
+                    height={28}
+                    unoptimized
+                    className="size-full object-cover"
+                  />
+                ) : (
+                  user.name.slice(0, 1).toUpperCase()
                 )}
+              </div>
+              <span className="text-xs font-medium text-snow max-w-[120px] truncate">
+                {user.name}
+              </span>
+              <button
+                type="button"
+                onClick={() => void logout()}
+                title="Sign out"
+                aria-label="Sign out of workspace"
+                className="ml-1 inline-flex size-6 items-center justify-center rounded-full text-mist hover:text-snow hover:bg-white/10 transition-colors"
               >
-                <div className="mt-0.5">
-                  {notice.tone === "success" ? (
-                    <Check className="size-4" />
-                  ) : notice.tone === "error" ? (
-                    <CircleAlert className="size-4" />
-                  ) : (
-                    <Activity className="size-4" />
-                  )}
-                </div>
-                <div className="min-w-0 flex-1 break-words">
-                  {notice.message}
-                </div>
+                <LogOut className="size-3.5" />
+              </button>
+            </div>
+
+            {/* Discard */}
+            <button
+              type="button"
+              onClick={() => setContent(clone(savedContent))}
+              disabled={!dirty}
+              className={buttonSecondary}
+            >
+              <RefreshCcw className="size-3.5" />
+              <span>Discard</span>
+            </button>
+
+            {/* Save */}
+            <button
+              type="button"
+              onClick={() => void save()}
+              disabled={!dirty || saving || !configured}
+              className={buttonPrimary}
+            >
+              {saving ? (
+                <RefreshCcw className="size-3.5 animate-spin" />
+              ) : (
+                <Save className="size-3.5" />
+              )}
+              <span>{saving ? "Saving" : "Save"}</span>
+            </button>
+
+            {/* Publish */}
+            <button
+              ref={publishTriggerRef}
+              type="button"
+              onClick={() =>
+                dirty
+                  ? setNotice({
+                      tone: "info",
+                      message: "Save your draft changes before publishing.",
+                    })
+                  : openPublish()
+              }
+              disabled={publishing || !configured}
+              className={buttonAccent}
+            >
+              {publishing ? (
+                <RefreshCcw className="size-3.5 animate-spin" />
+              ) : (
+                <Send className="size-3.5" />
+              )}
+              <span>Publish</span>
+            </button>
+
+            {/* Mobile Nav toggle button */}
+            <button
+              type="button"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-night-2 text-snow transition-colors hover:border-sky/50 lg:hidden"
+              aria-label="Open admin navigation"
+              onClick={() => setMobileNav(true)}
+            >
+              <Menu className="size-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Workspace Navigation Pills */}
+        <div className="mt-8 mb-8">
+          <div className="flex items-center gap-1.5 overflow-x-auto rounded-full border border-white/10 bg-night-2/90 p-1.5 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.55)] backdrop-blur-xl scrollbar-none">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = section === item.key;
+              return (
                 <button
                   type="button"
-                  className="text-current/60 hover:text-current"
-                  onClick={() => setNotice(null)}
+                  key={item.key}
+                  onClick={() => setSection(item.key)}
+                  className={cx(
+                    "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-4 text-[13px] font-medium transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-sky",
+                    active
+                      ? "bg-white/[0.08] text-snow font-semibold shadow-sm"
+                      : "text-mist hover:text-snow hover:bg-white/[0.03]",
+                  )}
                 >
-                  <X className="size-4" />
+                  {active ? (
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 rounded-full bg-sky"
+                    />
+                  ) : null}
+                  <Icon
+                    className={cx(
+                      "size-3.5",
+                      active ? "text-sky" : "text-mist",
+                    )}
+                  />
+                  <span>{item.label}</span>
                 </button>
-              </div>
-            )}
-            {!configured && (
-              <div className="mb-5 flex items-start gap-3 rounded-xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-sm text-amber-100">
-                <CircleAlert className="mt-0.5 size-4 shrink-0" />
-                <div>
-                  <strong className="font-semibold">
-                    CMS readiness is incomplete.
-                  </strong>{" "}
-                  You can inspect the shell, but saves and publishing are
-                  disabled until the server reports configured readiness. Secret
-                  values are never shown here.
-                </div>
-              </div>
-            )}
-            {renderSection()}
+              );
+            })}
           </div>
-        </main>
+        </div>
+
+        {/* Notices */}
+        {notice && (
+          <div
+            className={cx(
+              "mb-6 flex items-start gap-3 rounded-2xl border p-4 text-sm backdrop-blur-md transition-all",
+              notice.tone === "success" &&
+                "border-emerald-500/20 bg-emerald-500/10 text-emerald-200",
+              notice.tone === "error" &&
+                "border-red-500/20 bg-red-500/10 text-red-200",
+              notice.tone === "info" && "border-sky/20 bg-sky/10 text-sky",
+            )}
+          >
+            <div className="mt-0.5 shrink-0">
+              {notice.tone === "success" ? (
+                <Check className="size-4 text-emerald-400" />
+              ) : notice.tone === "error" ? (
+                <CircleAlert className="size-4 text-red-400" />
+              ) : (
+                <Activity className="size-4 text-sky" />
+              )}
+            </div>
+            <div className="min-w-0 flex-1 break-words font-medium">
+              {notice.message}
+            </div>
+            <button
+              type="button"
+              className="text-current/60 hover:text-current transition-colors"
+              onClick={() => setNotice(null)}
+              aria-label="Dismiss notice"
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+        )}
+        {!configured && (
+          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-200 leading-relaxed">
+            <CircleAlert className="mt-0.5 size-5 shrink-0 text-amber-400" />
+            <div>
+              <strong className="font-semibold text-snow">
+                CMS readiness is incomplete.
+              </strong>{" "}
+              You can inspect the workspace, but saves and publishing are
+              disabled until the server reports configured readiness. Secret
+              values are never shown here.
+            </div>
+          </div>
+        )}
+
+        {/* Section View */}
+        <div className="space-y-8">{renderSection()}</div>
       </div>
+
+      {/* Confirm Publish Dialog */}
       {confirmPublish && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-night/80 p-4 backdrop-blur-md"
           role="presentation"
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="publish-dialog-title"
-            className="w-full max-w-md"
+            className="w-full max-w-lg rounded-3xl border border-white/10 bg-night-2 p-6 sm:p-8 text-snow shadow-[0_25px_100px_rgba(0,0,0,0.7)]"
           >
-            <NotchedPanel className="p-6">
-              <div className="mb-5 flex items-start justify-between gap-4">
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
-                    Public action
-                  </div>
-                  <h2
-                    id="publish-dialog-title"
-                    className="mt-1 text-xl font-semibold text-white"
-                  >
-                    Publish revision {revision}?
-                  </h2>
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <div className="mb-2 flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+                  <span
+                    aria-hidden="true"
+                    className="size-1.5 rounded-full bg-sky"
+                  />
+                  <span>PUBLIC ACTION</span>
                 </div>
-                <button
-                  type="button"
-                  className="rounded-md p-1.5 text-slate-500 hover:text-white"
-                  onClick={() => setConfirmPublish(false)}
-                  aria-label="Close publish confirmation"
+                <h2
+                  id="publish-dialog-title"
+                  className="font-display text-2xl font-bold tracking-tight text-snow"
                 >
-                  <X className="size-4" />
-                </button>
+                  Publish revision {revision}?
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-mist">
+                  This makes the current saved working revision visible on the
+                  public portfolio. It does not upload, seed, or fabricate
+                  content. Draft projects and posts remain private.
+                </p>
               </div>
-              <p className="text-sm leading-6 text-slate-400">
-                This makes the current saved working revision visible on the
-                public portfolio. It does not upload, seed, or fabricate
-                content. Draft projects and posts remain private.
-              </p>
-              <div className="mt-6 flex justify-end gap-2">
-                <button
-                  ref={publishCancelRef}
-                  type="button"
-                  className={buttonSecondary}
-                  onClick={() => setConfirmPublish(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className={buttonPrimary}
-                  disabled={publishing}
-                  onClick={() => void publish()}
-                >
-                  {publishing ? (
-                    <RefreshCcw className="size-3.5 animate-spin" />
-                  ) : (
-                    <Send className="size-3.5" />
-                  )}{" "}
-                  {publishing ? "Publishing" : "Publish revision"}
-                </button>
+              <button
+                type="button"
+                className="inline-flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-mist hover:text-snow hover:bg-white/10 transition-colors"
+                onClick={() => setConfirmPublish(false)}
+                aria-label="Close publish confirmation"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <div className="space-y-3 rounded-2xl border border-white/[0.08] bg-night-3 p-4 text-xs text-mist leading-relaxed font-mono">
+              <div className="flex justify-between">
+                <span>Working revision:</span>
+                <span className="text-snow font-medium">#{revision}</span>
               </div>
-            </NotchedPanel>
+              <div className="flex justify-between">
+                <span>Current public revision:</span>
+                <span className="text-snow font-medium">#{published}</span>
+              </div>
+            </div>
+            <div className="mt-7 flex flex-wrap items-center justify-end gap-3">
+              <button
+                ref={publishCancelRef}
+                type="button"
+                className={buttonSecondary}
+                onClick={() => setConfirmPublish(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={buttonAccent}
+                disabled={publishing}
+                onClick={() => void publish()}
+              >
+                {publishing ? (
+                  <RefreshCcw className="size-3.5 animate-spin" />
+                ) : (
+                  <Send className="size-3.5" />
+                )}
+                <span>{publishing ? "Publishing" : "Publish revision"}</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -2907,7 +3024,7 @@ function SettingsPanel({
       if (response.status === 409)
         throw new Error(
           payload?.message ??
-            "The working revision changed. Nothing was restored.",
+          "The working revision changed. Nothing was restored.",
         );
       if (!response.ok || payload?.ok !== true || !payload.content)
         throw new Error(
@@ -2978,13 +3095,13 @@ function SettingsPanel({
           </div>
         }
       />
-      <div className="max-w-2xl divide-y divide-white/[0.08] rounded-xl border border-white/8 bg-[#081320]/75">
+      <div className="max-w-2xl divide-y divide-white/[0.08] rounded-xl border border-white/8 bg-night-3/75">
         {rows.map((row) => (
           <div
             key={row.label}
             className="flex items-center justify-between gap-4 px-4 py-4"
           >
-            <span className="text-sm text-slate-400">{row.label}</span>
+            <span className="text-sm text-mist">{row.label}</span>
             <StatusPill tone={row.tone}>{row.value}</StatusPill>
           </div>
         ))}
@@ -2997,7 +3114,7 @@ function SettingsPanel({
       )}
       <div className="mt-7">
         <div className="mb-3">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
             Revision history
           </div>
           <h3 className="mt-1 text-lg font-semibold text-white">
@@ -3009,9 +3126,9 @@ function SettingsPanel({
           </FieldHelp>
         </div>
         {loading ? (
-          <p className="text-sm text-slate-500">Loading revisions…</p>
+          <p className="text-sm text-mist">Loading revisions…</p>
         ) : items.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-white/10 px-4 py-5 text-sm text-slate-500">
+          <p className="rounded-lg border border-dashed border-white/10 px-4 py-5 text-sm text-mist">
             No revisions returned by the CMS.
           </p>
         ) : (
@@ -3022,11 +3139,11 @@ function SettingsPanel({
                 className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-white/8 bg-white/[0.025] px-4 py-3"
               >
                 <div>
-                  <div className="text-sm font-medium text-slate-200">
+                  <div className="text-sm font-medium text-snow">
                     Revision {item.revision}{" "}
                     <StatusPill>{item.kind}</StatusPill>
                   </div>
-                  <div className="mt-1 text-[11px] text-slate-500">
+                  <div className="mt-1 text-[11px] text-mist">
                     {formatDate(item.createdAt)}
                   </div>
                 </div>
@@ -3048,7 +3165,7 @@ function SettingsPanel({
           </div>
         )}
       </div>
-      <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.025] p-4 text-xs leading-6 text-slate-500">
+      <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.025] p-4 text-xs leading-6 text-mist">
         JSON backups contain the current saved SiteContent only. Secret values,
         authentication material, and unpublished server metadata are not
         included.

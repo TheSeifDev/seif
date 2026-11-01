@@ -69,7 +69,7 @@ export function FeaturedProjects({ content }: { content: SiteContent }) {
                   <p>
                     {c(
                       "home.featured.aside",
-                      "Real products, end to end — interface, API, data and deployment.",
+                      "Real products, end to end interface, API, data and deployment.",
                     )}
                   </p>
                   <PillLink href="/projects" variant="outline-light" size="sm">

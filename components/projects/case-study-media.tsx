@@ -71,7 +71,7 @@ export function CaseStudyMedia({ project }: { project: SiteProject }) {
       <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3 px-1 text-xs text-mist sm:px-2">
         <p>
           {project.image?.caption ??
-            "Editorial visual — no public product preview"}
+            "Editorial visual no public product preview"}
         </p>
         {project.availability ? <p>{project.availability}</p> : null}
       </div>

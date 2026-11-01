@@ -1,4 +1,4 @@
-# Google Search Console — verified 30 October 2026
+# Google Search Console verified 30 October 2026
 
 The official portfolio is https://theseif.vercel.app/. Its exact URL-prefix property was verified in the owner's signed-in Google Search Console account using the genuine HTML tag issued by Google. The public homepage was checked with a verification crawler User-Agent: HTTP 200, matching canonical origin and the exact token inside `<head>` before Google confirmed ownership. [1]
 

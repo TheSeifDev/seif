@@ -2,12 +2,15 @@
 
 import * as React from "react";
 import {
+  ArrowUpRight,
   CircleAlert,
   GitBranch,
   LoaderCircle,
   LockKeyhole,
   ShieldCheck,
 } from "lucide-react";
+import { container, darkCard } from "@/lib/ui/layout";
+import { cn } from "@/lib/utils";
 
 type DashboardLoginProps = {
   reason?: "unauthenticated" | "unconfigured" | "forbidden";
@@ -65,70 +68,86 @@ export function DashboardLogin({
         : "Sign in with the approved GitHub account to manage portfolio content.";
 
   return (
-    <main
-      id="main"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#050b13] px-4 py-10 font-sans text-slate-100"
-    >
-      <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:linear-gradient(rgba(77,182,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(77,182,255,0.035)_1px,transparent_1px)] [background-size:48px_48px]" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 size-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-300/[0.07] blur-[120px]" />
-      <section className="relative w-full max-w-md overflow-hidden border border-white/10 bg-[#0b1828]/95 p-7 shadow-[0_25px_100px_rgba(0,0,0,0.46)] [mask-image:radial-gradient(circle_24px_at_100%_100%,transparent_0_21px,#000_22px)] [-webkit-mask-image:radial-gradient(circle_24px_at_100%_100%,transparent_0_21px,#000_22px)] sm:p-9">
-        <div className="mb-9 flex items-center justify-between">
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-sky-300/85">
-              SEIF / CMS
+    <section className={cn(container, "relative flex min-h-[calc(100vh-80px)] flex-col items-center justify-center pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36")}>
+      <div className="relative w-full max-w-lg">
+        {/* Subtle background glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-20 left-1/2 size-64 -translate-x-1/2 rounded-full bg-sky/10 blur-[100px]"
+        />
+
+        <div className={cn(darkCard, "relative overflow-hidden p-8 sm:p-12 shadow-[0_24px_64px_-16px_rgba(0,0,0,0.6)]")}>
+          <div className="mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
+              <span
+                aria-hidden="true"
+                className="size-2 rounded-full bg-sky shadow-[0_0_0_4px_rgba(77,182,255,0.18)]"
+              />
+              <span>SEIF / CMS</span>
             </div>
-            <div className="mt-1 text-xs text-slate-600">Private workspace</div>
-          </div>
-          <div className="rounded-xl border border-sky-300/20 bg-sky-300/10 p-3 text-sky-200">
-            <LockKeyhole className="size-5" />
-          </div>
-        </div>
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-semibold tracking-[-0.04em] text-white">
-            {heading}
-          </h1>
-          <p className="mt-3 text-sm leading-6 text-slate-400">{description}</p>
-        </div>
-        {error && (
-          <div
-            role="alert"
-            className="mb-5 flex items-start gap-3 rounded-lg border border-red-300/20 bg-red-400/[0.08] p-3 text-sm leading-5 text-red-100"
-          >
-            <CircleAlert className="mt-0.5 size-4 shrink-0" />{" "}
-            <span>{error}</span>
-          </div>
-        )}
-        {reason === "unconfigured" ? (
-          <div className="flex items-start gap-3 rounded-lg border border-amber-300/20 bg-amber-300/[0.07] p-4 text-sm leading-6 text-amber-100">
-            <CircleAlert className="mt-0.5 size-4 shrink-0" />
-            <span>
-              Authentication readiness is incomplete. Ask the server owner to
-              configure the approved provider before signing in.
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-mist">
+              <LockKeyhole className="size-3 text-sky" />
+              <span>AUTH ONLY</span>
             </span>
           </div>
-        ) : (
-          <button
-            type="button"
-            className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-sky-300/40 bg-sky-300 px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-[#06101b] shadow-[0_0_28px_rgba(77,182,255,0.18)] transition hover:bg-sky-200 disabled:cursor-wait disabled:opacity-60"
-            disabled={loading}
-            onClick={() => void signIn()}
-          >
-            {loading ? (
-              <LoaderCircle className="size-4 animate-spin" />
-            ) : (
-              <GitBranch className="size-4" />
-            )}
-            {loading ? "Opening GitHub" : "Continue with GitHub"}
-          </button>
-        )}
-        <div className="mt-7 flex items-start gap-3 border-t border-white/[0.08] pt-5 text-[11px] leading-5 text-slate-600">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-sky-300/60" />
-          <span>
-            Admin access is controlled by the server. This UI has no password or
-            sign-up flow.
-          </span>
+
+          <div className="mb-8">
+            <h1 className="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-[-0.04em] text-snow">
+              {heading}
+            </h1>
+            <p className="mt-3 text-sm sm:text-[15px] leading-relaxed text-mist">
+              {description}
+            </p>
+          </div>
+
+          {error && (
+            <div
+              role="alert"
+              className="mb-6 flex items-start gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200"
+            >
+              <CircleAlert className="mt-0.5 size-4 shrink-0 text-red-400" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {reason === "unconfigured" ? (
+            <div
+              role="alert"
+              className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200 leading-relaxed"
+            >
+              <CircleAlert className="mt-0.5 size-4 shrink-0 text-amber-400" />
+              <span>
+                Authentication readiness is incomplete. Ask the server owner to
+                configure the approved provider before signing in.
+              </span>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="group/pill inline-flex w-full h-12 items-center justify-center gap-3 rounded-full bg-snow px-6 text-sm font-semibold text-night shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)] transition-colors duration-300 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky disabled:cursor-wait disabled:opacity-60"
+              disabled={loading}
+              onClick={() => void signIn()}
+            >
+              {loading ? (
+                <LoaderCircle className="size-4 animate-spin text-night" />
+              ) : (
+                <GitBranch className="size-4 text-night" />
+              )}
+              <span>{loading ? "Opening GitHub…" : "Continue with GitHub"}</span>
+              <span className="inline-flex size-7 items-center justify-center rounded-full bg-night text-snow transition-transform duration-300 group-hover/pill:rotate-45">
+                <ArrowUpRight className="size-3.5" />
+              </span>
+            </button>
+          )}
+
+          <div className="mt-8 flex items-start gap-2.5 border-t border-white/[0.08] pt-6 font-mono text-[11px] leading-relaxed text-mist">
+            <ShieldCheck className="mt-0.5 size-4 shrink-0 text-sky" />
+            <span>
+              Admin access is server-controlled. This UI has no public password or sign-up flow.
+            </span>
+          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

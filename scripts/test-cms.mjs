@@ -58,9 +58,9 @@ const baseline = await cms.getAdminContent();
 check(
   "Original projects, skills and all three initial drafts retained",
   baseline.content.projects.length === 6 &&
-    baseline.content.skillGroups.length === 15 &&
-    baseline.content.posts.length === 3 &&
-    baseline.content.posts.every((p) => p.status === "draft"),
+  baseline.content.skillGroups.length === 15 &&
+  baseline.content.posts.length === 3 &&
+  baseline.content.posts.every((p) => p.status === "draft"),
 );
 let publicContent = await cms.readPublishedContent();
 check(
@@ -79,16 +79,16 @@ const saved = await cms.saveDraft(
 check(
   "Draft saved durably with next revision",
   saved.revision === 2 &&
-    (await cms.getAdminContent()).content.profile.availability ===
-      "Test-only availability",
+  (await cms.getAdminContent()).content.profile.availability ===
+  "Test-only availability",
 );
 publicContent = await cms.readPublishedContent();
 check(
   "Save does not publish profile, project or copy changes",
   publicContent.profile.availability !== edited.profile.availability &&
-    publicContent.projects[0].title !== edited.projects[0].title &&
-    publicContent.copy["about.introduction.title"] !==
-      edited.copy["about.introduction.title"],
+  publicContent.projects[0].title !== edited.projects[0].title &&
+  publicContent.copy["about.introduction.title"] !==
+  edited.copy["about.introduction.title"],
 );
 await assert.rejects(
   () => cms.saveDraft(edited, 1, "local-test-editor"),
@@ -103,10 +103,10 @@ publicContent = await cms.readPublishedContent();
 check(
   "Explicit publish updates all fields together",
   published.publishedRevision === 2 &&
-    publicContent.profile.availability === edited.profile.availability &&
-    publicContent.projects[0].title === edited.projects[0].title &&
-    publicContent.copy["about.introduction.title"] ===
-      edited.copy["about.introduction.title"],
+  publicContent.profile.availability === edited.profile.availability &&
+  publicContent.projects[0].title === edited.projects[0].title &&
+  publicContent.copy["about.introduction.title"] ===
+  edited.copy["about.introduction.title"],
 );
 const article = structuredClone(edited);
 article.posts[0].status = "published";
@@ -131,8 +131,8 @@ publicContent = await cms.readPublishedContent();
 check(
   "Reviewed article publishes; unpublished project and other draft articles excluded",
   publicContent.posts.length === 1 &&
-    publicContent.projects.length === 5 &&
-    !publicContent.projects.some((p) => p.id === article.projects[0].id),
+  publicContent.projects.length === 5 &&
+  !publicContent.projects.some((p) => p.id === article.projects[0].id),
 );
 const revisions = await cms.listRevisions();
 const old = revisions.find((r) => r.kind === "draft" && r.revision === 2);
@@ -144,8 +144,8 @@ const restored = await cms.restoreRevision(
 check(
   "Restoration creates a new draft without rolling back live content",
   restored.revision === revision + 1 &&
-    (await cms.readPublishedContent()).posts.length === 1 &&
-    restored.content.posts.every((p) => p.status === "draft"),
+  (await cms.readPublishedContent()).posts.length === 1 &&
+  restored.content.posts.every((p) => p.status === "draft"),
 );
 const bad = structuredClone(restored.content);
 bad.profile.cvUrl = "javascript:alert(1)";
@@ -188,7 +188,7 @@ const next = await cms.saveDraft(
 check(
   "Draft media cannot be anonymously fetched, and deletion detects saved reference",
   (await cms.mediaVisibility(id)) === "draft" &&
-    (await cms.mediaIsReferenced(id)),
+  (await cms.mediaIsReferenced(id)),
 );
 await cms.publishDraft(next.revision, "local-test-editor");
 check(
@@ -199,7 +199,7 @@ const repeated = await cms.getAdminContent();
 check(
   "Repeated initialization never resets edited content",
   repeated.content.assets.portrait === `/api/media/${id}` &&
-    repeated.revision === next.revision,
+  repeated.revision === next.revision,
 );
 await assert.rejects(
   () => cms.beginMediaDeletion(id),
@@ -222,8 +222,8 @@ const pending = await cms.beginMediaDeletion(unused);
 check(
   "Deletion intent is durable before external bytes cleanup",
   Boolean(pending.deletedAt) &&
-    (await cms.listMedia()).find((item) => item.id === unused).visibility ===
-      "deletion-pending",
+  (await cms.listMedia()).find((item) => item.id === unused).visibility ===
+  "deletion-pending",
 );
 await cms.beginMediaDeletion(unused);
 check(
@@ -255,7 +255,7 @@ check(
   unchanged.content.posts[0].updatedAt === repeated.content.posts[0].updatedAt,
 );
 const articleChange = structuredClone(unchanged.content);
-articleChange.posts[0].title += " — local edit";
+articleChange.posts[0].title += " local edit";
 articleChange.posts[0].updatedAt = "2000-01-01T00:00:00.000Z";
 const timestamped = await cms.saveDraft(
   articleChange,
@@ -265,8 +265,8 @@ const timestamped = await cms.saveDraft(
 check(
   "Changed articles get a server modification timestamp",
   new Date(timestamped.content.posts[0].updatedAt).getTime() >
-    new Date("2000-01-01").getTime() &&
-    timestamped.content.posts[0].updatedAt !== articleChange.posts[0].updatedAt,
+  new Date("2000-01-01").getTime() &&
+  timestamped.content.posts[0].updatedAt !== articleChange.posts[0].updatedAt,
 );
 // Leave the isolated DB in the real initial state for the component fixture.
 await db.execute("TRUNCATE cms_state,cms_revisions,cms_media RESTART IDENTITY");

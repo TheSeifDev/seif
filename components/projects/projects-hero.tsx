@@ -111,7 +111,7 @@ export function ProjectsHero({
           >
             {c(
               "projects.hero.description",
-              "Products across education, healthcare, AI, analytics and the web — each one built end to end, from schema to screen.",
+              "Products across education, healthcare, AI, analytics and the web each one built end to end, from schema to screen.",
             )}
           </p>
           <dl className="grid grid-cols-3 gap-4 lg:col-span-6 lg:col-start-7">

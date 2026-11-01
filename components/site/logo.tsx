@@ -5,7 +5,7 @@ export function Logo({
   withWordmark = false,
   subtitle,
   name = "Seif Ayman",
-  ariaLabel = `${name} — home`,
+  ariaLabel = `${name} home`,
   className,
 }: {
   withWordmark?: boolean;

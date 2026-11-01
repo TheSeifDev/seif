@@ -104,7 +104,7 @@ export function ContactForm() {
           expand(
             c(
               "contact.form.received",
-              "Message received. Thank you — I'll reply to {email} soon.",
+              "Message received. Thank you I'll reply to {email} soon.",
             ),
             { email: values.email },
           ),

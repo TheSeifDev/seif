@@ -11,7 +11,7 @@ const pad = (value: number) => String(value).padStart(2, "0");
 type Role = SiteContent["experience"][number];
 
 /**
- * 02 Experience — one chapter per role. Motion hooks (`data-role-*`) are
+ * 02 Experience one chapter per role. Motion hooks (`data-role-*`) are
  * driven by `components/about/about-scenes.ts`; without motion every
  * statement is fully visible.
  */
@@ -82,7 +82,7 @@ function RoleChapter({
       className="relative border-t border-white/[0.07] pb-24 lg:pb-36"
       aria-labelledby={headingId}
     >
-      {/* Oversized outline organisation name — drifts with scroll. */}
+      {/* Oversized outline organisation name drifts with scroll. */}
       <div
         aria-hidden="true"
         className="pointer-events-none overflow-hidden py-8 lg:py-12"

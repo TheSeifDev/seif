@@ -4,12 +4,12 @@ A multi-page portfolio for Seif Ayman built with Next.js 16, React 19, TypeScrip
 
 ## Public routes
 
-- `/` — Home, including the Cinematic Identity Sequence.
-- `/about` — background, capabilities, working principles and a factual professional FAQ.
-- `/projects` and `/projects/[slug]` — verified public projects and case studies.
-- `/blog` and `/blog/[slug]` — unpublished drafts are not exposed.
-- `/contact` — contact form and direct contact links.
-- `/robots.txt`, `/sitemap.xml`, `/opengraph-image`, `/llms.txt` — public discovery resources.
+- `/` Home, including the Cinematic Identity Sequence.
+- `/about` background, capabilities, working principles and a factual professional FAQ.
+- `/projects` and `/projects/[slug]` verified public projects and case studies.
+- `/blog` and `/blog/[slug]` unpublished drafts are not exposed.
+- `/contact` contact form and direct contact links.
+- `/robots.txt`, `/sitemap.xml`, `/opengraph-image`, `/llms.txt` public discovery resources.
 
 `/dashboard` and its owner-only saved previews are implemented in a separate private route group. Production activation remains gated by infrastructure configuration; see Private CMS dashboard below.
 

@@ -4,7 +4,7 @@
 
 - [x] Restore the completed multi-page portfolio and the Cinematic Identity Sequence from the referenced prior task's source snapshots into this new WebDev project; keep the user's original GitHub repository read-only and do not publish this copy. Evidence: new WebDev project `seifprof`, source routes/components/assets restored; original GitHub unchanged; `publishing.auto_publish` is false and no publication was performed.
 
-## Multi-page rebuild — 2026-10-29
+## Multi-page rebuild 2026-10-29
 
 - [x] Multi-page architecture: `/`, `/about`, `/projects`, `/projects/[slug]`, `/blog`, `/blog/[slug]`, `/contact`, each with its own intentional composition, content hierarchy and responsive layout; shared navigation, typography, color tokens and components keep consistency. Real navigation links; every route works when opened directly. Do not turn the portfolio into one long page. Home holds concise previews linking to dedicated pages, not every case study or article. Dashboard remains a separate private area (later phase). Evidence in this copy: all public routes returned 200 on direct open; unknown, draft, and malformed slugs returned 404; `docs/checks/multipage-browser-results.json`.
 - [x] Unified design system: Light Blue single accent family that works on dark and light surfaces, black/white structural contrast, consistent spacing, alignment, radius, typography scale and component treatment; Tailwind utilities only; no Crimson. Evidence: tokens in `app/globals.css` `@theme`, utilities in components, no component CSS files; typecheck/build and responsive browser checks pass.
@@ -29,16 +29,16 @@
 - [x] Three.js depth transition: a restrained luminous moon with subtle depth and atmospheric blue lighting, its rotation/position tied to the same scroll progression; no excessive particles, arbitrary floating objects, unnecessary scaling or decoration-only animation.
 - [x] Exit transition flows naturally into The Journey, preserving continuity.
 - [x] Engineering: GSAP + ScrollTrigger reversible scrub choreography in one coordinated timeline; correct pin spacing and section dimensions; no duplicate ScrollTriggers; all animation and WebGL resources cleaned up (including across routes); Three.js lazy-loaded without blocking initial render; usable mobile layout with simplified motion; reduced-motion respected; fallback when WebGL is unavailable.
-- [x] Tested while scrolling both down and up (same scroll positions give the same states), plus mobile, reduced motion, no-WebGL and route navigation. Evidence: `docs/checks/identity-browser-results.json` — 0 failures, no down/up mismatches, lazy WebGL and idle rendering verified; CSS fallback remains visible when WebGL is deliberately blocked. The expected Three.js context-creation console message is observed only in the forced no-WebGL case.
+- [x] Tested while scrolling both down and up (same scroll positions give the same states), plus mobile, reduced motion, no-WebGL and route navigation. Evidence: `docs/checks/identity-browser-results.json` 0 failures, no down/up mismatches, lazy WebGL and idle rendering verified; CSS fallback remains visible when WebGL is deliberately blocked. The expected Three.js context-creation console message is observed only in the forced no-WebGL case.
 
-## Private dashboard / integrations / deployment — later
+## Private dashboard / integrations / deployment later
 
 - [ ] Better Auth GitHub stable numeric owner allowlist, no registration; server authorization on every protected route/action/API. Dashboard review and management of contact messages; blog drafts labelled as initial drafts.
 - [ ] Draft by default, authenticated previews/edit, explicit publish/unpublish, confirmed permanent deletion including bytes/variants with partial failure recovery; draft assets private, not obscure public URLs.
 - [ ] Manual reviewed GitHub imports/sync without overwriting curation; Instagram Creator read account/media/supported Insights only, server encryption/snapshots/status/reconnect and verified permissions; no automatic publication.
 - [ ] Validate Vercel runtime/storage/cron on the actual plan, env origins/callbacks, explain cost before services; no purchases/domain assumption, deployment only after actual verification.
 
-## Visual refinement pass — current user request
+## Visual refinement pass current user request
 
 - [x] Featured Projects (priority 1): completely redesign the cards, not minor border/shadow/color tweaks. Build a premium editorial showcase with large well-composed verified visuals; clear project number, title, category and concise description; technology labels secondary; verified `Watch Live` and `Go to Repo` only when present; consistent image ratios, alignment, typography and internal spacing; deliberate asymmetric/alternating imagery-content relationship. Avoid excessive text, random badges and small competing controls. Preserve all verified project information; invent no screenshots, features, metrics or links.
 - [x] More Projects (priority 2): visually distinct compact collection, not weaker Featured cards. Use a balanced well-aligned responsive grid with strong titles, clear real/labelled editorial previews, concise descriptions, consistent image proportions, restrained metadata and easily recognized `Watch Live` / `Go to Repo` only when verified. Three-project desktop layout must remain balanced without clipping/horizontal overflow. Avoid nested containers, excessive borders, oversized blanks and inconsistent heights.
@@ -53,21 +53,21 @@
 
 Evidence for this pass: final typecheck, lint, production build and Python syntax checks passed; `docs/checks/refinement-browser-results.json`, `multipage-browser-results.json` and `identity-browser-results.json` each report zero failures. Featured fit measured at five desktop viewports with zero vertical overflow. Browser checks cover pointer modes, local portrait light, magnetic CTA reset, original filter `none`, Hero CLS 0, reverse Journey 04→01, compact Process 0→3, keyboard focus to the last slide, route and media-query listener cleanup, touch and reduced motion. Read-only source validation issues were resolved. Details and precise changed files: `docs/refinement-handoff.md`. Private dashboard/integrations/deployment outcomes above remain open; Neon/Resend remain unconfigured.
 
-## Follow-up refinement — cursor spotlight, white Featured, premium More cards
+## Follow-up refinement cursor spotlight, white Featured, premium More cards
 
 - [x] Cursor: replace the blue ring/dot follower with a soft spotlight hover that follows the pointer (neutral light, not a blue ring). Keep functional distinction for links, buttons, project links, card surfaces and the horizontal track through spotlight size/intensity; keep native cursor, non-blocking pointer events, magnetic primary CTA, keyboard/input suppression, touch/no-hover/reduced-motion disabling and full listener/RAF cleanup.
 - [x] Featured Projects: white background and project cards about 80% of the viewport width on the horizontal desktop track (next project visibly peeks); premium light cards with large real visuals, alternating media/content, readable ink typography, verified actions only; all content fits inside the pinned stage at desktop sizes; vertical fallback on compact/reduced motion.
 - [x] More Projects: change the card design to modern, premium cards: rounded surface with pointer-following spotlight border/sheen, inset image with hover zoom, clear index/category/title, concise summary, quiet stack line, consistent action footer; exactly three projects, equal heights, verified links only, no clipping or horizontal overflow at desktop/tablet/mobile.
 Evidence: typecheck, lint and production build pass; `check-refinement.py` (spotlight modes, light tone over Featured, card `--spot-x/--spot-y` set and released, magnetic CTA reset, listener cleanup, touch/reduced motion), `check-multipage.py` and `check-identity.py` report zero failures. Featured measured at 1024×768, 1280×800, 1440×760, 1440×900 and 1920×1080: card width = 0.80 × viewport, zero content clipping, zero pin or horizontal overflow; More cards equal height (576px at 1440). Navbar opacity raised so links stay legible over white.
 
-## Follow-up — Light Blue spotlight, rounded narrower Featured panel, dark Featured cards
+## Follow-up Light Blue spotlight, rounded narrower Featured panel, dark Featured cards
 
-- [x] Cursor spotlight: stronger, better spotlight tinted toward Light Blue — two-layer halo + core, screen blending on dark surfaces so content beneath is lit, multiply tint on light surfaces, soft per-frame easing that settles exactly on the pointer; native cursor kept; disabled on touch/reduced motion; listeners and RAF cleaned up.
+- [x] Cursor spotlight: stronger, better spotlight tinted toward Light Blue two-layer halo + core, screen blending on dark surfaces so content beneath is lit, multiply tint on light surfaces, soft per-frame easing that settles exactly on the pointer; native cursor kept; disabled on touch/reduced motion; listeners and RAF cleaned up.
 - [x] Featured Projects background: a rounded panel like the About section, but narrower (desktop 90vw, max 1680px, vs About's near full width), sitting on the dark page background; pinned horizontal track preserved.
 - [x] Featured cards: dark cards (night surface, Light Blue spotlight border and sheen following the pointer), readable snow/mist text, verified actions only, about 80% of the panel width so the next project peeks; one-line action footer.
 Evidence: typecheck, lint and production build pass; `check-refinement.py`, `check-multipage.py` and `check-identity.py` report zero failures. Panel = 0.90 × viewport at 1024/1440 (1680px at 1920); slide = 0.80 × panel; zero card clipping and zero horizontal overflow at 1024×768, 1280×720, 1440×760, 1440×900, 1920×1080; spotlight tone resolves `light` on the panel and `dark` on cards.
 
-## About page — Experience → Principles redesign
+## About page Experience → Principles redesign
 
 - [x] About page from Experience through Principles must be modern and professional, with a new style and awwwards-level GSAP motion; Introduction, hero and closing CTA unchanged; only existing CV facts and links.
 - [x] 02 Experience: chapter per role with a drifting outline organisation name, sticky meta column (index, role, organisation, period/location, progress rail + live counter), numbered responsibility statements that brighten as they are read (scrubbed, reversible), stack chips stagger in.
@@ -75,9 +75,9 @@ Evidence: typecheck, lint and production build pass; `check-refinement.py`, `che
 - [x] 04 Capabilities: two-column typographic index of all fifteen groups with index, display name, count and every skill + icon; masked name rise, hairline draw, skill stagger; hover ink fill inverts the row on hover-capable devices.
 - [x] 05 Principles: pinned expanding panels on stage viewports driven by one scrubbed timeline with snapping, counter and progress; collapsed panels show index, vertical title and icon; compact viewports show a staggered two-column grid; reduced motion/no-JS show the full static grid; content stays accessible.
 - [x] Motion lifecycle: single useGSAP/matchMedia scope, SplitText line-mask chapter titles reverted on cleanup, `about-page-` trigger ids, no leaked triggers between routes, only the `about-page-principles` pin on stage, no horizontal overflow, no clipped content at desktop/tablet/mobile.
-- Evidence (2026-10-29): `scripts/check-about.py` 0 failures — Experience highlight 0.16→1→0.16 forward/reverse, counter advances, marquee drifts, sticky meta at 112px; Education unmask + spotlight vars; 15 capability rows; Principles active panel 1→4 and 3→1 reversed match, pin top 0, no clipped body, fits 1440×900 and 1280×760; tablet/mobile 0 pins, 0 overflow, cards revealed; reduced motion: no about triggers, all content visible; About→Home→About identical trigger set, 1 pin, title text intact. Regression: check-multipage, check-identity, check-refinement 0 failures; typecheck, lint, build pass.
+- Evidence (2026-10-29): `scripts/check-about.py` 0 failures Experience highlight 0.16→1→0.16 forward/reverse, counter advances, marquee drifts, sticky meta at 112px; Education unmask + spotlight vars; 15 capability rows; Principles active panel 1→4 and 3→1 reversed match, pin top 0, no clipped body, fits 1440×900 and 1280×760; tablet/mobile 0 pins, 0 overflow, cards revealed; reduced motion: no about triggers, all content visible; About→Home→About identical trigger set, 1 pin, title text intact. Regression: check-multipage, check-identity, check-refinement 0 failures; typecheck, lint, build pass.
 
-## Projects page — 作品集 Archive redesign
+## Projects page 作品集 Archive redesign
 - [x] `/projects` must become a different, distinctive piece (modern, professional, awwwards-level GSAP), keeping every project, every verified link, the domain filter and only data from `lib/content/projects.ts`; `/projects/[slug]` unchanged.
 - [x] 01 Hero: oversized "Selected / Work (06)" wordmark with SplitText character rise, scroll-scrubbed line drift (reversible), live counts (projects, case files, domains) that count up, domain ticker.
 - [x] 02 Index: typographic list of all projects (index, title roll-up hover, category, kanji, arrow), sibling dim + hairline on hover; cursor-following preview on fine pointers with motion (quickTo, velocity tilt, clip-path open/close, cross-fade; Nabd Masr uses its editorial tile); inline thumbnails on touch/compact; domain pill rail with counts + sliding indicator; Flip-animated filtering with entering/leaving rows; count announced via aria-live; first `main button` is a real filter button.
@@ -86,7 +86,7 @@ Evidence: typecheck, lint and production build pass; `check-refinement.py`, `che
 - [x] Motion lifecycle: one useGSAP/matchMedia scope, `projects-page-` trigger ids, no pins on /projects, no leaked triggers or listeners between routes, reduced motion/no-JS show the full static page, no horizontal overflow, no clipped content at 1440×900, 1280×760, 1024×768, 768×1024, 390×844.
 - Evidence: `scripts/check-projects.py` 0 failures (1440×900, 1280×760, 1024×768, 1920×1080, 768×1024 touch, 390×844 touch, 1280×700, reduced motion, client navigation); regression `check-multipage`, `check-refinement`, `check-identity`, `check-about` 0 failures; typecheck, lint and production build clean. Entrance reveals animate opacity only so below-the-fold rows stay keyboard-focusable; Flip completion refreshes ScrollTrigger so triggers below the list follow its new height.
 
-## Footer grain + lighter cursor spotlight — 30 October 2026
+## Footer grain + lighter cursor spotlight 30 October 2026
 
 - [x] Footer: add a subtle animated grain texture only inside the existing footer; keep the current footer content and layout intact. The texture is decorative (`aria-hidden`, non-interactive, behind content), uses restrained opacity, and becomes static with no animation under `prefers-reduced-motion`.
 - [x] Cursor spotlight: make the existing Light Blue mouse-hover spotlight much lighter and less visually dominant, while keeping it softly perceptible on supported desktop pointers. Do not obscure text or cards or change click, focus, navigation, native-pointer, touch, or keyboard behavior; preserve reduced-motion disabling and listener/RAF cleanup.
@@ -95,14 +95,14 @@ Evidence: typecheck, lint and production build pass; `check-refinement.py`, `che
 Evidence: `npm run typecheck`, `npm run lint`, and `npm run build` passed. Updated `scripts/check-refinement.py` reports 0 failures: grain animation is active only in the footer with `pointer-events: none`, 480px ambient / 104px core cursor dimensions, correct touch/reduced-motion disabling, card-coordinate cleanup, magnetic CTA reset and route listener cleanup. `scripts/check-multipage.py` reports 0 failures. Visual review covered the footer grain and softened spotlight over dark and light surfaces.
 
 
-## Follow-up — stronger animated footer grain — 30 October 2026
+## Follow-up stronger animated footer grain 30 October 2026
 
 - [x] Make the existing footer grain visibly stronger and its movement more apparent: use one non-repeating monochrome SVG surface covering the footer, opacity `0.16`, and a `1.1s` six-step transform-only jitter; keep it clipped behind content and non-interactive. Keep it static under `prefers-reduced-motion`; do not change the already-softened cursor spotlight.
 - [x] Verify the grain is visibly perceptible without distracting from footer text, stays inside the footer, and is static under reduced motion; rerun typecheck, lint, build, and the affected browser checks.
 
 Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, and `python3 -m py_compile scripts/check-refinement.py` passed. Final `scripts/check-refinement.py` and `scripts/check-multipage.py` report 0 failures. Browser values: SVG asset HTTP 200; `background-size: cover`, `background-repeat: no-repeat`; opacity `0.16`; duration `1.1s`; transform samples differ; `pointer-events: none`; footer overflow clips the layer; reduced-motion reports animation `none`. The final screenshot was reviewed for texture strength and absence of tile seams.
 
-## Follow-up — natural static footer-background grain
+## Follow-up natural static footer-background grain
 
 - [x] Blend the monochrome SVG grain directly into the footer's own background so it reads as a natural surface, not as a video or continuously animated overlay; keep it fixed in place.
 - [x] On hover-capable fine pointers with motion enabled, softly strengthen/reveal the same grain only around the cursor. Clear it on pointer leave without intercepting footer links or controls; disable tracking on touch and under `prefers-reduced-motion`; retain listener/RAF cleanup and no per-frame React state.
@@ -110,7 +110,7 @@ Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, and `python3 -m 
 
 Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, `python3 -m py_compile scripts/check-refinement.py`, and `git diff --check` passed. The production Playwright check reports 0 failures across desktop/tablet/mobile and six widths with zero horizontal overflow. Footer background uses the SVG directly with `soft-light`, `cover`, and `no-repeat`; computed animation is `none` and background position stays fixed while the pointer moves. The local reveal follows changing cursor coordinates, clears on leave, and has `pointer-events: none`; the texture returns HTTP 200. Tracking listeners are present once on desktop and absent on touch/reduced motion, which also leaves the background static.
 
-## Performance, Montserrat and public discovery — 30 October 2026
+## Performance, Montserrat and public discovery 30 October 2026
 
 - [x] Make self-hosted variable Montserrat the primary body/display font; remove other web-font families, use system Japanese/monospace fallbacks, and preload only the primary Latin subset with `display: swap`.
 - [x] Compress large decorative assets without altering portrait or project screenshot files; use content-hashed background sources, responsive AVIF/WebP, bounded qualities, appropriate sizes, and lazy loading below the fold. Mount full-resolution project cursor previews on demand.
@@ -120,7 +120,7 @@ Evidence: `npm run build`, `npm run typecheck`, `npm run lint`, `python3 -m py_c
 
 Evidence: final build, TypeScript, ESLint and diff whitespace checks pass. `check-seo.py`, `check-refinement.py`, `check-multipage.py` and the Montserrat/portrait-shield interaction check pass with no failures. Final Home Lighthouse 13.6.0 lab scores: mobile performance 42→85, desktop 72→99; SEO 92→100, accessibility 97→100, best practices 100→100; CLS 0. Mobile font transfer 543,326→35,808 bytes, 21→1 requests. Source raster assets 2,285,213→1,060,127 bytes without modifying portrait/screenshot source pixels. Final raw/summary measurements: `docs/checks/performance-results.json`; Arabic handoff: `docs/performance-seo-handoff.md`. These are local production-build Home lab measurements, not field metrics or guaranteed AI recommendations. Search Console verification/indexing and private/contact-provider setup remain outside this pass.
 
-## Journey cards, current club role and narrower In focus — 30 October 2026
+## Journey cards, current club role and narrower In focus 30 October 2026
 
 - [x] Give the four Home Journey chapters actual card backgrounds and Education-card-like upward reveals when they approach the viewport; retain all facts, native anchors, chapter counter/rail progression, touch/static reduced-motion fallbacks and cleanup. Keep the established Montserrat/dark/Light Blue language without adding heavy assets or pins.
 - [x] Replace the current University IT Club title with the user-confirmed `Vice Head IT Support`; the promotion was about one month before 30 October 2026, represented as Sep 2026 without inventing an exact day or new responsibilities. Update About and Journey through their shared content and the public generated summary, and retain old CV facts only as historical provenance.
@@ -128,7 +128,7 @@ Evidence: final build, TypeScript, ESLint and diff whitespace checks pass. `chec
 
 Evidence: production build, TypeScript, ESLint, Python syntax and diff whitespace checks pass. `scripts/check-journey-focus.py` reports zero failures: four raised cards, 70px upward reveal and reverse, counter 01→04→01, no stale Journey triggers after client navigation, static fully open reduced-motion cards, no mobile clipping, current role/month in Home/About and generated summary. In focus measures 84vw up to 1280px and is centered at desktop widths; all six checked widths have zero horizontal overflow. `scripts/check-projects.py` reports zero failures across stage/compact/reduced-motion sizes, filtering, preview, stack fit, reverse scroll and navigation. Original downloadable CV remains unchanged; the user correction is documented in `docs/content-sources.md`.
 
-## Journey stacking, featured tech filters and Search Console — 30 October 2026
+## Journey stacking, featured tech filters and Search Console 30 October 2026
 
 - [x] Make The Journey cards come on top of one another when scrolling, like the Projects page's In focus stack; keep the Education-inspired card backgrounds, all four chapters, current Vice Head IT Support role, native chapter anchors and active counter. Preserve readable no-JS/reduced-motion and small/short-screen layouts, reversible motion, complete text and cleanup.
 - [x] Add Filter by Tech Stack to the existing Featured Projects section rather than duplicating it: use actual verified technologies from project data, an All/reset option, accurate result count, accessible keyboard controls and responsive layout. Update/revert the horizontal motion safely when the filtered result count changes; never hide project links from server-rendered All content.
@@ -137,14 +137,14 @@ Evidence: production build, TypeScript, ESLint, Python syntax and diff whitespac
 
 Evidence: production build, TypeScript, ESLint, Python syntax and whitespace checks pass. Updated Journey/Featured browser check reports zero failures at 1440×900, 1280×760 and 1024×768: sticky offsets 96/112/128/144px, previous-card scale/shade, reverse scroll, native rail and 01→04→01 counter; no clipped Journey content or Featured links inside the actual pinned viewport. All 15 actual tech choices plus All produce the correct project set, live count and exactly one or zero horizontal pins as appropriate. Mobile, short, reduced-motion and no-JS fallbacks pass; no stale Home triggers after navigation. Raw HTML SEO check reports zero failures, including matching document/social titles, canonical, Google large-preview directives, public JSON-LD and error/draft noindex status. Google ownership and sitemap submission were initially pending sign-in; both were subsequently completed for the user's new canonical origin below.
 
-## Canonical-site migration to theseif.vercel.app — 30 October 2026
+## Canonical-site migration to theseif.vercel.app 30 October 2026
 
 - [x] Adopt the user-confirmed `https://theseif.vercel.app/` as the official site in canonical, social metadata, sitemap, robots, structured-data identity and public machine-readable summaries; update the social-image domain label and active configuration/docs/tests without rewriting historical measurements. Handle a stale old SITE_URL safely and preserve route paths, filters, fonts, content and motion.
 - [x] Verify the exact new URL-prefix property in the user's signed-in Google Search Console account using its genuine issued token, publish that token, and submit the new-domain sitemap after successful ownership verification. Do not modify account permissions or unrelated properties.
 
 Evidence: code deployed in commit c8be579; the published homepage returns 200 with the genuine Google token inside head and canonical https://theseif.vercel.app. Local and public SEO checks have zero failures, including the new sitemap/robots/schema/social origin. Google confirmed Ownership verified via HTML tag for the exact new URL-prefix property. Its sitemap detail report then confirmed Sitemap processed successfully on 30 October 2026, with 11 discovered pages and 0 videos. The initial table's Couldn't fetch status was superseded by this successful processing result; discovery is not a promise of indexing or ranking.
 
-## About hero and narrower paper sections — 30 October 2026
+## About hero and narrower paper sections 30 October 2026
 
 - [x] Slightly narrow the background surfaces of About Introduction and Capabilities, with equal intentional side gutters on desktop and a usable mobile inset. Preserve every fact, all 15 capability groups and skills, readable text, labels and icons; do not narrow backgrounds on unrelated pages.
 - [x] Develop the About hero into a stronger editorial identity section using the existing Montserrat, night/sky palette and verified profile/assets; keep a single readable H1, real CV/contact links, and no invented credentials or metrics.
@@ -152,7 +152,7 @@ Evidence: code deployed in commit c8be579; the published homepage returns 200 wi
 
 Evidence: production build, TypeScript, ESLint and whitespace checks pass. Dedicated About-top and existing About browser reports have zero failures. At 1440px both paper backgrounds are 1280px wide with equal 80px gutters; at 1280/1024/768 they retain equal 32px gutters, and at 390 they retain 12px gutters. No horizontal overflow or clipped fact labels in five viewport sizes; four facts, 15 capability groups and 93 skill entries are preserved. Hero copy is visible immediately; hero and Introduction transforms respond to scroll and reverse. No extra pins beyond existing Principles; About-only triggers clean up on navigation and live reduced-motion changes. Reduced-motion/no-JS content stays fully visible. Raw HTML SEO regression passes with unchanged canonical origin, schemas, social metadata and Google verification support. Read-only scoped review found no material defects.
 
-## About correction: original image hero, medium surfaces and modern answers — 30 October 2026
+## About correction: original image hero, medium surfaces and modern answers 30 October 2026
 
 - [x] Restore the original About image-background PageHero composition, headline, Japanese caption and CV/contact links; remove the rejected engineering card and newly invented left/right identity spread. Keep only a few restrained GSAP scroll movements on the original background image and text, with initially visible copy and static/reduced-motion fallbacks.
 - [x] Widen Introduction and Capabilities from the overly narrow pass to a balanced intermediate paper width, and give A few useful answers the same width: fluid middle-size centered surfaces, small mobile inset, no clipped facts or skills. Do not change unrelated page backgrounds.
@@ -160,13 +160,13 @@ Evidence: production build, TypeScript, ESLint and whitespace checks pass. Dedic
 
 Evidence: original PageHero call matches the pre-refinement version and its shared component is untouched; rejected art markers are absent, the original landscape image is present, and the text remains visible on load. All three surfaces share measured widths of 1360px at 1440 and 1600px at 1920, with symmetric gutters; medium viewports have 20px gutters and mobile has 12px. Six viewport checks preserve four facts and 93 skills with no overflow. All three native disclosures work using Enter/Space, including reduced-motion/no-JS contexts; visible question/answer strings exactly match FAQ JSON-LD. Hero image/text motion reverses, no extra pin or leaked route triggers, and disclosure refresh listeners are scoped/coalesced/cleaned up. Introduction heading trigger was moved to the actual heading so tall-screen motion does not finish prematurely; targeted recheck passes all six viewports. Production build, TypeScript, ESLint, Python syntax, SEO regression and whitespace checks pass; read-only review found no material design/scope defects.
 
-## Home Hero content alignment — 30 October 2026
+## Home Hero content alignment 30 October 2026
 
 - [x] Correct the Home Hero's right-heavy data distribution by aligning the experience card and Japanese side label with the same centered content frame as the name, copy, portrait and header. Preserve the original left copy position, background, real portrait aspect/contain fit, all text/CV/project links and current GSAP targets/entrance/overlap. Keep desktop/laptop data unclipped and mobile/tablet layout unchanged; do not redesign Hero or alter other sections.
 
 Evidence: production build, TypeScript, ESLint, Python syntax and whitespace checks pass. Focused alignment check has zero failures at 1920×1080, 1440×900, 1280×760, 1024×768, 768×1024 and 390×844. Card and Japanese label follow the frame's padded right edge while copy keeps its original left anchor; card doesn't clip or overlap the copy. Portrait keeps 3:4 dimensions and contain fit, identity and both links are unchanged, the existing overlap reverses, and mobile/reduced-motion/no-JS content stays visible without overflow. Wide-screen screenshot confirms the side data is no longer detached at the viewport edge. No image, font, shared container, SEO or GSAP scene changes.
 
-## Complete private dashboard — 30 October 2026
+## Complete private dashboard 30 October 2026
 
 - [x] Implement the supplied dark-blue dashboard direction with inverted/concave borders, compact sidebar, readable Montserrat workspace and responsive navigation. Use genuine CMS counts/status and inbox data, not copied finance widgets or invented analytics. Keep dashboard code/styles isolated from the accepted public site.
 - [x] Implement server-side Better Auth/GitHub owner protection for the dashboard, admin APIs, saved previews and private media; restrict access to numeric owner ID 167328383. No public signup, client-only guards or app login bypass. Missing credentials/CMS activation fail closed; provider login itself still needs the live setup below.

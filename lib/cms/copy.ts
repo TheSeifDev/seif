@@ -5,7 +5,7 @@
  */
 export const defaultCopy: Record<string, string> = {
   "site.skipToContent": "Skip to content",
-  "site.logo.ariaLabel": "Seif Ayman — home",
+  "site.logo.ariaLabel": "Seif Ayman home",
   "site.nav.primaryAriaLabel": "Primary",
   "site.nav.mobileAriaLabel": "Mobile",
   "site.nav.talkCta": "Let's talk",
@@ -15,7 +15,7 @@ export const defaultCopy: Record<string, string> = {
   "site.footer.pagesLabel": "Pages",
   "site.footer.elsewhereLabel": "Elsewhere",
   "site.footer.description":
-    "Production web, desktop and AI products — owned from the database schema to the last detail of the interface.",
+    "Production web, desktop and AI products owned from the database schema to the last detail of the interface.",
   "site.footer.downloadCv": "Download CV",
   "site.footer.cvDetail": "PDF",
   "site.footer.backToTop": "Back to top",
@@ -33,11 +33,11 @@ export const defaultCopy: Record<string, string> = {
   "about.hero.japaneseCaption": "開発・設計・解決",
   "home.connect.accent": "matters",
   "social.description":
-    "Production-grade web, desktop, AI and IoT products — owned end to end.",
+    "Production-grade web, desktop, AI and IoT products owned end to end.",
 
   "home.hero.experienceAriaLabel": "Experience",
   "home.hero.description":
-    "I build production web, desktop and AI products — from TypeScript interfaces to NestJS APIs and PostgreSQL data models.",
+    "I build production web, desktop and AI products from TypeScript interfaces to NestJS APIs and PostgreSQL data models.",
   "home.hero.experienceLabel": "Years experience",
   "home.hero.experienceDescription":
     "Turning ideas into real products with clean code and meaningful design.",
@@ -49,21 +49,21 @@ export const defaultCopy: Record<string, string> = {
   "home.about.titleLineTwo": "that solve",
   "home.about.titleLineThree": "real problems",
   "home.about.statement":
-    "A full stack developer who loves building modern, scalable and user-centred digital experiences — owning every layer from database schema and APIs to the interface and its deployment.",
+    "A full stack developer who loves building modern, scalable and user-centred digital experiences owning every layer from database schema and APIs to the interface and its deployment.",
   "home.about.verticalCaption": "開発・デザイン・解決・繰り返す",
   "home.about.moreCta": "More about me",
   "home.identity.sectionLabel": "Identity",
-  "home.identity.nextLabel": "Next — The journey",
+  "home.identity.nextLabel": "Next The journey",
   "home.journey.sectionLabel": "The journey",
   "home.journey.title": "Built through every layer.",
   "home.journey.aside":
-    "Five-plus years — from first interfaces to leading a cross-functional engineering team.",
+    "Five-plus years from first interfaces to leading a cross-functional engineering team.",
   "home.journey.chapterIndexLabel": "Journey chapter index",
   "home.journey.practiceLabel": "A continuous practice",
   "home.featured.sectionLabel": "Featured projects",
   "home.featured.title": "Some things I've built",
   "home.featured.aside":
-    "Real products, end to end — interface, API, data and deployment.",
+    "Real products, end to end interface, API, data and deployment.",
   "home.featured.viewAllCta": "View all projects",
   "home.featured.ariaLabel": "Featured projects",
   "home.featured.scrollHint": "Scroll to explore",
@@ -77,7 +77,7 @@ export const defaultCopy: Record<string, string> = {
   "home.skills.sectionLabel": "Skills & technologies",
   "home.skills.title": "Tools I work with",
   "home.skills.aside":
-    "Ordered by layer — what people touch, what keeps it running, and where it ships.",
+    "Ordered by layer what people touch, what keeps it running, and where it ships.",
   "home.skills.fullIndexLabel": "Full index",
   "home.skills.groupCountSuffix": "groups",
   "home.skills.entryCountSuffix": "entries",
@@ -92,7 +92,7 @@ export const defaultCopy: Record<string, string> = {
   "home.connect.sectionLabel": "Let's connect",
   "home.connect.title": "Let's build something that matters",
   "home.connect.description":
-    "Have a project in mind or just want to say hi? Send a message — it goes straight to me.",
+    "Have a project in mind or just want to say hi? Send a message it goes straight to me.",
   "home.connect.startConversationCta": "Start a conversation",
   "home.connect.downloadCvCta": "Download CV",
 
@@ -148,7 +148,7 @@ export const defaultCopy: Record<string, string> = {
     "Seif is open to remote roles and freelance work. Visitors can use the contact page to describe a product, platform or technical challenge.",
   "projects.hero.sectionLabel": "Projects · Archive",
   "projects.hero.description":
-    "Products across education, healthcare, AI, analytics and the web — each one built end to end, from schema to screen.",
+    "Products across education, healthcare, AI, analytics and the web each one built end to end, from schema to screen.",
   "projects.hero.projectsStat": "Projects",
   "projects.hero.caseFilesStat": "Case files",
   "projects.hero.domainsStat": "Domains",
@@ -166,7 +166,7 @@ export const defaultCopy: Record<string, string> = {
   "projects.cta.sectionLabel": "Next",
   "projects.cta.title": "Have a product worth building?",
   "projects.cta.description":
-    "Tell me what you are building and where it is stuck — the contact page has the form and direct details.",
+    "Tell me what you are building and where it is stuck the contact page has the form and direct details.",
   "projects.detail.allProjects": "All projects",
   "projects.detail.overviewLabel": "Overview",
   "projects.detail.overviewTitle": "The work, clearly",
@@ -187,10 +187,10 @@ export const defaultCopy: Record<string, string> = {
   "projects.detail.viewAllCta": "View all projects",
   "projects.detail.noPublicPreview": "No public preview",
   "projects.detail.editorialCaption":
-    "Editorial visual — no public product preview",
+    "Editorial visual no public product preview",
   "projects.detail.publicCaptureCaption": "Public landing page capture",
   "projects.detail.caseStudyImageCaption":
-    "Public landing page capture — its dashboard image is labelled an illustrative preview",
+    "Public landing page capture its dashboard image is labelled an illustrative preview",
   "projects.detail.watchLive": "Watch Live",
   "projects.detail.goToRepo": "Go to Repo",
 
@@ -235,7 +235,7 @@ export const defaultCopy: Record<string, string> = {
   "contact.form.validationError":
     "Please correct the highlighted fields. Your message was not sent.",
   "contact.form.received":
-    "Message received. Thank you — I'll reply to {email} soon.",
+    "Message received. Thank you I'll reply to {email} soon.",
   "contact.form.savedNotificationNotConfigured":
     "Your message was saved. The email notification is not configured, but your message is stored and will be reviewed.",
   "contact.form.savedNotificationFailed":
@@ -252,7 +252,7 @@ export const defaultCopy: Record<string, string> = {
     "Your message was not sent because the network request failed. Please email {email} directly.",
 
   "notFound.errorLabel": "Error / 404",
-  "notFound.title": "This page doesn't exist — or isn't published yet.",
+  "notFound.title": "This page doesn't exist or isn't published yet.",
   "notFound.goHomeCta": "Go home",
   "notFound.viewProjectsCta": "View projects",
 };

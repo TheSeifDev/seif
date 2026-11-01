@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { getSiteContent } from "@/lib/cms/server";
 import { getCopy } from "@/lib/cms/copy";
 
-export const alt = "Seif Ayman — Senior Full Stack Developer";
+export const alt = "Seif Ayman Senior Full Stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

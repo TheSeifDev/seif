@@ -71,7 +71,7 @@ export function Navbar() {
             ariaLabel={getCopy(
               copy,
               "site.logo.ariaLabel",
-              `${profile.name} — home`,
+              `${profile.name} home`,
             )}
           />
         </div>

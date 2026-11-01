@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const pad = (value: number) => String(value).padStart(2, "0");
 
 /**
- * 03 Education & training — a split ledger: the degree as a lit card, the
+ * 03 Education & training a split ledger: the degree as a lit card, the
  * training providers as numbered rows. Motion hooks: `data-edu-*`.
  */
 export function EducationSection({ content }: { content: SiteContent }) {

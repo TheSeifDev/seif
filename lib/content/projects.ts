@@ -52,7 +52,7 @@ export const projects: readonly Project[] = [
     kanji: "相棒",
     kanjiMeaning: "Companion",
     summary:
-      "An AI-powered smart medical and home assistant — a local-first desktop app with a modular RAG workflow and real-time MQTT.",
+      "An AI-powered smart medical and home assistant a local-first desktop app with a modular RAG workflow and real-time MQTT.",
     description:
       "RAFIQ is a flagship AI assistant that combines healthcare support with smart-home automation. It runs as a cross-platform, local-first desktop application with Electron, Fastify and SQLite, uses a modular Retrieval-Augmented Generation workflow for context-aware responses, and communicates with devices in real time over MQTT.",
     highlights: [
@@ -76,7 +76,7 @@ export const projects: readonly Project[] = [
           detail: "Electron and React desktop interface",
         },
       ],
-      note: "The interface never talks to the AI service directly — every request flows through the backend, which streams results to the GUI over SSE.",
+      note: "The interface never talks to the AI service directly every request flows through the backend, which streams results to the GUI over SSE.",
     },
     stack: [
       "Electron",
@@ -100,7 +100,7 @@ export const projects: readonly Project[] = [
     },
     featured: true,
     sources: [
-      "CV — Featured Projects",
+      "CV Featured Projects",
       "github.com/TheSeifDev/rafiq-system README",
       "phantomsio.vercel.app/rafiq",
     ],
@@ -115,7 +115,7 @@ export const projects: readonly Project[] = [
     summary:
       "A learning platform for IT students with content delivery, quizzes, academic management and admin dashboards.",
     description:
-      "IT-SUM is an educational and academic management platform — a content hub for IT students that brings course content, quizzes and academic management together, with authentication, a relational data model and dashboards for administrators and students.",
+      "IT-SUM is an educational and academic management platform a content hub for IT students that brings course content, quizzes and academic management together, with authentication, a relational data model and dashboards for administrators and students.",
     highlights: [
       "Built a learning platform with content delivery, quizzes and academic management.",
       "Designed authentication and a scalable relational database architecture.",
@@ -133,7 +133,7 @@ export const projects: readonly Project[] = [
     repo: {
       url: "https://github.com/TheSeifDev/it-sum",
       label: "Go to Repo",
-      note: "Backend repository — REST API in Go, Gin and PostgreSQL",
+      note: "Backend repository REST API in Go, Gin and PostgreSQL",
     },
     image: {
       src: "/images/projects/itsum.webp",
@@ -142,7 +142,7 @@ export const projects: readonly Project[] = [
     },
     featured: true,
     sources: [
-      "CV — Featured Projects",
+      "CV Featured Projects",
       "it-sum-seven.vercel.app",
       "github.com/TheSeifDev/it-sum README",
     ],
@@ -171,7 +171,7 @@ export const projects: readonly Project[] = [
       caption: "Public landing page capture",
     },
     featured: true,
-    sources: ["CV — Featured Projects", "phantomsio.vercel.app"],
+    sources: ["CV Featured Projects", "phantomsio.vercel.app"],
   },
   {
     slug: "nabd-masr",
@@ -192,7 +192,7 @@ export const projects: readonly Project[] = [
     stack: ["Next.js", "React", "Prisma ORM", "MySQL", "NextAuth"],
     availability: "Public preview is currently restricted",
     featured: false,
-    sources: ["CV — Featured Projects"],
+    sources: ["CV Featured Projects"],
   },
   {
     slug: "personal-portfolio",
@@ -202,7 +202,7 @@ export const projects: readonly Project[] = [
     kanji: "作品",
     kanjiMeaning: "Works",
     summary:
-      "My previous portfolio — technical case studies with reusable UI architecture, SEO and interactive interfaces.",
+      "My previous portfolio technical case studies with reusable UI architecture, SEO and interactive interfaces.",
     description:
       "A high-performance, accessible portfolio for technical case studies, built with a reusable UI architecture, search-engine optimization and interactive interfaces.",
     highlights: [
@@ -224,7 +224,7 @@ export const projects: readonly Project[] = [
       caption: "Public landing page capture",
     },
     featured: false,
-    sources: ["CV — Featured Projects", "seifdev.vercel.app"],
+    sources: ["CV Featured Projects", "seifdev.vercel.app"],
   },
   {
     slug: "trackup",
@@ -234,11 +234,11 @@ export const projects: readonly Project[] = [
     kanji: "記録",
     kanjiMeaning: "Record",
     summary:
-      "Video intelligence and playback analytics — real viewing sessions, scoped team access and provider-aware evidence.",
+      "Video intelligence and playback analytics real viewing sessions, scoped team access and provider-aware evidence.",
     description:
       "TrackUp tracks real viewing sessions with sovereign team access and provider-aware playback evidence, while metrics a provider cannot supply stay explicitly unavailable. Teams organise videos into organizations and spaces, share scoped Watch Links, and review persisted viewer, video and session records.",
     highlights: [
-      "Provider-aware tracking: play, pause and seek where the provider exposes them, measured watch time and completion, and session timelines — with no inferred metrics.",
+      "Provider-aware tracking: play, pause and seek where the provider exposes them, measured watch time and completion, and session timelines with no inferred metrics.",
       "Multi-tenant organizations and spaces with space-level data isolation and server-side role checks.",
       "Scoped Watch Links, signed HTTP-only sessions and sensitive values kept server-side.",
     ],
@@ -291,7 +291,7 @@ export const projects: readonly Project[] = [
       src: "/images/projects/trackup.webp",
       alt: "TrackUp landing page: Turn videos into actionable insights",
       caption:
-        "Public landing page capture — its dashboard image is labelled an illustrative preview",
+        "Public landing page capture its dashboard image is labelled an illustrative preview",
     },
     featured: false,
     sources: ["trakeup.vercel.app", "github.com/TheSeifDev/traking"],

@@ -80,7 +80,7 @@ function CopyBlock({
 }
 
 /**
- * 02 — Identity. Desktop stage: one pinned night stage driven by a single
+ * 02 Identity. Desktop stage: one pinned night stage driven by a single
  * scrubbed timeline (statement → split around the portrait → moon depth →
  * exit into The Journey). Compact, reduced-motion and no-JS visitors get the
  * same content as a readable stacked composition.

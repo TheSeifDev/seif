@@ -26,7 +26,7 @@ export function Skills({ content }: { content: SiteContent }) {
           }
           aside={c(
             "home.skills.aside",
-            "Ordered by layer — what people touch, what keeps it running, and where it ships.",
+            "Ordered by layer what people touch, what keeps it running, and where it ships.",
           )}
         />
       </div>

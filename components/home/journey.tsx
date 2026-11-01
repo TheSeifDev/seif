@@ -32,7 +32,7 @@ export function Journey({ content }: { content: SiteContent }) {
           }
           aside={c(
             "home.journey.aside",
-            "Five-plus years — from first interfaces to leading a cross-functional engineering team.",
+            "Five-plus years from first interfaces to leading a cross-functional engineering team.",
           )}
         />
 

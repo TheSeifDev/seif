@@ -93,7 +93,7 @@ export function BrowserFrame({
   );
 }
 
-/** Watch Live / Go to Repo — rendered only for verified URLs. */
+/** Watch Live / Go to Repo rendered only for verified URLs. */
 export function ProjectActions({
   project,
   tone = "dark",

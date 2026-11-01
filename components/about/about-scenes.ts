@@ -262,7 +262,7 @@ export function capabilitiesScene(root: HTMLElement): Cleanup {
   return () => undefined;
 }
 
-/** 05 Principles entrance — every motion viewport. */
+/** 05 Principles entrance every motion viewport. */
 export function principlesEntrance(root: HTMLElement): Cleanup {
   const row = one(root, "[data-principles-row]");
   if (row) {
@@ -279,7 +279,7 @@ export function principlesEntrance(root: HTMLElement): Cleanup {
 }
 
 /**
- * 05 Principles — stage only. One pinned, scrubbed timeline expands the
+ * 05 Principles stage only. One pinned, scrubbed timeline expands the
  * panels in turn (flex-grow), cross-fades body/collapsed label and glow, and
  * snaps to each principle.
  */
