@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Navbar } from "@/components/site/navbar";
 import { SiteContentProvider } from "@/components/site/site-content-provider";
 import { CustomCursor } from "@/components/site/custom-cursor";
 import { getSiteContent } from "@/lib/cms/server";
@@ -22,6 +23,7 @@ export default async function DashboardLayout({
   return (
     <SiteContentProvider content={content}>
       <div className="relative min-h-screen bg-night text-snow selection:bg-sky selection:text-night">
+        <Navbar />
         <main id="main" tabIndex={-1} className="outline-none">
           {children}
         </main>

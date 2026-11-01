@@ -13,13 +13,35 @@ type DbGlobals = typeof globalThis & {
 
 const globals = globalThis as DbGlobals;
 
+/**
+ * Normalizes deprecated/aliased sslmode values ('require', 'prefer', 'verify-ca')
+ * to 'verify-full' for managed PostgreSQL endpoints (e.g. Neon) to eliminate
+ * the node-postgres security warning:
+ * "SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'."
+ */
+export function normalizeDatabaseSslMode(url: string): string {
+  try {
+    const parsed = new URL(url);
+    const sslmode = parsed.searchParams.get("sslmode");
+    if (sslmode === "require" || sslmode === "prefer" || sslmode === "verify-ca") {
+      parsed.searchParams.set("sslmode", "verify-full");
+      return parsed.toString();
+    }
+    return url;
+  } catch {
+    return url.replace(/([?&]sslmode=)(require|prefer|verify-ca)(?=&|$)/, "$1verify-full");
+  }
+}
+
 export function getDb(): ContactDb | null {
-  const connectionString = (
+  const rawConnectionString = (
     process.env.DATABASE_URL || process.env.DATABASE_URL_UNPOOLED
   )?.trim();
-  if (!connectionString) return null;
+  if (!rawConnectionString) return null;
 
-  assertDatabaseIsolation(connectionString);
+  assertDatabaseIsolation(rawConnectionString);
+
+  const connectionString = normalizeDatabaseSslMode(rawConnectionString);
 
   if (globals.__contactDb && globals.__contactPoolUrl === connectionString) {
     return globals.__contactDb;
