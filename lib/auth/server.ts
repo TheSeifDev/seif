@@ -12,7 +12,6 @@ const REQUIRED_ENVIRONMENT_VARIABLES = [
   "BETTER_AUTH_SECRET",
   "GITHUB_CLIENT_ID",
   "GITHUB_CLIENT_SECRET",
-  "DATABASE_URL",
 ] as const;
 
 const OWNER_GITHUB_ACCOUNT_ID = "167328383";
@@ -29,6 +28,12 @@ export function getAuthConfigReadiness(): AuthConfigReadiness {
   const missing: string[] = REQUIRED_ENVIRONMENT_VARIABLES.filter(
     (name) => !process.env[name]?.trim(),
   );
+  if (
+    !process.env.DATABASE_URL?.trim() &&
+    !process.env.DATABASE_URL_UNPOOLED?.trim()
+  ) {
+    missing.push("DATABASE_URL");
+  }
   const secret = process.env.BETTER_AUTH_SECRET?.trim();
   if (process.env.CMS_ENABLED !== "true") missing.push("CMS_ENABLED");
 

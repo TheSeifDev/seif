@@ -140,7 +140,8 @@ export function adminError(error: unknown) {
       { ok: false, error: error.code, message: error.message },
       { status: error.status, headers: { "Cache-Control": "no-store" } },
     );
-  console.error("CMS operation failed; no content change was confirmed.");
+  const safeMessage = error instanceof Error ? error.message : "Unknown error";
+  console.error("[CMS] Operation failed:", safeMessage);
   return Response.json(
     {
       ok: false,

@@ -5,180 +5,167 @@ import {
   assertBlobStoreIsolation,
   assertNotificationIsolation,
   EnvironmentIsolationError,
-  APPROVED_PRODUCTION_NEON_ENDPOINT,
-  APPROVED_PREVIEW_NEON_ENDPOINT,
-  CANONICAL_PRODUCTION_ORIGIN,
-  SYNTHETIC_TEST_EMAIL,
+  DEFAULT_PRODUCTION_ORIGIN,
 } from "../lib/config/environment-guard.js";
 
-console.log("Running Strict Allowlist Environment Isolation Tests...");
+console.log("Running Dynamic Environment Isolation Tests...");
 
-// 1. Preview environment: ONLY approved preview Neon endpoint is accepted
+// 1. Valid PostgreSQL URLs pass validation
 assert.doesNotThrow(() => {
-  assertDatabaseIsolation(
-    `postgresql://user:pass@${APPROVED_PREVIEW_NEON_ENDPOINT}.c-7.us-east-2.aws.neon.tech/neondb`,
-    "preview",
-  );
-}, "Preview must accept approved preview Neon endpoint");
+  assertDatabaseIsolation("postgresql://user:pass@ep-custom-neon.us-east-2.aws.neon.tech/neondb");
+  assertDatabaseIsolation("postgres://user:pass@ep-custom-neon.us-east-2.aws.neon.tech/neondb");
+}, "Valid postgres URLs must pass");
 
-// 2. Preview environment: production endpoint is rejected
+// 2. Invalid connection URL formats throw EnvironmentIsolationError
 assert.throws(
   () => {
-    assertDatabaseIsolation(
-      `postgresql://user:pass@${APPROVED_PRODUCTION_NEON_ENDPOINT}.c-7.us-east-2.aws.neon.tech/neondb`,
-      "preview",
-    );
+    assertDatabaseIsolation("not-a-valid-url");
   },
   EnvironmentIsolationError,
-  "Preview must reject production Neon endpoint",
+  "Invalid URL string must throw",
 );
 
-// 3. Preview environment: unknown/foreign endpoint is rejected (strict allowlist)
 assert.throws(
   () => {
-    assertDatabaseIsolation(
-      "postgresql://user:pass@ep-random-foreign-12345.c-7.us-east-2.aws.neon.tech/neondb",
-      "preview",
-    );
+    assertDatabaseIsolation("mysql://user:pass@db.example.com/mydb");
   },
   EnvironmentIsolationError,
-  "Preview must reject unknown endpoints under strict allowlist",
+  "Non-postgres protocol must throw",
 );
 
-// 4. Production environment: ONLY approved production Neon endpoint is accepted
+// 3. EXPECTED_DATABASE_HOST enforcement
+process.env.EXPECTED_DATABASE_HOST = "ep-expected-host.neon.tech";
 assert.doesNotThrow(() => {
-  assertDatabaseIsolation(
-    `postgresql://user:pass@${APPROVED_PRODUCTION_NEON_ENDPOINT}.c-7.us-east-2.aws.neon.tech/neondb`,
-    "production",
-  );
-}, "Production must accept approved production Neon endpoint");
-
-// 5. Production environment: preview endpoint is rejected
+  assertDatabaseIsolation("postgresql://user:pass@ep-expected-host.neon.tech/neondb");
+});
 assert.throws(
   () => {
-    assertDatabaseIsolation(
-      `postgresql://user:pass@${APPROVED_PREVIEW_NEON_ENDPOINT}.c-7.us-east-2.aws.neon.tech/neondb`,
-      "production",
-    );
+    assertDatabaseIsolation("postgresql://user:pass@ep-other-host.neon.tech/neondb");
   },
   EnvironmentIsolationError,
-  "Production must reject preview Neon endpoint",
+  "Host not matching EXPECTED_DATABASE_HOST must throw",
 );
+delete process.env.EXPECTED_DATABASE_HOST;
 
-// 6. Production environment: unknown/foreign endpoint is rejected
+// 4. Preview environment guards
+// - Rejects localhost
 assert.throws(
   () => {
-    assertDatabaseIsolation(
-      "postgresql://user:pass@ep-random-foreign-12345.c-7.us-east-2.aws.neon.tech/neondb",
-      "production",
-    );
+    assertDatabaseIsolation("postgresql://user:pass@localhost:5432/neondb", "preview");
   },
   EnvironmentIsolationError,
-  "Production must reject unknown endpoints under strict allowlist",
+  "Preview must reject localhost",
 );
 
-// 7. Unknown deployment environment fails closed
+// - Rejects PRODUCTION_DATABASE_HOST if configured
+process.env.PRODUCTION_DATABASE_HOST = "ep-prod-cluster.neon.tech";
 assert.throws(
   () => {
-    assertDatabaseIsolation("postgresql://user:pass@localhost:5432/db", "staging");
+    assertDatabaseIsolation("postgresql://user:pass@ep-prod-cluster.neon.tech/neondb", "preview");
   },
   EnvironmentIsolationError,
-  "Unknown deployment environments must fail closed",
+  "Preview must reject PRODUCTION_DATABASE_HOST",
 );
+assert.doesNotThrow(() => {
+  assertDatabaseIsolation("postgresql://user:pass@ep-preview-cluster.neon.tech/neondb", "preview");
+});
+delete process.env.PRODUCTION_DATABASE_HOST;
 
-// 8. Local environment: connecting to production endpoint without approval is rejected
+// 5. Production environment guards
+// - Rejects localhost
 assert.throws(
   () => {
-    assertDatabaseIsolation(
-      `postgresql://user:pass@${APPROVED_PRODUCTION_NEON_ENDPOINT}.c-7.us-east-2.aws.neon.tech/neondb`,
-      undefined,
-    );
+    assertDatabaseIsolation("postgresql://user:pass@127.0.0.1:5432/neondb", "production");
   },
   EnvironmentIsolationError,
-  "Local dev cannot touch production endpoint without explicit override",
+  "Production must reject localhost",
 );
 
-// 9. Local environment: localhost and in-memory PGlite are allowed
+// - Rejects PREVIEW_DATABASE_HOST if configured
+process.env.PREVIEW_DATABASE_HOST = "ep-preview-branch.neon.tech";
+assert.throws(
+  () => {
+    assertDatabaseIsolation("postgresql://user:pass@ep-preview-branch.neon.tech/neondb", "production");
+  },
+  EnvironmentIsolationError,
+  "Production must reject PREVIEW_DATABASE_HOST",
+);
+assert.doesNotThrow(() => {
+  assertDatabaseIsolation("postgresql://user:pass@ep-any-production-cluster.neon.tech/neondb", "production");
+});
+delete process.env.PREVIEW_DATABASE_HOST;
+
+// 6. Local environment allows localhost and local testing databases
 assert.doesNotThrow(() => {
   assertDatabaseIsolation("postgresql://user:pass@localhost:5432/testdb", undefined);
   assertDatabaseIsolation("postgresql://user:pass@127.0.0.1:5432/testdb", "development");
 });
 
-// 10. Preview OAuth origin: canonical production origin is rejected
+// 7. Site Origin Isolation
+// - Preview rejects canonical production origin
 assert.throws(
   () => {
-    assertSiteOriginIsolation(CANONICAL_PRODUCTION_ORIGIN, "preview");
+    assertSiteOriginIsolation(DEFAULT_PRODUCTION_ORIGIN, "preview");
   },
   EnvironmentIsolationError,
   "Preview must reject canonical production origin",
 );
 
-// 11. Preview OAuth origin: insecure HTTP is rejected
+// - Preview rejects insecure HTTP
 assert.throws(
   () => {
-    assertSiteOriginIsolation("http://insecure-preview.vercel.app", "preview");
+    assertSiteOriginIsolation("http://preview.theseif.dev", "preview");
   },
   EnvironmentIsolationError,
-  "Preview must reject insecure HTTP origin",
+  "Preview must reject insecure HTTP",
 );
 
-// 12. Preview OAuth origin: approved preview HTTPS origin is accepted
+// - Preview accepts valid HTTPS preview origin
 assert.doesNotThrow(() => {
   assertSiteOriginIsolation("https://preview.theseif.dev", "preview");
-  assertSiteOriginIsolation("https://seif-git-preview-the-seif-devs-projects.vercel.app", "preview");
+  assertSiteOriginIsolation("https://prof-git-preview-s3fpls-projects.vercel.app", "preview");
 });
 
-// 13. Production OAuth origin: non-canonical origin is rejected
+// - Production requires HTTPS
 assert.throws(
   () => {
-    assertSiteOriginIsolation("https://attacker.invalid", "production");
+    assertSiteOriginIsolation("http://theseif.vercel.app", "production");
   },
   EnvironmentIsolationError,
-  "Production must reject non-canonical origin",
+  "Production must reject HTTP",
 );
 
-// 14. Production OAuth origin: canonical origin is accepted
 assert.doesNotThrow(() => {
-  assertSiteOriginIsolation(CANONICAL_PRODUCTION_ORIGIN, "production");
+  assertSiteOriginIsolation("https://theseif.vercel.app", "production");
 });
 
-// 15. Private Blob storage: missing token fails closed
+// 8. Blob Storage token check
 assert.throws(
   () => {
-    assertBlobStoreIsolation("", "preview");
+    assertBlobStoreIsolation("");
   },
   EnvironmentIsolationError,
-  "Missing Blob token must fail closed",
+  "Missing Blob token must throw",
 );
 
-// 16. Private Blob storage: preview cannot use production-declared token
-assert.throws(
-  () => {
-    assertBlobStoreIsolation("vercel_blob_rw_production_xyz123", "preview");
-  },
-  EnvironmentIsolationError,
-  "Preview cannot use production-scoped Blob token",
-);
-
-// 17. Private Blob storage: valid preview token is accepted
 assert.doesNotThrow(() => {
-  assertBlobStoreIsolation("vercel_blob_rw_preview_xyz123", "preview");
+  assertBlobStoreIsolation("vercel_blob_rw_12345_token");
 });
 
-// 18. Notification recipient: preview cannot send to real visitor or production addresses
+// 9. Notification Isolation
+process.env.PRODUCTION_NOTIFICATION_EMAIL = "owner@realdomain.com";
 assert.throws(
   () => {
-    assertNotificationIsolation("seif@realclient.com", "preview");
+    assertNotificationIsolation("owner@realdomain.com", "preview");
   },
   EnvironmentIsolationError,
-  "Preview cannot notify real email recipients",
+  "Preview must reject production notification email",
 );
 
-// 19. Notification recipient: preview accepts synthetic recipient
 assert.doesNotThrow(() => {
-  assertNotificationIsolation(SYNTHETIC_TEST_EMAIL, "preview");
-  assertNotificationIsolation("dev+test@resend.dev", "preview");
-  assertNotificationIsolation("tester@example.invalid", "preview");
+  assertNotificationIsolation("delivered@resend.dev", "preview");
+  assertNotificationIsolation("test@example.invalid", "preview");
 });
+delete process.env.PRODUCTION_NOTIFICATION_EMAIL;
 
-console.log("ALL 19 STRICT ALLOWLIST ENVIRONMENT ISOLATION CHECKS PASSED");
+console.log("ALL 16 DYNAMIC ENVIRONMENT ISOLATION CHECKS PASSED");

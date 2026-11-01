@@ -45,50 +45,83 @@ export function sanitizePublicContent(content: SiteContent): SiteContent {
 /** Initialization is an authorized one-time INSERT, never an upsert/reset. */
 export async function getAdminContent() {
   const db = database();
-  await db
-    .insert(cmsState)
-    .values({
-      id: "main",
-      draft: defaultSiteContent,
-      published: defaultSiteContent,
-      revision: 1,
-      publishedRevision: 1,
-    })
-    .onConflictDoNothing();
-  const [row] = await db
-    .select()
-    .from(cmsState)
-    .where(eq(cmsState.id, "main"))
-    .limit(1);
-  if (!row)
+  try {
+    await db
+      .insert(cmsState)
+      .values({
+        id: "main",
+        draft: defaultSiteContent,
+        published: defaultSiteContent,
+        revision: 1,
+        publishedRevision: 1,
+      })
+      .onConflictDoNothing();
+    const [row] = await db
+      .select()
+      .from(cmsState)
+      .where(eq(cmsState.id, "main"))
+      .limit(1);
+    if (!row)
+      throw new CmsError(
+        "CONTENT_UNAVAILABLE",
+        503,
+        "Content initialization did not finish.",
+      );
+    return {
+      content: siteContentSchema.parse(row.draft),
+      revision: row.revision,
+      publishedRevision: row.publishedRevision,
+      dirty: row.revision !== row.publishedRevision,
+      updatedAt: row.updatedAt.toISOString(),
+      publishedAt: row.publishedAt.toISOString(),
+    };
+  } catch (error) {
+    if (error instanceof CmsError) throw error;
+    const msg = error instanceof Error ? error.message : "Database error";
+    console.error("[CMS] Failed to load administrative content:", msg);
     throw new CmsError(
-      "CONTENT_UNAVAILABLE",
-      503,
-      "Content initialization did not finish.",
+      "DATABASE_ERROR",
+      500,
+      "Failed to load administrative content from database.",
     );
-  return {
-    content: siteContentSchema.parse(row.draft),
-    revision: row.revision,
-    publishedRevision: row.publishedRevision,
-    dirty: row.revision !== row.publishedRevision,
-    updatedAt: row.updatedAt.toISOString(),
-    publishedAt: row.publishedAt.toISOString(),
-  };
+  }
 }
 
 /** Anonymous reads do not initialize or write to the database. */
 export async function readPublishedContent(): Promise<SiteContent> {
   const db = getDb();
-  if (!db || process.env.CMS_ENABLED !== "true")
+  if (!db || process.env.CMS_ENABLED !== "true") {
     return sanitizePublicContent(defaultSiteContent);
-  const [row] = await db
-    .select({ content: cmsState.published })
-    .from(cmsState)
-    .where(eq(cmsState.id, "main"))
-    .limit(1);
-  return sanitizePublicContent(
-    row ? siteContentSchema.parse(row.content) : defaultSiteContent,
-  );
+  }
+
+  try {
+    const [row] = await db
+      .select({ content: cmsState.published })
+      .from(cmsState)
+      .where(eq(cmsState.id, "main"))
+      .limit(1);
+    return sanitizePublicContent(
+      row ? siteContentSchema.parse(row.content) : defaultSiteContent,
+    );
+  } catch (error) {
+    // Avoid build failures during static generation if the database is unreachable
+    const isBuildPhase =
+      process.env.NEXT_PHASE === "phase-production-build" ||
+      process.env.npm_lifecycle_event === "build";
+
+    if (isBuildPhase) {
+      console.warn(
+        "[CMS] Database unavailable during static build; using default fallback content for static generation.",
+      );
+      return sanitizePublicContent(defaultSiteContent);
+    }
+
+    // At runtime, do not silently hide real production database errors
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown database error";
+    console.error("[CMS] Failed to read published content from database:", errorMessage);
+    throw error;
+  }
 }
 
 export async function saveDraft(

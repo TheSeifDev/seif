@@ -14,7 +14,9 @@ type DbGlobals = typeof globalThis & {
 const globals = globalThis as DbGlobals;
 
 export function getDb(): ContactDb | null {
-  const connectionString = process.env.DATABASE_URL?.trim();
+  const connectionString = (
+    process.env.DATABASE_URL || process.env.DATABASE_URL_UNPOOLED
+  )?.trim();
   if (!connectionString) return null;
 
   assertDatabaseIsolation(connectionString);
