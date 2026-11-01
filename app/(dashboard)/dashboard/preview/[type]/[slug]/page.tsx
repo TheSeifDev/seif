@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -5,7 +6,18 @@ import { DashboardLogin } from "@/components/dashboard";
 import { ArticleBody } from "@/components/blog/article-body";
 import { requireAdmin } from "@/lib/auth/server";
 import { getAdminContent } from "@/lib/cms/repository";
+
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    noarchive: true,
+    nosnippet: true,
+  },
+};
+
 export default async function ContentPreview({
   params,
 }: {
