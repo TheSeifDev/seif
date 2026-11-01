@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/components/site/footer";
 import { Navbar } from "@/components/site/navbar";
 import { SiteContentProvider } from "@/components/site/site-content-provider";
@@ -17,6 +19,8 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <Footer content={content} />
       <RouteMotion />
       <CustomCursor />
+      <Analytics />
+      <SpeedInsights />
     </SiteContentProvider>
   );
 }

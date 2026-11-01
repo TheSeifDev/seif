@@ -65,6 +65,11 @@ export type DashboardContextValue = {
   discard: () => void;
   downloadBackup: () => void;
   restoreRevision: (item: RevisionItem) => Promise<void>;
+  applyRestoredRevision: (
+    content: SiteContent,
+    revision: number,
+    publishedRevision: number,
+  ) => void;
   update: (path: PathPart[], value: unknown) => void;
   updateContent: (updater: (prev: SiteContent) => SiteContent) => void;
   deleteItem: (key: "projects" | "posts", index: number) => void;
@@ -386,6 +391,21 @@ export function DashboardProvider({
     [revision, published, loadRevisions],
   );
 
+  const applyRestoredRevision = React.useCallback(
+    (
+      nextContent: SiteContent,
+      nextRevision: number,
+      nextPublishedRevision: number,
+    ) => {
+      setSavedContent(clone(nextContent));
+      setContent(clone(nextContent));
+      setRevision(nextRevision);
+      setPublished(nextPublishedRevision);
+      void loadRevisions();
+    },
+    [loadRevisions],
+  );
+
   const downloadBackup = React.useCallback(() => {
     const blob = new Blob([JSON.stringify(savedContent, null, 2)], {
       type: "application/json",
@@ -441,6 +461,7 @@ export function DashboardProvider({
       discard,
       downloadBackup,
       restoreRevision,
+      applyRestoredRevision,
       update,
       updateContent,
       deleteItem,
@@ -472,6 +493,7 @@ export function DashboardProvider({
       discard,
       downloadBackup,
       restoreRevision,
+      applyRestoredRevision,
       update,
       updateContent,
       deleteItem,
@@ -488,3 +510,21 @@ export function DashboardProvider({
     </DashboardContext.Provider>
   );
 }
+
+function getNowSnapshot() {
+  return Date.now();
+}
+
+function getServerSnapshot() {
+  return 0;
+}
+
+function subscribeNow(onStoreChange: () => void) {
+  const timer = setInterval(onStoreChange, 30_000);
+  return () => clearInterval(timer);
+}
+
+export function useNow(): number {
+  return React.useSyncExternalStore(subscribeNow, getNowSnapshot, getServerSnapshot);
+}
+

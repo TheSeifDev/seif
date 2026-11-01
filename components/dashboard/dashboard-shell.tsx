@@ -4,10 +4,11 @@ import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   Activity,
+  Calendar,
   Check,
   CircleAlert,
-  FolderGit2,
   FileText,
+  FolderGit2,
   Globe,
   Image as ImageIcon,
   LayoutDashboard,
@@ -17,6 +18,7 @@ import {
   Send,
   Settings2,
   Sparkles,
+  TrendingUp,
   UserCheck,
   X,
 } from "lucide-react";
@@ -24,11 +26,23 @@ import { cn } from "@/lib/utils";
 import { useDashboard } from "./dashboard-context";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { DashboardTopbar } from "./dashboard-topbar";
+import { CommandPalette } from "./command-palette";
 import { buttonAccent, buttonSecondary } from "./dashboard-workspace";
-import type { DashboardSidebarNavItem } from "./dashboard-types";
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        return window.localStorage.getItem("dashboard_sidebar_collapsed") === "true";
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
+  const [commandPaletteOpen, setCommandPaletteOpen] = React.useState(false);
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -50,6 +64,30 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     mediaItems,
   } = useDashboard();
 
+  const handleToggleCollapse = React.useCallback(() => {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      try {
+        window.localStorage.setItem("dashboard_sidebar_collapsed", String(next));
+      } catch {
+        // Ignore
+      }
+      return next;
+    });
+  }, []);
+
+  // Global Ctrl+K / Cmd+K listener for Command Palette
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setCommandPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   // Handle escape key to cancel publish modal (asserted by automated integration test)
   React.useEffect(() => {
     if (!confirmPublish) return;
@@ -62,90 +100,69 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [confirmPublish, setConfirmPublish]);
 
-  const navItems: DashboardSidebarNavItem[] = React.useMemo(
-    () => [
-      {
-        key: "overview",
-        label: "Overview",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-        group: "core",
-      },
-      {
-        key: "projects",
-        label: "Projects",
-        href: "/dashboard/projects",
-        icon: FolderGit2,
-        badge: content.projects.length,
-        group: "content",
-      },
-      {
-        key: "blog",
-        label: "Blog",
-        href: "/dashboard/blog",
-        icon: FileText,
-        badge: content.posts.length,
-        group: "content",
-      },
-      {
-        key: "about",
-        label: "About",
-        href: "/dashboard/about",
-        icon: UserCheck,
-        group: "content",
-      },
-      {
-        key: "skills",
-        label: "Skills",
-        href: "/dashboard/skills",
-        icon: Sparkles,
-        group: "content",
-      },
-      {
-        key: "home",
-        label: "Home",
-        href: "/dashboard/home",
-        icon: Globe,
-        group: "content",
-      },
-      {
-        key: "media",
-        label: "Media",
-        href: "/dashboard/media",
-        icon: ImageIcon,
-        badge: mediaItems.length > 0 ? mediaItems.length : undefined,
-        group: "assets",
-      },
-      {
-        key: "inbox",
-        label: "Inbox",
-        href: "/dashboard/inbox",
-        icon: Mail,
-        badge: unreadMessagesCount > 0 ? unreadMessagesCount : undefined,
-        group: "assets",
-      },
-      {
-        key: "seo",
-        label: "SEO",
-        href: "/dashboard/seo",
-        icon: Search,
-        group: "system",
-      },
-      {
-        key: "settings",
-        label: "Settings",
-        href: "/dashboard/settings",
-        icon: Settings2,
-        group: "system",
-      },
-    ],
-    [content.projects.length, content.posts.length, mediaItems.length, unreadMessagesCount],
-  );
+  // Mobile drawer navigation groups
+  const mobileNavItems: Array<{
+    group: string;
+    items: Array<{
+      key: string;
+      label: string;
+      href: string;
+      icon: React.ComponentType<{ className?: string }>;
+      badge?: string | number;
+    }>;
+  }> = [
+    {
+      group: "Overview",
+      items: [
+        { key: "overview", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      ],
+    },
+    {
+      group: "Content",
+      items: [
+        { key: "home", label: "Home", href: "/dashboard/home", icon: Globe },
+        { key: "projects", label: "Projects", href: "/dashboard/projects", icon: FolderGit2, badge: content.projects.length },
+        { key: "blog", label: "Blog", href: "/dashboard/blog", icon: FileText, badge: content.posts.length },
+        { key: "about", label: "About", href: "/dashboard/about", icon: UserCheck },
+        { key: "skills", label: "Skills", href: "/dashboard/skills", icon: Sparkles },
+      ],
+    },
+    {
+      group: "Operations",
+      items: [
+        { key: "schedule", label: "Schedule", href: "/dashboard/schedule", icon: Calendar },
+        { key: "media", label: "Media", href: "/dashboard/media", icon: ImageIcon, badge: mediaItems.length },
+        { key: "inbox", label: "Inbox", href: "/dashboard/inbox", icon: Mail, badge: unreadMessagesCount > 0 ? unreadMessagesCount : undefined },
+      ],
+    },
+    {
+      group: "Insights",
+      items: [
+        { key: "analytics", label: "Analytics", href: "/dashboard/analytics", icon: TrendingUp },
+        { key: "seo", label: "SEO", href: "/dashboard/seo", icon: Search },
+      ],
+    },
+    {
+      group: "System",
+      items: [
+        { key: "settings", label: "Settings", href: "/dashboard/settings", icon: Settings2 },
+      ],
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-night text-snow selection:bg-sky selection:text-night">
       {/* Desktop Persistent Sidebar */}
-      <DashboardSidebar />
+      <DashboardSidebar
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={handleToggleCollapse}
+      />
+
+      {/* Global Command Palette */}
+      <CommandPalette
+        open={commandPaletteOpen}
+        onClose={() => setCommandPaletteOpen(false)}
+      />
 
       {/* Mobile Drawer Backdrop & Navigation */}
       {mobileNavOpen && (
@@ -155,11 +172,16 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           aria-modal="true"
           aria-label="Mobile navigation drawer"
         >
-          <div className="w-80 max-w-[85vw] bg-night border-r border-white/10 p-6 flex flex-col justify-between h-full overflow-y-auto">
+          <div className="w-80 max-w-[85vw] bg-night border-r border-white/10 p-5 flex flex-col justify-between h-full overflow-y-auto">
             <div>
-              <div className="flex items-center justify-between pb-5 border-b border-white/[0.08]">
-                <div className="font-display text-lg font-extrabold uppercase tracking-tight text-snow">
-                  Seif Ayman
+              <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+                <div>
+                  <div className="font-mono text-[10px] text-mist uppercase tracking-widest">
+                    PORTFOLIO OS
+                  </div>
+                  <div className="font-display text-base font-extrabold uppercase tracking-tight text-snow">
+                    Seif Ayman
+                  </div>
                 </div>
                 <button
                   type="button"
@@ -171,51 +193,58 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 </button>
               </div>
 
-              <nav className="mt-6 space-y-1">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  const active =
-                    item.href === "/dashboard"
-                      ? pathname === "/dashboard"
-                      : pathname.startsWith(item.href);
-                  return (
-                    <button
-                      type="button"
-                      key={item.key}
-                      onClick={() => {
-                        router.push(item.href);
-                        setMobileNavOpen(false);
-                      }}
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-left text-xs font-semibold transition-colors",
-                        active
-                          ? "bg-sky/15 text-sky border border-sky/30"
-                          : "text-mist hover:bg-white/[0.04] hover:text-snow",
-                      )}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Icon className="size-4" />
-                        <span>{item.label}</span>
-                      </div>
-                      {item.badge !== undefined && (
-                        <span className="rounded-full bg-white/[0.08] px-2 py-0.5 font-mono text-[10px]">
-                          {item.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
+              <div className="mt-5 space-y-4">
+                {mobileNavItems.map((section) => (
+                  <div key={section.group}>
+                    <div className="mb-1 px-2 font-mono text-[9px] font-bold uppercase tracking-wider text-mist/60">
+                      {section.group}
+                    </div>
+                    <nav className="space-y-0.5">
+                      {section.items.map((item) => {
+                        const Icon = item.icon;
+                        const active =
+                          item.href === "/dashboard"
+                            ? pathname === "/dashboard"
+                            : pathname.startsWith(item.href);
+                        return (
+                          <button
+                            type="button"
+                            key={item.key}
+                            onClick={() => {
+                              router.push(item.href);
+                              setMobileNavOpen(false);
+                            }}
+                            className={cn(
+                              "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-semibold transition-colors",
+                              active
+                                ? "bg-sky/15 text-sky border border-sky/30"
+                                : "text-mist hover:bg-white/[0.04] hover:text-snow",
+                            )}
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <Icon className="size-4" />
+                              <span>{item.label}</span>
+                            </div>
+                            {item.badge !== undefined && (
+                              <span className="rounded-full bg-white/[0.08] px-2 py-0.5 font-mono text-[10px]">
+                                {item.badge}
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </nav>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-              <div className="text-xs text-snow font-medium truncate">
-                {user.name}
-              </div>
+            <div className="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs text-mist">
+              <span className="truncate max-w-[150px]">{user.name}</span>
               <button
                 type="button"
                 onClick={() => void logout()}
-                className="text-xs text-mist hover:text-red-300 font-mono"
+                className="text-mist hover:text-red-300"
               >
                 Sign out
               </button>
@@ -231,10 +260,18 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       )}
 
       {/* Main Content Area */}
-      <div className="lg:pl-72 flex flex-col min-h-screen">
-        <DashboardTopbar onOpenMobileNav={() => setMobileNavOpen(true)} />
+      <div
+        className={cn(
+          "flex flex-col min-h-screen transition-all duration-300 ease-out",
+          sidebarCollapsed ? "lg:pl-18" : "lg:pl-64",
+        )}
+      >
+        <DashboardTopbar
+          onOpenMobileNav={() => setMobileNavOpen(true)}
+          onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+        />
 
-        <main id="main" className="flex-1 px-4 sm:px-6 lg:px-10 py-6 lg:py-8 max-w-7xl mx-auto w-full space-y-6">
+        <main id="main" className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full space-y-6">
           {/* Global Notice Toast */}
           {notice && (
             <div

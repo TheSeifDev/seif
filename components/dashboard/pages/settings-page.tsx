@@ -10,9 +10,8 @@ export function SettingsPage() {
     revision,
     publishedRevision,
     savedContent,
-    updateContent,
+    applyRestoredRevision,
     setNotice,
-    loadRevisions,
   } = useDashboard();
 
   return (
@@ -28,9 +27,8 @@ export function SettingsPage() {
         revision={revision}
         publishedRevision={publishedRevision}
         savedContent={savedContent}
-        onRestore={(nextContent) => {
-          updateContent(() => nextContent);
-          void loadRevisions();
+        onRestore={(nextContent, nextRevision, nextPublished) => {
+          applyRestoredRevision(nextContent, nextRevision, nextPublished);
         }}
         onNotice={setNotice}
       />
