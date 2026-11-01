@@ -10,7 +10,7 @@
  * 6. Preview uses an explicitly approved synthetic notification recipient (never production).
  */
 
-export const APPROVED_PRODUCTION_NEON_ENDPOINT = "ep-sweet-art-b530x95w";
+export const APPROVED_PRODUCTION_NEON_ENDPOINT = "ep-calm-fog-b5v4y78t-pooler.c-7.us-east-2.aws.neon.tech";
 export const APPROVED_PREVIEW_NEON_ENDPOINT = "ep-lingering-boat-b5zdis4h";
 export const CANONICAL_PRODUCTION_ORIGIN = "https://theseif.vercel.app";
 export const SYNTHETIC_TEST_EMAIL = "delivered@resend.dev";
