@@ -74,7 +74,7 @@ type RevisionItem = {
   createdAt: string;
 };
 
-const sectionLabels: Record<string, string> = {
+export const sectionLabels: Record<string, string> = {
   profile: "Profile",
   assets: "Assets",
   identity: "Identity",
@@ -154,14 +154,14 @@ function isUrlKey(key: string) {
   return /url|src|image|asset|href|ogImage/i.test(key);
 }
 
-function formatBytes(size: number) {
+export function formatBytes(size: number) {
   if (!size) return "";
   if (size < 1024) return `${size} B`;
   if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function formatDate(value?: string) {
+export function formatDate(value?: string) {
   if (!value) return "Unknown date";
   const date = new Date(value);
   return Number.isNaN(date.getTime())
@@ -258,14 +258,14 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 const buttonBase =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-sky";
-const buttonSecondary = `${buttonBase} h-10 px-4 text-[13px] border border-white/15 bg-white/[0.04] text-snow hover:border-sky/60 hover:text-sky`;
-const buttonPrimary = `${buttonBase} h-10 px-5 text-[13px] bg-snow text-night hover:bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]`;
-const buttonDanger = `${buttonBase} h-10 px-4 text-[13px] border border-red-500/20 bg-red-500/10 text-red-200 hover:bg-red-500/20`;
-const buttonAccent = `${buttonBase} h-10 px-5 text-[13px] bg-sky text-night hover:bg-[#7cc9ff] shadow-[0_8px_24px_-12px_rgba(77,182,255,0.3)]`;
-const fieldClass =
+export const buttonSecondary = `${buttonBase} h-10 px-4 text-[13px] border border-white/15 bg-white/[0.04] text-snow hover:border-sky/60 hover:text-sky`;
+export const buttonPrimary = `${buttonBase} h-10 px-5 text-[13px] bg-snow text-night hover:bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]`;
+export const buttonDanger = `${buttonBase} h-10 px-4 text-[13px] border border-red-500/20 bg-red-500/10 text-red-200 hover:bg-red-500/20`;
+export const buttonAccent = `${buttonBase} h-10 px-5 text-[13px] bg-sky text-night hover:bg-[#7cc9ff] shadow-[0_8px_24px_-12px_rgba(77,182,255,0.3)]`;
+export const fieldClass =
   "w-full rounded-xl border border-white/10 bg-night-3 px-4 py-2.5 text-[14px] text-snow outline-none transition-colors placeholder:text-mist/50 focus:border-sky focus:ring-1 focus:ring-sky/40";
 
-function NotchedPanel({
+export function NotchedPanel({
   className,
   children,
 }: {
@@ -284,7 +284,7 @@ function NotchedPanel({
   );
 }
 
-function StatusPill({
+export function StatusPill({
   children,
   tone = "neutral",
 }: {
@@ -323,7 +323,7 @@ function StatusPill({
   );
 }
 
-function SectionHeading({
+export function SectionHeading({
   eyebrow,
   title,
   description,
@@ -355,7 +355,7 @@ function SectionHeading({
   );
 }
 
-function FieldHelp({ children }: { children: React.ReactNode }) {
+export function FieldHelp({ children }: { children: React.ReactNode }) {
   return (
     <p className="mt-1.5 text-xs leading-relaxed text-mist">{children}</p>
   );
@@ -888,7 +888,7 @@ function moveArrayItem<T>(items: T[], index: number, direction: -1 | 1) {
   return moveItem(items, index, direction);
 }
 
-function EditorSection({
+export function EditorSection({
   title,
   description,
   value,
@@ -914,7 +914,7 @@ function EditorSection({
   );
 }
 
-function ProjectEditor({
+export function ProjectEditor({
   projects,
   update,
   onDelete,
@@ -1180,7 +1180,7 @@ function ProjectEditor({
   );
 }
 
-function BlogEditor({
+export function BlogEditor({
   posts,
   update,
   onDelete,
@@ -1593,7 +1593,7 @@ function BlogEditor({
   );
 }
 
-function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
+export function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
   const [items, setItems] = React.useState<MediaItem[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [uploading, setUploading] = React.useState(false);
@@ -1803,7 +1803,7 @@ function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
   );
 }
 
-function InboxPanel() {
+export function InboxPanel() {
   const [messages, setMessages] = React.useState<InboxMessage[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
@@ -2768,7 +2768,7 @@ export function DashboardWorkspace({
   );
 }
 
-function SettingsPanel({
+export function SettingsPanel({
   configured,
   revision,
   publishedRevision,

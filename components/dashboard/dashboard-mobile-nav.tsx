@@ -10,7 +10,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { ContentHubKey, DashboardSectionKey, DashboardUser } from "./dashboard-types";
+import type { ContentHubKey, DashboardSectionKey, DashboardUser, NavItem } from "./dashboard-types";
 import { dashboardNavItems } from "./dashboard-sidebar";
 
 type DashboardMobileNavProps = {
@@ -141,7 +141,7 @@ export function DashboardMobileNav({
                 Dashboard Chapters
               </div>
               <div className="space-y-1">
-                {dashboardNavItems.map((item) => {
+                {dashboardNavItems.map((item: NavItem) => {
                   const Icon = item.icon;
                   const isActive = activeSection === item.key;
                   return (

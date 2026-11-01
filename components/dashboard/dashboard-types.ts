@@ -46,13 +46,17 @@ export type RevisionItem = {
   createdAt: string;
 };
 
-export type DashboardSectionKey =
-  | "command-center"
-  | "metrics"
-  | "analytics"
-  | "schedule"
-  | "activity"
-  | "content-hub";
+export type DashboardPageKey =
+  | "overview"
+  | "projects"
+  | "blog"
+  | "about"
+  | "skills"
+  | "home"
+  | "media"
+  | "inbox"
+  | "seo"
+  | "settings";
 
 export type ContentHubKey =
   | "projects"
@@ -65,6 +69,14 @@ export type ContentHubKey =
   | "seo"
   | "settings";
 
+export type DashboardSectionKey =
+  | "command-center"
+  | "metrics"
+  | "analytics"
+  | "schedule"
+  | "activity"
+  | "content-hub";
+
 export type NavItem = {
   key: DashboardSectionKey;
   id: string;
@@ -73,3 +85,11 @@ export type NavItem = {
   icon: LucideIcon;
 };
 
+export type DashboardSidebarNavItem = {
+  key: DashboardPageKey;
+  label: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string | number;
+  group: "core" | "content" | "assets" | "system";
+};

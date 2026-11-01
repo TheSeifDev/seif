@@ -1,8 +1,10 @@
-import { DashboardLogin, DashboardWorkspace } from "@/components/dashboard";
+import { DashboardLogin, DashboardProvider, DashboardShell } from "@/components/dashboard";
 import { AuthError, requireAdmin } from "@/lib/auth/server";
 import { getAdminContent } from "@/lib/cms/repository";
+
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
 async function loadWorkspace() {
   try {
     const owner = await requireAdmin();
@@ -23,17 +25,28 @@ async function loadWorkspace() {
     return { reason };
   }
 }
-export default async function DashboardPage() {
+
+export default async function WorkspaceLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const data = await loadWorkspace();
-  if (data.reason || !data.state)
+
+  if (data.reason || !data.state) {
     return <DashboardLogin reason={data.reason ?? "unconfigured"} />;
+  }
+
   return (
-    <DashboardWorkspace
+    <DashboardProvider
       initialContent={data.state.content}
       initialRevision={data.state.revision}
       publishedRevision={data.state.publishedRevision}
-      user={data.user}
+      user={data.user ?? { name: "Admin" }}
       configured
-    />
+    >
+      <DashboardShell>{children}</DashboardShell>
+    </DashboardProvider>
   );
 }
+
