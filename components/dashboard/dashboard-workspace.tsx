@@ -1,40 +1,36 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
-import type { LucideIcon } from "lucide-react";
 import {
   Activity,
   ArrowDown,
   ArrowUp,
-  BookOpen,
   Check,
-  ChevronRight,
   CircleAlert,
   ExternalLink,
   FileImage,
-  FolderOpen,
-  Gauge,
-  Globe2,
-  ImagePlus,
-  Inbox,
-  LayoutDashboard,
-  LogOut,
-  Menu,
   MessageSquare,
   Plus,
   RefreshCcw,
-  Save,
   Search,
   Send,
-  Settings,
-  Sparkles,
   Trash2,
   Upload,
-  UserCircle,
   X,
 } from "lucide-react";
 import type { BlogBlock, SiteContent, SiteProject } from "@/lib/cms/schema";
-import { container, darkCard, label as labelClass } from "@/lib/ui/layout";
+import { gsap, ScrollTrigger, useGSAP, motionQueries } from "@/components/motion/gsap";
+import { DashboardSidebar } from "./dashboard-sidebar";
+import { DashboardMobileNav } from "./dashboard-mobile-nav";
+import { CommandCenterSection } from "./command-center-section";
+import { OverviewMetricsSection } from "./overview-metrics-section";
+import { ContentAnalyticsSection } from "./content-analytics-section";
+import { ScheduleSection } from "./schedule-section";
+import { RecentActivitySection } from "./recent-activity-section";
+import { ContentHubSection } from "./content-hub-section";
+import type { ContentHubKey, DashboardSectionKey } from "./dashboard-types";
+
+import { darkCard, label as labelClass } from "@/lib/ui/layout";
 
 export type DashboardUser = {
   name: string;
@@ -77,43 +73,6 @@ type RevisionItem = {
   kind: string;
   createdAt: string;
 };
-
-type NavKey =
-  | "overview"
-  | "projects"
-  | "blog"
-  | "about"
-  | "skills"
-  | "home"
-  | "media"
-  | "inbox"
-  | "seo"
-  | "settings";
-
-type NavItem = {
-  key: NavKey;
-  label: string;
-  icon: LucideIcon;
-  group: "workspace" | "content" | "system";
-};
-
-const navItems: NavItem[] = [
-  {
-    key: "overview",
-    label: "Overview",
-    icon: LayoutDashboard,
-    group: "workspace",
-  },
-  { key: "projects", label: "Projects", icon: FolderOpen, group: "content" },
-  { key: "blog", label: "Blog", icon: BookOpen, group: "content" },
-  { key: "about", label: "About", icon: UserCircle, group: "content" },
-  { key: "skills", label: "Skills", icon: Sparkles, group: "content" },
-  { key: "home", label: "Home", icon: Globe2, group: "content" },
-  { key: "media", label: "Media", icon: ImagePlus, group: "content" },
-  { key: "inbox", label: "Inbox", icon: Inbox, group: "workspace" },
-  { key: "seo", label: "SEO", icon: Gauge, group: "system" },
-  { key: "settings", label: "Settings", icon: Settings, group: "system" },
-];
 
 const sectionLabels: Record<string, string> = {
   profile: "Profile",
@@ -2076,164 +2035,6 @@ function InboxPanel() {
   );
 }
 
-function Overview({
-  content,
-  revision,
-  publishedRevision,
-  configured,
-  setSection,
-}: {
-  content: SiteContent;
-  revision: number;
-  publishedRevision: number;
-  configured: boolean;
-  setSection: (section: NavKey) => void;
-}) {
-  const stats = [
-    {
-      label: "Projects",
-      value: content.projects.length,
-      key: "projects" as NavKey,
-      detail: `${content.projects.filter((item) => item.status === "published").length} published`,
-    },
-    {
-      label: "Articles",
-      value: content.posts.length,
-      key: "blog" as NavKey,
-      detail: `${content.posts.filter((item) => item.status === "published").length} published`,
-    },
-    {
-      label: "Skill groups",
-      value: content.skillGroups.length,
-      key: "skills" as NavKey,
-      detail: `${content.skillGroups.reduce((sum, group) => sum + group.skills.length, 0)} skills`,
-    },
-    {
-      label: "Site copy",
-      value: Object.keys(content.copy).length,
-      key: "home" as NavKey,
-      detail: "editable strings",
-    },
-  ];
-  return (
-    <>
-      <SectionHeading
-        eyebrow="Workspace"
-        title="Overview"
-        description="A quiet control room for the portfolio CMS. Counts below are read from the content payload, not generated analytics."
-        action={
-          <StatusPill tone={configured ? "success" : "warning"}>
-            {configured ? "CMS ready" : "Setup incomplete"}
-          </StatusPill>
-        }
-      />
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((stat) => (
-          <button
-            type="button"
-            key={stat.label}
-            onClick={() => setSection(stat.key)}
-            className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-night-2 p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:border-sky/40 shadow-sm"
-          >
-            <div className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
-              <span className="size-1.5 rounded-full bg-sky" />
-              <span>{stat.label}</span>
-            </div>
-            <div className="mt-4 font-display text-4xl sm:text-5xl font-extrabold text-snow tracking-tight">
-              {stat.value}
-            </div>
-            <div className="mt-2 text-xs text-mist">{stat.detail}</div>
-            <div className="absolute bottom-0 left-0 h-0.5 w-1/3 bg-sky transition-all duration-300 group-hover:w-full" />
-          </button>
-        ))}
-      </div>
-      <div className="mt-5 grid gap-5 lg:grid-cols-[1.3fr_1fr]">
-        <NotchedPanel className="p-5 sm:p-7">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="rounded-lg border border-sky/20 bg-sky/10 p-2 text-sky-200">
-              <Activity className="size-4" />
-            </div>
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/75">
-                Revision status
-              </div>
-              <h3 className="mt-1 text-lg font-semibold text-white">
-                Content is versioned
-              </h3>
-            </div>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
-                Working revision
-              </div>
-              <div className="mt-2 text-2xl font-semibold text-white">
-                {revision}
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
-                Published revision
-              </div>
-              <div className="mt-2 text-2xl font-semibold text-white">
-                {publishedRevision}
-              </div>
-            </div>
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.14em] text-mist">
-                Public state
-              </div>
-              <div className="mt-2">
-                <StatusPill
-                  tone={revision === publishedRevision ? "success" : "warning"}
-                >
-                  {revision === publishedRevision
-                    ? "In sync"
-                    : "Changes pending"}
-                </StatusPill>
-              </div>
-            </div>
-          </div>
-          <div className="mt-6 rounded-lg border border-white/8 bg-white/[0.025] p-3 text-xs leading-5 text-mist">
-            Save creates a new working revision. Publish is a separate, explicit
-            action that affects the public site.
-          </div>
-        </NotchedPanel>
-        <NotchedPanel className="p-5 sm:p-7">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/75">
-            Editor map
-          </div>
-          <h3 className="mt-1 text-lg font-semibold text-white">
-            Structured content
-          </h3>
-          <div className="mt-5 space-y-2">
-            {[
-              "profile",
-              "identity",
-              "experience",
-              "journey",
-              "processSteps",
-              "navigation",
-            ].map((key) => (
-              <button
-                type="button"
-                key={key}
-                onClick={() =>
-                  setSection(key === "navigation" ? "home" : "about")
-                }
-                className="flex w-full items-center justify-between rounded-lg border border-white/8 bg-white/[0.025] px-3 py-2.5 text-left text-xs text-snow hover:border-sky/25 hover:text-white"
-              >
-                <span>{sectionLabels[key]}</span>
-                <ChevronRight className="size-3.5 text-mist" />
-              </button>
-            ))}
-          </div>
-        </NotchedPanel>
-      </div>
-    </>
-  );
-}
-
 export function DashboardWorkspace({
   initialContent,
   initialRevision,
@@ -2249,20 +2050,83 @@ export function DashboardWorkspace({
   );
   const [revision, setRevision] = React.useState(initialRevision);
   const [published, setPublished] = React.useState(publishedRevision);
-  const [section, setSection] = React.useState<NavKey>("overview");
-  const [mobileNav, setMobileNav] = React.useState(false);
+  const [activeSection, setActiveSection] =
+    React.useState<DashboardSectionKey>("command-center");
+  const [activeEditor, setActiveEditor] =
+    React.useState<ContentHubKey | null>(null);
   const [saving, setSaving] = React.useState(false);
   const [publishing, setPublishing] = React.useState(false);
   const [notice, setNotice] = React.useState<Notice | null>(null);
   const [confirmPublish, setConfirmPublish] = React.useState(false);
+  const [revisions, setRevisions] = React.useState<RevisionItem[]>([]);
+  const [messages, setMessages] = React.useState<InboxMessage[]>([]);
+  const [mediaItems, setMediaItems] = React.useState<MediaItem[]>([]);
+  const [restoringRevisionId, setRestoringRevisionId] = React.useState<
+    string | null
+  >(null);
+
   const publishTriggerRef = React.useRef<HTMLButtonElement>(null);
   const publishCancelRef = React.useRef<HTMLButtonElement>(null);
+
   const dirty = JSON.stringify(content) !== JSON.stringify(savedContent);
+
   const update = React.useCallback(
     (path: PathPart[], value: unknown) =>
       setContent((current) => setAt(current, path, value) as SiteContent),
     [],
   );
+
+  const loadRevisions = React.useCallback(async () => {
+    try {
+      const response = await fetch("/api/admin/revisions", {
+        cache: "no-store",
+      });
+      const payload = await response.json();
+      if (response.ok && Array.isArray(payload.items)) {
+        setRevisions(payload.items);
+      }
+    } catch {
+      // non-blocking
+    }
+  }, []);
+
+  const loadMessages = React.useCallback(async () => {
+    try {
+      const response = await fetch("/api/admin/messages", {
+        cache: "no-store",
+      });
+      const payload = await response.json();
+      if (response.ok && Array.isArray(payload.items)) {
+        setMessages(payload.items);
+      }
+    } catch {
+      // non-blocking
+    }
+  }, []);
+
+  const loadMedia = React.useCallback(async () => {
+    try {
+      const response = await fetch("/api/admin/media", {
+        cache: "no-store",
+      });
+      const payload = await response.json();
+      if (response.ok && Array.isArray(payload.items)) {
+        setMediaItems(payload.items);
+      }
+    } catch {
+      // non-blocking
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void loadRevisions();
+      void loadMessages();
+      void loadMedia();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [loadRevisions, loadMessages, loadMedia]);
+
   React.useEffect(() => {
     if (!confirmPublish) return;
     const previousFocus =
@@ -2285,10 +2149,66 @@ export function DashboardWorkspace({
       );
     };
   }, [confirmPublish]);
+
+  // GSAP ScrollTrigger active section sync
+  useGSAP(() => {
+    if (typeof window === "undefined" || !window.matchMedia(motionQueries.motion).matches) return;
+    const sections: DashboardSectionKey[] = [
+      "command-center",
+      "metrics",
+      "analytics",
+      "schedule",
+      "activity",
+      "content-hub",
+    ];
+
+    const triggers = sections.map((key) => {
+      const el = document.getElementById(key);
+      if (!el) return null;
+      return ScrollTrigger.create({
+        trigger: el,
+        start: "top 45%",
+        end: "bottom 45%",
+        onEnter: () => setActiveSection(key),
+        onEnterBack: () => setActiveSection(key),
+      });
+    });
+
+    return () => {
+      triggers.forEach((st) => st?.kill());
+    };
+  }, []);
+
+  const handleNavigate = (sectionKey: DashboardSectionKey) => {
+    setActiveSection(sectionKey);
+    const target = document.getElementById(sectionKey);
+    if (target) {
+      gsap.to(window, {
+        duration: 0.8,
+        scrollTo: { y: target, offsetY: 28 },
+        ease: "power2.inOut",
+      });
+    }
+  };
+
+  const handleOpenContentHub = (hubKey: ContentHubKey) => {
+    setActiveEditor(hubKey);
+    setActiveSection("content-hub");
+    const target = document.getElementById("content-hub");
+    if (target) {
+      gsap.to(window, {
+        duration: 0.8,
+        scrollTo: { y: target, offsetY: 28 },
+        ease: "power2.inOut",
+      });
+    }
+  };
+
   const logout = async () => {
     await fetch("/api/auth/sign-out", { method: "POST" });
     window.location.reload();
   };
+
   const save = async () => {
     setSaving(true);
     setNotice(null);
@@ -2332,6 +2252,7 @@ export function DashboardWorkspace({
         tone: "success",
         message: `Saved working revision ${payload.revision ?? revision}.`,
       });
+      void loadRevisions();
     } catch (cause) {
       setNotice({
         tone: "error",
@@ -2342,6 +2263,7 @@ export function DashboardWorkspace({
       setSaving(false);
     }
   };
+
   const publish = async () => {
     setPublishing(true);
     setNotice(null);
@@ -2371,6 +2293,7 @@ export function DashboardWorkspace({
         tone: "success",
         message: "The selected revision is now public.",
       });
+      void loadRevisions();
     } catch (cause) {
       setNotice({
         tone: "error",
@@ -2381,6 +2304,65 @@ export function DashboardWorkspace({
       setConfirmPublish(false);
     }
   };
+
+  const handleRestoreRevision = async (item: RevisionItem) => {
+    if (
+      !window.confirm(
+        `Restore revision ${item.revision} as the working draft? This will not publish it.`,
+      )
+    )
+      return;
+    setRestoringRevisionId(item.id);
+    try {
+      const response = await fetch("/api/admin/revisions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: item.id, expectedRevision: revision }),
+      });
+      const payload = await response.json().catch(() => null);
+      if (response.status === 409)
+        throw new Error(
+          payload?.message ??
+            "The working revision changed. Nothing was restored.",
+        );
+      if (!response.ok || payload?.ok !== true || !payload.content)
+        throw new Error(
+          payload?.message ?? `Could not restore revision (${response.status})`,
+        );
+      setSavedContent(clone(payload.content as SiteContent));
+      setContent(clone(payload.content as SiteContent));
+      setRevision(Number(payload.revision));
+      setPublished(Number(payload.publishedRevision ?? published));
+      setNotice({
+        tone: "success",
+        message: `Restored revision ${item.revision} as draft revision ${payload.revision}. It was not published.`,
+      });
+      void loadRevisions();
+    } catch (cause) {
+      setNotice({
+        tone: "error",
+        message:
+          cause instanceof Error
+            ? cause.message
+            : "Could not restore revision. Nothing was published.",
+      });
+    } finally {
+      setRestoringRevisionId(null);
+    }
+  };
+
+  const handleDownloadBackup = () => {
+    const blob = new Blob([JSON.stringify(savedContent, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `site-content-revision-${revision}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  };
+
   const deleteItem = (key: "projects" | "posts", index: number) => {
     const item = content[key][index];
     const name = "title" in item ? item.title : "item";
@@ -2395,8 +2377,7 @@ export function DashboardWorkspace({
       content[key].filter((_, itemIndex) => itemIndex !== index),
     );
   };
-  const title =
-    navItems.find((item) => item.key === section)?.label ?? "Overview";
+
   const openPublish = () => {
     publishTriggerRef.current =
       document.activeElement instanceof HTMLButtonElement
@@ -2404,18 +2385,9 @@ export function DashboardWorkspace({
         : null;
     setConfirmPublish(true);
   };
-  const renderSection = () => {
-    if (section === "overview")
-      return (
-        <Overview
-          content={content}
-          revision={revision}
-          publishedRevision={published}
-          configured={configured}
-          setSection={setSection}
-        />
-      );
-    if (section === "projects")
+
+  const renderEditor = (hubKey: ContentHubKey) => {
+    if (hubKey === "projects") {
       return (
         <>
           <SectionHeading
@@ -2432,7 +2404,8 @@ export function DashboardWorkspace({
           />
         </>
       );
-    if (section === "blog")
+    }
+    if (hubKey === "blog") {
       return (
         <>
           <SectionHeading
@@ -2449,7 +2422,8 @@ export function DashboardWorkspace({
           />
         </>
       );
-    if (section === "about")
+    }
+    if (hubKey === "about") {
       return (
         <div className="space-y-5">
           {[
@@ -2473,7 +2447,8 @@ export function DashboardWorkspace({
           ))}
         </div>
       );
-    if (section === "skills")
+    }
+    if (hubKey === "skills") {
       return (
         <div className="space-y-5">
           {["skillGroups", "marqueeRows"].map((key) => (
@@ -2488,7 +2463,8 @@ export function DashboardWorkspace({
           ))}
         </div>
       );
-    if (section === "home")
+    }
+    if (hubKey === "home") {
       return (
         <div className="space-y-5">
           {["assets", "navigation", "copy"].map((key) => (
@@ -2507,7 +2483,8 @@ export function DashboardWorkspace({
           ))}
         </div>
       );
-    if (section === "media")
+    }
+    if (hubKey === "media") {
       return (
         <MediaPanel
           onUse={(url) => {
@@ -2519,8 +2496,11 @@ export function DashboardWorkspace({
           }}
         />
       );
-    if (section === "inbox") return <InboxPanel />;
-    if (section === "seo")
+    }
+    if (hubKey === "inbox") {
+      return <InboxPanel />;
+    }
+    if (hubKey === "seo") {
       return (
         <EditorSection
           title="Search appearance"
@@ -2530,6 +2510,7 @@ export function DashboardWorkspace({
           update={update}
         />
       );
+    }
     return (
       <SettingsPanel
         configured={configured}
@@ -2541,328 +2522,169 @@ export function DashboardWorkspace({
           setContent(clone(nextContent));
           setRevision(nextRevision);
           setPublished(nextPublished);
+          void loadRevisions();
         }}
         onNotice={setNotice}
       />
     );
   };
+
+  const unreadMessagesCount = messages.filter(
+    (m) => m.status !== "read" && m.status !== "archived",
+  ).length;
+
   return (
-    <div className="relative min-h-screen bg-night text-snow pt-28 sm:pt-32 lg:pt-36 pb-24">
-      {/* Mobile Drawer (Admin Navigation) */}
-      <div
-        className={cx(
-          "fixed inset-0 z-50 flex bg-night/95 backdrop-blur-xl transition-all duration-300 lg:hidden",
-          mobileNav
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none",
-        )}
-      >
-        <div className="flex flex-col w-full h-full p-6 sm:p-8">
-          <div className="flex items-center justify-between pb-6 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
-              <span
-                aria-hidden="true"
-                className="size-2 rounded-full bg-sky shadow-[0_0_0_4px_rgba(77,182,255,0.18)]"
-              />
-              <span>ADMIN NAVIGATION</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setMobileNav(false)}
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-snow hover:bg-white/10 transition-colors"
-              aria-label="Close admin navigation"
-            >
-              <X className="size-5" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto py-6 space-y-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = section === item.key;
-              return (
-                <button
-                  type="button"
-                  key={item.key}
-                  onClick={() => {
-                    setSection(item.key);
-                    setMobileNav(false);
-                  }}
-                  className={cx(
-                    "w-full flex items-center justify-between rounded-2xl px-5 py-4 text-left font-display text-xl font-bold uppercase tracking-tight transition-colors",
-                    active
-                      ? "bg-white/[0.08] text-sky border border-sky/30"
-                      : "text-snow hover:bg-white/[0.03] border border-transparent",
-                  )}
-                >
-                  <span className="flex items-center gap-3">
-                    <Icon
-                      className={cx(
-                        "size-5",
-                        active ? "text-sky" : "text-mist",
-                      )}
-                    />
-                    <span>{item.label}</span>
-                  </span>
-                  {active ? (
-                    <span className="size-2 rounded-full bg-sky" />
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-          <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs text-mist">
-            <span>Logged in as {user.name}</span>
-            <button
-              type="button"
-              onClick={() => void logout()}
-              className="text-red-300 hover:text-red-200"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="relative min-h-screen bg-night text-snow">
+      {/* Persistent Desktop Sidebar */}
+      <DashboardSidebar
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        user={user}
+        onLogout={() => void logout()}
+        revision={revision}
+        publishedRevision={published}
+        dirty={dirty}
+      />
 
-      <div className={container}>
-        {/* Workspace Top Bar */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between pb-8 border-b border-white/[0.08]">
-          <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-mist">
-              <span
-                aria-hidden="true"
-                className="size-2 rounded-full bg-sky shadow-[0_0_0_4px_rgba(77,182,255,0.18)]"
-              />
-              <span>PRIVATE WORKSPACE</span>
-              <span
-                aria-hidden="true"
-                className="h-px w-6 bg-current opacity-30"
-              />
-              <span className="text-snow/80">{title}</span>
-            </div>
-            <h1 className="mt-3 font-display text-[clamp(2.25rem,4vw,3.5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-snow">
-              Workspace
-            </h1>
-            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-mist">
-              <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-mist">
-                  Working rev:
-                </span>
-                <span className="font-mono text-snow font-medium">
-                  #{revision}
-                </span>
-              </div>
-              <span className="text-white/20">/</span>
-              <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-mist">
-                  Published rev:
-                </span>
-                <span className="font-mono text-snow font-medium">
-                  #{published}
-                </span>
-              </div>
-              <span className="text-white/20">/</span>
-              <div>
-                {dirty ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-amber-300">
-                    <span className="size-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    Unsaved changes
-                  </span>
-                ) : revision === published ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-emerald-300">
-                    <span className="size-1.5 rounded-full bg-emerald-400" />
-                    In sync with public
-                  </span>
+      {/* Mobile Sticky Navigation */}
+      <DashboardMobileNav
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        onOpenContentHub={handleOpenContentHub}
+        user={user}
+        onLogout={() => void logout()}
+        dirty={dirty}
+        saving={saving}
+        publishing={publishing}
+        configured={configured}
+        onSave={() => void save()}
+        onPublish={() =>
+          dirty
+            ? setNotice({
+                tone: "info",
+                message: "Save your draft changes before publishing.",
+              })
+            : openPublish()
+        }
+      />
+
+      {/* Main Single-Page Content Area */}
+      <main id="main" className="lg:pl-72 min-h-screen">
+        <div className="px-4 sm:px-6 lg:px-10 py-8 lg:py-12 max-w-7xl mx-auto space-y-16">
+          {/* Global Notice Banner */}
+          {notice && (
+            <div
+              className={cx(
+                "flex items-start gap-3 rounded-2xl border p-4 text-sm backdrop-blur-md transition-all",
+                notice.tone === "success" &&
+                  "border-emerald-500/20 bg-emerald-500/10 text-emerald-200",
+                notice.tone === "error" &&
+                  "border-red-500/20 bg-red-500/10 text-red-200",
+                notice.tone === "info" && "border-sky/20 bg-sky/10 text-sky",
+              )}
+            >
+              <div className="mt-0.5 shrink-0">
+                {notice.tone === "success" ? (
+                  <Check className="size-4 text-emerald-400" />
+                ) : notice.tone === "error" ? (
+                  <CircleAlert className="size-4 text-red-400" />
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky/30 bg-sky/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-sky">
-                    <span className="size-1.5 rounded-full bg-sky" />
-                    Working revision ahead
-                  </span>
+                  <Activity className="size-4 text-sky" />
                 )}
               </div>
-            </div>
-          </div>
-
-          {/* Action Toolbar */}
-          <div className="flex flex-wrap items-center gap-3">
-            {/* User pill */}
-            <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-night-2 py-1.5 pl-2 pr-3.5 shadow-sm">
-              <div className="relative flex size-7 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-night-3 text-xs font-semibold text-snow">
-                {user.image ? (
-                  <Image
-                    src={user.image}
-                    alt={user.name}
-                    width={28}
-                    height={28}
-                    unoptimized
-                    className="size-full object-cover"
-                  />
-                ) : (
-                  user.name.slice(0, 1).toUpperCase()
-                )}
+              <div className="min-w-0 flex-1 break-words font-medium">
+                {notice.message}
               </div>
-              <span className="text-xs font-medium text-snow max-w-[120px] truncate">
-                {user.name}
-              </span>
               <button
                 type="button"
-                onClick={() => void logout()}
-                title="Sign out"
-                aria-label="Sign out of workspace"
-                className="ml-1 inline-flex size-6 items-center justify-center rounded-full text-mist hover:text-snow hover:bg-white/10 transition-colors"
+                className="text-current/60 hover:text-current transition-colors"
+                onClick={() => setNotice(null)}
+                aria-label="Dismiss notice"
               >
-                <LogOut className="size-3.5" />
+                <X className="size-4" />
               </button>
             </div>
+          )}
 
-            {/* Discard */}
-            <button
-              type="button"
-              onClick={() => setContent(clone(savedContent))}
-              disabled={!dirty}
-              className={buttonSecondary}
-            >
-              <RefreshCcw className="size-3.5" />
-              <span>Discard</span>
-            </button>
+          {/* CMS Configuration Alert */}
+          {!configured && (
+            <div className="flex items-start gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-200 leading-relaxed">
+              <CircleAlert className="mt-0.5 size-5 shrink-0 text-amber-400" />
+              <div>
+                <strong className="font-semibold text-snow">
+                  CMS readiness is incomplete.
+                </strong>{" "}
+                You can inspect the workspace, but saves and publishing are
+                disabled until the server reports configured readiness. Secret
+                values are never shown here.
+              </div>
+            </div>
+          )}
 
-            {/* Save */}
-            <button
-              type="button"
-              onClick={() => void save()}
-              disabled={!dirty || saving || !configured}
-              className={buttonPrimary}
-            >
-              {saving ? (
-                <RefreshCcw className="size-3.5 animate-spin" />
-              ) : (
-                <Save className="size-3.5" />
-              )}
-              <span>{saving ? "Saving" : "Save"}</span>
-            </button>
+          {/* Chapter 01: Command Center */}
+          <CommandCenterSection
+            content={content}
+            savedContent={savedContent}
+            revision={revision}
+            publishedRevision={published}
+            dirty={dirty}
+            saving={saving}
+            publishing={publishing}
+            configured={configured}
+            unreadMessagesCount={unreadMessagesCount}
+            onSave={() => void save()}
+            onPublish={() =>
+              dirty
+                ? setNotice({
+                    tone: "info",
+                    message: "Save your draft changes before publishing.",
+                  })
+                : openPublish()
+            }
+            onDiscard={() => setContent(clone(savedContent))}
+            onDownloadBackup={handleDownloadBackup}
+            publishTriggerRef={publishTriggerRef}
+          />
 
-            {/* Publish */}
-            <button
-              ref={publishTriggerRef}
-              type="button"
-              onClick={() =>
-                dirty
-                  ? setNotice({
-                      tone: "info",
-                      message: "Save your draft changes before publishing.",
-                    })
-                  : openPublish()
-              }
-              disabled={publishing || !configured}
-              className={buttonAccent}
-            >
-              {publishing ? (
-                <RefreshCcw className="size-3.5 animate-spin" />
-              ) : (
-                <Send className="size-3.5" />
-              )}
-              <span>Publish</span>
-            </button>
+          {/* Chapter 02: Overview Metrics */}
+          <OverviewMetricsSection
+            content={content}
+            messages={messages}
+            mediaItems={mediaItems}
+            onOpenContentHub={handleOpenContentHub}
+          />
 
-            {/* Mobile Nav toggle button */}
-            <button
-              type="button"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-night-2 text-snow transition-colors hover:border-sky/50 lg:hidden"
-              aria-label="Open admin navigation"
-              onClick={() => setMobileNav(true)}
-            >
-              <Menu className="size-5" />
-            </button>
-          </div>
+          {/* Chapter 03: Content Analytics */}
+          <ContentAnalyticsSection content={content} />
+
+          {/* Chapter 04: Schedule */}
+          <ScheduleSection
+            content={content}
+            onOpenContentHub={handleOpenContentHub}
+          />
+
+          {/* Chapter 05: Recent Activity */}
+          <RecentActivitySection
+            content={content}
+            revisions={revisions}
+            messages={messages}
+            currentRevision={revision}
+            publishedRevision={published}
+            onRestoreRevision={(item) => void handleRestoreRevision(item)}
+            restoringRevisionId={restoringRevisionId}
+            onRefreshRevisions={() => void loadRevisions()}
+          />
+
+          {/* Chapter 06: Content Hub */}
+          <ContentHubSection
+            content={content}
+            activeEditor={activeEditor}
+            onSelectEditor={setActiveEditor}
+            renderEditor={renderEditor}
+            unreadMessagesCount={unreadMessagesCount}
+          />
         </div>
-
-        {/* Workspace Navigation Pills */}
-        <div className="mt-8 mb-8">
-          <div className="flex items-center gap-1.5 overflow-x-auto rounded-full border border-white/10 bg-night-2/90 p-1.5 shadow-[0_8px_32px_-16px_rgba(0,0,0,0.55)] backdrop-blur-xl scrollbar-none">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = section === item.key;
-              return (
-                <button
-                  type="button"
-                  key={item.key}
-                  onClick={() => setSection(item.key)}
-                  className={cx(
-                    "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-full px-4 text-[13px] font-medium transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-sky",
-                    active
-                      ? "bg-white/[0.08] text-snow font-semibold shadow-sm"
-                      : "text-mist hover:text-snow hover:bg-white/[0.03]",
-                  )}
-                >
-                  {active ? (
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 rounded-full bg-sky"
-                    />
-                  ) : null}
-                  <Icon
-                    className={cx(
-                      "size-3.5",
-                      active ? "text-sky" : "text-mist",
-                    )}
-                  />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Notices */}
-        {notice && (
-          <div
-            className={cx(
-              "mb-6 flex items-start gap-3 rounded-2xl border p-4 text-sm backdrop-blur-md transition-all",
-              notice.tone === "success" &&
-                "border-emerald-500/20 bg-emerald-500/10 text-emerald-200",
-              notice.tone === "error" &&
-                "border-red-500/20 bg-red-500/10 text-red-200",
-              notice.tone === "info" && "border-sky/20 bg-sky/10 text-sky",
-            )}
-          >
-            <div className="mt-0.5 shrink-0">
-              {notice.tone === "success" ? (
-                <Check className="size-4 text-emerald-400" />
-              ) : notice.tone === "error" ? (
-                <CircleAlert className="size-4 text-red-400" />
-              ) : (
-                <Activity className="size-4 text-sky" />
-              )}
-            </div>
-            <div className="min-w-0 flex-1 break-words font-medium">
-              {notice.message}
-            </div>
-            <button
-              type="button"
-              className="text-current/60 hover:text-current transition-colors"
-              onClick={() => setNotice(null)}
-              aria-label="Dismiss notice"
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-        )}
-        {!configured && (
-          <div className="mb-6 flex items-start gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-5 text-sm text-amber-200 leading-relaxed">
-            <CircleAlert className="mt-0.5 size-5 shrink-0 text-amber-400" />
-            <div>
-              <strong className="font-semibold text-snow">
-                CMS readiness is incomplete.
-              </strong>{" "}
-              You can inspect the workspace, but saves and publishing are
-              disabled until the server reports configured readiness. Secret
-              values are never shown here.
-            </div>
-          </div>
-        )}
-
-        {/* Section View */}
-        <div className="space-y-8">{renderSection()}</div>
-      </div>
+      </main>
 
       {/* Confirm Publish Dialog */}
       {confirmPublish && (
