@@ -1,0 +1,614 @@
+{
+  "timestamp": "2026-11-02T14:18:11Z",
+  "checks": [
+    {
+      "category": "Security Headers",
+      "name": "Dashboard Overview (/dashboard) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Dashboard Overview (/dashboard) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Dashboard Overview (/dashboard) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Dashboard Overview (/dashboard) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Dashboard Overview (/dashboard) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Home Live Editor (/dashboard/home) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Home Live Editor (/dashboard/home) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Home Live Editor (/dashboard/home) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Home Live Editor (/dashboard/home) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Home Live Editor (/dashboard/home) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Projects Editor (/dashboard/projects) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Projects Editor (/dashboard/projects) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Projects Editor (/dashboard/projects) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Projects Editor (/dashboard/projects) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Projects Editor (/dashboard/projects) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Blog Editor (/dashboard/blog) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Blog Editor (/dashboard/blog) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Blog Editor (/dashboard/blog) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Blog Editor (/dashboard/blog) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Blog Editor (/dashboard/blog) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "About Editor (/dashboard/about) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "About Editor (/dashboard/about) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "About Editor (/dashboard/about) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "About Editor (/dashboard/about) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "About Editor (/dashboard/about) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Skills Editor (/dashboard/skills) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Skills Editor (/dashboard/skills) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Skills Editor (/dashboard/skills) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Skills Editor (/dashboard/skills) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Skills Editor (/dashboard/skills) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Schedule Editor (/dashboard/schedule) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Schedule Editor (/dashboard/schedule) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Schedule Editor (/dashboard/schedule) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Schedule Editor (/dashboard/schedule) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Schedule Editor (/dashboard/schedule) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Media Manager (/dashboard/media) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Media Manager (/dashboard/media) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Media Manager (/dashboard/media) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Media Manager (/dashboard/media) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Media Manager (/dashboard/media) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Inbox (/dashboard/inbox) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Inbox (/dashboard/inbox) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Inbox (/dashboard/inbox) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Inbox (/dashboard/inbox) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Inbox (/dashboard/inbox) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Analytics (/dashboard/analytics) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Analytics (/dashboard/analytics) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Analytics (/dashboard/analytics) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Analytics (/dashboard/analytics) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Analytics (/dashboard/analytics) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "SEO Settings (/dashboard/seo) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "SEO Settings (/dashboard/seo) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "SEO Settings (/dashboard/seo) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "SEO Settings (/dashboard/seo) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "SEO Settings (/dashboard/seo) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Settings (/dashboard/settings) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Settings (/dashboard/settings) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Settings (/dashboard/settings) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Settings (/dashboard/settings) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Settings (/dashboard/settings) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Live Home Preview Route (/dashboard/preview/home) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Live Home Preview Route (/dashboard/preview/home) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Live Home Preview Route (/dashboard/preview/home) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Live Home Preview Route (/dashboard/preview/home) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Live Home Preview Route (/dashboard/preview/home) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Security Headers",
+      "name": "Project Preview Route (/dashboard/preview/project/rafiq) CSP includes frame-ancestors 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'self'"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Project Preview Route (/dashboard/preview/project/rafiq) Cache-Control includes no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "Security Headers",
+      "name": "Project Preview Route (/dashboard/preview/project/rafiq) X-Frame-Options is SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: SAMEORIGIN"
+    },
+    {
+      "category": "Information Disclosure",
+      "name": "Project Preview Route (/dashboard/preview/project/rafiq) Unauthenticated HTML has zero secrets leaked",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Access Control",
+      "name": "Project Preview Route (/dashboard/preview/project/rafiq) Renders login guard without access to data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated GET /api/admin/content rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/content returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/content returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/content returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated PUT /api/admin/content rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "PUT /api/admin/content returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "PUT /api/admin/content returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "PUT /api/admin/content returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated GET /api/admin/revisions rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/revisions returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/revisions returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/revisions returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated POST /api/admin/publish rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "POST /api/admin/publish returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "POST /api/admin/publish returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "POST /api/admin/publish returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated GET /api/admin/messages rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/messages returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/messages returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/messages returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "API Authorization",
+      "name": "Unauthenticated GET /api/admin/media rejected with HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/media returns Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache-Control: no-store, must-revalidate"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/media returns frame-ancestors 'none' or 'self'",
+      "passed": true,
+      "detail": "CSP: frame-ancestors 'none'"
+    },
+    {
+      "category": "API Security Headers",
+      "name": "GET /api/admin/media returns X-Frame-Options DENY or SAMEORIGIN",
+      "passed": true,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Session Security",
+      "name": "Invalid session token returns HTTP 401",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "CSRF Guard",
+      "name": "Cross-site mutation returns HTTP 401 or 403",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "CSRF Guard",
+      "name": "Mutation without origin returns HTTP 401 or 403",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "postMessage Security",
+      "name": "Untrusted target origin postMessage fails safely",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "postMessage Security",
+      "name": "Oversized 6MB payload rejected safely without crash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "postMessage Security",
+      "name": "Unknown message type ignored safely",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Client Bundle Scan",
+      "name": "Zero server credentials or database connection strings in client JS",
+      "passed": true,
+      "detail": "Clean bundle (0 secrets)"
+    }
+  ],
+  "failures": [],
+  "security_headers": {},
+  "bundle_scan": {}
+}
