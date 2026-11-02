@@ -1,0 +1,254 @@
+{
+  "timestamp": "2026-11-02T15:12:07Z",
+  "preview_url": "https://prof-git-release-rc-phase5-1-s3fpls-projects.vercel.app",
+  "checks": [
+    {
+      "category": "Public Route",
+      "name": "Home Page (/) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "About Page (/about) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "Projects Directory (/projects) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "Technical Blog (/blog) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "Contact Page (/contact) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "Robots Directives (/robots.txt) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Public Route",
+      "name": "Sitemap XML (/sitemap.xml) loads successfully",
+      "passed": true,
+      "detail": "Status: 200"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/content unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "Unauthenticated PUT /api/admin/content rejected (HTTP 401/403)",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "PUT /api/admin/content includes Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache: no-store, max-age=0"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/revisions unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "Unauthenticated POST /api/admin/publish rejected (HTTP 401/403)",
+      "passed": true,
+      "detail": "Status: 401"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "POST /api/admin/publish includes Cache-Control: no-store",
+      "passed": true,
+      "detail": "Cache: no-store, max-age=0"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/messages unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Desktop Home renders cleanly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Dashboard displays private workspace guard",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Mobile Home renders cleanly",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Public About renders FAQ section from staging schema",
+      "passed": false,
+      "detail": ""
+    }
+  ],
+  "failures": [
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Dashboard Overview (/dashboard) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Home Live Editor (/dashboard/home) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces frame-ancestors 'self'",
+      "passed": false,
+      "detail": "CSP: default-src 'self' vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;script-src 'self' 'unsafe-eval' 'unsafe-inline' blob: www.google.com www.gstatic.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com cdn.ampproject.org *.googleapis.com *.fides-cdn.ethyca.com *.ethyca.com cdn.ethyca.com cdn.vercel-insights.com va.vercel-scripts.com si-next.vercel-scripts.com cdp.vercel.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com calendly.com *.vusercontent.net *.vercel.run *.tmp.now vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;img-src * blob: data:;media-src 'self' videos.ctfassets.net user-images.githubusercontent.com replicate.delivery *.public.blob.vercel-storage.com *.private.blob.vercel-storage.com blob: data: vercel.com *.vercel.com *.vercel.sh vercel.live *.stripe.com twitter.com *.twitter.com *.google.com *.github.com *.codesandbox.io https://risk.clearbit.com wss://*.vercel.com localhost:* chrome-extension://*;connect-src wss://ws-us3.pusher.com data: * https://*.contentful.com cdp.vercel.com;font-src 'self' *.vercel.com *.gstatic.com vercel.live;frame-ancestors 'none';worker-src 'self' *.vercel.com blob:"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces XFO SAMEORIGIN",
+      "passed": false,
+      "detail": "XFO: DENY"
+    },
+    {
+      "category": "Preview Security Headers",
+      "name": "Live Preview Frame (/dashboard/preview/home) enforces no-store caching",
+      "passed": false,
+      "detail": "Cache: public, max-age=0, must-revalidate"
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/content unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/revisions unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Preview API Auth",
+      "name": "GET /api/admin/messages unexpectedly returned 200",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Dashboard displays private workspace guard",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "category": "Live Visual",
+      "name": "Public About renders FAQ section from staging schema",
+      "passed": false,
+      "detail": ""
+    }
+  ]
+}
