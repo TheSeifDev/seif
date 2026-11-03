@@ -28,6 +28,28 @@ export type MediaItem = {
   createdAt: string;
 };
 
+export type InboxChannelDelivery = {
+  outboxId: string | null;
+  channel: "email" | "web_push" | "whatsapp" | "instagram";
+  status:
+    | "pending"
+    | "processing"
+    | "sent"
+    | "failed"
+    | "skipped"
+    | "not_configured"
+    | "unavailable";
+  attempts: number;
+  maxAttempts: number;
+  sentAt: string | null;
+  lastAttemptAt: string | null;
+  nextRetryAt: string | null;
+  providerMessageId: string | null;
+  providerStatus: string | null;
+  lastErrorCode: string | null;
+  lastErrorMessage: string | null;
+};
+
 export type InboxMessage = {
   id: string;
   name?: string;
@@ -36,6 +58,8 @@ export type InboxMessage = {
   message?: string;
   status?: string;
   createdAt?: string;
+  notificationStatus?: string;
+  deliveries?: InboxChannelDelivery[];
   [key: string]: unknown;
 };
 
