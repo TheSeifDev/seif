@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { and, count, eq, gte, sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { getDb, type ContactDb } from "@/lib/db/client";
 import { contactMessages } from "@/lib/db/schema";
 import {
@@ -33,6 +33,19 @@ export type ContactResult =
   | { status: "error" };
 
 const inFlightSubmissions = new Map<string, Promise<ContactResult>>();
+const perIpQueues = new Map<string, Promise<unknown>>();
+
+function withPerIpQueue<T>(ipKey: string, task: () => Promise<T>): Promise<T> {
+  const prev = perIpQueues.get(ipKey) ?? Promise.resolve();
+  const next = prev.catch(() => undefined).then(task);
+  const tracked = next.finally(() => {
+    if (perIpQueues.get(ipKey) === tracked) {
+      perIpQueues.delete(ipKey);
+    }
+  });
+  perIpQueues.set(ipKey, tracked);
+  return next;
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -99,7 +112,7 @@ function buildSubmissionIdentity(
   };
 }
 
-type Executor = Pick<ContactDb, "select" | "insert" | "execute">;
+type Executor = Pick<ContactDb, "select">;
 
 async function findExistingSubmissionResult(
   executor: Executor,
@@ -195,92 +208,118 @@ export async function submitContact(
     try {
       const lockScopeKey = ipHash || "unknown-ip";
 
-      // 2. Execute atomic check-and-insert inside a PostgreSQL transaction protected by a
-      // transaction-scoped per-IP advisory lock (`pg_advisory_xact_lock`).
-      // This serializes concurrent distinct requests from the same IP across all workers/connections
-      // so they cannot simultaneously pass the `count < DATABASE_LIMIT` check before inserting.
-      const txOutcome = await db.transaction(
-        async (
-          tx,
-        ): Promise<
-          | { kind: "existing"; result: ContactResult }
-          | { kind: "rate_limited"; retryAfterSeconds: number }
-          | { kind: "inserted"; id: string }
-          | { kind: "error" }
-        > => {
-          await tx.execute(
-            sql`SELECT pg_advisory_xact_lock(hashtext('contact_rate_limit'), hashtext(${lockScopeKey}))`,
-          );
-
-          // 2a. Idempotency check BEFORE charging rate-limit quota
-          const existingResult = await findExistingSubmissionResult(
+      // 2. Serialize per-IP check-and-insert both in-process (`withPerIpQueue`, preventing a single
+      // flood IP from exhausting the pg.Pool connection limit) AND across database connections/instances
+      // via PostgreSQL transaction + `pg_advisory_xact_lock` + single-CTE atomic conditional INSERT.
+      const txOutcome = await withPerIpQueue(lockScopeKey, () =>
+        db.transaction(
+          async (
             tx,
-            submissionId,
-          );
-          if (existingResult) {
-            return { kind: "existing", result: existingResult };
-          }
+          ): Promise<
+            | { kind: "existing"; result: ContactResult }
+            | { kind: "rate_limited"; retryAfterSeconds: number }
+            | { kind: "inserted"; id: string }
+            | { kind: "error" }
+          > => {
+            await tx.execute(
+              sql`SELECT pg_advisory_xact_lock(hashtext('contact_rate_limit'), hashtext(${lockScopeKey}))`,
+            );
 
-          // 2b. Fast in-memory sliding window check (5 per 10m)
-          const memCheck = peekMemoryRateLimit(ip, now);
-          if (memCheck.limited) {
-            return {
-              kind: "rate_limited",
-              retryAfterSeconds: memCheck.retryAfterSeconds,
-            };
-          }
+            const cutoffIso = new Date(now - DATABASE_WINDOW_MS).toISOString();
+            const subjectVal = parsed.data.subject?.trim() || null;
 
-          // 2c. Durable PostgreSQL sliding window check (3 per 15m per ipHash)
-          if (ipHash) {
-            const cutoff = new Date(now - DATABASE_WINDOW_MS);
-            const [row] = await tx
-              .select({ count: count() })
-              .from(contactMessages)
-              .where(
-                and(
-                  eq(contactMessages.ipHash, ipHash),
-                  gte(contactMessages.createdAt, cutoff),
-                ),
-              );
-            const databaseCount = Number(row?.count ?? 0);
+            // Check in-memory sliding window first (unless this submissionId already exists in DB)
+            const memCheck = peekMemoryRateLimit(ip, now);
 
-            if (databaseCount >= DATABASE_LIMIT) {
+            const cteResult = await tx.execute<{
+              existing_id: string | null;
+              existing_notification_status: string | null;
+              recent_count: number;
+              inserted_id: string | null;
+            }>(sql`
+              WITH existing AS (
+                SELECT id, notification_status
+                FROM contact_messages
+                WHERE id = ${submissionId}::uuid
+                LIMIT 1
+              ),
+              recent AS (
+                SELECT count(*)::int AS cnt
+                FROM contact_messages
+                WHERE ip_hash = ${ipHash}
+                  AND created_at >= ${cutoffIso}::timestamptz
+              ),
+              ins AS (
+                INSERT INTO contact_messages (id, name, email, subject, message, ip_hash)
+                SELECT
+                  ${submissionId}::uuid,
+                  ${parsed.data.name},
+                  ${parsed.data.email},
+                  ${subjectVal},
+                  ${parsed.data.message},
+                  ${ipHash}
+                WHERE NOT EXISTS (SELECT 1 FROM existing)
+                  AND ${!memCheck.limited}
+                  AND (SELECT cnt FROM recent) < ${DATABASE_LIMIT}
+                ON CONFLICT (id) DO NOTHING
+                RETURNING id
+              )
+              SELECT
+                (SELECT id::text FROM existing) AS existing_id,
+                (SELECT notification_status FROM existing) AS existing_notification_status,
+                (SELECT cnt FROM recent) AS recent_count,
+                (SELECT id::text FROM ins) AS inserted_id
+            `);
+
+            const row = cteResult.rows[0];
+            if (row?.existing_id) {
+              const notification =
+                row.existing_notification_status === "sent" ||
+                row.existing_notification_status === "failed" ||
+                row.existing_notification_status === "not_configured"
+                  ? row.existing_notification_status
+                  : "not_configured";
+              return {
+                kind: "existing",
+                result: {
+                  status: "saved",
+                  notification,
+                  id: row.existing_id,
+                  deduplicated: true,
+                },
+              };
+            }
+
+            if (memCheck.limited) {
+              return {
+                kind: "rate_limited",
+                retryAfterSeconds: memCheck.retryAfterSeconds,
+              };
+            }
+
+            if (Number(row?.recent_count ?? 0) >= DATABASE_LIMIT) {
               return {
                 kind: "rate_limited",
                 retryAfterSeconds: Math.ceil(DATABASE_WINDOW_MS / 1_000),
               };
             }
-          }
 
-          // 2d. Record in-memory attempt and insert row inside the locked transaction
-          recordMemoryRateLimitAttempt(ip, now);
+            if (row?.inserted_id) {
+              recordMemoryRateLimitAttempt(ip, now);
+              return { kind: "inserted", id: row.inserted_id };
+            }
 
-          const [saved] = await tx
-            .insert(contactMessages)
-            .values({
-              id: submissionId,
-              name: parsed.data.name,
-              email: parsed.data.email,
-              subject: parsed.data.subject?.trim() || null,
-              message: parsed.data.message,
-              ipHash,
-            })
-            .onConflictDoNothing({ target: contactMessages.id })
-            .returning({ id: contactMessages.id });
-
-          if (!saved) {
-            const concurrentExisting = await findExistingSubmissionResult(
+            const fallbackExisting = await findExistingSubmissionResult(
               tx,
               submissionId,
             );
-            if (concurrentExisting) {
-              return { kind: "existing", result: concurrentExisting };
+            if (fallbackExisting) {
+              return { kind: "existing", result: fallbackExisting };
             }
-            return { kind: "error" };
-          }
 
-          return { kind: "inserted", id: saved.id };
-        },
+            return { kind: "error" };
+          },
+        ),
       );
 
       if (txOutcome.kind === "existing") {
