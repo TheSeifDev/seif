@@ -21,6 +21,12 @@ export const contactSchema = z.object({
     .max(4_000, "Please keep your message under 4,000 characters."),
   company: z.string().max(0, "Please leave this field empty.").default(""),
   startedAt: z.number().finite("Please try submitting the form again."),
+  idempotencyKey: z
+    .string()
+    .trim()
+    .min(8, "Invalid submission key.")
+    .max(128, "Invalid submission key.")
+    .optional(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;

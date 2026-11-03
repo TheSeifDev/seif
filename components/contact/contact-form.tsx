@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   contactSchema,
   fieldErrorsFromZod,
@@ -14,22 +14,37 @@ type ApiResponse = {
   status: string;
   notification?: string;
   fieldErrors?: unknown;
+  retryAfterSeconds?: number;
 };
+
 type FormValues = {
   name: string;
   email: string;
   message: string;
   company: string;
 };
+
 const initialValues: FormValues = {
   name: "",
   email: "",
   message: "",
   company: "",
 };
+
+function createIdempotencyKey(): string {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+  return `contact-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
+
 function fieldErrorsFromResponse(value: unknown): ContactFieldErrors {
   if (!isRecord(value)) return {};
   const errors: ContactFieldErrors = {};
@@ -43,9 +58,11 @@ function fieldErrorsFromResponse(value: unknown): ContactFieldErrors {
   }
   return errors;
 }
+
 function formErrorText(errors: ContactFieldErrors, field: keyof FormValues) {
   return errors[field]?.[0];
 }
+
 function expand(template: string, values: Record<string, string>) {
   return template.replace(
     /\{(\w+)\}/g,
@@ -61,7 +78,15 @@ export function ContactForm() {
   const [errors, setErrors] = useState<ContactFieldErrors>({});
   const [status, setStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // Synchronous in-flight lock prevents rapid double-clicks before React state re-renders
+  const inFlightRef = useRef(false);
+  // Per-submission idempotency key: preserved across network retries of the same form,
+  // and rotated only after a submission is saved or when the user edits fields after a save.
+  const idempotencyKeyRef = useRef<string>(createIdempotencyKey());
+
   const c = (key: string, fallback: string) => getCopy(copy, key, fallback);
+
   function updateValue(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => {
@@ -72,10 +97,20 @@ export function ContactForm() {
     });
     setStatus("");
   }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (inFlightRef.current || submitting) {
+      return;
+    }
+
     setStatus("");
-    const parsed = contactSchema.safeParse({ ...values, startedAt });
+    const currentIdempotencyKey = idempotencyKeyRef.current;
+    const parsed = contactSchema.safeParse({
+      ...values,
+      startedAt,
+      idempotencyKey: currentIdempotencyKey,
+    });
     if (!parsed.success) {
       setErrors(fieldErrorsFromZod(parsed.error));
       setStatus(
@@ -86,49 +121,64 @@ export function ContactForm() {
       );
       return;
     }
+
+    inFlightRef.current = true;
     setErrors({});
     setSubmitting(true);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, startedAt }),
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": currentIdempotencyKey,
+        },
+        body: JSON.stringify({
+          ...values,
+          startedAt,
+          idempotencyKey: currentIdempotencyKey,
+        }),
       });
       const body: unknown = await response.json();
       const result: ApiResponse =
         isRecord(body) && typeof body.status === "string"
           ? (body as ApiResponse)
           : { status: "error" };
-      if (result.status === "saved" && result.notification === "sent") {
-        setStatus(
-          expand(
-            c(
-              "contact.form.received",
-              "Message received. Thank you I'll reply to {email} soon.",
-            ),
-            { email: values.email },
-          ),
-        );
+
+      if (result.status === "saved") {
+        const submittedEmail = values.email;
+        // Always clear form fields, reset startedAt, and rotate the idempotency key
+        // whenever the message is saved (regardless of downstream notification status).
         setValues(initialValues);
         setStartedAt(Date.now());
-      } else if (
-        result.status === "saved" &&
-        result.notification === "not_configured"
-      )
-        setStatus(
-          c(
-            "contact.form.savedNotificationNotConfigured",
-            "Your message was saved. The email notification is not configured, but your message is stored and will be reviewed.",
-          ),
-        );
-      else if (result.status === "saved" && result.notification === "failed")
-        setStatus(
-          c(
-            "contact.form.savedNotificationFailed",
-            "Your message was saved. The email notification failed, but your message is stored and will be reviewed.",
-          ),
-        );
-      else if (result.status === "invalid") {
+        idempotencyKeyRef.current = createIdempotencyKey();
+
+        if (result.notification === "sent") {
+          setStatus(
+            expand(
+              c(
+                "contact.form.received",
+                "Message received. Thank you I'll reply to {email} soon.",
+              ),
+              { email: submittedEmail },
+            ),
+          );
+        } else if (result.notification === "not_configured") {
+          setStatus(
+            c(
+              "contact.form.savedNotificationNotConfigured",
+              "Your message was saved. The email notification is not configured, but your message is stored and will be reviewed.",
+            ),
+          );
+        } else {
+          setStatus(
+            c(
+              "contact.form.savedNotificationFailed",
+              "Your message was saved. The email notification failed, but your message is stored and will be reviewed.",
+            ),
+          );
+        }
+      } else if (result.status === "invalid") {
         setErrors(fieldErrorsFromResponse(result.fieldErrors));
         setStatus(
           c(
@@ -136,7 +186,7 @@ export function ContactForm() {
             "Please correct the highlighted fields. Your message was not sent.",
           ),
         );
-      } else if (result.status === "rejected")
+      } else if (result.status === "rejected") {
         setStatus(
           expand(
             c(
@@ -146,7 +196,7 @@ export function ContactForm() {
             { email },
           ),
         );
-      else if (result.status === "rate_limited")
+      } else if (result.status === "rate_limited") {
         setStatus(
           expand(
             c(
@@ -156,7 +206,7 @@ export function ContactForm() {
             { email },
           ),
         );
-      else if (result.status === "not_configured")
+      } else if (result.status === "not_configured") {
         setStatus(
           expand(
             c(
@@ -166,7 +216,7 @@ export function ContactForm() {
             { email },
           ),
         );
-      else
+      } else {
         setStatus(
           expand(
             c(
@@ -176,6 +226,7 @@ export function ContactForm() {
             { email },
           ),
         );
+      }
     } catch {
       setStatus(
         expand(
@@ -187,16 +238,20 @@ export function ContactForm() {
         ),
       );
     } finally {
+      inFlightRef.current = false;
       setSubmitting(false);
     }
   }
+
   const nameError = formErrorText(errors, "name");
   const emailError = formErrorText(errors, "email");
   const messageError = formErrorText(errors, "message");
+
   return (
     <form
       onSubmit={handleSubmit}
       noValidate
+      aria-busy={submitting}
       className="rounded-3xl border border-white/[0.08] bg-night-2 p-6 text-snow sm:p-8 lg:p-10"
     >
       <div className="grid gap-6">
@@ -232,6 +287,9 @@ export function ContactForm() {
             value={values.email}
             onChange={(event) => updateValue("email", event.target.value)}
             autoComplete="email"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
             aria-invalid={Boolean(emailError)}
             aria-describedby={emailError ? "contact-email-error" : undefined}
             className="mt-3 h-12 w-full rounded-xl border border-white/10 bg-night-3 px-4 text-[15px] text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
@@ -296,6 +354,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={submitting}
+          aria-disabled={submitting}
           className="group/pill inline-flex h-12 w-fit items-center justify-center rounded-full bg-snow px-5 text-sm font-semibold text-night transition-colors duration-300 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting
