@@ -38,6 +38,7 @@ export function getWebPushConfigReadiness(
   activeSubscriptionCount = 0,
   enabled = true,
   lastSentAt: string | null = null,
+  lastTestSentAt: string | null = null,
 ): ChannelReadiness {
   const missing: string[] = [];
   const publicKey =
@@ -50,16 +51,35 @@ export function getWebPushConfigReadiness(
     process.env.CONTACT_TO_EMAIL?.trim();
   if (!subject) missing.push("VAPID_SUBJECT");
 
+  const vapidConfigured = missing.length === 0;
+  const configured = vapidConfigured && activeSubscriptionCount > 0;
+  const testDeliveryVerified = Boolean(lastTestSentAt || lastSentAt);
+
   return {
     channel: "web_push",
-    configured: missing.length === 0,
+    implemented: true,
+    configured,
     enabled,
+    available: true,
+    availabilityState: !vapidConfigured
+      ? "not_configured"
+      : activeSubscriptionCount === 0
+        ? "implemented"
+        : testDeliveryVerified
+          ? "test_delivery_successful"
+          : "configured",
+    restrictionReason: null,
     missingEnvVars: missing,
     lastSentAt,
-    details:
-      missing.length === 0
-        ? `VAPID configured (${activeSubscriptionCount} active device subscription${activeSubscriptionCount === 1 ? "" : "s"}).`
-        : `Missing environment variables: ${missing.join(", ")}`,
+    lastTestSentAt,
+    testDeliveryVerified,
+    details: !vapidConfigured
+      ? `Not Configured — missing environment variables: ${missing.join(", ")}`
+      : activeSubscriptionCount === 0
+        ? "VAPID keys configured, but 0 Chrome device subscriptions are registered. Click 'Enable Web Push on This Device' on Windows + Chrome or Android + Chrome."
+        : testDeliveryVerified
+          ? `VAPID configured and verified (${activeSubscriptionCount} active device subscription${activeSubscriptionCount === 1 ? "" : "s"}).`
+          : `VAPID configured (${activeSubscriptionCount} active device subscription${activeSubscriptionCount === 1 ? "" : "s"}) — real device test delivery not yet verified.`,
   };
 }
 

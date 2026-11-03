@@ -20,8 +20,9 @@ CREATE TABLE "notification_outbox" (
 CREATE TABLE "notification_settings" (
 	"id" text PRIMARY KEY NOT NULL,
 	"email_enabled" boolean DEFAULT true NOT NULL,
-	"whatsapp_enabled" boolean DEFAULT true NOT NULL,
+	"whatsapp_enabled" boolean DEFAULT false NOT NULL,
 	"web_push_enabled" boolean DEFAULT true NOT NULL,
+	"instagram_enabled" boolean DEFAULT false NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_by" text
 );

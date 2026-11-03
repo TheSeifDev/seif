@@ -8,6 +8,7 @@ import {
   getAllChannelReadiness,
   getNotificationSettings,
   isChannelEnabledInSettings,
+  processRetryableOutboxItems,
   resolveUiDeliveryStatus,
 } from "@/lib/notifications/outbox";
 import {
@@ -34,6 +35,15 @@ export async function GET(request: Request) {
   try {
     await adminRequest(request);
     const database = db();
+
+    // Opportunistically drain up to 5 due retryable outbox items synchronously
+    // when the owner opens or refreshes the Inbox.
+    try {
+      await processRetryableOutboxItems(database, 5);
+    } catch {
+      // Never fail Inbox loading if retry sweep encounters an issue
+    }
+
     const rows = await database
       .select({
         id: contactMessages.id,
@@ -97,7 +107,9 @@ export async function GET(request: Request) {
 
         // For historical messages saved before notification_outbox existed
         let fallbackStatus: NotificationUiStatus = "not_configured";
-        if (channel === "email") {
+        if (channel === "instagram") {
+          fallbackStatus = "unavailable";
+        } else if (channel === "email") {
           if (msg.notificationStatus === "sent") fallbackStatus = "sent";
           else if (msg.notificationStatus === "failed")
             fallbackStatus = "failed";

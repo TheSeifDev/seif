@@ -1,5 +1,5 @@
 {
-  "id": "ba21f75c-d4d5-49fc-8833-8f42aaa3ea89",
+  "id": "864ce705-0079-44a0-807d-776fc48049da",
   "prevId": "7675190d-c507-4ba6-a2a9-d32306e58b00",
   "version": "7",
   "dialect": "postgresql",
@@ -671,7 +671,7 @@
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
-          "default": true
+          "default": false
         },
         "web_push_enabled": {
           "name": "web_push_enabled",
@@ -679,6 +679,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": true
+        },
+        "instagram_enabled": {
+          "name": "instagram_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         },
         "updated_at": {
           "name": "updated_at",

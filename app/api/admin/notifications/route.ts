@@ -44,6 +44,7 @@ const patchSettingsSchema = z
     emailEnabled: z.boolean().optional(),
     whatsappEnabled: z.boolean().optional(),
     webPushEnabled: z.boolean().optional(),
+    instagramEnabled: z.boolean().optional(),
   })
   .strict();
 
@@ -51,6 +52,13 @@ export async function PATCH(request: Request) {
   try {
     const principal = await adminRequest(request, true);
     const patch = patchSettingsSchema.parse(await readJson(request));
+    if (patch.instagramEnabled) {
+      throw new CmsError(
+        "CHANNEL_UNAVAILABLE",
+        400,
+        "Instagram automated outbound notifications are unavailable due to Meta platform restrictions.",
+      );
+    }
     const settings = await updateNotificationSettings(
       db(),
       patch,
@@ -65,13 +73,13 @@ export async function PATCH(request: Request) {
 const postActionSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("test"),
-    channel: z.enum(["email", "web_push", "whatsapp"]),
+    channel: z.enum(["email", "web_push", "whatsapp", "instagram"]),
   }),
   z.object({
     action: z.literal("retry"),
     outboxId: z.string().uuid().optional(),
     contactMessageId: z.string().uuid().optional(),
-    channel: z.enum(["email", "web_push", "whatsapp"]).optional(),
+    channel: z.enum(["email", "web_push", "whatsapp", "instagram"]).optional(),
   }),
   z.object({
     action: z.literal("process_due"),
@@ -85,6 +93,13 @@ export async function POST(request: Request) {
     const database = db();
 
     if (body.action === "test") {
+      if (body.channel === "instagram") {
+        throw new CmsError(
+          "CHANNEL_UNAVAILABLE",
+          400,
+          "Instagram automated outbound notifications are unavailable due to Meta platform restrictions.",
+        );
+      }
       const result = await sendTestChannelNotification(database, body.channel);
       return ok({
         item: {
@@ -95,7 +110,30 @@ export async function POST(request: Request) {
     }
 
     if (body.action === "retry") {
+      if (body.channel === "instagram") {
+        throw new CmsError(
+          "CHANNEL_UNAVAILABLE",
+          400,
+          "Instagram automated outbound notifications are unavailable due to Meta platform restrictions.",
+        );
+      }
+
       if (body.outboxId) {
+        const [target] = await database
+          .select()
+          .from(notificationOutbox)
+          .where(eq(notificationOutbox.id, body.outboxId))
+          .limit(1);
+        if (!target) {
+          throw new CmsError("NOT_FOUND", 404, "Outbox record not found.");
+        }
+        if (target.channel === "instagram") {
+          throw new CmsError(
+            "CHANNEL_UNAVAILABLE",
+            400,
+            "Instagram automated outbound notifications are unavailable due to Meta platform restrictions.",
+          );
+        }
         const retried = await retryOutboxItemById(database, body.outboxId);
         if (!retried) {
           throw new CmsError("NOT_FOUND", 404, "Outbox record not found.");

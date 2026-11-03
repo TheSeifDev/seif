@@ -12,7 +12,12 @@ import {
 export { user, session, account, verification } from "@/lib/auth/schema";
 export { cmsState, cmsRevisions, cmsMedia } from "@/lib/cms/tables";
 
-export const NOTIFICATION_CHANNELS = ["email", "whatsapp", "web_push"] as const;
+export const NOTIFICATION_CHANNELS = [
+  "email",
+  "whatsapp",
+  "web_push",
+  "instagram",
+] as const;
 export type NotificationChannel = (typeof NOTIFICATION_CHANNELS)[number];
 
 export const NOTIFICATION_OUTBOX_STATUSES = [
@@ -133,8 +138,9 @@ export const pushSubscriptions = pgTable(
 export const notificationSettings = pgTable("notification_settings", {
   id: text("id").primaryKey(),
   emailEnabled: boolean("email_enabled").notNull().default(true),
-  whatsappEnabled: boolean("whatsapp_enabled").notNull().default(true),
+  whatsappEnabled: boolean("whatsapp_enabled").notNull().default(false),
   webPushEnabled: boolean("web_push_enabled").notNull().default(true),
+  instagramEnabled: boolean("instagram_enabled").notNull().default(false),
   updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" })
     .notNull()
     .defaultNow(),

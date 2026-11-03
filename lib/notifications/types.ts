@@ -9,11 +9,20 @@ export const NOTIFICATION_CHANNELS: readonly NotificationChannel[] = [
   "email",
   "web_push",
   "whatsapp",
+  "instagram",
 ] as const;
 
 export type NotificationUiStatus =
   | NotificationOutboxStatus
-  | "not_configured";
+  | "not_configured"
+  | "unavailable";
+
+export type ChannelAvailabilityState =
+  | "implemented"
+  | "configured"
+  | "test_delivery_successful"
+  | "not_configured"
+  | "unavailable";
 
 export type ChannelDispatchResult =
   | {
@@ -24,6 +33,12 @@ export type ChannelDispatchResult =
     }
   | {
       status: "not_configured";
+      providerStatus?: string | null;
+      errorCode: string;
+      errorMessage: string;
+    }
+  | {
+      status: "unavailable";
       providerStatus?: string | null;
       errorCode: string;
       errorMessage: string;
@@ -58,9 +73,15 @@ export type NotificationAlertPayload = {
 
 export type ChannelReadiness = {
   channel: NotificationChannel;
+  implemented: boolean;
   configured: boolean;
   enabled: boolean;
+  available: boolean;
+  availabilityState: ChannelAvailabilityState;
+  restrictionReason: string | null;
   missingEnvVars: string[];
   lastSentAt: string | null;
+  lastTestSentAt: string | null;
+  testDeliveryVerified: boolean;
   details: string;
 };

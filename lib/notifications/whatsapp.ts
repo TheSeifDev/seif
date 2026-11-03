@@ -19,7 +19,11 @@ export interface WhatsAppConfig {
 
 export interface WhatsAppNotificationAdapter {
   isConfigured(): boolean;
-  getReadiness(enabled?: boolean, lastSentAt?: string | null): ChannelReadiness;
+  getReadiness(
+    enabled?: boolean,
+    lastSentAt?: string | null,
+    lastTestSentAt?: string | null,
+  ): ChannelReadiness;
   send(payload: NotificationAlertPayload): Promise<ChannelDispatchResult>;
 }
 
@@ -29,6 +33,9 @@ const REQUIRED_WHATSAPP_ENV_VARS = [
   "WHATSAPP_BUSINESS_ACCOUNT_ID",
   "WHATSAPP_NOTIFICATION_RECIPIENT",
 ] as const;
+
+export const WHATSAPP_PERSONAL_ACCOUNT_NOTE =
+  "A regular personal WhatsApp account cannot be used as the sender on the official Meta WhatsApp Cloud API, and unofficial WhatsApp Web / QR-session automation is prohibited. Keep this channel Not Configured until an official Meta WhatsApp Business Platform sender phone number is provisioned (your personal WhatsApp number can then be set as WHATSAPP_NOTIFICATION_RECIPIENT).";
 
 export function getWhatsAppConfig(): WhatsAppConfig | null {
   const accessToken = process.env.WHATSAPP_ACCESS_TOKEN?.trim() || "";
@@ -59,6 +66,7 @@ export function getWhatsAppConfig(): WhatsAppConfig | null {
 export function getWhatsAppConfigReadiness(
   enabled = false,
   lastSentAt: string | null = null,
+  lastTestSentAt: string | null = null,
 ): ChannelReadiness {
   const missing: string[] = [];
   for (const key of REQUIRED_WHATSAPP_ENV_VARS) {
@@ -67,16 +75,30 @@ export function getWhatsAppConfigReadiness(
     }
   }
 
+  const configured = missing.length === 0;
+  const testDeliveryVerified = Boolean(lastTestSentAt || lastSentAt);
+
   return {
     channel: "whatsapp",
-    configured: missing.length === 0,
+    implemented: true,
+    configured,
     enabled,
+    available: true,
+    availabilityState: !configured
+      ? "not_configured"
+      : testDeliveryVerified
+        ? "test_delivery_successful"
+        : "configured",
+    restrictionReason: WHATSAPP_PERSONAL_ACCOUNT_NOTE,
     missingEnvVars: missing,
     lastSentAt,
-    details:
-      missing.length === 0
-        ? "Meta WhatsApp Business Cloud API configured."
-        : `Not Configured — missing environment variables: ${missing.join(", ")}`,
+    lastTestSentAt,
+    testDeliveryVerified,
+    details: configured
+      ? testDeliveryVerified
+        ? "Meta WhatsApp Business Cloud API configured and verified."
+        : "Meta WhatsApp Business Cloud API configured — real delivery not yet verified."
+      : `Not Configured (Personal WhatsApp accounts cannot act as Cloud API senders). Missing env: ${missing.join(", ")}`,
   };
 }
 
@@ -93,8 +115,9 @@ export class MetaWhatsAppCloudAdapter implements WhatsAppNotificationAdapter {
   getReadiness(
     enabled = false,
     lastSentAt: string | null = null,
+    lastTestSentAt: string | null = null,
   ): ChannelReadiness {
-    return getWhatsAppConfigReadiness(enabled, lastSentAt);
+    return getWhatsAppConfigReadiness(enabled, lastSentAt, lastTestSentAt);
   }
 
   async send(payload: NotificationAlertPayload): Promise<ChannelDispatchResult> {

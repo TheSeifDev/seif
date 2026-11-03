@@ -9,6 +9,7 @@ import {
   CircleAlert,
   Download,
   Laptop,
+  Lock,
   Mail,
   MessageSquare,
   RefreshCcw,
@@ -21,14 +22,28 @@ import { cn } from "@/lib/utils";
 import { useDashboard } from "../dashboard-context";
 import { NotchedPanel, SectionHeading, StatusPill } from "../dashboard-workspace";
 
-type ChannelKey = "email" | "web_push" | "whatsapp";
+type ChannelKey = "email" | "web_push" | "whatsapp" | "instagram";
+
+type AvailabilityState =
+  | "implemented"
+  | "configured"
+  | "test_delivery_successful"
+  | "not_configured"
+  | "unavailable";
 
 type ChannelReadinessDto = {
   channel: ChannelKey;
+  implemented: boolean;
   configured: boolean;
+  enabled: boolean;
+  available: boolean;
+  availabilityState: AvailabilityState;
+  restrictionReason: string | null;
   missingEnvVars: string[];
   details: string;
   lastSentAt: string | null;
+  lastTestSentAt: string | null;
+  testDeliveryVerified: boolean;
 };
 
 type PushSubDto = {
@@ -55,7 +70,8 @@ type OutboxHistoryDto = {
     | "sent"
     | "failed"
     | "skipped"
-    | "not_configured";
+    | "not_configured"
+    | "unavailable";
   attempts: number;
   maxAttempts: number;
   nextRetryAt: string | null;
@@ -74,10 +90,17 @@ type OverviewDto = {
     emailEnabled: boolean;
     whatsappEnabled: boolean;
     webPushEnabled: boolean;
+    instagramEnabled: boolean;
     updatedAt: string;
     updatedBy: string | null;
   };
   readiness: Record<ChannelKey, ChannelReadinessDto>;
+  scheduler?: {
+    cronEndpoint: string;
+    cronSecretConfigured: boolean;
+    mode: string;
+    note: string;
+  };
   vapidPublicKey: string | null;
   subscriptions: PushSubDto[];
   history: OutboxHistoryDto[];
@@ -116,11 +139,15 @@ function statusPillTone(
 ): "neutral" | "success" | "warning" | "danger" {
   switch (status) {
     case "sent":
+    case "test_delivery_successful":
       return "success";
     case "failed":
+    case "unavailable":
       return "danger";
     case "pending":
     case "processing":
+    case "configured":
+    case "implemented":
       return "warning";
     default:
       return "neutral";
@@ -141,8 +168,32 @@ function statusLabel(status: string): string {
       return "Skipped";
     case "not_configured":
       return "Not Configured";
+    case "unavailable":
+      return "Unavailable";
     default:
       return status;
+  }
+}
+
+function availabilityBadgeInfo(state: AvailabilityState | undefined): {
+  label: string;
+  tone: "neutral" | "success" | "warning" | "danger";
+} {
+  switch (state) {
+    case "test_delivery_successful":
+      return { label: "Test Delivery Successful", tone: "success" };
+    case "configured":
+      return { label: "Configured", tone: "warning" };
+    case "implemented":
+      return { label: "Implemented", tone: "warning" };
+    case "unavailable":
+      return {
+        label: "Unavailable (Provider/Account Restriction)",
+        tone: "danger",
+      };
+    case "not_configured":
+    default:
+      return { label: "Not Configured", tone: "neutral" };
   }
 }
 
@@ -235,7 +286,11 @@ export function NotificationsSettingsPage() {
   }, [load]);
 
   const toggleChannel = async (
-    key: "emailEnabled" | "webPushEnabled" | "whatsappEnabled",
+    key:
+      | "emailEnabled"
+      | "webPushEnabled"
+      | "whatsappEnabled"
+      | "instagramEnabled",
     nextValue: boolean,
   ) => {
     setSavingToggle(key);
@@ -477,7 +532,11 @@ export function NotificationsSettingsPage() {
 
   const channelCards: Array<{
     channel: ChannelKey;
-    settingKey: "emailEnabled" | "webPushEnabled" | "whatsappEnabled";
+    settingKey:
+      | "emailEnabled"
+      | "webPushEnabled"
+      | "whatsappEnabled"
+      | "instagramEnabled";
     title: string;
     subtitle: string;
     icon: React.ComponentType<{ className?: string }>;
@@ -503,8 +562,16 @@ export function NotificationsSettingsPage() {
       settingKey: "whatsappEnabled",
       title: "WhatsApp Business Platform",
       subtitle:
-        "Official Meta WhatsApp Cloud API adapter with HMAC-verified delivery status webhooks.",
+        "Official Meta WhatsApp Cloud API adapter. Personal WhatsApp accounts cannot act as Cloud API senders.",
       icon: MessageSquare,
+    },
+    {
+      channel: "instagram",
+      settingKey: "instagramEnabled",
+      title: "Instagram Direct Messages",
+      subtitle:
+        "Official Meta Instagram Messaging API assessment: Unavailable for automated website owner alerts due to Meta 24-hour user-initiated reply window.",
+      icon: Lock,
     },
   ];
 
@@ -514,7 +581,7 @@ export function NotificationsSettingsPage() {
         <SectionHeading
           eyebrow="System / Omnichannel Alerts"
           title="Notification Settings & Delivery Outbox"
-          description="Manage Gmail (Resend), Chrome Web Push (PWA), and WhatsApp Business channels, registered devices, and outbox retries."
+          description="Manage Gmail (Resend), Chrome Web Push (PWA), WhatsApp Business, and Instagram status, registered devices, and outbox retries."
         />
         <div className="flex flex-wrap items-center gap-2">
           <Link
@@ -533,6 +600,47 @@ export function NotificationsSettingsPage() {
         </div>
       </div>
 
+      {/* Explicit Status Taxonomy Legend */}
+      <NotchedPanel className="p-4 sm:p-5">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75 mb-2.5">
+          Channel Verification & Availability Status Distinctions
+        </div>
+        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-5 text-xs">
+          <div className="rounded-xl border border-white/[0.07] bg-night-3/60 p-2.5">
+            <StatusPill tone="warning">Implemented</StatusPill>
+            <p className="mt-1.5 text-[11px] text-mist">
+              Adapter code & DB schema exist, awaiting credentials or device enrollment.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/[0.07] bg-night-3/60 p-2.5">
+            <StatusPill tone="warning">Configured</StatusPill>
+            <p className="mt-1.5 text-[11px] text-mist">
+              Required environment variables and subscriptions are set; awaiting real test delivery.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/[0.07] bg-night-3/60 p-2.5">
+            <StatusPill tone="success">Test Delivery Successful</StatusPill>
+            <p className="mt-1.5 text-[11px] text-mist">
+              Real provider dispatch succeeded and recorded a verified timestamp in this environment.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/[0.07] bg-night-3/60 p-2.5">
+            <StatusPill tone="neutral">Not Configured</StatusPill>
+            <p className="mt-1.5 text-[11px] text-mist">
+              Provider credentials are not set in this environment (e.g. personal WhatsApp only).
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/[0.07] bg-night-3/60 p-2.5">
+            <StatusPill tone="danger">
+              Unavailable (Provider/Account Restriction)
+            </StatusPill>
+            <p className="mt-1.5 text-[11px] text-mist">
+              Official provider API rules prohibit automated website-to-owner alerts (Instagram).
+            </p>
+          </div>
+        </div>
+      </NotchedPanel>
+
       {error && (
         <div className="flex items-start gap-3 rounded-xl border border-red-300/20 bg-red-400/[0.08] p-4 text-sm text-red-100">
           <CircleAlert className="mt-0.5 size-4 shrink-0" />
@@ -541,12 +649,16 @@ export function NotificationsSettingsPage() {
       )}
 
       {/* Channel Configuration Cards */}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-2">
         {channelCards.map((card) => {
           const Icon = card.icon;
-          const enabled = data?.settings?.[card.settingKey] ?? false;
           const readiness = data?.readiness?.[card.channel];
+          const isAvailable = readiness?.available ?? card.channel !== "instagram";
+          const enabled = isAvailable
+            ? (data?.settings?.[card.settingKey] ?? false)
+            : false;
           const isConfigured = readiness?.configured ?? false;
+          const badge = availabilityBadgeInfo(readiness?.availabilityState);
 
           return (
             <NotchedPanel
@@ -556,19 +668,23 @@ export function NotificationsSettingsPage() {
               <div>
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex size-9 items-center justify-center rounded-xl border border-sky/25 bg-sky/10 text-sky">
+                    <div
+                      className={cn(
+                        "flex size-9 items-center justify-center rounded-xl border",
+                        isAvailable
+                          ? "border-sky/25 bg-sky/10 text-sky"
+                          : "border-red-400/25 bg-red-400/10 text-red-300",
+                      )}
+                    >
                       <Icon className="size-4" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold text-snow">
                         {card.title}
                       </h3>
-                      <div className="mt-0.5 flex items-center gap-1.5">
-                        <StatusPill
-                          tone={isConfigured ? "success" : "warning"}
-                        >
-                          {isConfigured ? "Configured" : "Not Configured"}
-                        </StatusPill>
+                      <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                        <StatusPill tone="warning">Implemented</StatusPill>
+                        <StatusPill tone={badge.tone}>{badge.label}</StatusPill>
                         <StatusPill tone={enabled ? "success" : "neutral"}>
                           {enabled ? "Enabled" : "Disabled"}
                         </StatusPill>
@@ -583,12 +699,16 @@ export function NotificationsSettingsPage() {
                       // @ts-expect-error progressive enhancement switch attribute
                       switch=""
                       checked={enabled}
-                      disabled={savingToggle === card.settingKey || loading}
+                      disabled={
+                        !isAvailable ||
+                        savingToggle === card.settingKey ||
+                        loading
+                      }
                       onChange={(e) =>
                         void toggleChannel(card.settingKey, e.target.checked)
                       }
                       aria-label={`Enable ${card.title}`}
-                      className="size-4 accent-sky cursor-pointer"
+                      className="size-4 accent-sky cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
                     />
                     <span className="sr-only">Toggle {card.title}</span>
                   </label>
@@ -600,18 +720,45 @@ export function NotificationsSettingsPage() {
 
                 <div className="mt-4 rounded-xl border border-white/[0.08] bg-night-3/80 p-3 font-mono text-[11px] text-mist space-y-1.5">
                   <div className="flex items-center justify-between gap-2">
-                    <span>Readiness:</span>
+                    <span>Implementation:</span>
+                    <span className="text-snow font-semibold">Implemented</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span>Configuration Status:</span>
                     <span
                       className={cn(
                         "font-semibold",
-                        isConfigured ? "text-emerald-300" : "text-amber-300",
+                        !isAvailable
+                          ? "text-red-300"
+                          : isConfigured
+                            ? "text-emerald-300"
+                            : "text-amber-300",
                       )}
                     >
-                      {isConfigured ? "Ready" : "Not Configured"}
+                      {!isAvailable
+                        ? "Unavailable (Platform Restriction)"
+                        : isConfigured
+                          ? "Configured"
+                          : "Not Configured"}
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <span>Last Sent:</span>
+                    <span>Real Test Delivery:</span>
+                    <span
+                      className={cn(
+                        "font-semibold",
+                        readiness?.testDeliveryVerified
+                          ? "text-emerald-300"
+                          : "text-mist",
+                      )}
+                    >
+                      {readiness?.testDeliveryVerified
+                        ? `Test delivery successful (${formatDateTime(readiness.lastTestSentAt || readiness.lastSentAt)})`
+                        : "Not yet verified with live credentials"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span>Last Successful Delivery:</span>
                     <span className="text-snow">
                       {formatDateTime(readiness?.lastSentAt)}
                     </span>
@@ -621,25 +768,34 @@ export function NotificationsSettingsPage() {
                       Missing env: {readiness.missingEnvVars.join(", ")}
                     </div>
                   )}
+                  {readiness?.restrictionReason && (
+                    <div className="pt-1 border-t border-white/[0.06] font-sans text-[11px] leading-relaxed text-amber-100/90">
+                      {readiness.restrictionReason}
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
                 <span className="text-[11px] text-mist">
-                  Owner test dispatch
+                  {isAvailable
+                    ? "Owner test dispatch"
+                    : "Blocked by Meta Instagram API policy"}
                 </span>
                 <button
                   type="button"
-                  disabled={testingChannel === card.channel || loading}
+                  disabled={
+                    !isAvailable || testingChannel === card.channel || loading
+                  }
                   onClick={() => void sendTest(card.channel)}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-sky/30 bg-sky/15 px-3 py-1.5 text-xs font-semibold text-snow hover:bg-sky/25 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-sky/30 bg-sky/15 px-3 py-1.5 text-xs font-semibold text-snow hover:bg-sky/25 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {testingChannel === card.channel ? (
                     <RefreshCcw className="size-3.5 animate-spin" />
                   ) : (
                     <Send className="size-3.5 text-sky" />
                   )}
-                  Send Test
+                  {isAvailable ? "Send Test" : "Unavailable"}
                 </button>
               </div>
             </NotchedPanel>
@@ -828,16 +984,21 @@ export function NotificationsSettingsPage() {
         </NotchedPanel>
       </div>
 
-      {/* Outbox Delivery History & Retry Table */}
+      {/* Outbox Scheduler & Worker Status + Delivery History Table */}
       <NotchedPanel className="p-5 sm:p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
-              Outbox Audit Log
+              Outbox Worker & Audit Log
             </div>
             <h3 className="mt-1 text-base font-semibold text-snow">
               Recent Notification Deliveries & Retries
             </h3>
+            {data?.scheduler && (
+              <p className="mt-1 text-xs text-mist max-w-3xl">
+                {data.scheduler.note}
+              </p>
+            )}
           </div>
           <button
             type="button"
@@ -905,7 +1066,7 @@ export function NotificationsSettingsPage() {
                     </td>
                     <td className="py-2.5 px-3 text-[11px] text-mist max-w-xs truncate">
                       {item.lastErrorMessage ? (
-                        <span className="text-amber-200/90">
+                        <span className="text-amber-200/90" title={item.lastErrorMessage}>
                           {item.lastErrorMessage}
                         </span>
                       ) : item.providerMessageId ? (
@@ -920,7 +1081,11 @@ export function NotificationsSettingsPage() {
                       {formatDateTime(item.sentAt || item.createdAt)}
                     </td>
                     <td className="py-2.5 pl-3 text-right">
-                      {item.uiStatus !== "sent" ? (
+                      {item.uiStatus === "unavailable" ? (
+                        <span className="text-[11px] text-red-300/80">
+                          Unavailable
+                        </span>
+                      ) : item.uiStatus !== "sent" ? (
                         <button
                           type="button"
                           disabled={retryingId === item.id}

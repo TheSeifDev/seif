@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, isNull, lte, or } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, like, lt, lte, ne, or } from "drizzle-orm";
 import type { ContactDb } from "@/lib/db/client";
 import {
   contactMessages,
@@ -26,6 +26,10 @@ import {
   sendWebPushNotification,
 } from "./web-push";
 import { getWhatsAppConfigReadiness, whatsappAdapter } from "./whatsapp";
+import {
+  getInstagramConfigReadiness,
+  sendInstagramNotification,
+} from "./instagram";
 
 const SETTINGS_ID = "default";
 const DEFAULT_MAX_ATTEMPTS = 5;
@@ -35,6 +39,7 @@ export interface NotificationSettingsState {
   emailEnabled: boolean;
   whatsappEnabled: boolean;
   webPushEnabled: boolean;
+  instagramEnabled: boolean;
   updatedAt: string;
   updatedBy: string | null;
 }
@@ -79,6 +84,7 @@ export async function getNotificationSettings(
         emailEnabled: row.emailEnabled,
         whatsappEnabled: row.whatsappEnabled,
         webPushEnabled: row.webPushEnabled,
+        instagramEnabled: false, // Instagram cannot be enabled due to Meta platform restrictions
         updatedAt: row.updatedAt.toISOString(),
         updatedBy: row.updatedBy ?? null,
       };
@@ -91,6 +97,7 @@ export async function getNotificationSettings(
         emailEnabled: true,
         whatsappEnabled: false,
         webPushEnabled: true,
+        instagramEnabled: false,
       })
       .onConflictDoNothing()
       .returning();
@@ -100,6 +107,7 @@ export async function getNotificationSettings(
         emailEnabled: created.emailEnabled,
         whatsappEnabled: created.whatsappEnabled,
         webPushEnabled: created.webPushEnabled,
+        instagramEnabled: false,
         updatedAt: created.updatedAt.toISOString(),
         updatedBy: created.updatedBy ?? null,
       };
@@ -112,6 +120,7 @@ export async function getNotificationSettings(
     emailEnabled: true,
     whatsappEnabled: false,
     webPushEnabled: true,
+    instagramEnabled: false,
     updatedAt: new Date().toISOString(),
     updatedBy: null,
   };
@@ -122,7 +131,10 @@ export async function updateNotificationSettings(
   patch: Partial<
     Pick<
       NotificationSettingsState,
-      "emailEnabled" | "whatsappEnabled" | "webPushEnabled"
+      | "emailEnabled"
+      | "whatsappEnabled"
+      | "webPushEnabled"
+      | "instagramEnabled"
     >
   >,
   actorId = "owner",
@@ -132,6 +144,7 @@ export async function updateNotificationSettings(
     emailEnabled: patch.emailEnabled ?? current.emailEnabled,
     whatsappEnabled: patch.whatsappEnabled ?? current.whatsappEnabled,
     webPushEnabled: patch.webPushEnabled ?? current.webPushEnabled,
+    instagramEnabled: false, // Instagram remains disabled (unavailable)
     updatedAt: new Date(),
     updatedBy: actorId,
   };
@@ -152,6 +165,7 @@ export async function updateNotificationSettings(
     emailEnabled: updated.emailEnabled,
     whatsappEnabled: updated.whatsappEnabled,
     webPushEnabled: updated.webPushEnabled,
+    instagramEnabled: false,
     updatedAt: updated.updatedAt.toISOString(),
     updatedBy: updated.updatedBy ?? null,
   };
@@ -168,6 +182,8 @@ export function isChannelEnabledInSettings(
       return settings.webPushEnabled;
     case "whatsapp":
       return settings.whatsappEnabled;
+    case "instagram":
+      return false;
   }
 }
 
@@ -191,6 +207,13 @@ export async function getAllChannelReadiness(
     email: null,
     web_push: null,
     whatsapp: null,
+    instagram: null,
+  };
+  const lastTestSentMap: Record<NotificationChannel, string | null> = {
+    email: null,
+    web_push: null,
+    whatsapp: null,
+    instagram: null,
   };
 
   try {
@@ -209,21 +232,48 @@ export async function getAllChannelReadiness(
       if (latestSent?.sentAt) {
         lastSentMap[ch] = latestSent.sentAt.toISOString();
       }
+
+      const [latestTestSent] = await db
+        .select({ sentAt: notificationOutbox.sentAt })
+        .from(notificationOutbox)
+        .where(
+          and(
+            eq(notificationOutbox.channel, ch),
+            eq(notificationOutbox.status, "sent"),
+            like(notificationOutbox.dedupeKey, "test:%"),
+          ),
+        )
+        .orderBy(desc(notificationOutbox.sentAt))
+        .limit(1);
+      if (latestTestSent?.sentAt) {
+        lastTestSentMap[ch] = latestTestSent.sentAt.toISOString();
+      }
     }
   } catch {
     // Ignore if outbox query fails
   }
 
   return {
-    email: getEmailConfigReadiness(settings.emailEnabled, lastSentMap.email),
+    email: getEmailConfigReadiness(
+      settings.emailEnabled,
+      lastSentMap.email,
+      lastTestSentMap.email,
+    ),
     web_push: getWebPushConfigReadiness(
       activeSubCount,
       settings.webPushEnabled,
       lastSentMap.web_push,
+      lastTestSentMap.web_push,
     ),
     whatsapp: getWhatsAppConfigReadiness(
       settings.whatsappEnabled,
       lastSentMap.whatsapp,
+      lastTestSentMap.whatsapp,
+    ),
+    instagram: getInstagramConfigReadiness(
+      false,
+      lastSentMap.instagram,
+      lastTestSentMap.instagram,
     ),
   };
 }
@@ -233,6 +283,13 @@ export function resolveUiDeliveryStatus(item: {
   lastErrorCode?: string | null;
   providerStatus?: string | null;
 }): NotificationUiStatus {
+  if (
+    item.lastErrorCode === "INSTAGRAM_UNAVAILABLE_BY_META_POLICY" ||
+    item.providerStatus === "unavailable_platform_restriction" ||
+    item.providerStatus === "unavailable"
+  ) {
+    return "unavailable";
+  }
   if (
     item.lastErrorCode === "NOT_CONFIGURED" ||
     item.lastErrorCode === "VAPID_NOT_CONFIGURED" ||
@@ -263,9 +320,27 @@ export async function enqueueContactNotifications(
   const now = new Date();
 
   const values = NOTIFICATION_CHANNELS.map((channel: NotificationChannel) => {
+    const channelMeta = readiness[channel];
     const enabled = isChannelEnabledInSettings(settings, channel);
-    const channelReady = readiness[channel].configured;
+    const channelReady = channelMeta.configured;
     const dedupeKey = `contact:${contactMessageId}:${channel}`;
+
+    if (channel === "instagram" || !channelMeta.available) {
+      return {
+        contactMessageId,
+        channel,
+        status: "skipped" as const,
+        attempts: 0,
+        maxAttempts: DEFAULT_MAX_ATTEMPTS,
+        nextRetryAt: null,
+        providerStatus: "unavailable_platform_restriction",
+        lastErrorCode: "INSTAGRAM_UNAVAILABLE_BY_META_POLICY",
+        lastErrorMessage: channelMeta.details,
+        dedupeKey,
+        createdAt: now,
+        updatedAt: now,
+      };
+    }
 
     if (!enabled) {
       return {
@@ -292,7 +367,7 @@ export async function enqueueContactNotifications(
         maxAttempts: DEFAULT_MAX_ATTEMPTS,
         providerStatus: "not_configured",
         lastErrorCode: "NOT_CONFIGURED",
-        lastErrorMessage: readiness[channel].details,
+        lastErrorMessage: channelMeta.details,
         dedupeKey,
         createdAt: now,
         updatedAt: now,
@@ -335,6 +410,8 @@ async function executeChannelAdapter(
       return sendWebPushNotification(db, payload);
     case "whatsapp":
       return whatsappAdapter.send(payload);
+    case "instagram":
+      return sendInstagramNotification(payload);
   }
 }
 
@@ -361,17 +438,65 @@ export async function dispatchOutboxItem(
     return existing;
   }
 
-  // Concurrency guard: if currently processing and not stale, skip
+  const channel = existing.channel as NotificationChannel;
+
+  // Hard guard for unavailable channels (Instagram)
+  if (channel === "instagram") {
+    const instaResult = await sendInstagramNotification({
+      contactMessageId: existing.contactMessageId,
+      dedupeKey: existing.dedupeKey,
+      senderName: "",
+      senderEmail: "",
+      subject: "",
+      messageExcerpt: "",
+      fullMessage: "",
+      receivedAtIso: now.toISOString(),
+      inboxUrl: "",
+      inboxPath: "/dashboard/inbox",
+    });
+    const [unavailableRow] = await db
+      .update(notificationOutbox)
+      .set({
+        status: "skipped",
+        providerStatus: "unavailable_platform_restriction",
+        lastErrorCode: instaResult.errorCode,
+        lastErrorMessage: instaResult.errorMessage,
+        nextRetryAt: null,
+        updatedAt: now,
+      })
+      .where(eq(notificationOutbox.id, outboxId))
+      .returning();
+    return unavailableRow ?? existing;
+  }
+
+  // Concurrency guard check before atomic conditional claim:
+  // Never steal an actively processing row (even on manual retry) unless it is stale.
   if (
     existing.status === "processing" &&
     existing.lastAttemptAt &&
-    existing.lastAttemptAt > staleCutoff &&
-    !options?.forceManualRetry
+    existing.lastAttemptAt > staleCutoff
   ) {
     return existing;
   }
 
-  const channel = existing.channel as NotificationChannel;
+  // Non-manual background workers must never dispatch a row whose backoff window
+  // has not yet elapsed or whose attempts have reached maxAttempts.
+  if (!options?.forceManualRetry) {
+    if (existing.attempts >= existing.maxAttempts) {
+      return existing;
+    }
+    if (
+      existing.status === "failed" &&
+      existing.nextRetryAt &&
+      existing.nextRetryAt > now
+    ) {
+      return existing;
+    }
+    if (existing.status === "skipped") {
+      return existing;
+    }
+  }
+
   const settings = await getNotificationSettings(db);
   if (
     !isChannelEnabledInSettings(settings, channel) &&
@@ -387,27 +512,81 @@ export async function dispatchOutboxItem(
         nextRetryAt: null,
         updatedAt: now,
       })
-      .where(eq(notificationOutbox.id, outboxId))
+      .where(
+        and(
+          eq(notificationOutbox.id, outboxId),
+          eq(notificationOutbox.attempts, existing.attempts),
+          ne(notificationOutbox.status, "sent"),
+        ),
+      )
       .returning();
     return skippedRow ?? existing;
   }
 
   const nextAttempts = existing.attempts + 1;
+  const effectiveMaxAttempts = options?.forceManualRetry
+    ? Math.max(existing.maxAttempts, nextAttempts)
+    : existing.maxAttempts;
 
-  // Claim item as processing
+  // Atomic conditional claim with optimistic concurrency control on `attempts`:
+  // - Never claims 'instagram' or 'sent' rows
+  // - Never claims active 'processing' rows (only stale 'processing' <= staleCutoff)
+  // - Non-manual claims require status IN ('pending', 'failed') with due nextRetryAt and attempts < maxAttempts
+  // - Manual retry claims allow ('pending', 'failed', 'skipped') or stale 'processing'
+  const staleProcessingCondition = and(
+    eq(notificationOutbox.status, "processing"),
+    or(
+      isNull(notificationOutbox.lastAttemptAt),
+      lte(notificationOutbox.lastAttemptAt, staleCutoff),
+    ),
+  );
+
+  const claimWhere = options?.forceManualRetry
+    ? and(
+        eq(notificationOutbox.id, outboxId),
+        ne(notificationOutbox.channel, "instagram"),
+        eq(notificationOutbox.attempts, existing.attempts),
+        or(
+          inArray(notificationOutbox.status, ["pending", "failed", "skipped"]),
+          staleProcessingCondition,
+        ),
+      )
+    : and(
+        eq(notificationOutbox.id, outboxId),
+        ne(notificationOutbox.channel, "instagram"),
+        eq(notificationOutbox.attempts, existing.attempts),
+        lt(notificationOutbox.attempts, notificationOutbox.maxAttempts),
+        or(
+          and(
+            inArray(notificationOutbox.status, ["pending", "failed"]),
+            or(
+              isNull(notificationOutbox.nextRetryAt),
+              lte(notificationOutbox.nextRetryAt, now),
+            ),
+          ),
+          staleProcessingCondition,
+        ),
+      );
+
   const [claimed] = await db
     .update(notificationOutbox)
     .set({
       status: "processing",
       attempts: nextAttempts,
+      maxAttempts: effectiveMaxAttempts,
       lastAttemptAt: now,
       updatedAt: now,
     })
-    .where(eq(notificationOutbox.id, outboxId))
+    .where(claimWhere)
     .returning();
 
   if (!claimed) {
-    return existing;
+    const [latest] = await db
+      .select()
+      .from(notificationOutbox)
+      .where(eq(notificationOutbox.id, outboxId))
+      .limit(1);
+    return latest ?? existing;
   }
 
   // Load associated contact message if present
@@ -491,7 +670,11 @@ export async function dispatchOutboxItem(
     return sentRow ?? claimed;
   }
 
-  if (result.status === "not_configured" || result.status === "skipped") {
+  if (
+    result.status === "not_configured" ||
+    result.status === "unavailable" ||
+    result.status === "skipped"
+  ) {
     const [skippedRow] = await db
       .update(notificationOutbox)
       .set({
@@ -499,15 +682,27 @@ export async function dispatchOutboxItem(
         providerStatus:
           result.status === "not_configured"
             ? "not_configured"
-            : (result.providerStatus ?? "skipped"),
+            : result.status === "unavailable"
+              ? "unavailable_platform_restriction"
+              : (result.providerStatus ?? "skipped"),
         lastErrorCode:
           result.errorCode ??
-          (result.status === "not_configured" ? "NOT_CONFIGURED" : "SKIPPED"),
+          (result.status === "not_configured"
+            ? "NOT_CONFIGURED"
+            : result.status === "unavailable"
+              ? "INSTAGRAM_UNAVAILABLE_BY_META_POLICY"
+              : "SKIPPED"),
         lastErrorMessage: result.errorMessage ?? null,
         nextRetryAt: null,
         updatedAt: completedAt,
       })
-      .where(eq(notificationOutbox.id, outboxId))
+      .where(
+        and(
+          eq(notificationOutbox.id, outboxId),
+          eq(notificationOutbox.attempts, nextAttempts),
+          ne(notificationOutbox.status, "sent"),
+        ),
+      )
       .returning();
 
     if (claimed.contactMessageId) {
@@ -531,7 +726,13 @@ export async function dispatchOutboxItem(
       nextRetryAt,
       updatedAt: completedAt,
     })
-    .where(eq(notificationOutbox.id, outboxId))
+    .where(
+      and(
+        eq(notificationOutbox.id, outboxId),
+        eq(notificationOutbox.attempts, nextAttempts),
+        ne(notificationOutbox.status, "sent"),
+      ),
+    )
     .returning();
 
   if (claimed.contactMessageId) {
@@ -603,6 +804,14 @@ export async function processContactMessageOutbox(
     );
   }
 
+  // Opportunistically drain up to 5 due retryable items synchronously inside the
+  // awaited request lifecycle (never fire-and-forget after response).
+  try {
+    await processRetryableOutboxItems(db, 5);
+  } catch {
+    // Never let opportunistic retry sweep affect current contact submission
+  }
+
   return syncContactMessageNotificationSummary(db, contactMessageId);
 }
 
@@ -617,24 +826,33 @@ export async function processRetryableOutboxItems(
     .select()
     .from(notificationOutbox)
     .where(
-      or(
-        and(
-          inArray(notificationOutbox.status, ["pending", "failed"]),
-          or(
-            isNull(notificationOutbox.nextRetryAt),
-            lte(notificationOutbox.nextRetryAt, now),
+      and(
+        ne(notificationOutbox.channel, "instagram"),
+        lt(notificationOutbox.attempts, notificationOutbox.maxAttempts),
+        or(
+          and(
+            inArray(notificationOutbox.status, ["pending", "failed"]),
+            or(
+              isNull(notificationOutbox.nextRetryAt),
+              lte(notificationOutbox.nextRetryAt, now),
+            ),
           ),
-        ),
-        and(
-          eq(notificationOutbox.status, "processing"),
-          lte(notificationOutbox.lastAttemptAt, staleCutoff),
+          and(
+            eq(notificationOutbox.status, "processing"),
+            or(
+              isNull(notificationOutbox.lastAttemptAt),
+              lte(notificationOutbox.lastAttemptAt, staleCutoff),
+            ),
+          ),
         ),
       ),
     )
     .orderBy(desc(notificationOutbox.createdAt))
     .limit(limit);
 
-  const eligible = dueItems.filter((item) => item.attempts < item.maxAttempts);
+  const eligible = dueItems.filter(
+    (item) => item.attempts < item.maxAttempts && item.channel !== "instagram",
+  );
   const results = [];
   for (const item of eligible) {
     const updated = await dispatchOutboxItem(db, item.id);
@@ -656,21 +874,8 @@ export async function retryOutboxItemById(db: ContactDb, outboxId: string) {
     return null;
   }
 
-  if (existing.status === "sent") {
+  if (existing.status === "sent" || existing.channel === "instagram") {
     return existing;
-  }
-
-  // If manual retry is requested and attempts reached maxAttempts, bump maxAttempts by 1
-  if (existing.attempts >= existing.maxAttempts) {
-    await db
-      .update(notificationOutbox)
-      .set({
-        maxAttempts: existing.attempts + 1,
-        status: "pending",
-        nextRetryAt: new Date(),
-        updatedAt: new Date(),
-      })
-      .where(eq(notificationOutbox.id, outboxId));
   }
 
   return dispatchOutboxItem(db, outboxId, { forceManualRetry: true });
@@ -682,6 +887,40 @@ export async function sendTestChannelNotification(
 ) {
   const now = new Date();
   const dedupeKey = `test:${channel}:${now.getTime()}`;
+
+  if (channel === "instagram") {
+    const insta = await sendInstagramNotification({
+      contactMessageId: null,
+      dedupeKey,
+      senderName: "",
+      senderEmail: "",
+      subject: "",
+      messageExcerpt: "",
+      fullMessage: "",
+      receivedAtIso: now.toISOString(),
+      inboxUrl: "",
+      inboxPath: "/dashboard/inbox",
+      isTest: true,
+    });
+    return {
+      id: "00000000-0000-0000-0000-000000000000",
+      contactMessageId: null,
+      channel: "instagram" as const,
+      status: "skipped" as const,
+      attempts: 0,
+      maxAttempts: 0,
+      nextRetryAt: null,
+      lastAttemptAt: null,
+      sentAt: null,
+      providerMessageId: null,
+      providerStatus: insta.providerStatus,
+      lastErrorCode: insta.errorCode,
+      lastErrorMessage: insta.errorMessage,
+      dedupeKey,
+      createdAt: now,
+      updatedAt: now,
+    };
+  }
 
   const [created] = await db
     .insert(notificationOutbox)
@@ -708,6 +947,7 @@ export async function getNotificationsOverview(db: ContactDb) {
   const settings = await getNotificationSettings(db);
   const readiness = await getAllChannelReadiness(db);
   const vapid = getVapidConfig();
+  const cronConfigured = Boolean(process.env.CRON_SECRET?.trim());
 
   const subscriptions = await db
     .select({
@@ -750,6 +990,14 @@ export async function getNotificationsOverview(db: ContactDb) {
   return {
     settings,
     readiness,
+    scheduler: {
+      cronEndpoint: "/api/cron/notifications",
+      cronSecretConfigured: cronConfigured,
+      mode: "inline_awaited_and_manual_sweep_only",
+      note: cronConfigured
+        ? "CRON_SECRET is set and GET /api/cron/notifications is authenticated, but no vercel.json cron schedule is configured yet. Delayed retries run opportunistically on contact submissions, Inbox loads, manual Dashboard sweeps, or when an external scheduler invokes GET /api/cron/notifications."
+        : "No vercel.json cron schedule or CRON_SECRET is configured yet. Creating /api/cron/notifications does not automatically activate a background cron job. Initial dispatch is awaited synchronously inside POST /api/contact, and due retries are processed when new contacts arrive, when Inbox loads, or via the Dashboard manual sweep button.",
+    },
     vapidPublicKey:
       vapid?.publicKey ||
       process.env.VAPID_PUBLIC_KEY?.trim() ||

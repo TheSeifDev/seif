@@ -57,14 +57,15 @@ type MediaItem = {
 };
 type InboxChannelDelivery = {
   outboxId: string | null;
-  channel: "email" | "web_push" | "whatsapp";
+  channel: "email" | "web_push" | "whatsapp" | "instagram";
   status:
     | "pending"
     | "processing"
     | "sent"
     | "failed"
     | "skipped"
-    | "not_configured";
+    | "not_configured"
+    | "unavailable";
   attempts: number;
   maxAttempts: number;
   sentAt: string | null;
@@ -1864,7 +1865,7 @@ export function InboxPanel() {
   }, [load]);
   const retryDelivery = async (
     contactMessageId: string,
-    channel: "email" | "web_push" | "whatsapp",
+    channel: "email" | "web_push" | "whatsapp" | "instagram",
     outboxId?: string | null,
   ) => {
     const key = `${contactMessageId}:${channel}`;
@@ -2106,12 +2107,27 @@ export function InboxPanel() {
                     lastErrorCode: null,
                     lastErrorMessage: null,
                   },
+                  {
+                    outboxId: null,
+                    channel: "instagram" as const,
+                    status: "unavailable" as const,
+                    attempts: 0,
+                    maxAttempts: 5,
+                    sentAt: null,
+                    lastAttemptAt: null,
+                    nextRetryAt: null,
+                    providerMessageId: null,
+                    providerStatus: null,
+                    lastErrorCode: null,
+                    lastErrorMessage: null,
+                  },
                 ]
               ).map((delivery) => {
                 const labelMap: Record<string, string> = {
                   email: "Email (Gmail)",
                   web_push: "Web Push",
                   whatsapp: "WhatsApp",
+                  instagram: "Instagram DM",
                 };
                 const statusTitleMap: Record<string, string> = {
                   pending: "Pending",
@@ -2120,11 +2136,13 @@ export function InboxPanel() {
                   failed: "Failed",
                   skipped: "Skipped",
                   not_configured: "Not Configured",
+                  unavailable: "Unavailable",
                 };
                 const pillTone =
                   delivery.status === "sent"
                     ? "success"
-                    : delivery.status === "failed"
+                    : delivery.status === "failed" ||
+                        delivery.status === "unavailable"
                       ? "danger"
                       : delivery.status === "pending" ||
                           delivery.status === "processing"
@@ -2144,7 +2162,8 @@ export function InboxPanel() {
                         <StatusPill tone={pillTone}>
                           {statusTitleMap[delivery.status] ?? delivery.status}
                         </StatusPill>
-                        {delivery.status !== "sent" && (
+                        {delivery.status !== "sent" &&
+                          delivery.status !== "unavailable" && (
                           <button
                             type="button"
                             disabled={retryingKey === retryKey}

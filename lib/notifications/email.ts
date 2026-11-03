@@ -30,6 +30,7 @@ export function sanitizeExcerpt(input: string, maxLength = 500): string {
 export function getEmailConfigReadiness(
   enabled = true,
   lastSentAt: string | null = null,
+  lastTestSentAt: string | null = null,
 ): ChannelReadiness {
   const missing: string[] = [];
   if (!process.env.RESEND_API_KEY?.trim()) missing.push("RESEND_API_KEY");
@@ -42,16 +43,29 @@ export function getEmailConfigReadiness(
   if (!recipient) {
     missing.push("CONTACT_TO_EMAIL");
   }
+  const configured = missing.length === 0;
+  const testDeliveryVerified = Boolean(lastTestSentAt || lastSentAt);
   return {
     channel: "email",
-    configured: missing.length === 0,
+    implemented: true,
+    configured,
     enabled,
+    available: true,
+    availabilityState: !configured
+      ? "not_configured"
+      : testDeliveryVerified
+        ? "test_delivery_successful"
+        : "configured",
+    restrictionReason: null,
     missingEnvVars: missing,
     lastSentAt,
-    details:
-      missing.length === 0
-        ? "Resend email delivery is configured."
-        : `Missing environment variables: ${missing.join(", ")}`,
+    lastTestSentAt,
+    testDeliveryVerified,
+    details: configured
+      ? testDeliveryVerified
+        ? "Resend email delivery is configured and verified with a successful delivery."
+        : "Resend credentials configured — real Gmail delivery not yet verified in this environment."
+      : `Not Configured — missing environment variables: ${missing.join(", ")}`,
   };
 }
 

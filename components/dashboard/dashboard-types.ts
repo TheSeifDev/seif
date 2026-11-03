@@ -30,14 +30,15 @@ export type MediaItem = {
 
 export type InboxChannelDelivery = {
   outboxId: string | null;
-  channel: "email" | "web_push" | "whatsapp";
+  channel: "email" | "web_push" | "whatsapp" | "instagram";
   status:
     | "pending"
     | "processing"
     | "sent"
     | "failed"
     | "skipped"
-    | "not_configured";
+    | "not_configured"
+    | "unavailable";
   attempts: number;
   maxAttempts: number;
   sentAt: string | null;
