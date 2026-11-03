@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
+  Bell,
   Calendar,
   FileText,
   FolderGit2,
@@ -152,6 +153,13 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
         category: "Navigation",
         icon: Settings2,
         run: () => router.push("/dashboard/settings"),
+      },
+      {
+        id: "nav-notifications",
+        title: "Go to Notification Channels & Outbox Settings",
+        category: "Navigation",
+        icon: Bell,
+        run: () => router.push("/dashboard/settings/notifications"),
       },
       // Quick Actions
       {

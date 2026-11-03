@@ -14,6 +14,7 @@ export { MediaPage } from "./pages/media-page";
 export { InboxPage } from "./pages/inbox-page";
 export { SeoPage } from "./pages/seo-page";
 export { SettingsPage } from "./pages/settings-page";
+export { NotificationsSettingsPage } from "./pages/notifications-settings-page";
 export { SchedulePage } from "./pages/schedule-page";
 export { AnalyticsPage } from "./pages/analytics-page";
 
@@ -22,5 +23,6 @@ export type {
   DashboardWorkspaceProps,
   RevisionItem,
   InboxMessage,
+  InboxChannelDelivery,
   MediaItem,
 } from "./dashboard-types";

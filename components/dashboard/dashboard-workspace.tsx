@@ -55,6 +55,26 @@ type MediaItem = {
   visibility: string;
   createdAt: string;
 };
+type InboxChannelDelivery = {
+  outboxId: string | null;
+  channel: "email" | "web_push" | "whatsapp";
+  status:
+    | "pending"
+    | "processing"
+    | "sent"
+    | "failed"
+    | "skipped"
+    | "not_configured";
+  attempts: number;
+  maxAttempts: number;
+  sentAt: string | null;
+  lastAttemptAt: string | null;
+  nextRetryAt: string | null;
+  providerMessageId: string | null;
+  providerStatus: string | null;
+  lastErrorCode: string | null;
+  lastErrorMessage: string | null;
+};
 type InboxMessage = {
   id: string;
   name?: string;
@@ -63,6 +83,8 @@ type InboxMessage = {
   message?: string;
   status?: string;
   createdAt?: string;
+  notificationStatus?: string;
+  deliveries?: InboxChannelDelivery[];
   [key: string]: unknown;
 };
 type RevisionItem = {
@@ -1806,6 +1828,7 @@ export function InboxPanel() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [selected, setSelected] = React.useState<string | null>(null);
+  const [retryingKey, setRetryingKey] = React.useState<string | null>(null);
   const load = React.useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -1818,7 +1841,15 @@ export function InboxPanel() {
         throw new Error(
           payload?.message ?? `Could not load inbox (${response.status})`,
         );
-      setMessages(Array.isArray(payload.items) ? payload.items : []);
+      const items: InboxMessage[] = Array.isArray(payload.items) ? payload.items : [];
+      setMessages(items);
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const queryMsgId = params.get("messageId");
+        if (queryMsgId && items.some((m) => m.id === queryMsgId)) {
+          setSelected((prev) => prev ?? queryMsgId);
+        }
+      }
     } catch (cause) {
       setError(
         cause instanceof Error ? cause.message : "Could not load inbox.",
@@ -1831,6 +1862,37 @@ export function InboxPanel() {
     const timer = window.setTimeout(() => void load(), 0);
     return () => window.clearTimeout(timer);
   }, [load]);
+  const retryDelivery = async (
+    contactMessageId: string,
+    channel: "email" | "web_push" | "whatsapp",
+    outboxId?: string | null,
+  ) => {
+    const key = `${contactMessageId}:${channel}`;
+    setRetryingKey(key);
+    setError(null);
+    try {
+      const response = await fetch("/api/admin/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          outboxId
+            ? { action: "retry", outboxId }
+            : { action: "retry", contactMessageId, channel },
+        ),
+      });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload?.message ?? "Could not retry notification.");
+      }
+      await load();
+    } catch (cause) {
+      setError(
+        cause instanceof Error ? cause.message : "Could not retry notification.",
+      );
+    } finally {
+      setRetryingKey(null);
+    }
+  };
   const patch = async (id: string, status: string) => {
     try {
       const response = await fetch("/api/admin/messages", {
@@ -1987,6 +2049,135 @@ export function InboxPanel() {
           <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-snow">
             {active.message || "No message body"}
           </p>
+          <div className="mt-6 rounded-xl border border-white/[0.08] bg-night-3/70 p-4">
+            <div className="mb-2.5 flex items-center justify-between gap-2">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/80">
+                Notification Delivery
+              </span>
+              <a
+                href="/dashboard/settings/notifications"
+                className="font-mono text-[10px] text-mist hover:text-sky"
+              >
+                Channel Settings →
+              </a>
+            </div>
+            <div className="space-y-2">
+              {(
+                active.deliveries ?? [
+                  {
+                    outboxId: null,
+                    channel: "email" as const,
+                    status: (active.notificationStatus as "sent" | "failed" | "not_configured") || "not_configured",
+                    attempts: 0,
+                    maxAttempts: 5,
+                    sentAt: null,
+                    lastAttemptAt: null,
+                    nextRetryAt: null,
+                    providerMessageId: null,
+                    providerStatus: null,
+                    lastErrorCode: null,
+                    lastErrorMessage: null,
+                  },
+                  {
+                    outboxId: null,
+                    channel: "web_push" as const,
+                    status: "not_configured" as const,
+                    attempts: 0,
+                    maxAttempts: 5,
+                    sentAt: null,
+                    lastAttemptAt: null,
+                    nextRetryAt: null,
+                    providerMessageId: null,
+                    providerStatus: null,
+                    lastErrorCode: null,
+                    lastErrorMessage: null,
+                  },
+                  {
+                    outboxId: null,
+                    channel: "whatsapp" as const,
+                    status: "not_configured" as const,
+                    attempts: 0,
+                    maxAttempts: 5,
+                    sentAt: null,
+                    lastAttemptAt: null,
+                    nextRetryAt: null,
+                    providerMessageId: null,
+                    providerStatus: null,
+                    lastErrorCode: null,
+                    lastErrorMessage: null,
+                  },
+                ]
+              ).map((delivery) => {
+                const labelMap: Record<string, string> = {
+                  email: "Email (Gmail)",
+                  web_push: "Web Push",
+                  whatsapp: "WhatsApp",
+                };
+                const statusTitleMap: Record<string, string> = {
+                  pending: "Pending",
+                  processing: "Processing",
+                  sent: "Sent",
+                  failed: "Failed",
+                  skipped: "Skipped",
+                  not_configured: "Not Configured",
+                };
+                const pillTone =
+                  delivery.status === "sent"
+                    ? "success"
+                    : delivery.status === "failed"
+                      ? "danger"
+                      : delivery.status === "pending" ||
+                          delivery.status === "processing"
+                        ? "warning"
+                        : "neutral";
+                const retryKey = `${active.id}:${delivery.channel}`;
+                return (
+                  <div
+                    key={delivery.channel}
+                    className="flex flex-col gap-1 rounded-lg border border-white/[0.06] bg-night/60 px-3 py-2 text-xs"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-medium text-snow">
+                        {labelMap[delivery.channel] ?? delivery.channel}
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <StatusPill tone={pillTone}>
+                          {statusTitleMap[delivery.status] ?? delivery.status}
+                        </StatusPill>
+                        {delivery.status !== "sent" && (
+                          <button
+                            type="button"
+                            disabled={retryingKey === retryKey}
+                            onClick={() =>
+                              void retryDelivery(
+                                active.id,
+                                delivery.channel,
+                                delivery.outboxId,
+                              )
+                            }
+                            className="inline-flex items-center gap-1 rounded border border-white/15 bg-white/[0.04] px-2 py-0.5 text-[10px] font-semibold text-snow hover:border-sky/40 hover:text-sky disabled:opacity-50"
+                          >
+                            <RefreshCcw
+                              className={cx(
+                                "size-2.5",
+                                retryingKey === retryKey && "animate-spin",
+                              )}
+                            />
+                            Retry
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    {delivery.lastErrorMessage && (
+                      <div className="text-[10px] text-amber-200/85 truncate" title={delivery.lastErrorMessage}>
+                        {delivery.lastErrorMessage}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           <div className="mt-7 flex flex-wrap gap-2">
             <button
               type="button"

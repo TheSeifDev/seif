@@ -15,6 +15,7 @@ import {
   Image as ImageIcon,
   LayoutDashboard,
   LogOut,
+  Bell,
   Mail,
   Radio,
   Search,
@@ -83,6 +84,7 @@ export function DashboardSidebar({
       "/dashboard/analytics",
       "/dashboard/seo",
       "/dashboard/settings",
+      "/dashboard/settings/notifications",
     ];
     routes.forEach((route) => {
       try {
@@ -234,6 +236,13 @@ export function DashboardSidebar({
             icon: Settings2,
             group: "system",
           },
+          {
+            key: "notifications-settings",
+            label: "Notifications",
+            href: "/dashboard/settings/notifications",
+            icon: Bell,
+            group: "system",
+          },
         ],
       },
     ],
@@ -243,6 +252,9 @@ export function DashboardSidebar({
   const isItemActive = (href: string) => {
     if (href === "/dashboard") {
       return pathname === "/dashboard" || pathname === "/dashboard/";
+    }
+    if (href === "/dashboard/settings") {
+      return pathname === "/dashboard/settings" || pathname === "/dashboard/settings/";
     }
     return pathname.startsWith(href);
   };
