@@ -44,3 +44,4 @@ if (!allPassed) {
   process.exit(1);
 }
 console.log('\nAll identity validation unit tests passed.');
+
