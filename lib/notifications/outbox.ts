@@ -987,9 +987,27 @@ export async function getNotificationsOverview(db: ContactDb) {
     .orderBy(desc(notificationOutbox.createdAt))
     .limit(60);
 
+  const rawVercelEnv = process.env.VERCEL_ENV?.trim();
+  const vercelEnv: "production" | "preview" | "development" =
+    rawVercelEnv === "production" || rawVercelEnv === "preview"
+      ? rawVercelEnv
+      : process.env.NODE_ENV === "production"
+        ? "production"
+        : "development";
+
   return {
     settings,
     readiness,
+    environment: {
+      vercelEnv,
+      gitBranch: process.env.VERCEL_GIT_COMMIT_REF?.trim() || null,
+      gitCommitSha: process.env.VERCEL_GIT_COMMIT_SHA?.trim()?.slice(0, 7) || null,
+      siteUrl: getSiteBaseUrl(),
+      anyLiveChannelConfigured:
+        readiness.email.configured ||
+        readiness.web_push.configured ||
+        readiness.whatsapp.configured,
+    },
     scheduler: {
       cronEndpoint: "/api/cron/notifications",
       cronSecretConfigured: cronConfigured,

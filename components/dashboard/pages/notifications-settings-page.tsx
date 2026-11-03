@@ -95,6 +95,13 @@ type OverviewDto = {
     updatedBy: string | null;
   };
   readiness: Record<ChannelKey, ChannelReadinessDto>;
+  environment?: {
+    vercelEnv: "production" | "preview" | "development";
+    gitBranch: string | null;
+    gitCommitSha: string | null;
+    siteUrl: string;
+    anyLiveChannelConfigured: boolean;
+  };
   scheduler?: {
     cronEndpoint: string;
     cronSecretConfigured: boolean;
@@ -599,6 +606,69 @@ export function NotificationsSettingsPage() {
           </button>
         </div>
       </div>
+
+      {/* Deployment Environment & Real Credential Readiness Banner */}
+      <NotchedPanel className="p-4 sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="space-y-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
+                Active Runtime Environment
+              </span>
+              <StatusPill
+                tone={
+                  data?.environment?.vercelEnv === "preview"
+                    ? "warning"
+                    : data?.environment?.vercelEnv === "production"
+                      ? "danger"
+                      : "neutral"
+                }
+              >
+                {data?.environment?.vercelEnv === "preview"
+                  ? `Staging Preview (${data.environment.gitBranch || "release/rc-phase5-1"})`
+                  : data?.environment?.vercelEnv === "production"
+                    ? "Production (theseif.vercel.app)"
+                    : "Local Development"}
+              </StatusPill>
+              {data?.environment?.gitCommitSha && (
+                <span className="font-mono text-[11px] text-mist">
+                  commit {data.environment.gitCommitSha}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-mist leading-relaxed max-w-4xl">
+              {data?.environment?.vercelEnv === "production" ? (
+                <>
+                  You are viewing the <strong className="text-snow">Production</strong> deployment (
+                  <code className="font-mono text-sky">theseif.vercel.app</code>). Staging verification must be run on the isolated Vercel Preview deployment (
+                  <code className="font-mono text-sky">prof-git-release-rc-phase5-1-s3fpls-projects.vercel.app</code>).
+                </>
+              ) : (
+                <>
+                  Connected to isolated staging/preview environment (
+                  <code className="font-mono text-sky">{data?.environment?.siteUrl || "Preview"}</code>).
+                </>
+              )}
+            </p>
+          </div>
+          <StatusPill
+            tone={data?.environment?.anyLiveChannelConfigured ? "success" : "warning"}
+          >
+            {data?.environment?.anyLiveChannelConfigured
+              ? "Live Provider Credentials Present"
+              : "No Live Provider Credentials Configured"}
+          </StatusPill>
+        </div>
+        {data && !data.environment?.anyLiveChannelConfigured && (
+          <div className="mt-3 rounded-xl border border-amber-300/20 bg-amber-300/[0.07] p-3 text-xs text-amber-100 leading-relaxed">
+            <strong>Real external delivery is not yet active in this environment:</strong>{" "}
+            <code className="font-mono">RESEND_API_KEY</code> (Gmail) and{" "}
+            <code className="font-mono">VAPID_PUBLIC_KEY</code> /{" "}
+            <code className="font-mono">VAPID_PRIVATE_KEY</code> (Chrome Web Push) are currently unset. Contact messages are safely saved to the Inbox, and outbox rows are recorded as{" "}
+            <strong>Not Configured</strong> until Preview credentials are added.
+          </div>
+        )}
+      </NotchedPanel>
 
       {/* Explicit Status Taxonomy Legend */}
       <NotchedPanel className="p-4 sm:p-5">
