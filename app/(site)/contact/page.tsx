@@ -125,10 +125,10 @@ export default async function ContactPage() {
                       className="size-4 shrink-0 text-mist transition-colors group-hover:text-sky"
                       aria-hidden="true"
                     />
-                    <span className="min-w-0 text-[15px] font-medium">
+                    <span className="shrink-0 text-[15px] font-medium">
                       {item.label}
                     </span>
-                    <span className="ml-auto truncate text-right text-[13px] text-mist">
+                    <span className="ml-auto text-right text-[13px] text-mist break-all max-w-[210px] sm:max-w-none">
                       {item.detail}
                     </span>
                     {item.href ? (
@@ -147,12 +147,12 @@ export default async function ContactPage() {
                         {...(item.external
                           ? { target: "_blank", rel: "noopener noreferrer" }
                           : {})}
-                        className="group flex items-center gap-4 py-4 focus-visible:outline-2 focus-visible:outline-sky"
+                        className="group flex min-h-[48px] items-center gap-3 sm:gap-4 py-3 sm:py-4 focus-visible:outline-2 focus-visible:outline-sky"
                       >
                         {contentNode}
                       </a>
                     ) : (
-                      <div className="flex items-center gap-4 py-4">
+                      <div className="flex min-h-[48px] items-center gap-3 sm:gap-4 py-3 sm:py-4">
                         {contentNode}
                       </div>
                     )}

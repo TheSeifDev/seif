@@ -167,6 +167,10 @@
 }
 
 /* Modern Web Guidance: prevent-page-scroll-under-modal-dialog */
+dialog:not([open]) {
+  display: none !important;
+}
+
 dialog:modal {
   overscroll-behavior: contain;
 }
@@ -176,4 +180,13 @@ dialog::backdrop {
   overscroll-behavior: contain;
   background: rgba(10, 14, 23, 0.78);
   backdrop-filter: blur(8px);
+}
+
+/* Hide scrollbars for clean navigation rails while preserving scrollability */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

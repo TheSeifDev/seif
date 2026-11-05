@@ -101,6 +101,18 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [confirmPublish, setConfirmPublish]);
 
+  // Handle escape key to close mobile nav drawer
+  React.useEffect(() => {
+    if (!mobileNavOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileNavOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileNavOpen]);
+
   // Mobile drawer navigation groups
   const mobileNavItems: Array<{
     group: string;
@@ -169,12 +181,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Mobile Drawer Backdrop & Navigation */}
       {mobileNavOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-50 bg-night/80 backdrop-blur-md flex"
+          className="lg:hidden fixed inset-0 z-50 bg-night/80 backdrop-blur-md flex overscroll-contain"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation drawer"
         >
-          <div className="w-80 max-w-[85vw] bg-night border-r border-white/10 p-5 flex flex-col justify-between h-full overflow-y-auto">
+          <div className="w-80 max-w-[85vw] bg-night border-r border-white/10 p-5 flex flex-col justify-between h-full overflow-y-auto overscroll-contain pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
                 <div>
@@ -219,9 +231,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                               setMobileNavOpen(false);
                             }}
                             className={cn(
-                              "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-xs font-semibold transition-colors",
+                              "flex w-full min-h-[44px] items-center justify-between rounded-xl px-3.5 py-2.5 text-left text-xs font-semibold transition-colors",
                               active
-                                ? "bg-sky/15 text-sky border border-sky/30"
+                                ? "bg-sky/15 text-sky border border-sky/30 shadow-sm"
                                 : "text-mist hover:bg-white/[0.04] hover:text-snow",
                             )}
                           >
@@ -266,7 +278,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main Content Area */}
       <div
         className={cn(
-          "flex flex-col min-h-screen transition-all duration-300 ease-out",
+          "flex flex-col min-h-screen transition-all duration-300 ease-out min-w-0 overflow-x-clip",
           sidebarCollapsed ? "lg:pl-18" : "lg:pl-64",
         )}
       >
@@ -278,7 +290,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           }}
         />
 
-        <main id="main" className="flex-1 px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full space-y-6">
+        <main id="main" className="flex-1 px-3 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full min-w-0 space-y-6">
           {/* Global Notice Toast */}
           {notice && (
             <div

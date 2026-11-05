@@ -252,7 +252,7 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       noValidate
       aria-busy={submitting}
-      className="rounded-3xl border border-white/[0.08] bg-night-2 p-6 text-snow sm:p-8 lg:p-10"
+      className="rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-night-2 p-5 sm:p-8 lg:p-10 text-snow"
     >
       <div className="grid gap-6">
         <div>
@@ -267,7 +267,7 @@ export function ContactForm() {
             autoComplete="name"
             aria-invalid={Boolean(nameError)}
             aria-describedby={nameError ? "contact-name-error" : undefined}
-            className="mt-3 h-12 w-full rounded-xl border border-white/10 bg-night-3 px-4 text-[15px] text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
+            className="mt-3 h-12 w-full rounded-xl border border-white/10 bg-night-3 px-4 text-base sm:text-[15px] text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
             placeholder={c("contact.form.namePlaceholder", "Your name")}
           />
           {nameError ? (
@@ -292,7 +292,7 @@ export function ContactForm() {
             spellCheck={false}
             aria-invalid={Boolean(emailError)}
             aria-describedby={emailError ? "contact-email-error" : undefined}
-            className="mt-3 h-12 w-full rounded-xl border border-white/10 bg-night-3 px-4 text-[15px] text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
+            className="mt-3 h-12 w-full rounded-xl border border-white/10 bg-night-3 px-4 text-base sm:text-[15px] text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
             placeholder={c("contact.form.emailPlaceholder", "you@example.com")}
           />
           {emailError ? (
@@ -320,7 +320,7 @@ export function ContactForm() {
               messageError ? "contact-message-error" : undefined
             }
             rows={7}
-            className="mt-3 w-full resize-y rounded-xl border border-white/10 bg-night-3 px-4 py-3 text-[15px] leading-relaxed text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
+            className="mt-3 w-full resize-y rounded-xl border border-white/10 bg-night-3 px-4 py-3 text-base sm:text-[15px] leading-relaxed text-snow outline-none transition-colors placeholder:text-mist focus:border-sky focus:ring-2 focus:ring-sky/30"
             placeholder={c(
               "contact.form.messagePlaceholder",
               "Tell me what you are building, what is getting in the way, or what you would like to explore.",
@@ -355,7 +355,7 @@ export function ContactForm() {
           type="submit"
           disabled={submitting}
           aria-disabled={submitting}
-          className="group/pill inline-flex h-12 w-fit items-center justify-center rounded-full bg-snow px-5 text-sm font-semibold text-night transition-colors duration-300 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky disabled:cursor-not-allowed disabled:opacity-60"
+          className="group/pill inline-flex h-12 w-full sm:w-fit items-center justify-center rounded-full bg-snow px-6 text-sm font-semibold text-night transition-colors duration-300 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting
             ? c("contact.form.sending", "Sending…")
@@ -363,7 +363,7 @@ export function ContactForm() {
         </button>
         <p
           aria-live="polite"
-          className="min-h-6 text-sm leading-relaxed text-sky"
+          className="min-h-6 text-sm leading-relaxed text-sky break-words"
         >
           {status}
         </p>

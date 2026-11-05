@@ -88,10 +88,10 @@ export function DashboardTopbar({
   const notificationsCount = unreadMessagesCount + reviewRequiredCount + (dirty ? 1 : 0);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/[0.08] bg-night/85 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-3 select-none">
-      <div className="flex items-center justify-between gap-4 max-w-7xl mx-auto">
+    <header className="sticky top-0 z-30 border-b border-white/[0.08] bg-night/85 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 select-none">
+      <div className="flex items-center justify-between gap-2 sm:gap-4 max-w-7xl mx-auto min-w-0">
         {/* Left: Mobile Toggle & Contextual Breadcrumb */}
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <button
             type="button"
             onClick={onOpenMobileNav}
@@ -101,7 +101,7 @@ export function DashboardTopbar({
             <Menu className="size-4" />
           </button>
 
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-mono text-mist truncate">
+          <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-mist truncate">
             <Link
               href="/dashboard"
               prefetch={false}
@@ -117,7 +117,7 @@ export function DashboardTopbar({
         </div>
 
         {/* Right: Functional Command Tools & Actions */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {/* Global Command Search (Ctrl+K) */}
           <button
             type="button"

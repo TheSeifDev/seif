@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -70,6 +71,31 @@ export function DashboardSidebar({
 
   // Current client timestamp via useSyncExternalStore
   const now = useNow();
+
+  const [activeTooltip, setActiveTooltip] = React.useState<{
+    label: string;
+    badge?: string | number;
+    top: number;
+    left: number;
+  } | null>(null);
+
+  const handleItemMouseEnter = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>, label: string, badge?: string | number) => {
+      if (!collapsed) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      setActiveTooltip({
+        label,
+        badge,
+        top: rect.top + rect.height / 2,
+        left: rect.right + 12,
+      });
+    },
+    [collapsed],
+  );
+
+  const handleItemMouseLeave = React.useCallback(() => {
+    setActiveTooltip(null);
+  }, []);
 
   // Scheduled count
   const scheduledCount = React.useMemo(() => {
@@ -270,7 +296,7 @@ export function DashboardSidebar({
           ) : (
             <div
               title="Portfolio OS — Seif Ayman"
-              className="size-8 rounded-xl border border-sky/30 bg-sky/10 flex items-center justify-center font-display text-xs font-black text-sky"
+              className="size-9 rounded-xl border border-sky/30 bg-sky/10 flex items-center justify-center font-display text-xs font-black text-sky shadow-sm mx-auto"
             >
               SA
             </div>
@@ -324,8 +350,11 @@ export function DashboardSidebar({
                       role="button"
                       key={item.key}
                       prefetch={false}
-                      title={collapsed ? item.label : undefined}
                       aria-label={item.label}
+                      onMouseEnter={(e) =>
+                        handleItemMouseEnter(e, item.label, item.badge)
+                      }
+                      onMouseLeave={handleItemMouseLeave}
                       className={cn(
                         "group relative flex w-full items-center rounded-xl text-left transition-all duration-200",
                         collapsed
@@ -374,7 +403,7 @@ export function DashboardSidebar({
                       {collapsed && item.badge !== undefined && (
                         <span
                           className={cn(
-                            "absolute top-1 right-1 size-2 rounded-full",
+                            "absolute top-1.5 right-1.5 size-2 rounded-full shadow-[0_0_6px_rgba(77,182,255,0.8)]",
                             item.badgeTone === "sky"
                               ? "bg-sky"
                               : item.badgeTone === "amber"
@@ -391,7 +420,7 @@ export function DashboardSidebar({
                           className={cn(
                             "absolute rounded-full bg-sky shadow-[0_0_8px_rgba(77,182,255,0.8)]",
                             collapsed
-                              ? "left-0 top-2 bottom-2 w-1"
+                              ? "left-0 top-2 bottom-2 w-1 rounded-r-full"
                               : "right-1.5 size-1.5",
                           )}
                         />
@@ -469,10 +498,17 @@ export function DashboardSidebar({
         <div
           className={cn(
             "flex items-center rounded-xl border border-white/10 bg-night-2",
-            collapsed ? "p-1.5 justify-center" : "justify-between gap-2 p-2",
+            collapsed
+              ? "flex-col items-center gap-1.5 p-1.5 justify-center"
+              : "justify-between gap-2 p-2",
           )}
         >
-          <div className="flex items-center gap-2 min-w-0">
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              collapsed ? "justify-center" : "min-w-0",
+            )}
+          >
             <div className="relative flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-night-3 text-xs font-bold text-snow">
               {user.image ? (
                 <Image
@@ -501,15 +537,37 @@ export function DashboardSidebar({
             onClick={() => void logout()}
             title="Sign out of workspace"
             aria-label="Sign out of workspace"
-            className={cn(
-              "inline-flex shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-mist hover:text-red-300 hover:border-red-500/30 transition-colors",
-              collapsed ? "size-7 mt-1" : "size-7",
-            )}
+            className="inline-flex shrink-0 items-center justify-center size-7 rounded-lg border border-white/10 bg-white/[0.02] text-mist hover:text-red-300 hover:border-red-500/30 transition-colors"
           >
             <LogOut className="size-3.5" />
           </button>
         </div>
       </div>
+
+      {/* Floating Tooltip for Collapsed Icon Rail */}
+      {collapsed &&
+        activeTooltip &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            role="tooltip"
+            style={{
+              position: "fixed",
+              top: activeTooltip.top,
+              left: activeTooltip.left,
+              transform: "translateY(-50%)",
+            }}
+            className="pointer-events-none z-[100] flex items-center gap-2 rounded-xl border border-white/15 bg-night-2/95 px-3 py-1.5 font-sans text-xs font-semibold text-snow shadow-2xl backdrop-blur-md"
+          >
+            <span>{activeTooltip.label}</span>
+            {activeTooltip.badge !== undefined && (
+              <span className="rounded-full bg-sky/25 px-1.5 py-0.2 font-mono text-[10px] text-sky font-bold">
+                {activeTooltip.badge}
+              </span>
+            )}
+          </div>,
+          document.body,
+        )}
     </aside>
   );
 }

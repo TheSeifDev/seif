@@ -609,7 +609,7 @@ export function ProjectsPage() {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <div className="rounded-xl border border-white/10 bg-night-2 p-3.5">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-mist">
             Total Projects
@@ -658,7 +658,7 @@ export function ProjectsPage() {
         <NotchedPanel className="p-5">
           {/* Board Selector Tabs & Search */}
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="inline-flex rounded-lg border border-white/10 bg-night p-1">
+            <div className="inline-flex max-w-full overflow-x-auto rounded-lg border border-white/10 bg-night p-1">
               <button
                 type="button"
                 onClick={() => setActiveBoard("all")}

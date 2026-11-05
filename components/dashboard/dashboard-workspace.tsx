@@ -289,7 +289,7 @@ export const buttonPrimary = `${buttonBase} h-10 px-5 text-[13px] bg-snow text-n
 export const buttonDanger = `${buttonBase} h-10 px-4 text-[13px] border border-red-500/20 bg-red-500/10 text-red-200 hover:bg-red-500/20`;
 export const buttonAccent = `${buttonBase} h-10 px-5 text-[13px] bg-sky text-night hover:bg-[#7cc9ff] shadow-[0_8px_24px_-12px_rgba(77,182,255,0.3)]`;
 export const fieldClass =
-  "w-full rounded-xl border border-white/10 bg-night-3 px-4 py-2.5 text-[14px] text-snow outline-none transition-colors placeholder:text-mist/50 focus:border-sky focus:ring-1 focus:ring-sky/40";
+  "w-full rounded-xl border border-white/10 bg-night-3 px-4 py-2.5 text-base sm:text-sm text-snow outline-none transition-colors placeholder:text-mist/50 focus:border-sky focus:ring-1 focus:ring-sky/40";
 
 export function NotchedPanel({
   className,
@@ -2281,9 +2281,11 @@ export function InboxPanel() {
             Loading messages…
           </div>
         ) : filteredMessages.length === 0 ? (
-          <div className="flex min-h-64 flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-night-3/20 p-8 text-center">
-            <MessageSquare className="size-10 text-mist/40 mb-3" />
-            <h3 className="font-semibold text-snow text-base">
+          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-night-3/30 p-8 sm:p-12 text-center">
+            <div className="flex size-14 items-center justify-center rounded-2xl border border-white/10 bg-night-2/80 text-mist/60 shadow-inner mb-4">
+              <MessageSquare className="size-6 text-sky/70" />
+            </div>
+            <h3 className="font-display text-base sm:text-lg font-bold text-snow">
               {filter === "unread"
                 ? "Zero unread messages"
                 : filter === "archived"
@@ -2292,7 +2294,7 @@ export function InboxPanel() {
                     ? "No read messages"
                     : "Inbox is empty"}
             </h3>
-            <p className="mt-1 text-xs text-mist max-w-sm">
+            <p className="mt-1.5 text-xs sm:text-sm text-mist max-w-sm leading-relaxed">
               {filter === "unread"
                 ? "You have reviewed all incoming messages. Nice job staying on top of inquiries!"
                 : filter === "archived"
@@ -2386,7 +2388,7 @@ export function InboxPanel() {
         closedby="any"
         aria-labelledby="inbox-modal-subject"
         onClose={closeModal}
-        className="fixed inset-0 z-50 m-auto flex max-h-[92vh] sm:max-h-[85vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-night-2 p-0 text-snow shadow-2xl backdrop:bg-night/80 backdrop:backdrop-blur-md outline-none"
+        className="fixed inset-0 z-50 m-auto open:flex max-h-[92vh] sm:max-h-[85vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-night-2 p-0 text-snow shadow-2xl backdrop:bg-night/80 backdrop:backdrop-blur-md outline-none"
       >
         {active && (
           <div className="flex h-full flex-col overflow-hidden">

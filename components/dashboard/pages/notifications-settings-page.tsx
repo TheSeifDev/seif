@@ -1098,7 +1098,12 @@ export function NotificationsSettingsPage() {
             Send Test above.
           </p>
         ) : (
-          <div className="overflow-x-auto">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Recent notification deliveries and retries"
+            className="overflow-x-auto min-w-0 max-w-full focus:outline-none focus:ring-1 focus:ring-sky/40 rounded-xl"
+          >
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-white/[0.08] font-mono text-[10px] uppercase tracking-wider text-mist">

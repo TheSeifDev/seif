@@ -237,19 +237,19 @@ export function OverviewControlCenter() {
           </div>
 
           {/* Revision Telemetry Badges */}
-          <div className="flex items-center gap-3 shrink-0">
-            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-4 py-3 font-mono text-xs text-center min-w-[110px]">
-              <div className="text-[10px] text-mist/70 uppercase">Working Draft</div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full sm:w-auto shrink-0">
+            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-2.5 sm:px-4 py-2.5 sm:py-3 font-mono text-xs text-center min-w-0 sm:min-w-[110px]">
+              <div className="text-[10px] text-mist/70 uppercase truncate">Working Draft</div>
               <div className="mt-0.5 text-base font-bold text-snow">#{revision}</div>
             </div>
 
-            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-4 py-3 font-mono text-xs text-center min-w-[110px]">
-              <div className="text-[10px] text-mist/70 uppercase">Public Live</div>
+            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-2.5 sm:px-4 py-2.5 sm:py-3 font-mono text-xs text-center min-w-0 sm:min-w-[110px]">
+              <div className="text-[10px] text-mist/70 uppercase truncate">Public Live</div>
               <div className="mt-0.5 text-base font-bold text-sky">#{publishedRevision}</div>
             </div>
 
-            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-4 py-3 font-mono text-xs text-center min-w-[110px]">
-              <div className="text-[10px] text-mist/70 uppercase">Live Ratio</div>
+            <div className="rounded-2xl border border-white/[0.08] bg-night-3 px-2.5 sm:px-4 py-2.5 sm:py-3 font-mono text-xs text-center min-w-0 sm:min-w-[110px]">
+              <div className="text-[10px] text-mist/70 uppercase truncate">Live Ratio</div>
               <div className="mt-0.5 text-base font-bold text-emerald-400">{publishedRatio}%</div>
             </div>
           </div>
