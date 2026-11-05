@@ -84,6 +84,7 @@ export function DashboardSidebar({
       "/dashboard/analytics",
       "/dashboard/seo",
       "/dashboard/settings",
+      "/dashboard/notifications",
       "/dashboard/settings/notifications",
     ];
     routes.forEach((route) => {
@@ -239,7 +240,7 @@ export function DashboardSidebar({
           {
             key: "notifications-settings",
             label: "Notifications",
-            href: "/dashboard/settings/notifications",
+            href: "/dashboard/notifications",
             icon: Bell,
             group: "system",
           },
@@ -255,6 +256,12 @@ export function DashboardSidebar({
     }
     if (href === "/dashboard/settings") {
       return pathname === "/dashboard/settings" || pathname === "/dashboard/settings/";
+    }
+    if (href === "/dashboard/notifications") {
+      return (
+        pathname.startsWith("/dashboard/notifications") ||
+        pathname.startsWith("/dashboard/settings/notifications")
+      );
     }
     return pathname.startsWith(href);
   };

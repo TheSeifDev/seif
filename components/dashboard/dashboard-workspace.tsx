@@ -2056,7 +2056,7 @@ export function InboxPanel() {
                 Notification Delivery
               </span>
               <a
-                href="/dashboard/settings/notifications"
+                href="/dashboard/notifications"
                 className="font-mono text-[10px] text-mist hover:text-sky"
               >
                 Channel Settings →

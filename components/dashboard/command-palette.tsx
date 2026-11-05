@@ -159,7 +159,7 @@ function CommandPaletteModal({ onClose }: { onClose: () => void }) {
         title: "Go to Notification Channels & Outbox Settings",
         category: "Navigation",
         icon: Bell,
-        run: () => router.push("/dashboard/settings/notifications"),
+        run: () => router.push("/dashboard/notifications"),
       },
       // Quick Actions
       {

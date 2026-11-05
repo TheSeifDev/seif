@@ -639,9 +639,8 @@ export function NotificationsSettingsPage() {
             <p className="text-xs text-mist leading-relaxed max-w-4xl">
               {data?.environment?.vercelEnv === "production" ? (
                 <>
-                  You are viewing the <strong className="text-snow">Production</strong> deployment (
-                  <code className="font-mono text-sky">theseif.vercel.app</code>). Staging verification must be run on the isolated Vercel Preview deployment (
-                  <code className="font-mono text-sky">prof-git-release-rc-phase5-1-s3fpls-projects.vercel.app</code>).
+                  Connected to the <strong className="text-snow">Production</strong> deployment (
+                  <code className="font-mono text-sky">theseif.vercel.app</code>). Manage Chrome Web Push device subscriptions, Gmail (Resend) readiness, and delivery outbox records below.
                 </>
               ) : (
                 <>
@@ -652,20 +651,26 @@ export function NotificationsSettingsPage() {
             </p>
           </div>
           <StatusPill
-            tone={data?.environment?.anyLiveChannelConfigured ? "success" : "warning"}
+            tone={
+              data?.environment?.anyLiveChannelConfigured || Boolean(data?.vapidPublicKey)
+                ? "success"
+                : "warning"
+            }
           >
             {data?.environment?.anyLiveChannelConfigured
-              ? "Live Provider Credentials Present"
-              : "No Live Provider Credentials Configured"}
+              ? "Live Provider Credentials Active"
+              : data?.vapidPublicKey
+                ? "VAPID Keys Configured (Awaiting Device Enrollment)"
+                : "No Live Provider Credentials Configured"}
           </StatusPill>
         </div>
-        {data && !data.environment?.anyLiveChannelConfigured && (
+        {data && !data.environment?.anyLiveChannelConfigured && !data.vapidPublicKey && (
           <div className="mt-3 rounded-xl border border-amber-300/20 bg-amber-300/[0.07] p-3 text-xs text-amber-100 leading-relaxed">
             <strong>Real external delivery is not yet active in this environment:</strong>{" "}
             <code className="font-mono">RESEND_API_KEY</code> (Gmail) and{" "}
             <code className="font-mono">VAPID_PUBLIC_KEY</code> /{" "}
             <code className="font-mono">VAPID_PRIVATE_KEY</code> (Chrome Web Push) are currently unset. Contact messages are safely saved to the Inbox, and outbox rows are recorded as{" "}
-            <strong>Not Configured</strong> until Preview credentials are added.
+            <strong>Not Configured</strong> until credentials are added.
           </div>
         )}
       </NotchedPanel>

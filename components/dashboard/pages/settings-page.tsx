@@ -45,7 +45,7 @@ export function SettingsPage() {
             </div>
           </div>
           <Link
-            href="/dashboard/settings/notifications"
+            href="/dashboard/notifications"
             className="inline-flex items-center gap-2 rounded-xl bg-sky px-4 py-2.5 text-xs font-bold text-night hover:bg-sky/90 transition-colors"
           >
             Open Notification Settings <ArrowRight className="size-3.5" />
