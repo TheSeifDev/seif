@@ -57,9 +57,17 @@ export function getDb(): ContactDb | null {
     globals.__contactPool ??
     new Pool({
       connectionString,
-      max: 5,
-      connectionTimeoutMillis: 5_000,
+      max: 10,
+      connectionTimeoutMillis: 10_000,
+      idleTimeoutMillis: 30_000,
     });
+
+  if (!globals.__contactPool) {
+    pool.on("error", (err) => {
+      console.error("[Database Pool] Unexpected error on idle client:", err.message);
+    });
+  }
+
   const db = drizzle(pool, { schema });
 
   globals.__contactPool = pool;

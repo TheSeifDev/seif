@@ -169,10 +169,18 @@ export async function PATCH(request: Request) {
       .update(contactMessages)
       .set({ status, readAt: status === "new" ? null : new Date() })
       .where(eq(contactMessages.id, id))
-      .returning({ id: contactMessages.id });
+      .returning({
+        id: contactMessages.id,
+        status: contactMessages.status,
+        readAt: contactMessages.readAt,
+      });
     if (!rows.length)
       throw new CmsError("NOT_FOUND", 404, "Message not found.");
-    return ok({ id, status });
+    return ok({
+      id: rows[0].id,
+      status: rows[0].status,
+      readAt: rows[0].readAt ? rows[0].readAt.toISOString() : null,
+    });
   } catch (error) {
     return adminError(error);
   }

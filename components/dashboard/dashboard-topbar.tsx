@@ -35,6 +35,8 @@ const routeMeta: Record<string, { group: string; title: string }> = {
   "/dashboard/analytics": { group: "Insights", title: "Website Analytics & Telemetry" },
   "/dashboard/seo": { group: "Insights", title: "Search Engine Optimization" },
   "/dashboard/settings": { group: "System", title: "Settings & System Revisions" },
+  "/dashboard/notifications": { group: "System", title: "Notification Channels & Delivery" },
+  "/dashboard/settings/notifications": { group: "System", title: "Notification Settings" },
 };
 
 export function DashboardTopbar({
@@ -102,6 +104,7 @@ export function DashboardTopbar({
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-mono text-mist truncate">
             <Link
               href="/dashboard"
+              prefetch={false}
               className="hover:text-snow transition-colors shrink-0 font-medium"
             >
               Control Center

@@ -2,22 +2,27 @@
 import * as React from "react";
 import Image from "next/image";
 import {
+  Archive,
+  ArchiveRestore,
   ArrowDown,
   ArrowUp,
   Check,
+  ChevronDown,
   CircleAlert,
   ExternalLink,
   FileImage,
+  Mail,
   MessageSquare,
   Plus,
   RefreshCcw,
   Search,
+  Send,
   Trash2,
   Upload,
   X,
 } from "lucide-react";
 import type { BlogBlock, SiteContent, SiteProject } from "@/lib/cms/schema";
-import { DashboardProvider } from "./dashboard-context";
+import { DashboardProvider, useDashboard } from "./dashboard-context";
 import { DashboardShell } from "./dashboard-shell";
 import { OverviewControlCenter } from "./overview-control-center";
 
@@ -1824,12 +1829,63 @@ export function MediaPanel({ onUse }: { onUse: (url: string) => void }) {
   );
 }
 
+type InboxFilterKey = "all" | "unread" | "read" | "archived";
+
 export function InboxPanel() {
-  const [messages, setMessages] = React.useState<InboxMessage[]>([]);
+  const { messages, setMessages, setNotice } = useDashboard();
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
-  const [selected, setSelected] = React.useState<string | null>(null);
-  const [retryingKey, setRetryingKey] = React.useState<string | null>(null);
+  const [activeMessageId, setActiveMessageId] = React.useState<string | null>(null);
+  const [filter, setFilter] = React.useState<InboxFilterKey>(() => {
+    if (typeof window !== "undefined") {
+      const param = new URLSearchParams(window.location.search).get("filter");
+      if (
+        param === "unread" ||
+        param === "read" ||
+        param === "archived" ||
+        param === "all"
+      ) {
+        return param;
+      }
+    }
+    return "all";
+  });
+  const [notFoundNotice, setNotFoundNotice] = React.useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = React.useState<string | null>(null);
+  const [actionLoading, setActionLoading] = React.useState<string | null>(null);
+
+  const dialogRef = React.useRef<HTMLDialogElement>(null);
+  const initialLoadDone = React.useRef(false);
+
+  // Helper to sync URL without full navigation
+  const syncUrl = React.useCallback(
+    (opts: { messageId?: string | null; filter?: InboxFilterKey }) => {
+      if (typeof window === "undefined") return;
+      try {
+        const url = new URL(window.location.href);
+        if (opts.filter !== undefined) {
+          if (opts.filter === "all") {
+            url.searchParams.delete("filter");
+          } else {
+            url.searchParams.set("filter", opts.filter);
+          }
+        }
+        if (opts.messageId !== undefined) {
+          if (opts.messageId) {
+            url.searchParams.set("messageId", opts.messageId);
+          } else {
+            url.searchParams.delete("messageId");
+          }
+        }
+        window.history.replaceState(null, "", url.toString());
+      } catch {
+        // Ignore URL state error
+      }
+    },
+    [],
+  );
+
+  // Load messages from authenticated admin endpoint
   const load = React.useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -1838,90 +1894,204 @@ export function InboxPanel() {
         cache: "no-store",
       });
       const payload = await response.json();
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(
-          payload?.message ?? `Could not load inbox (${response.status})`,
+          payload?.message ?? `Could not load messages (${response.status})`,
         );
+      }
       const items: InboxMessage[] = Array.isArray(payload.items) ? payload.items : [];
       setMessages(items);
-      if (typeof window !== "undefined") {
-        const params = new URLSearchParams(window.location.search);
-        const queryMsgId = params.get("messageId");
-        if (queryMsgId && items.some((m) => m.id === queryMsgId)) {
-          setSelected((prev) => prev ?? queryMsgId);
-        }
-      }
+      return items;
     } catch (cause) {
-      setError(
-        cause instanceof Error ? cause.message : "Could not load inbox.",
-      );
+      const msg = cause instanceof Error ? cause.message : "Could not load inbox messages.";
+      setError(msg);
+      return [];
     } finally {
       setLoading(false);
     }
-  }, []);
-  React.useEffect(() => {
-    const timer = window.setTimeout(() => void load(), 0);
-    return () => window.clearTimeout(timer);
-  }, [load]);
-  const retryDelivery = async (
-    contactMessageId: string,
-    channel: "email" | "web_push" | "whatsapp" | "instagram",
-    outboxId?: string | null,
-  ) => {
-    const key = `${contactMessageId}:${channel}`;
-    setRetryingKey(key);
-    setError(null);
-    try {
-      const response = await fetch("/api/admin/notifications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          outboxId
-            ? { action: "retry", outboxId }
-            : { action: "retry", contactMessageId, channel },
-        ),
-      });
-      const payload = await response.json();
-      if (!response.ok) {
-        throw new Error(payload?.message ?? "Could not retry notification.");
+  }, [setMessages]);
+
+  // Open message modal and handle auto-read
+  const openMessage = React.useCallback(
+    (msg: InboxMessage) => {
+      setActiveMessageId(msg.id);
+      setConfirmDeleteId(null);
+      syncUrl({ messageId: msg.id, filter });
+
+      if (dialogRef.current && !dialogRef.current.open) {
+        dialogRef.current.showModal();
       }
-      await load();
-    } catch (cause) {
-      setError(
-        cause instanceof Error ? cause.message : "Could not retry notification.",
-      );
-    } finally {
-      setRetryingKey(null);
+
+      // Auto-read behavior: if not already read, call API to persist read status
+      if (msg.status !== "read") {
+        const updated = messages.map((m) =>
+          m.id === msg.id
+            ? { ...m, status: "read", readAt: new Date().toISOString() }
+            : m,
+        );
+        setMessages(updated);
+
+        void fetch("/api/admin/messages", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: msg.id, status: "read" }),
+        }).catch((err) => {
+          console.error("[Inbox] Auto-read patch failed:", err);
+        });
+      }
+    },
+    [filter, messages, setMessages, syncUrl],
+  );
+
+  // Close message modal
+  const closeModal = React.useCallback(() => {
+    if (dialogRef.current && dialogRef.current.open) {
+      dialogRef.current.close();
+      dialogRef.current.returnValue = "";
     }
-  };
-  const patch = async (id: string, status: string) => {
+    setActiveMessageId(null);
+    setConfirmDeleteId(null);
+    syncUrl({ messageId: null, filter });
+  }, [filter, syncUrl]);
+
+  // Initial load and URL query state parsing
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const initialMessageId = params.get("messageId");
+
+    const timer = window.setTimeout(() => {
+      void load().then((items) => {
+        if (!initialLoadDone.current) {
+          initialLoadDone.current = true;
+          if (initialMessageId) {
+            const match = items.find((m) => m.id === initialMessageId);
+            if (match) {
+              openMessage(match);
+            } else {
+              setNotFoundNotice(
+                "The requested message was not found or has been removed.",
+              );
+              syncUrl({ messageId: null });
+            }
+          }
+        }
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, [load, openMessage, syncUrl]);
+
+  // Browser back / popstate listener
+  React.useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const urlMsgId = params.get("messageId");
+      const urlFilter = params.get("filter") as InboxFilterKey | null;
+
+      if (
+        urlFilter &&
+        (urlFilter === "all" ||
+          urlFilter === "unread" ||
+          urlFilter === "read" ||
+          urlFilter === "archived")
+      ) {
+        setFilter(urlFilter);
+      }
+
+      if (!urlMsgId) {
+        if (dialogRef.current?.open) {
+          dialogRef.current.close();
+        }
+        setActiveMessageId(null);
+        setConfirmDeleteId(null);
+      } else {
+        const found = messages.find((m) => m.id === urlMsgId);
+        if (found) {
+          openMessage(found);
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [messages, openMessage]);
+
+  // Light-dismiss click outside fallback for browsers without native `closedBy` support
+  React.useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (!("closedBy" in HTMLDialogElement.prototype)) {
+      const outside = (e: PointerEvent) => {
+        const r = dialog.getBoundingClientRect();
+        return (
+          e.clientX < r.left ||
+          e.clientX > r.right ||
+          e.clientY < r.top ||
+          e.clientY > r.bottom
+        );
+      };
+
+      let pressedOutside = false;
+      const handlePointerDown = (e: PointerEvent) => {
+        pressedOutside = outside(e);
+      };
+      const handlePointerUp = (e: PointerEvent) => {
+        if (pressedOutside && outside(e)) {
+          closeModal();
+        }
+      };
+
+      dialog.addEventListener("pointerdown", handlePointerDown);
+      dialog.addEventListener("pointerup", handlePointerUp);
+
+      return () => {
+        dialog.removeEventListener("pointerdown", handlePointerDown);
+        dialog.removeEventListener("pointerup", handlePointerUp);
+      };
+    }
+  }, [closeModal]);
+
+  // Patch status (read, new, archived)
+  const patchStatus = async (id: string, newStatus: "new" | "read" | "archived") => {
+    setActionLoading(`status-${id}`);
+    setError(null);
     try {
       const response = await fetch("/api/admin/messages", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, status }),
+        body: JSON.stringify({ id, status: newStatus }),
       });
       const payload = await response.json();
-      if (!response.ok)
-        throw new Error(payload?.message ?? "Could not update message.");
+      if (!response.ok) {
+        throw new Error(payload?.message ?? "Could not update message status.");
+      }
       setMessages((current) =>
-        current.map((message) =>
-          message.id === id
-            ? { ...message, ...(payload.item ?? { status }) }
-            : message,
+        current.map((m) =>
+          m.id === id
+            ? {
+                ...m,
+                status: newStatus,
+                readAt: newStatus === "new" ? null : (m.readAt ?? new Date().toISOString()),
+              }
+            : m,
         ),
       );
     } catch (cause) {
       setError(
         cause instanceof Error ? cause.message : "Could not update message.",
       );
+    } finally {
+      setActionLoading(null);
     }
   };
-  const remove = async (id: string) => {
-    if (
-      !window.confirm("Delete this message permanently? This cannot be undone.")
-    )
-      return;
+
+  // Delete message
+  const deleteMessage = async (id: string) => {
+    setActionLoading(`delete-${id}`);
+    setError(null);
     try {
       const response = await fetch("/api/admin/messages", {
         method: "DELETE",
@@ -1929,316 +2099,572 @@ export function InboxPanel() {
         body: JSON.stringify({ id }),
       });
       const payload = await response.json();
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(payload?.message ?? "Could not delete message.");
-      setMessages((current) => current.filter((message) => message.id !== id));
-      setSelected(null);
+      }
+      closeModal();
+      setMessages((current) => current.filter((m) => m.id !== id));
+      setNotice({ tone: "success", message: "Message deleted permanently." });
     } catch (cause) {
       setError(
         cause instanceof Error ? cause.message : "Could not delete message.",
       );
+    } finally {
+      setActionLoading(null);
     }
   };
-  const active = messages.find((message) => message.id === selected);
+
+  // Counts
+  const allCount = React.useMemo(
+    () => messages.filter((m) => m.status !== "archived").length,
+    [messages],
+  );
+  const unreadCount = React.useMemo(
+    () =>
+      messages.filter((m) => m.status !== "read" && m.status !== "archived")
+        .length,
+    [messages],
+  );
+  const readCount = React.useMemo(
+    () => messages.filter((m) => m.status === "read").length,
+    [messages],
+  );
+  const archivedCount = React.useMemo(
+    () => messages.filter((m) => m.status === "archived").length,
+    [messages],
+  );
+
+  // Filtered list
+  const filteredMessages = React.useMemo(() => {
+    switch (filter) {
+      case "unread":
+        return messages.filter(
+          (m) => m.status !== "read" && m.status !== "archived",
+        );
+      case "read":
+        return messages.filter((m) => m.status === "read");
+      case "archived":
+        return messages.filter((m) => m.status === "archived");
+      case "all":
+      default:
+        return messages.filter((m) => m.status !== "archived");
+    }
+  }, [filter, messages]);
+
+  const active = messages.find((m) => m.id === activeMessageId) ?? null;
+
+  const handleFilterClick = (newFilter: InboxFilterKey) => {
+    setFilter(newFilter);
+    syncUrl({ filter: newFilter, messageId: activeMessageId });
+  };
+
+  const filterTabs: Array<{ key: InboxFilterKey; label: string; count: number }> = [
+    { key: "all", label: "All", count: allCount },
+    { key: "unread", label: "Unread", count: unreadCount },
+    { key: "read", label: "Read", count: readCount },
+    { key: "archived", label: "Archived", count: archivedCount },
+  ];
+
   return (
-    <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
-      <NotchedPanel className="p-5 sm:p-7">
-        <SectionHeading
-          title="Inbox"
-          description="Messages are loaded from the admin endpoint. Empty means empty; no sample messages are inserted."
-          action={
+    <div className="w-full space-y-6">
+      {/* Compact Workspace Header */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-white/[0.08] bg-night-2/70 p-5 sm:p-6 backdrop-blur-md">
+        <div>
+          <div className="flex items-center gap-3">
+            <h1 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-snow">
+              Messages Inbox
+            </h1>
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-white/[0.08] px-2.5 py-0.5 font-mono text-xs font-semibold text-mist">
+                {allCount} {allCount === 1 ? "message" : "messages"}
+              </span>
+              {unreadCount > 0 && (
+                <span className="rounded-full border border-sky/35 bg-sky/15 px-2.5 py-0.5 font-mono text-xs font-semibold text-sky shadow-[0_0_12px_-2px_rgba(77,182,255,0.4)]">
+                  {unreadCount} unread
+                </span>
+              )}
+            </div>
+          </div>
+          <p className="mt-1 text-xs sm:text-sm text-mist max-w-2xl leading-relaxed">
+            Review and manage visitor inquiries submitted via the public contact form.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={() => void load()}
+            disabled={loading}
+            className={cx(buttonSecondary, "h-9 px-4 text-xs")}
+          >
+            <RefreshCcw className={cx("size-3.5", loading && "animate-spin")} />
+            <span>{loading ? "Refreshing…" : "Refresh"}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Dismissible Notice / Alerts */}
+      {error && (
+        <div className="flex items-start gap-3 rounded-xl border border-red-400/25 bg-red-400/10 p-4 text-xs sm:text-sm text-red-200">
+          <CircleAlert className="size-4 shrink-0 mt-0.5 text-red-400" />
+          <div className="flex-1">{error}</div>
+          <button
+            type="button"
+            onClick={() => setError(null)}
+            className="text-red-300 hover:text-white"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      )}
+
+      {notFoundNotice && (
+        <div className="flex items-start gap-3 rounded-xl border border-amber-400/25 bg-amber-400/10 p-4 text-xs sm:text-sm text-amber-200">
+          <CircleAlert className="size-4 shrink-0 mt-0.5 text-amber-400" />
+          <div className="flex-1">{notFoundNotice}</div>
+          <button
+            type="button"
+            onClick={() => setNotFoundNotice(null)}
+            className="text-amber-300 hover:text-white"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      )}
+
+      {/* Functional Filter Tabs */}
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-3">
+        {filterTabs.map((tab) => {
+          const isActive = filter === tab.key;
+          return (
             <button
+              key={tab.key}
               type="button"
-              className={buttonSecondary}
-              onClick={() => void load()}
+              onClick={() => handleFilterClick(tab.key)}
+              className={cx(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-200",
+                isActive
+                  ? "border border-sky/40 bg-sky/15 text-snow shadow-[0_0_16px_-4px_rgba(77,182,255,0.3)]"
+                  : "border border-white/[0.06] bg-night-3/50 text-mist hover:border-white/15 hover:bg-white/[0.04] hover:text-snow",
+              )}
             >
-              <RefreshCcw className="size-3.5" /> Refresh
-            </button>
-          }
-        />
-        {error && (
-          <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-300/20 bg-red-400/[0.08] p-3 text-sm text-red-100">
-            <CircleAlert className="mt-0.5 size-4 shrink-0" /> {error}
-          </div>
-        )}
-        {loading ? (
-          <p className="text-sm text-mist">Loading inbox…</p>
-        ) : messages.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-white/10 px-6 py-12 text-center">
-            <MessageSquare className="mx-auto mb-3 size-8 text-mist" />
-            <p className="text-sm text-mist">No messages.</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {messages.map((message) => (
-              <button
-                type="button"
-                key={message.id}
-                onClick={() => setSelected(message.id)}
+              <span>{tab.label}</span>
+              <span
                 className={cx(
-                  "w-full rounded-xl border p-4 text-left transition",
-                  selected === message.id
-                    ? "border-sky/35 bg-sky/[0.08]"
-                    : "border-white/8 bg-night-3/75 hover:border-white/15",
+                  "rounded-full px-2 py-0.5 font-mono text-[10px]",
+                  isActive
+                    ? "bg-sky/30 text-sky font-bold"
+                    : "bg-white/[0.06] text-mist/80",
                 )}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold text-snow">
-                      {message.subject || "No subject"}
-                    </div>
-                    <div className="mt-1 truncate text-xs text-mist">
-                      {message.name || "Unknown sender"}{" "}
-                      {message.email ? `· ${message.email}` : ""}
-                    </div>
-                  </div>
-                  <StatusPill
-                    tone={message.status === "read" ? "success" : "warning"}
-                  >
-                    {message.status || "new"}
-                  </StatusPill>
-                </div>
-                <div className="mt-3 truncate text-xs text-mist">
-                  {message.message || "No message body"}
-                </div>
-                <div className="mt-2 text-[10px] uppercase tracking-[0.14em] text-mist">
-                  {formatDate(message.createdAt)}
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-      </NotchedPanel>
-      {active ? (
-        <NotchedPanel className="h-fit p-5 sm:p-6">
-          <div className="mb-5 flex items-start justify-between gap-3">
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky/75">
-                Message
-              </div>
-              <h3 className="mt-1 text-xl font-semibold text-white">
-                {active.subject || "No subject"}
-              </h3>
-            </div>
-            <button
-              type="button"
-              className="rounded-lg p-1.5 text-mist hover:bg-white/8 hover:text-white"
-              onClick={() => setSelected(null)}
-            >
-              <X className="size-4" />
-            </button>
-          </div>
-          <dl className="space-y-3 border-b border-white/[0.08] pb-5 text-sm">
-            <div>
-              <dt className="text-[10px] uppercase tracking-[0.14em] text-mist">
-                From
-              </dt>
-              <dd className="mt-1 text-snow">
-                {active.name || "Unknown"}
-                {active.email ? ` · ${active.email}` : ""}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-[10px] uppercase tracking-[0.14em] text-mist">
-                Received
-              </dt>
-              <dd className="mt-1 text-snow">
-                {formatDate(active.createdAt)}
-              </dd>
-            </div>
-          </dl>
-          <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-snow">
-            {active.message || "No message body"}
-          </p>
-          <div className="mt-6 rounded-xl border border-white/[0.08] bg-night-3/70 p-4">
-            <div className="mb-2.5 flex items-center justify-between gap-2">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky/80">
-                Notification Delivery
+                {tab.count}
               </span>
-              <a
-                href="/dashboard/notifications"
-                className="font-mono text-[10px] text-mist hover:text-sky"
-              >
-                Channel Settings →
-              </a>
-            </div>
-            <div className="space-y-2">
-              {(
-                active.deliveries ?? [
-                  {
-                    outboxId: null,
-                    channel: "email" as const,
-                    status: (active.notificationStatus as "sent" | "failed" | "not_configured") || "not_configured",
-                    attempts: 0,
-                    maxAttempts: 5,
-                    sentAt: null,
-                    lastAttemptAt: null,
-                    nextRetryAt: null,
-                    providerMessageId: null,
-                    providerStatus: null,
-                    lastErrorCode: null,
-                    lastErrorMessage: null,
-                  },
-                  {
-                    outboxId: null,
-                    channel: "web_push" as const,
-                    status: "not_configured" as const,
-                    attempts: 0,
-                    maxAttempts: 5,
-                    sentAt: null,
-                    lastAttemptAt: null,
-                    nextRetryAt: null,
-                    providerMessageId: null,
-                    providerStatus: null,
-                    lastErrorCode: null,
-                    lastErrorMessage: null,
-                  },
-                  {
-                    outboxId: null,
-                    channel: "whatsapp" as const,
-                    status: "not_configured" as const,
-                    attempts: 0,
-                    maxAttempts: 5,
-                    sentAt: null,
-                    lastAttemptAt: null,
-                    nextRetryAt: null,
-                    providerMessageId: null,
-                    providerStatus: null,
-                    lastErrorCode: null,
-                    lastErrorMessage: null,
-                  },
-                  {
-                    outboxId: null,
-                    channel: "instagram" as const,
-                    status: "unavailable" as const,
-                    attempts: 0,
-                    maxAttempts: 5,
-                    sentAt: null,
-                    lastAttemptAt: null,
-                    nextRetryAt: null,
-                    providerMessageId: null,
-                    providerStatus: null,
-                    lastErrorCode: null,
-                    lastErrorMessage: null,
-                  },
-                ]
-              ).map((delivery) => {
-                const labelMap: Record<string, string> = {
-                  email: "Email (Gmail)",
-                  web_push: "Web Push",
-                  whatsapp: "WhatsApp",
-                  instagram: "Instagram DM",
-                };
-                const statusTitleMap: Record<string, string> = {
-                  pending: "Pending",
-                  processing: "Processing",
-                  sent: "Sent",
-                  failed: "Failed",
-                  skipped: "Skipped",
-                  not_configured: "Not Configured",
-                  unavailable: "Unavailable",
-                };
-                const pillTone =
-                  delivery.status === "sent"
-                    ? "success"
-                    : delivery.status === "failed" ||
-                        delivery.status === "unavailable"
-                      ? "danger"
-                      : delivery.status === "pending" ||
-                          delivery.status === "processing"
-                        ? "warning"
-                        : "neutral";
-                const retryKey = `${active.id}:${delivery.channel}`;
-                return (
-                  <div
-                    key={delivery.channel}
-                    className="flex flex-col gap-1 rounded-lg border border-white/[0.06] bg-night/60 px-3 py-2 text-xs"
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-medium text-snow">
-                        {labelMap[delivery.channel] ?? delivery.channel}
-                      </span>
-                      <div className="flex items-center gap-1.5">
-                        <StatusPill tone={pillTone}>
-                          {statusTitleMap[delivery.status] ?? delivery.status}
-                        </StatusPill>
-                        {delivery.status !== "sent" &&
-                          delivery.status !== "unavailable" && (
-                          <button
-                            type="button"
-                            disabled={retryingKey === retryKey}
-                            onClick={() =>
-                              void retryDelivery(
-                                active.id,
-                                delivery.channel,
-                                delivery.outboxId,
-                              )
-                            }
-                            className="inline-flex items-center gap-1 rounded border border-white/15 bg-white/[0.04] px-2 py-0.5 text-[10px] font-semibold text-snow hover:border-sky/40 hover:text-sky disabled:opacity-50"
-                          >
-                            <RefreshCcw
-                              className={cx(
-                                "size-2.5",
-                                retryingKey === retryKey && "animate-spin",
-                              )}
-                            />
-                            Retry
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                    {delivery.lastErrorMessage && (
-                      <div className="text-[10px] text-amber-200/85 truncate" title={delivery.lastErrorMessage}>
-                        {delivery.lastErrorMessage}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Message List */}
+      <div className="space-y-3">
+        {loading && messages.length === 0 ? (
+          <div className="flex min-h-64 items-center justify-center rounded-2xl border border-white/[0.08] bg-night-3/30 p-8 text-center text-sm text-mist">
+            <RefreshCcw className="size-5 animate-spin mr-2.5 text-sky" />
+            Loading messages…
           </div>
-          <div className="mt-7 flex flex-wrap gap-2">
-            <button
-              type="button"
-              className={buttonSecondary}
-              onClick={() =>
-                void patch(active.id, active.status === "read" ? "new" : "read")
-              }
-            >
-              <Check className="size-3.5" /> Mark{" "}
-              {active.status === "read" ? "unread" : "read"}
-            </button>
-            <button
-              type="button"
-              className={buttonSecondary}
-              onClick={() =>
-                void patch(
-                  active.id,
-                  active.status === "archived" ? "new" : "archived",
-                )
-              }
-            >
-              {active.status === "archived" ? "Restore to inbox" : "Archive"}
-            </button>
-            <button
-              type="button"
-              className={buttonDanger}
-              onClick={() => void remove(active.id)}
-            >
-              <Trash2 className="size-3.5" /> Delete
-            </button>
-          </div>
-        </NotchedPanel>
-      ) : (
-        <NotchedPanel className="flex min-h-72 items-center justify-center p-7">
-          <div className="text-center">
-            <MessageSquare className="mx-auto mb-3 size-8 text-mist" />
-            <p className="text-sm text-mist">
-              Select a message to read it.
+        ) : filteredMessages.length === 0 ? (
+          <div className="flex min-h-64 flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-night-3/20 p-8 text-center">
+            <MessageSquare className="size-10 text-mist/40 mb-3" />
+            <h3 className="font-semibold text-snow text-base">
+              {filter === "unread"
+                ? "Zero unread messages"
+                : filter === "archived"
+                  ? "No archived messages"
+                  : filter === "read"
+                    ? "No read messages"
+                    : "Inbox is empty"}
+            </h3>
+            <p className="mt-1 text-xs text-mist max-w-sm">
+              {filter === "unread"
+                ? "You have reviewed all incoming messages. Nice job staying on top of inquiries!"
+                : filter === "archived"
+                  ? "Archived inquiries will appear here for long-term reference."
+                  : filter === "read"
+                    ? "Messages marked as read will be listed here."
+                    : "When visitors submit the contact form on your portfolio, inquiries will arrive here."}
             </p>
           </div>
-        </NotchedPanel>
-      )}
+        ) : (
+          filteredMessages.map((msg) => {
+            const isUnread = msg.status !== "read" && msg.status !== "archived";
+            const isArchived = msg.status === "archived";
+            return (
+              <div
+                key={msg.id}
+                role="button"
+                tabIndex={0}
+                onClick={() => openMessage(msg)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openMessage(msg);
+                  }
+                }}
+                className={cx(
+                  "group relative flex cursor-pointer flex-col gap-2.5 rounded-2xl border p-4 sm:p-5 transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-sky/50 select-none",
+                  isUnread
+                    ? "border-sky/35 bg-sky/[0.035] shadow-[0_0_24px_-6px_rgba(77,182,255,0.08)] hover:border-sky/50 hover:bg-sky/[0.06]"
+                    : "border-white/[0.08] bg-night-3/50 hover:border-white/20 hover:bg-white/[0.02]",
+                )}
+              >
+                {/* Unread Accent Dot */}
+                {isUnread && (
+                  <span
+                    className="absolute left-2.5 top-5 size-2 rounded-full bg-sky shadow-[0_0_8px_rgba(77,182,255,0.9)]"
+                    title="Unread inquiry"
+                    aria-label="Unread inquiry"
+                  />
+                )}
+
+                {/* Top Row: Sender & Date */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pl-2 sm:pl-3">
+                  <div className="flex items-center gap-2 truncate min-w-0">
+                    <span className="font-semibold text-snow text-sm sm:text-base truncate">
+                      {msg.name || "Anonymous Sender"}
+                    </span>
+                    {msg.email && (
+                      <span className="text-xs text-mist truncate">
+                        · {msg.email}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <StatusPill
+                      tone={
+                        isArchived
+                          ? "neutral"
+                          : isUnread
+                            ? "warning"
+                            : "success"
+                      }
+                    >
+                      {isArchived ? "Archived" : isUnread ? "Unread" : "Read"}
+                    </StatusPill>
+                    <span className="font-mono text-[11px] text-mist/70">
+                      {formatDate(msg.createdAt)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Subject Line */}
+                <div className="pl-2 sm:pl-3 font-semibold text-snow text-sm sm:text-base tracking-tight truncate">
+                  {msg.subject || "(No subject)"}
+                </div>
+
+                {/* Body Preview */}
+                <p className="pl-2 sm:pl-3 text-xs sm:text-sm text-mist/85 line-clamp-2 leading-relaxed">
+                  {msg.message || "No content."}
+                </p>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Message Modal (Native <dialog> per modern-web-guidance) */}
+      <dialog
+        ref={dialogRef}
+        closedby="any"
+        aria-labelledby="inbox-modal-subject"
+        onClose={closeModal}
+        className="fixed inset-0 z-50 m-auto flex max-h-[92vh] sm:max-h-[85vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-night-2 p-0 text-snow shadow-2xl backdrop:bg-night/80 backdrop:backdrop-blur-md outline-none"
+      >
+        {active && (
+          <div className="flex h-full flex-col overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] p-5 sm:p-6 bg-night-3/40">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <StatusPill
+                    tone={
+                      active.status === "archived"
+                        ? "neutral"
+                        : active.status === "read"
+                          ? "success"
+                          : "warning"
+                    }
+                  >
+                    {active.status === "archived"
+                      ? "Archived"
+                      : active.status === "read"
+                        ? "Read"
+                        : "Unread"}
+                  </StatusPill>
+                  <span className="font-mono text-xs text-mist">
+                    Received {formatDate(active.createdAt)}
+                  </span>
+                </div>
+                <h2
+                  id="inbox-modal-subject"
+                  className="font-display text-lg sm:text-xl font-bold text-snow break-words"
+                >
+                  {active.subject || "(No subject)"}
+                </h2>
+                <div className="mt-1 text-xs text-mist">
+                  From: <strong className="text-snow">{active.name || "Unknown"}</strong>{" "}
+                  {active.email && (
+                    <a
+                      href={`mailto:${active.email}`}
+                      className="text-sky hover:underline ml-1"
+                    >
+                      ({active.email})
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                autoFocus
+                onClick={closeModal}
+                aria-label="Close message"
+                className="rounded-xl border border-white/10 p-2 text-mist hover:border-white/20 hover:bg-white/[0.06] hover:text-snow transition-colors"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+
+            {/* Modal Body (Scrollable) */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
+              {/* Message Content */}
+              <div className="rounded-2xl border border-white/[0.08] bg-night/60 p-5 sm:p-6 text-sm sm:text-base leading-relaxed text-snow whitespace-pre-wrap selection:bg-sky selection:text-night font-sans">
+                {active.message || "(Empty message content)"}
+              </div>
+
+              {/* Collapsed Delivery Details Section (Optional) */}
+              <details className="group rounded-2xl border border-white/[0.08] bg-night-3/40 p-4 transition-all">
+                <summary className="flex cursor-pointer select-none items-center justify-between text-xs font-mono text-mist hover:text-snow">
+                  <span className="flex items-center gap-2">
+                    <Send className="size-3.5 text-sky/70" />
+                    <span>Notification Delivery Diagnostics</span>
+                  </span>
+                  <ChevronDown className="size-4 text-mist/60 transition-transform duration-200 group-open:rotate-180" />
+                </summary>
+
+                <div className="mt-4 space-y-2 border-t border-white/[0.06] pt-3 text-xs">
+                  {(
+                    active.deliveries ?? [
+                      {
+                        outboxId: null,
+                        channel: "email" as const,
+                        status:
+                          (active.notificationStatus as
+                            | "sent"
+                            | "failed"
+                            | "not_configured") || "not_configured",
+                        attempts: 0,
+                        maxAttempts: 5,
+                        sentAt: null,
+                        lastAttemptAt: null,
+                        nextRetryAt: null,
+                        providerMessageId: null,
+                        providerStatus: null,
+                        lastErrorCode: null,
+                        lastErrorMessage: null,
+                      },
+                      {
+                        outboxId: null,
+                        channel: "web_push" as const,
+                        status: "not_configured" as const,
+                        attempts: 0,
+                        maxAttempts: 5,
+                        sentAt: null,
+                        lastAttemptAt: null,
+                        nextRetryAt: null,
+                        providerMessageId: null,
+                        providerStatus: null,
+                        lastErrorCode: null,
+                        lastErrorMessage: null,
+                      },
+                      {
+                        outboxId: null,
+                        channel: "whatsapp" as const,
+                        status: "not_configured" as const,
+                        attempts: 0,
+                        maxAttempts: 5,
+                        sentAt: null,
+                        lastAttemptAt: null,
+                        nextRetryAt: null,
+                        providerMessageId: null,
+                        providerStatus: null,
+                        lastErrorCode: null,
+                        lastErrorMessage: null,
+                      },
+                      {
+                        outboxId: null,
+                        channel: "instagram" as const,
+                        status: "unavailable" as const,
+                        attempts: 0,
+                        maxAttempts: 5,
+                        sentAt: null,
+                        lastAttemptAt: null,
+                        nextRetryAt: null,
+                        providerMessageId: null,
+                        providerStatus: null,
+                        lastErrorCode: null,
+                        lastErrorMessage: null,
+                      },
+                    ]
+                  ).map((delivery) => {
+                    const labelMap: Record<string, string> = {
+                      email: "Email (Gmail)",
+                      web_push: "Web Push",
+                      whatsapp: "WhatsApp",
+                      instagram: "Instagram DM",
+                    };
+                    const statusTone =
+                      delivery.status === "sent"
+                        ? "success"
+                        : delivery.status === "failed" ||
+                            delivery.status === "unavailable"
+                          ? "danger"
+                          : delivery.status === "pending" ||
+                              delivery.status === "processing"
+                            ? "warning"
+                            : "neutral";
+                    return (
+                      <div
+                        key={delivery.channel}
+                        className="flex items-center justify-between rounded-lg border border-white/[0.04] bg-night/50 px-3 py-2"
+                      >
+                        <span className="font-medium text-snow">
+                          {labelMap[delivery.channel] ?? delivery.channel}
+                        </span>
+                        <StatusPill tone={statusTone}>
+                          {delivery.status}
+                        </StatusPill>
+                      </div>
+                    );
+                  })}
+                </div>
+              </details>
+
+              {/* Inline Deletion Confirmation Warning */}
+              {confirmDeleteId === active.id && (
+                <div className="rounded-2xl border border-red-400/30 bg-red-400/10 p-4 sm:p-5 text-snow">
+                  <div className="flex items-start gap-3">
+                    <CircleAlert className="size-5 text-red-400 shrink-0 mt-0.5" />
+                    <div className="space-y-1">
+                      <div className="font-semibold text-sm text-red-200">
+                        Confirm permanent deletion?
+                      </div>
+                      <p className="text-xs text-mist leading-relaxed">
+                        This message and all associated notification records will be deleted immediately from PostgreSQL. This cannot be undone.
+                      </p>
+                      <div className="mt-3 flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => void deleteMessage(active.id)}
+                          disabled={actionLoading === `delete-${active.id}`}
+                          className={cx(
+                            buttonDanger,
+                            "h-9 px-4 text-xs font-semibold bg-red-500/25 border-red-500/40 text-red-100 hover:bg-red-500/40",
+                          )}
+                        >
+                          {actionLoading === `delete-${active.id}` ? (
+                            <RefreshCcw className="size-3.5 animate-spin" />
+                          ) : (
+                            <Trash2 className="size-3.5" />
+                          )}
+                          Delete Permanently
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmDeleteId(null)}
+                          className={cx(buttonSecondary, "h-9 px-4 text-xs")}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Actions Footer */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] p-4 sm:p-5 bg-night-3/60">
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Toggle Read / Unread */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    void patchStatus(
+                      active.id,
+                      active.status === "read" ? "new" : "read",
+                    )
+                  }
+                  disabled={actionLoading === `status-${active.id}`}
+                  className={cx(buttonSecondary, "h-9 px-3.5 text-xs")}
+                >
+                  {active.status === "read" ? (
+                    <>
+                      <Mail className="size-3.5 text-sky" />
+                      Mark as Unread
+                    </>
+                  ) : (
+                    <>
+                      <Check className="size-3.5 text-emerald-400" />
+                      Mark as Read
+                    </>
+                  )}
+                </button>
+
+                {/* Toggle Archive / Unarchive */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    void patchStatus(
+                      active.id,
+                      active.status === "archived" ? "read" : "archived",
+                    )
+                  }
+                  disabled={actionLoading === `status-${active.id}`}
+                  className={cx(buttonSecondary, "h-9 px-3.5 text-xs")}
+                >
+                  {active.status === "archived" ? (
+                    <>
+                      <ArchiveRestore className="size-3.5 text-sky" />
+                      Unarchive
+                    </>
+                  ) : (
+                    <>
+                      <Archive className="size-3.5 text-mist" />
+                      Archive
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Delete Action Trigger */}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setConfirmDeleteId(active.id)}
+                  disabled={actionLoading === `delete-${active.id}`}
+                  className={cx(
+                    buttonDanger,
+                    "h-9 px-3.5 text-xs border-red-500/20 hover:bg-red-500/20",
+                  )}
+                >
+                  <Trash2 className="size-3.5 text-red-300" />
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </dialog>
     </div>
   );
 }

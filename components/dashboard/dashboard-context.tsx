@@ -51,6 +51,7 @@ export type DashboardContextValue = {
   notice: Notice | null;
   setNotice: (notice: Notice | null) => void;
   messages: InboxMessage[];
+  setMessages: React.Dispatch<React.SetStateAction<InboxMessage[]>>;
   unreadMessagesCount: number;
   mediaItems: MediaItem[];
   revisions: RevisionItem[];
@@ -447,6 +448,7 @@ export function DashboardProvider({
       notice,
       setNotice,
       messages,
+      setMessages,
       unreadMessagesCount,
       mediaItems,
       revisions,
@@ -482,6 +484,7 @@ export function DashboardProvider({
       publishing,
       notice,
       messages,
+      setMessages,
       unreadMessagesCount,
       mediaItems,
       revisions,

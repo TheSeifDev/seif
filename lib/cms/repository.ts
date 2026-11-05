@@ -46,21 +46,33 @@ export function sanitizePublicContent(content: SiteContent): SiteContent {
 export async function getAdminContent() {
   const db = database();
   try {
-    await db
-      .insert(cmsState)
-      .values({
-        id: "main",
-        draft: defaultSiteContent,
-        published: defaultSiteContent,
-        revision: 1,
-        publishedRevision: 1,
-      })
-      .onConflictDoNothing();
-    const [row] = await db
+    const [existing] = await db
       .select()
       .from(cmsState)
       .where(eq(cmsState.id, "main"))
       .limit(1);
+
+    let row = existing;
+    if (!row) {
+      await db
+        .insert(cmsState)
+        .values({
+          id: "main",
+          draft: defaultSiteContent,
+          published: defaultSiteContent,
+          revision: 1,
+          publishedRevision: 1,
+        })
+        .onConflictDoNothing();
+
+      const [initialized] = await db
+        .select()
+        .from(cmsState)
+        .where(eq(cmsState.id, "main"))
+        .limit(1);
+      row = initialized;
+    }
+
     if (!row)
       throw new CmsError(
         "CONTENT_UNAVAILABLE",
@@ -116,11 +128,11 @@ export async function readPublishedContent(): Promise<SiteContent> {
       return sanitizePublicContent(defaultSiteContent);
     }
 
-    // At runtime, do not silently hide real production database errors
+    // At runtime, log error and fall back gracefully to default content to prevent crashing the root layout
     const errorMessage =
       error instanceof Error ? error.message : "Unknown database error";
-    console.error("[CMS] Failed to read published content from database:", errorMessage);
-    throw error;
+    console.error("[CMS] Failed to read published content from database; falling back to default site content:", errorMessage);
+    return sanitizePublicContent(defaultSiteContent);
   }
 }
 

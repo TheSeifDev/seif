@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   ArrowLeftToLine,
   ArrowRightToLine,
@@ -55,7 +55,6 @@ export function DashboardSidebar({
   collapsed?: boolean;
   onToggleCollapse?: () => void;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
 
   const {
@@ -68,33 +67,6 @@ export function DashboardSidebar({
     unreadMessagesCount,
     mediaItems,
   } = useDashboard();
-
-  // Prefetch all dashboard routes on mount for instant client transitions
-  React.useEffect(() => {
-    const routes = [
-      "/dashboard",
-      "/dashboard/home",
-      "/dashboard/projects",
-      "/dashboard/blog",
-      "/dashboard/about",
-      "/dashboard/skills",
-      "/dashboard/schedule",
-      "/dashboard/media",
-      "/dashboard/inbox",
-      "/dashboard/analytics",
-      "/dashboard/seo",
-      "/dashboard/settings",
-      "/dashboard/notifications",
-      "/dashboard/settings/notifications",
-    ];
-    routes.forEach((route) => {
-      try {
-        router.prefetch(route);
-      } catch {
-        // Ignore prefetch errors
-      }
-    });
-  }, [router]);
 
   // Current client timestamp via useSyncExternalStore
   const now = useNow();
@@ -351,6 +323,7 @@ export function DashboardSidebar({
                       href={item.href}
                       role="button"
                       key={item.key}
+                      prefetch={false}
                       title={collapsed ? item.label : undefined}
                       aria-label={item.label}
                       className={cn(

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Activity,
+  Bell,
   Calendar,
   Check,
   CircleAlert,
@@ -146,6 +147,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       group: "System",
       items: [
         { key: "settings", label: "Settings", href: "/dashboard/settings", icon: Settings2 },
+        { key: "notifications", label: "Notifications", href: "/dashboard/notifications", icon: Bell },
       ],
     },
   ];
@@ -211,6 +213,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                             href={item.href}
                             role="button"
                             key={item.key}
+                            prefetch={false}
                             aria-label={item.label}
                             onClick={() => {
                               setMobileNavOpen(false);
