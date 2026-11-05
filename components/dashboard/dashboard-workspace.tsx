@@ -1924,12 +1924,13 @@ export function InboxPanel() {
 
       // Auto-read behavior: if not already read, call API to persist read status
       if (msg.status !== "read") {
-        const updated = messages.map((m) =>
-          m.id === msg.id
-            ? { ...m, status: "read", readAt: new Date().toISOString() }
-            : m,
+        setMessages((current) =>
+          current.map((m) =>
+            m.id === msg.id
+              ? { ...m, status: "read", readAt: new Date().toISOString() }
+              : m,
+          ),
         );
-        setMessages(updated);
 
         void fetch("/api/admin/messages", {
           method: "PATCH",
@@ -1940,8 +1941,16 @@ export function InboxPanel() {
         });
       }
     },
-    [filter, messages, setMessages, syncUrl],
+    [filter, setMessages, syncUrl],
   );
+
+  const openMessageRef = React.useRef(openMessage);
+  const messagesRef = React.useRef(messages);
+
+  React.useEffect(() => {
+    openMessageRef.current = openMessage;
+    messagesRef.current = messages;
+  });
 
   // Close message modal
   const closeModal = React.useCallback(() => {
@@ -1967,7 +1976,7 @@ export function InboxPanel() {
           if (initialMessageId) {
             const match = items.find((m) => m.id === initialMessageId);
             if (match) {
-              openMessage(match);
+              openMessageRef.current(match);
             } else {
               setNotFoundNotice(
                 "The requested message was not found or has been removed.",
@@ -1980,7 +1989,7 @@ export function InboxPanel() {
     }, 0);
 
     return () => window.clearTimeout(timer);
-  }, [load, openMessage, syncUrl]);
+  }, [load, syncUrl]);
 
   // Browser back / popstate listener
   React.useEffect(() => {
@@ -2007,16 +2016,16 @@ export function InboxPanel() {
         setActiveMessageId(null);
         setConfirmDeleteId(null);
       } else {
-        const found = messages.find((m) => m.id === urlMsgId);
+        const found = messagesRef.current.find((m) => m.id === urlMsgId);
         if (found) {
-          openMessage(found);
+          openMessageRef.current(found);
         }
       }
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [messages, openMessage]);
+  }, []);
 
   // Light-dismiss click outside fallback for browsers without native `closedBy` support
   React.useEffect(() => {

@@ -514,17 +514,47 @@ export function DashboardProvider({
   );
 }
 
-function getNowSnapshot() {
-  return Date.now();
-}
+let cachedNowSnapshot = 0;
+const nowListeners = new Set<() => void>();
+let nowIntervalTimer: ReturnType<typeof setInterval> | null = null;
 
-function getServerSnapshot() {
-  return 0;
+function handleNowTick() {
+  cachedNowSnapshot = Date.now();
+  nowListeners.forEach((listener) => {
+    try {
+      listener();
+    } catch {
+      // Ignore listener errors
+    }
+  });
 }
 
 function subscribeNow(onStoreChange: () => void) {
-  const timer = setInterval(onStoreChange, 30_000);
-  return () => clearInterval(timer);
+  nowListeners.add(onStoreChange);
+  if (nowListeners.size === 1) {
+    if (cachedNowSnapshot === 0) {
+      cachedNowSnapshot = Date.now();
+    }
+    nowIntervalTimer = setInterval(handleNowTick, 30_000);
+  }
+  return () => {
+    nowListeners.delete(onStoreChange);
+    if (nowListeners.size === 0 && nowIntervalTimer) {
+      clearInterval(nowIntervalTimer);
+      nowIntervalTimer = null;
+    }
+  };
+}
+
+function getNowSnapshot(): number {
+  if (cachedNowSnapshot === 0 && typeof window !== "undefined") {
+    cachedNowSnapshot = Date.now();
+  }
+  return cachedNowSnapshot;
+}
+
+function getServerSnapshot(): number {
+  return 0;
 }
 
 export function useNow(): number {
